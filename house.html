@@ -15,6 +15,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <nav class="topbar">
+    <a class="home" href="index.html">🏠 Home</a>
+    <span class="topic-title">My House</span>
+    <a class="teacher-link" href="teacher.html?topic=house">📋 For teachers</a>
+  </nav>
   <div class="card">
     <img id="picture" src="images/house/house.jpg" alt="house">
     <h1 id="word" aria-live="polite">house</h1>
@@ -22,12 +27,10 @@
   </div>
   <p id="counter">1 / 11</p>
 
-  <div>
+  <div class="nav-buttons">
     <button class="secondary" onclick="prevCard()">Back</button>
     <button onclick="nextCard()">Next</button>
   </div>
-  <a class="home" href="index.html">🏠 Home</a>
-  <a class="teacher-link" href="teacher.html?topic=house">📋 For teachers</a>
 
   <script src="topics.js"></script>
   <script>
