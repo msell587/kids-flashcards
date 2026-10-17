@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="stocking">
+<path d="M150 120 L250 120 L250 255 Q250 295 218 315 L158 350 Q105 375 92 330 Q84 295 126 280 L150 268 Z" fill="#e63946" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M98 312 Q110 290 135 292 L150 330 Q115 352 98 312 Z" fill="#2bb04a" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<rect x="138" y="72" width="124" height="56" rx="12" fill="#ffffff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M150 180 L250 180 M150 220 L250 220" stroke="#2bb04a" stroke-width="14"/>
+</svg>

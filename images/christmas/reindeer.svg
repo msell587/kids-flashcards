@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="reindeer">
+<path d="M165 150 L125 55 M138 88 L88 78 M150 118 L100 128 M235 150 L275 55 M262 88 L312 78 M250 118 L300 128" stroke="#7a4a1e" stroke-width="18" stroke-linecap="round"/>
+<ellipse cx="108" cy="185" rx="40" ry="20" transform="rotate(-25 108 185)" fill="#a0672f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<ellipse cx="292" cy="185" rx="40" ry="20" transform="rotate(25 292 185)" fill="#a0672f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<ellipse cx="200" cy="235" rx="88" ry="100" fill="#a0672f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<ellipse cx="200" cy="292" rx="55" ry="40" fill="#d9a066" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="168" cy="215" r="10" fill="#333333"/><circle cx="232" cy="215" r="10" fill="#333333"/>
+<circle cx="200" cy="268" r="24" fill="#e63946" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="192" cy="260" r="6" fill="#ff9aa2"/>
+<path d="M178 308 Q200 322 222 308" fill="none" stroke="#333333" stroke-width="6" stroke-linecap="round"/>
+</svg>

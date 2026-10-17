@@ -96,6 +96,24 @@ const TOPICS = {
       { word: "traffic light", picture: "images/city/traffic-light.jpg" },
       { word: "bridge", picture: "images/city/bridge.jpg" }
     ]
+  },
+  christmas: {
+    title: "Christmas",
+    page: "christmas.html",
+    cards: [
+      { word: "Santa", picture: "images/christmas/santa.svg" },
+      { word: "Christmas tree", picture: "images/christmas/christmas-tree.svg" },
+      { word: "star", picture: "images/christmas/star.svg" },
+      { word: "present", picture: "images/christmas/present.svg" },
+      { word: "bell", picture: "images/christmas/bell.svg" },
+      { word: "snowman", picture: "images/christmas/snowman.svg" },
+      { word: "reindeer", picture: "images/christmas/reindeer.svg" },
+      { word: "candle", picture: "images/christmas/candle.svg" },
+      { word: "stocking", picture: "images/christmas/stocking.svg" },
+      { word: "gingerbread man", picture: "images/christmas/gingerbread-man.svg" },
+      { word: "snowflake", picture: "images/christmas/snowflake.svg" },
+      { word: "candy cane", picture: "images/christmas/candy-cane.svg" }
+    ]
   }
 };
 
