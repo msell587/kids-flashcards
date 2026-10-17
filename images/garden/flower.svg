@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="flower">
+<path d="M200 200 L200 370" stroke="#333333" stroke-width="22" stroke-linecap="round"/>
+<path d="M200 200 L200 370" stroke="#2bb04a" stroke-width="12" stroke-linecap="round"/>
+<ellipse cx="150" cy="300" rx="46" ry="20" transform="rotate(-30 150 300)" fill="#2bb04a" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<ellipse cx="250" cy="275" rx="46" ry="20" transform="rotate(30 250 275)" fill="#2bb04a" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="262.0" cy="150.0" r="42" fill="#ff6fa3" stroke="#333333" stroke-width="8" stroke-linejoin="round"/><circle cx="231.0" cy="203.7" r="42" fill="#ff6fa3" stroke="#333333" stroke-width="8" stroke-linejoin="round"/><circle cx="169.0" cy="203.7" r="42" fill="#ff6fa3" stroke="#333333" stroke-width="8" stroke-linejoin="round"/><circle cx="138.0" cy="150.0" r="42" fill="#ff6fa3" stroke="#333333" stroke-width="8" stroke-linejoin="round"/><circle cx="169.0" cy="96.3" r="42" fill="#ff6fa3" stroke="#333333" stroke-width="8" stroke-linejoin="round"/><circle cx="231.0" cy="96.3" r="42" fill="#ff6fa3" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="200" cy="150" r="40" fill="#ffd23f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+</svg>

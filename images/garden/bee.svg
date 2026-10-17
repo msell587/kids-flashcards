@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="bee">
+<ellipse cx="165" cy="130" rx="55" ry="38" transform="rotate(-25 165 130)" fill="#cfeeff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<ellipse cx="245" cy="125" rx="55" ry="38" transform="rotate(20 245 125)" fill="#cfeeff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M330 225 L362 235 L330 248 Z" fill="#333333"/>
+<ellipse cx="215" cy="235" rx="120" ry="85" fill="#ffd23f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M195 152 C178 200, 178 270, 195 318 L230 316 C214 270, 214 200, 230 154 Z M265 165 C252 205, 252 265, 265 305 L290 290 C282 260, 282 210, 290 180 Z" fill="#333333"/>
+<circle cx="120" cy="230" r="58" fill="#ffd23f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="90" cy="220" r="8" fill="#333333"/><circle cx="130" cy="220" r="8" fill="#333333"/>
+<path d="M95 252 Q112 266 130 252" fill="none" stroke="#333333" stroke-width="6" stroke-linecap="round"/>
+<path d="M105 175 Q95 135 75 125 M130 175 Q140 135 160 120" fill="none" stroke="#333333" stroke-width="6" stroke-linecap="round"/>
+</svg>

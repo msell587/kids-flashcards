@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="snail">
+<path d="M60 330 C60 290, 120 280, 160 290 L330 300 C360 302, 365 335, 335 338 L80 345 C65 346, 60 340, 60 330 Z" fill="#f2c98a" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M95 290 L75 210 M120 288 L118 205" stroke="#333333" stroke-width="7" stroke-linecap="round"/>
+<circle cx="75" cy="205" r="12" fill="#333333"/><circle cx="118" cy="200" r="12" fill="#333333"/>
+<circle cx="235" cy="205" r="105" fill="#fb8500" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M235 205 L244.6 207.2 L245.6 210.1 L245.6 213.5 L244.6 217.1 L242.5 220.7 L239.2 223.8 L234.9 226.1 L229.8 227.4 L224.1 227.4 L218.2 225.8 L212.5 222.7 L207.4 218.0 L203.4 212.0 L200.8 204.7 L199.9 196.6 L200.9 188.2 L204.1 179.8 L209.3 172.1 L216.5 165.5 L225.4 160.5 L235.6 157.6 L246.6 157.1 L257.8 159.2 L268.6 164.0 L278.4 171.4 L286.5 181.2 L292.4 192.9 L295.5 206.0 L295.6 219.9 L292.4 233.9 L285.9 247.2 L276.4 259.0 L264.1 268.5 L249.5 275.3 L233.5 278.6 L216.6 278.2 L199.9 273.9 L184.2 265.8 L170.4 254.1 L159.4 239.2 L151.8 221.8 L148.3 202.8 L149.1 183.1 L154.5 163.6 L164.4 145.5" fill="none" stroke="#a24f00" stroke-width="8" stroke-linecap="round"/>
+<path d="M80 318 Q95 328 110 318" fill="none" stroke="#333333" stroke-width="5" stroke-linecap="round"/>
+</svg>
