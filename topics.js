@@ -78,6 +78,23 @@ const TOPICS = {
       { word: "snowy", picture: "images/seasons and weather/snowy.jpg" },
       { word: "windy", picture: "images/seasons and weather/windy.jpg" }
     ]
+  },
+  city: {
+    title: "City",
+    page: "city.html",
+    cards: [
+      { word: "city", picture: "images/city/city.jpg" },
+      { word: "street", picture: "images/city/street.jpg" },
+      { word: "park", picture: "images/city/park.jpg" },
+      { word: "playground", picture: "images/city/playground.jpg" },
+      { word: "shop", picture: "images/city/shop.jpg" },
+      { word: "school", picture: "images/city/school.jpg" },
+      { word: "hospital", picture: "images/city/hospital.jpg" },
+      { word: "bus", picture: "images/city/bus.jpg" },
+      { word: "car", picture: "images/city/car.jpg" },
+      { word: "traffic light", picture: "images/city/traffic-light.jpg" },
+      { word: "bridge", picture: "images/city/bridge.jpg" }
+    ]
   }
 };
 
