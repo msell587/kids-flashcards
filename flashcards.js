@@ -135,9 +135,13 @@ function prevCard() {
   showCard(-1);
 }
 
+let speakingTurn = 0;
 function speakWord() {
   const speakButton = card.querySelector(".speak");
+  // Starting a new word interrupts the old one, which reports "finished"; ignore that
+  const turn = ++speakingTurn;
   const stop = () => {
+    if (turn !== speakingTurn) return;
     card.classList.remove("speaking");
     speakButton.classList.remove("speaking");
   };
@@ -152,7 +156,8 @@ function speakWord() {
 // Remember finished topics so the home page can show a star on their tile
 function earnStar() {
   try {
-    const done = JSON.parse(localStorage.getItem("finished-topics") || "[]");
+    let done = JSON.parse(localStorage.getItem("finished-topics") || "[]");
+    if (!Array.isArray(done)) done = [];
     if (!done.includes(topicKey)) {
       done.push(topicKey);
       localStorage.setItem("finished-topics", JSON.stringify(done));
@@ -231,6 +236,9 @@ document.addEventListener("fullscreenchange", () => {
 
 // Arrow keys move between cards; Space shows the word in "Hide words" mode
 document.addEventListener("keydown", (event) => {
+  // Leave the keys alone while choosing in the Voice picker or another form field
+  const inForm = event.target instanceof Element && event.target.closest("dialog, input, select, textarea");
+  if (inForm || document.querySelector("dialog[open]")) return;
   if (event.key === "ArrowRight") nextCard();
   if (event.key === "ArrowLeft") prevCard();
   const onControl = event.target instanceof Element && event.target.closest("button, a");

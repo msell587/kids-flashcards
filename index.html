@@ -249,6 +249,7 @@
     } catch (error) {
       // No stars in this browser
     }
+    if (!Array.isArray(finishedTopics)) finishedTopics = [];
     document.querySelectorAll(".tile").forEach((tile, index) => {
       tile.style.setProperty("--i", index);
       if (finishedTopics.includes(tile.dataset.topic)) {
