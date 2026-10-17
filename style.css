@@ -148,6 +148,70 @@ button:focus-visible,
   }
 }
 
+/* End-of-deck celebration */
+.card.finished img,
+.card.finished h1,
+.card.finished .speak {
+  display: none;
+}
+
+.celebration {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--word);
+  animation: pop-in 0.4s ease-out;
+}
+
+.celebration[hidden] {
+  display: none;
+}
+
+.celebration-emoji {
+  font-size: 80px;
+}
+
+.celebration h2 {
+  font-size: 44px;
+  margin: 10px 0 6px 0;
+}
+
+.celebration p {
+  font-size: 22px;
+  margin: 0 0 10px 0;
+}
+
+.celebration button {
+  background-color: var(--border);
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: none; }
+}
+
+.confetti {
+  position: fixed;
+  top: -50px;
+  font-size: 30px;
+  pointer-events: none;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celebration {
+    animation: none;
+  }
+}
+
 /* Phones: bigger picture, smaller word, and room so the word never hits the speaker button */
 @media (max-width: 500px) {
   .card {
