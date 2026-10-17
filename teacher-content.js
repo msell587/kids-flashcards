@@ -343,5 +343,85 @@ const TEACHER = {
       { name: "Dress for the Weather", how: "Call out a weather and children mime putting on the right clothes: a coat and scarf for snowy, sunglasses for sunny, boots for rainy." },
       { name: "Four Corners", how: "Put a season card in each corner of the room. Call a season and children run to that corner. Then call “Summer, sunny!” for a challenge." }
     ]
+  },
+  city: {
+    goal: "Children can name 11 places and things in a city, and say what we do there.",
+    materials: [
+      "Screen or tablet with the City flashcards",
+      "Printed city cards (stick some on the walls for Bus Stops)",
+      "A toy car (optional)",
+      "Craft supplies: see “Paper Traffic Light” below",
+      "A long strip of paper for a road (for sharing time)"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and bus ride", details: "Sing hello. Line up chairs like a bus. You're the driver: “Everyone on the bus! Let's go to the city!” Steer and beep together." },
+      { time: "8 min", step: "Meet the city", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: steer for car, stop with a hand up for traffic light, wave for bus, tiptoe for bridge." },
+      { time: "5 min", step: "Song: Red Means Stop", details: "Sing it with the traffic light card. Freeze on “stop” and march on “go”." },
+      { time: "10 min", step: "Games", details: "Play Traffic Light, then Where Am I?" },
+      { time: "5 min", step: "Movement break", details: "Play Bus Stops (see Games), riding the bus around the room to each place." },
+      { time: "15 min", step: "Craft: Paper Traffic Light", details: "Follow the craft steps below. Ask “What does red mean?” and “What colour means go?”" },
+      { time: "7 min", step: "Our city road", details: "Lay a long paper road on the floor and place the printed cards along it. Each child drives a toy car (or their finger) along the road, naming each place they pass: “Here's the park!”" },
+      { time: "5 min", step: "Review and goodbye", details: "One last round of Traffic Light using the children's crafts, then click through the flashcards together to the 🎉 screen." }
+    ],
+    crafts: [
+      {
+        name: "Paper Traffic Light",
+        time: "15 min",
+        supplies: ["Black paper rectangles", "Red, yellow and green paper circles (cut before class)", "Glue sticks", "Craft sticks (optional, to make a handle)"],
+        steps: [
+          "Show the traffic light flashcard and name the colours, top to bottom: red, yellow, green.",
+          "Children glue the circles onto the black paper in the right order.",
+          "Tape on a craft stick to make a handle (adult helps).",
+          "Hold it up and play Traffic Light: red, stop! Green, go!"
+        ],
+        tip: "Draw faint circles on the black paper first so children know where each colour goes."
+      },
+      {
+        name: "Box Buildings",
+        time: "20 min",
+        supplies: ["Small boxes (cereal, tea or juice boxes)", "Paper to wrap the boxes", "Crayons and stickers", "Tape and glue sticks"],
+        steps: [
+          "An adult wraps each box in plain paper beforehand.",
+          "Each child chooses a building: a shop, a school, a hospital or a house.",
+          "Draw doors and windows, and add a sign with an adult's help (“SHOP”, “SCHOOL”).",
+          "Line the buildings up along a paper road to make a class city."
+        ],
+        tip: "Keep the box city in the classroom and use it for Where Am I? in the next lesson."
+      }
+    ],
+    songs: [
+      {
+        title: "Red Means Stop",
+        tune: "Frère Jacques (Are You Sleeping?)",
+        words: "Red means stop! Red means stop!\nGreen means go! Green means go!\nYellow means slow down, yellow means slow down,\nStop and go! Stop and go!",
+        how: "Hold up the traffic light card. Freeze on “stop”, march on “go” and walk in slow motion on “slow down”.",
+        search: "frere jacques kids song"
+      },
+      {
+        title: "The Wheels on the Bus",
+        tune: "Well-known children's song",
+        how: "Sing along with actions: rolling hands for the wheels, swishing arms for the wipers, beeping the horn. Show the bus card at the start.",
+        search: "the wheels on the bus kids song"
+      }
+    ],
+    games: [
+      { name: "Traffic Light", how: "Hold up red, yellow or green (use the craft or coloured paper). Green: walk or “drive” around the room. Yellow: tiptoe slowly. Red: freeze! Anyone still moving gives a big beep-beep." },
+      { name: "Where Am I?", how: "Mime an activity and children guess the place: going down a slide (playground), buying an apple (shop), a doctor listening to a heartbeat (hospital). Then let children take turns miming." },
+      { name: "Bus Stops", how: "Stick printed cards around the room. Children line up behind you as a bus. Call “Next stop: the park!” and drive there together. At each stop, everyone says the word." },
+      { name: "I Spy in the City", how: "Lay the printed cards on the floor. “I spy something red… with wheels!” Children point to the bus. Then let a child give the clue." }
+    ],
+    photoCredits: [
+      { word: "city", url: "https://www.pexels.com/photo/17555989/" },
+      { word: "street", url: "https://www.pexels.com/photo/25242991/" },
+      { word: "park", url: "https://www.pexels.com/photo/32666094/" },
+      { word: "playground", url: "https://www.pexels.com/photo/12586010/" },
+      { word: "shop", url: "https://www.pexels.com/photo/8228650/" },
+      { word: "school", url: "https://www.pexels.com/photo/8500353/" },
+      { word: "hospital", url: "https://www.pexels.com/photo/668300/" },
+      { word: "bus", url: "https://www.pexels.com/photo/20152874/" },
+      { word: "car", url: "https://www.pexels.com/photo/17078638/" },
+      { word: "traffic light", url: "https://www.pexels.com/photo/11574912/" },
+      { word: "bridge", url: "https://www.pexels.com/photo/37404655/" }
+    ]
   }
 };

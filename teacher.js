@@ -115,6 +115,13 @@ function showGuide() {
       ${games}
     </section>
 
+    ${guide.photoCredits ? `
+      <section>
+        <h2>📷 Photo credits</h2>
+        <p class="hint">Free photos from Pexels (free to use, no credit required).</p>
+        <p>${guide.photoCredits.map(c => `<a href="${escapeHtml(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.word)}</a>`).join(" · ")}</p>
+      </section>` : ""}
+
     <section>
       <h2>✏️ My notes</h2>
       <p class="hint no-print">Your own ideas for this topic. They save automatically on this device and browser only.</p>
