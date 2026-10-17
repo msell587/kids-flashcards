@@ -13,10 +13,14 @@ function escapeHtml(text) {
     .replace(/'/g, "&#39;");
 }
 
-// Topic switcher in the top bar
-document.getElementById("topic-nav").innerHTML = Object.keys(TOPICS).map(key =>
-  `<a class="pill" href="teacher.html?topic=${key}"${key === topicKey ? ' aria-current="page"' : ""}>${escapeHtml(TOPICS[key].title)}</a>`
+// Topic picker in the top bar: choosing a topic opens its guide
+const topicSelect = document.getElementById("topic-select");
+topicSelect.innerHTML = `<option value="">All topics</option>` + Object.keys(TOPICS).map(key =>
+  `<option value="${key}"${key === topicKey ? " selected" : ""}>${escapeHtml(TOPICS[key].title)}</option>`
 ).join("");
+topicSelect.addEventListener("change", () => {
+  location.href = topicSelect.value ? "teacher.html?topic=" + topicSelect.value : "teacher.html";
+});
 
 function showChooser() {
   main.innerHTML = `
@@ -84,11 +88,21 @@ function showGuide() {
     <h1>${escapeHtml(topic.title)} · Teacher's Guide</h1>
     <p class="lead">For ages 3–5 · 1-hour lesson · ${topic.cards.length} words</p>
     <div class="actions">
-      <a class="btn" href="${encodeURI(topic.page)}">▶ Open flashcards</a>
-      <a class="btn" href="game.html?topic=${topicKey}">🎧 Listening game</a>
-      <a class="btn" href="worksheet.html?topic=${topicKey}">📝 Worksheets</a>
-      <a class="btn" href="print.html?topic=${topicKey}">🖨 Print flashcards</a>
-      <button class="btn" onclick="window.print()">🖨 Print this guide</button>
+      <div class="action-group" role="group" aria-labelledby="in-class-label">
+        <h2 id="in-class-label">In class</h2>
+        <div>
+          <a class="btn" href="${encodeURI(topic.page)}">▶ Open flashcards</a>
+          <a class="btn" href="game.html?topic=${topicKey}">🎧 Listening game</a>
+        </div>
+      </div>
+      <div class="action-group" role="group" aria-labelledby="print-label">
+        <h2 id="print-label">Print</h2>
+        <div>
+          <a class="btn secondary" href="print.html?topic=${topicKey}">🃏 Flashcards</a>
+          <a class="btn secondary" href="worksheet.html?topic=${topicKey}">📝 Worksheets</a>
+          <button class="btn secondary" onclick="window.print()">📄 This guide</button>
+        </div>
+      </div>
     </div>
 
     <section>
