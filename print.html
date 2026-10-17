@@ -40,12 +40,14 @@
     .bar {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 16px;
       color: #3a7ca5;
       font-size: 18px;
     }
-    .bar button {
+    .bar button,
+    .bar a.choice {
       font-family: inherit;
       font-size: 18px;
       padding: 8px 18px;
@@ -54,6 +56,24 @@
       background-color: #3a7ca5;
       color: white;
       cursor: pointer;
+    }
+    #picture-choice {
+      display: flex;
+      gap: 8px;
+    }
+    #picture-choice[hidden] {
+      display: none;
+    }
+    .bar a.choice {
+      white-space: nowrap;
+      text-decoration: none;
+      background-color: white;
+      color: #3a7ca5;
+      border: 2px solid #3a7ca5;
+    }
+    .bar a.choice.chosen {
+      background-color: #3a7ca5;
+      color: white;
     }
     @media screen {
       body { padding: 20px; background: #f4faf0; }
@@ -67,13 +87,29 @@
   <div class="bar">
     <button onclick="window.print()">🖨 Print</button>
     <span id="heading"></span>
+    <span id="picture-choice" hidden>
+      <a class="choice" id="choose-photos">📷 Photos</a>
+      <a class="choice" id="choose-drawings">✏️ Drawings</a>
+    </span>
   </div>
   <div class="sheet" id="sheet"></div>
 
   <script src="topics.js"></script>
   <script>
     // Which topic to print comes from the address, e.g. print.html?topic=animals
-    const topic = TOPICS[new URLSearchParams(location.search).get("topic")] || TOPICS.animals;
+    const params = new URLSearchParams(location.search);
+    const topicKey = TOPICS[params.get("topic")] ? params.get("topic") : "animals";
+    const topic = TOPICS[topicKey];
+
+    // Topics with drawn pictures can print either photos or drawings, e.g. print.html?topic=shapes&pictures=drawings
+    const hasDrawings = topic.cards.every(card => card.drawing);
+    const useDrawings = hasDrawings && params.get("pictures") === "drawings";
+    if (hasDrawings) {
+      document.getElementById("picture-choice").hidden = false;
+      document.getElementById("choose-photos").href = "print.html?topic=" + topicKey;
+      document.getElementById("choose-drawings").href = "print.html?topic=" + topicKey + "&pictures=drawings";
+      document.getElementById(useDrawings ? "choose-drawings" : "choose-photos").classList.add("chosen");
+    }
     document.title = topic.title + " Flashcards (Print)";
     document.getElementById("heading").textContent = topic.title + " flashcards: cut along the dashed lines";
 
@@ -82,7 +118,7 @@
       const div = document.createElement("div");
       div.className = "card";
       const img = document.createElement("img");
-      img.src = card.picture;
+      img.src = useDrawings ? card.drawing : card.picture;
       img.alt = card.word;
       const word = document.createElement("h2");
       word.textContent = card.word;

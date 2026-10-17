@@ -1,4 +1,5 @@
 // Every topic's flashcards, in one place. The topic pages, teacher pages and print page all read from here.
+// "drawing" is an optional simple drawn picture (no photo licence needed), used by the print page.
 const TOPICS = {
   animals: {
     title: "Animals",
@@ -21,30 +22,30 @@ const TOPICS = {
     title: "Colors",
     page: "colors.html",
     cards: [
-      { word: "red", picture: "images/colors/red-apple.jpg" },
-      { word: "blue", picture: "images/colors/blue-towel.jpg" },
-      { word: "green", picture: "images/colors/green-leaf.jpg" },
-      { word: "yellow", picture: "images/colors/yellow-banana.jpg" },
-      { word: "orange", picture: "images/colors/orange-orange.jpg" },
-      { word: "purple", picture: "images/colors/purple-grapes.jpg" },
-      { word: "pink", picture: "images/colors/pink-flower.jpg" },
-      { word: "brown", picture: "images/colors/brown-bear.jpg" },
-      { word: "black", picture: "images/colors/black-plate.jpg" },
-      { word: "white", picture: "images/colors/white-snow.jpg" }
+      { word: "red", picture: "images/colors/red-apple.jpg", drawing: "images/colors/drawn/red.svg" },
+      { word: "blue", picture: "images/colors/blue-towel.jpg", drawing: "images/colors/drawn/blue.svg" },
+      { word: "green", picture: "images/colors/green-leaf.jpg", drawing: "images/colors/drawn/green.svg" },
+      { word: "yellow", picture: "images/colors/yellow-banana.jpg", drawing: "images/colors/drawn/yellow.svg" },
+      { word: "orange", picture: "images/colors/orange-orange.jpg", drawing: "images/colors/drawn/orange.svg" },
+      { word: "purple", picture: "images/colors/purple-grapes.jpg", drawing: "images/colors/drawn/purple.svg" },
+      { word: "pink", picture: "images/colors/pink-flower.jpg", drawing: "images/colors/drawn/pink.svg" },
+      { word: "brown", picture: "images/colors/brown-bear.jpg", drawing: "images/colors/drawn/brown.svg" },
+      { word: "black", picture: "images/colors/black-plate.jpg", drawing: "images/colors/drawn/black.svg" },
+      { word: "white", picture: "images/colors/white-snow.jpg", drawing: "images/colors/drawn/white.svg" }
     ]
   },
   shapes: {
     title: "Shapes",
     page: "shapes.html",
     cards: [
-      { word: "circle", picture: "images/shapes/circle.jpg" },
-      { word: "square", picture: "images/shapes/square.jpg" },
-      { word: "triangle", picture: "images/shapes/triangle.jpg" },
-      { word: "star", picture: "images/shapes/star.jpg" },
-      { word: "heart", picture: "images/shapes/heart.jpg" },
-      { word: "diamond", picture: "images/shapes/diamond.jpg" },
-      { word: "rectangle", picture: "images/shapes/rectangle.jpg" },
-      { word: "oval", picture: "images/shapes/oval.jpg" }
+      { word: "circle", picture: "images/shapes/circle.jpg", drawing: "images/shapes/drawn/circle.svg" },
+      { word: "square", picture: "images/shapes/square.jpg", drawing: "images/shapes/drawn/square.svg" },
+      { word: "triangle", picture: "images/shapes/triangle.jpg", drawing: "images/shapes/drawn/triangle.svg" },
+      { word: "star", picture: "images/shapes/star.jpg", drawing: "images/shapes/drawn/star.svg" },
+      { word: "heart", picture: "images/shapes/heart.jpg", drawing: "images/shapes/drawn/heart.svg" },
+      { word: "diamond", picture: "images/shapes/diamond.jpg", drawing: "images/shapes/drawn/diamond.svg" },
+      { word: "rectangle", picture: "images/shapes/rectangle.jpg", drawing: "images/shapes/drawn/rectangle.svg" },
+      { word: "oval", picture: "images/shapes/oval.jpg", drawing: "images/shapes/drawn/oval.svg" }
     ]
   },
   house: {
