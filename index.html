@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Flashcards</title>
   <style>
     :root {
@@ -18,31 +19,101 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 24px 16px;
+      box-sizing: border-box;
     }
     h1 {
       color: var(--word);
-      font-size: 42px;
+      font-size: 48px;
+      margin: 0 0 28px 0;
     }
-    a {
-      display: block;
-      width: 260px;
-      margin: 14px 0;
-      padding: 18px 0;
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 700px;
+    }
+    .tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 200px;
+      box-sizing: border-box;
+      padding: 12px 12px 14px 12px;
+      background-color: white;
+      border: 6px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      color: var(--word);
+      font-size: 24px;
+      font-weight: bold;
       text-align: center;
-      font-size: 28px;
-      color: white;
-      background-color: var(--word);
-      border-radius: 12px;
       text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .tile img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    .tile span {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .tile:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.14);
+    }
+    .tile:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    }
+    .tile:focus-visible {
+      outline: 3px solid var(--word);
+      outline-offset: 3px;
+    }
+    /* Phones: two tiles per row */
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 40px;
+      }
+      .topics {
+        gap: 14px;
+      }
+      .tile {
+        width: calc(50% - 7px);
+        font-size: 20px;
+        border-width: 5px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>Let's Learn!</h1>
-  <a href="animals.html">Animals</a>
-  <a href="colors.html">Colors</a>
-  <a href="shapes.html">Shapes</a>
-   <a href="house.html">My House</a>
-    <a href="seasons and weather.html">Seasons and Weather</a>
+  <div class="topics">
+    <a class="tile" href="animals.html">
+      <img src="images/animals/ant.jpg" alt="">
+      <span>Animals</span>
+    </a>
+    <a class="tile" href="colors.html">
+      <img src="images/colors/red-apple.jpg" alt="">
+      <span>Colors</span>
+    </a>
+    <a class="tile" href="shapes.html">
+      <img src="images/shapes/circle.jpg" alt="">
+      <span>Shapes</span>
+    </a>
+    <a class="tile" href="house.html">
+      <img src="images/house/house.jpg" alt="">
+      <span>My House</span>
+    </a>
+    <a class="tile" href="seasons and weather.html">
+      <img src="images/seasons and weather/summer.jpg" alt="">
+      <span>Seasons and Weather</span>
+    </a>
+  </div>
 </body>
 </html>
