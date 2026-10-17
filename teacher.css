@@ -53,10 +53,34 @@ h3 {
   padding: 16px 16px 0 16px;
 }
 
-#topic-nav {
+.top {
+  justify-content: space-between;
+}
+
+/* Topic picker: one dropdown instead of a row of topic buttons */
+.topic-picker {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
+  font-weight: 800;
+  color: var(--word);
+}
+
+.topic-picker select {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--word);
+  padding: 8px 14px;
+  background-color: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.topic-picker select:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 2px;
 }
 
 .pill,
@@ -73,12 +97,6 @@ h3 {
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.1s, filter 0.15s;
-}
-
-.pill[aria-current="page"] {
-  color: white;
-  background-color: var(--word);
-  border-color: var(--word);
 }
 
 .btn {
@@ -105,11 +123,37 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+/* The guide's buttons, in two labelled groups */
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 14px 32px;
   margin-bottom: 20px;
+  padding: 16px 22px;
+  background-color: var(--surface);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.action-group h2 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.action-group div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn.secondary {
+  color: var(--word);
+  background-color: var(--surface);
+  border-color: var(--line);
+  box-shadow: none;
 }
 
 /* Content sections */
@@ -411,6 +455,30 @@ input[type="text"]:focus-visible {
 
   section {
     padding: 14px 16px;
+  }
+
+  .top {
+    flex-wrap: nowrap;
+  }
+
+  .top .pill {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .topic-picker select {
+    max-width: 52vw;
+    font-size: 15px;
+    padding: 7px 10px;
+  }
+
+  .actions {
+    padding: 14px 16px;
+  }
+
+  .actions .btn {
+    font-size: 15px;
+    padding: 8px 13px;
   }
 
   .plan li {
