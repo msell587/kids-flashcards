@@ -123,6 +123,11 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+section:nth-of-type(2) { animation-delay: 0.06s; }
+section:nth-of-type(3) { animation-delay: 0.12s; }
+section:nth-of-type(4) { animation-delay: 0.18s; }
+section:nth-of-type(n+5) { animation-delay: 0.24s; }
+
 /* The guide's buttons, in two labelled groups */
 .actions {
   display: flex;
@@ -162,6 +167,7 @@ section {
   border-radius: 24px;
   box-shadow: var(--shadow);
   padding: 22px 26px;
+  animation: rise-in 0.45s ease-out backwards;
   margin-bottom: 18px;
 }
 
@@ -522,6 +528,7 @@ input[type="text"]:focus-visible {
   section {
     border: 2px solid #ccc;
     box-shadow: none;
+    animation: none;
     break-inside: avoid;
   }
 }

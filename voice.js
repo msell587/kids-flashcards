@@ -70,6 +70,7 @@ const Voice = (() => {
   }
 
   // options.queue: wait for anything already speaking instead of interrupting it
+  // options.onEnd: called when the word has been said (or couldn't be)
   function speak(text, options = {}) {
     if (!supported) return;
     if (!options.queue) speechSynthesis.cancel();
@@ -84,6 +85,7 @@ const Voice = (() => {
     }
     utterance.rate = SPEEDS[s.speed] || SPEEDS.normal;
     utterance.pitch = PITCHES[s.pitch] || PITCHES.cheerful;
+    if (options.onEnd) utterance.onend = utterance.onerror = options.onEnd;
     speechSynthesis.speak(utterance);
   }
 

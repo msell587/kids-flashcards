@@ -33,6 +33,7 @@
       display: block;
       margin: 0 auto 10px auto;
       filter: drop-shadow(0 6px 12px rgba(47, 111, 159, 0.25));
+      animation: float 3.5s ease-in-out infinite;
     }
     h1 {
       color: var(--word);
@@ -68,6 +69,9 @@
       text-align: center;
       text-decoration: none;
       transition: transform 0.15s, box-shadow 0.15s;
+      /* "backwards" so the hover lift still works once the tile has arrived */
+      animation: rise-in 0.5s ease-out backwards;
+      animation-delay: calc(var(--i, 0) * 70ms);
     }
     .tile img {
       width: 100%;
@@ -96,6 +100,9 @@
     .tile:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-lift);
+    }
+    .tile:hover img {
+      animation: wiggle 0.5s ease-in-out;
     }
     .tile:active {
       transform: translateY(1px);
@@ -235,7 +242,8 @@
     } catch (error) {
       // No stars in this browser
     }
-    document.querySelectorAll(".tile").forEach(tile => {
+    document.querySelectorAll(".tile").forEach((tile, index) => {
+      tile.style.setProperty("--i", index);
       if (finishedTopics.includes(tile.dataset.topic)) {
         tile.insertAdjacentHTML("beforeend", '<span class="star" aria-label="Finished">⭐</span>');
       }
