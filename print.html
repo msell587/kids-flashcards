@@ -4,13 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Print Flashcards</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
   <style>
     @page {
       size: A4;
       margin: 10mm;
     }
     body {
-      font-family: "Trebuchet MS", Arial, sans-serif;
       margin: 0;
     }
     .sheet {
@@ -35,7 +42,7 @@
     .card h2 {
       margin: 4mm 0 0 0;
       font-size: 22pt;
-      color: #3a7ca5;
+      color: var(--word);
     }
 
     /* Cards per page: 9 is the default above. Heights fit an A4 page with 10mm margins. */
@@ -59,8 +66,8 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: #3a7ca5;
-      border: 6px solid #3a7ca5;
+      color: var(--word);
+      border: 6px solid var(--word);
       border-radius: 12mm;
       box-sizing: border-box;
       padding: 15mm;
@@ -92,7 +99,7 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 12px;
-      color: #3a7ca5;
+      color: var(--word);
       font-size: 18px;
     }
     .bar button {
@@ -101,7 +108,7 @@
       padding: 8px 18px;
       border: none;
       border-radius: 10px;
-      background-color: #3a7ca5;
+      background-color: var(--word);
       color: white;
       cursor: pointer;
     }
@@ -114,7 +121,7 @@
       padding: 12px 16px;
       border-radius: 12px;
       background: white;
-      color: #3a7ca5;
+      color: var(--word);
       font-size: 16px;
     }
     .options label { white-space: nowrap; }
@@ -123,13 +130,13 @@
       font-family: inherit;
       font-size: 16px;
       padding: 4px 8px;
-      border: 2px solid #3a7ca5;
+      border: 2px solid var(--word);
       border-radius: 8px;
       color: #333;
     }
     .options [hidden] { display: none; }
     @media screen {
-      body { padding: 20px; background: #f4faf0; }
+      body { padding: 20px; background-color: var(--background); }
     }
     @media print {
       .bar, .options { display: none; }
@@ -260,5 +267,6 @@
     });
     render();
   </script>
+  <script src="pwa.js"></script>
 </body>
 </html>

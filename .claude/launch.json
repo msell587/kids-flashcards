@@ -4,8 +4,11 @@
     {
       "name": "flashcards",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8123"],
-      "port": 8123
+      "runtimeArgs": [
+        "-c",
+        "from http.server import SimpleHTTPRequestHandler as H, ThreadingHTTPServer as S\nend = H.end_headers\ndef no_cache(self):\n    self.send_header('Cache-Control', 'no-cache')\n    end(self)\nH.end_headers = no_cache\nS(('', 8124), H).serve_forever()"
+      ],
+      "port": 8124
     }
   ]
 }

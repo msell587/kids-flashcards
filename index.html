@@ -3,52 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Flashcards</title>
+  <title>Let's Learn! Flashcards</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
   <style>
-    :root {
-      --background: #f4faf0;
-      --border: #6bcb77;
-      --word: #3a7ca5;
-    }
     body {
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      background-color: var(--background);
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      padding: 24px 16px;
+      padding: 32px 16px 28px 16px;
       box-sizing: border-box;
+      color: var(--text);
+    }
+    .brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .logo {
+      width: 76px;
+      height: 76px;
+      display: block;
+      margin: 0 auto 10px auto;
+      filter: drop-shadow(0 6px 12px rgba(47, 111, 159, 0.25));
     }
     h1 {
       color: var(--word);
-      font-size: 48px;
-      margin: 0 0 28px 0;
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+    .tagline {
+      margin: 4px 0 0 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--muted);
     }
     .topics {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      max-width: 700px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 22px;
+      width: min(100%, 860px);
     }
     .tile {
       position: relative;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      width: 200px;
       box-sizing: border-box;
-      padding: 12px 12px 14px 12px;
-      background-color: white;
-      border: 6px solid var(--border);
-      border-radius: 20px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      padding: 10px 10px 14px 10px;
+      background-color: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       color: var(--word);
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 22px;
+      font-weight: 800;
       text-align: center;
       text-decoration: none;
       transition: transform 0.15s, box-shadow 0.15s;
@@ -57,36 +73,65 @@
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: contain;
-      margin-bottom: 8px;
+      box-sizing: border-box;
+      padding: 10px;
+      border-radius: 20px;
+      background-color: var(--tile-color, var(--soft-blue));
+      margin-bottom: 10px;
     }
+    .tile[data-topic="animals"] { --tile-color: var(--animals); }
+    .tile[data-topic="colors"] { --tile-color: var(--colors); }
+    .tile[data-topic="shapes"] { --tile-color: var(--shapes); }
+    .tile[data-topic="house"] { --tile-color: var(--house); }
+    .tile[data-topic="seasons"] { --tile-color: var(--seasons); }
+    .tile[data-topic="city"] { --tile-color: var(--city); }
+    .tile[data-topic="christmas"] { --tile-color: var(--christmas); }
     .tile span {
       flex: 1;
       display: flex;
       align-items: center;
+      justify-content: center;
+      line-height: 1.15;
     }
     .tile:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.14);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lift);
     }
     .tile:active {
       transform: translateY(1px);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--shadow);
     }
     .tile:focus-visible {
-      outline: 3px solid var(--word);
-      outline-offset: 3px;
+      outline: 4px solid var(--word);
+      outline-offset: 4px;
     }
     .teacher-link {
-      margin-top: 28px;
+      margin-top: 32px;
+      padding: 10px 22px;
       font-size: 18px;
+      font-weight: 700;
       color: var(--word);
+      background-color: var(--surface);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .teacher-link:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lift);
+    }
+    .teacher-link:focus-visible {
+      outline: 3px solid var(--word);
+      outline-offset: 3px;
     }
     /* Star sticker on topics a child has finished */
     .star {
       position: absolute;
       top: -14px;
-      right: -14px;
+      right: -10px;
       font-size: 34px;
+      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
       animation: star-pop 0.5s ease-out;
     }
     @keyframes star-pop {
@@ -94,39 +139,61 @@
       to { transform: scale(1); }
     }
     .clear-stars {
-      margin-top: 10px;
+      margin-top: 12px;
       font-family: inherit;
       font-size: 15px;
-      color: var(--word);
+      color: var(--muted);
       background: none;
       border: none;
       text-decoration: underline;
       cursor: pointer;
-      opacity: 0.8;
     }
     @media (prefers-reduced-motion: reduce) {
       .star {
         animation: none;
       }
+      .tile,
+      .teacher-link {
+        transition: none;
+      }
     }
     /* Phones: two tiles per row */
     @media (max-width: 500px) {
+      body {
+        padding-top: 22px;
+      }
+      .logo {
+        width: 60px;
+        height: 60px;
+      }
       h1 {
         font-size: 40px;
       }
+      .tagline {
+        font-size: 16px;
+      }
       .topics {
+        grid-template-columns: repeat(2, 1fr);
         gap: 14px;
       }
       .tile {
-        width: calc(50% - 7px);
-        font-size: 20px;
-        border-width: 5px;
+        font-size: 18px;
+        border-radius: 22px;
+        padding: 8px 8px 12px 8px;
+      }
+      .tile img {
+        border-radius: 16px;
+        padding: 6px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Let's Learn!</h1>
+  <header class="brand">
+    <img class="logo" src="icons/icon.svg" alt="">
+    <h1>Let's Learn!</h1>
+    <p class="tagline">English flashcards for little learners</p>
+  </header>
   <div class="topics">
     <a class="tile" href="animals.html" data-topic="animals">
       <img src="images/animals/elephant.jpg" alt="">
@@ -185,5 +252,6 @@
       clearButton.hidden = true;
     });
   </script>
+  <script src="pwa.js"></script>
 </body>
 </html>
