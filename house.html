@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>My House Flashcards</title>
   <style>
    :root {
@@ -87,11 +88,13 @@ a {
 </head>
 <body>
 <div class="card">
-  <img id="picture" src="images/animals/ant.jpg" alt="flashcard picture">
-  <h1 id="word">ANT</h1>
+  <img id="picture" src="images/house/house.jpg" alt="flashcard picture">
+  <h1 id="word">house</h1>
   <button class="speak" onclick="speakWord()">🔊</button>
 </div>
-    <div>
+<p id="counter">1 / 11</p>
+
+<div>
   <button onclick="prevCard()">Back</button>
   <button onclick="nextCard()">Next</button>
 </div>
@@ -107,7 +110,6 @@ a {
     { word: "door", picture: "images/house/door.jpg" },
     { word: "floor", picture: "images/house/floor.jpg" },
     { word: "window", picture: "images/house/window.jpg" },
- { word: "window", picture: "images/house/window.jpg" },
     { word: "garden", picture: "images/house/garden.jpg" },
     { word: "wall", picture: "images/house/wall.jpg" },
 
