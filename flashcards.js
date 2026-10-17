@@ -30,16 +30,43 @@ revealButton.addEventListener("click", (event) => {
 });
 wordEl.after(revealButton);
 
-// Extra tools under the cards
+// Extra tools under the cards: the game, plus an Options button that opens the rest, grouped
 const tools = document.createElement("div");
 tools.className = "tools";
 tools.innerHTML =
-  '<a class="tool" href="game.html?topic=' + topicKey + '">🎧 Listening game</a>' +
-  '<button class="tool" id="shuffle-btn">🔀 Shuffle</button>' +
-  '<button class="tool" id="guess-btn">🙈 Hide words</button>' +
-  '<button class="tool" id="big-btn">⛶ Big screen</button>' +
-  '<button class="tool" id="voice-btn">🗣 Voice</button>';
-document.querySelector(".teacher-link").before(tools);
+  '<div class="tools-row">' +
+    '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">🎧 Listening game</a>' +
+    '<button class="tool" id="options-btn" aria-expanded="false" aria-controls="options-panel">⚙️ Options</button>' +
+  '</div>' +
+  '<div class="options-panel" id="options-panel" hidden>' +
+    '<div class="option-group" role="group" aria-labelledby="practise-label">' +
+      '<h2 id="practise-label">Practise</h2>' +
+      '<div><button class="tool" id="shuffle-btn">🔀 Shuffle</button>' +
+      '<button class="tool" id="guess-btn">🙈 Hide words</button></div>' +
+    '</div>' +
+    '<div class="option-group" role="group" aria-labelledby="screen-label">' +
+      '<h2 id="screen-label">Screen &amp; sound</h2>' +
+      '<div><button class="tool" id="big-btn">⛶ Big screen</button>' +
+      '<button class="tool" id="voice-btn">🗣 Voice</button></div>' +
+    '</div>' +
+  '</div>';
+document.querySelector(".nav-buttons").after(tools);
+
+const optionsButton = document.getElementById("options-btn");
+const optionsPanel = document.getElementById("options-panel");
+function setOptionsOpen(open) {
+  optionsPanel.hidden = !open;
+  optionsButton.setAttribute("aria-expanded", open);
+  optionsButton.classList.toggle("on", open);
+  if (open) optionsPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+optionsButton.addEventListener("click", () => setOptionsOpen(optionsPanel.hidden));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !optionsPanel.hidden) {
+    setOptionsOpen(false);
+    optionsButton.focus();
+  }
+});
 
 // direction: 1 for Next, -1 for Back, 0 for no animation
 function showCard(direction) {
