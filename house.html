@@ -19,21 +19,11 @@
     <button onclick="nextCard()">Next</button>
   </div>
   <a class="home" href="index.html">🏠 Home</a>
+  <a class="teacher-link" href="teacher.html?topic=house">📋 For teachers</a>
 
+  <script src="topics.js"></script>
   <script>
-    const cards = [
-      { word: "house", picture: "images/house/house.jpg" },
-      { word: "living room", picture: "images/house/livingroom.jpg" },
-      { word: "dining room", picture: "images/house/diningroom.jpg" },
-      { word: "bedroom", picture: "images/house/bedroom.jpg" },
-      { word: "bathroom", picture: "images/house/bathroom.jpg" },
-      { word: "kitchen", picture: "images/house/kitchen.jpg" },
-      { word: "door", picture: "images/house/door.jpg" },
-      { word: "floor", picture: "images/house/floor.jpg" },
-      { word: "window", picture: "images/house/window.jpg" },
-      { word: "garden", picture: "images/house/garden.jpg" },
-      { word: "wall", picture: "images/house/wall.jpg" }
-    ];
+    const cards = TOPICS.house.cards;
   </script>
   <script src="flashcards.js"></script>
 </body>

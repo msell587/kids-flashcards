@@ -19,21 +19,11 @@
     <button onclick="nextCard()">Next</button>
   </div>
   <a class="home" href="index.html">🏠 Home</a>
+  <a class="teacher-link" href="teacher.html?topic=animals">📋 For teachers</a>
 
+  <script src="topics.js"></script>
   <script>
-    const cards = [
-      { word: "ant", picture: "images/animals/ant.jpg" },
-      { word: "elephant", picture: "images/animals/elephant.jpg" },
-      { word: "giraffe", picture: "images/animals/giraffe.jpg" },
-      { word: "mouse", picture: "images/animals/mouse.jpg" },
-      { word: "dog", picture: "images/animals/dog.jpg" },
-      { word: "cat", picture: "images/animals/cat.jpg" },
-      { word: "rabbit", picture: "images/animals/rabbit.jpg" },
-      { word: "horse", picture: "images/animals/horse.jpg" },
-      { word: "lion", picture: "images/animals/lion.jpg" },
-      { word: "camel", picture: "images/animals/camel.jpg" },
-      { word: "sheep", picture: "images/animals/sheep.jpg" }
-    ];
+    const cards = TOPICS.animals.cards;
   </script>
   <script src="flashcards.js"></script>
 </body>

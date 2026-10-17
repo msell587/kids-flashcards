@@ -19,18 +19,11 @@
     <button onclick="nextCard()">Next</button>
   </div>
   <a class="home" href="index.html">🏠 Home</a>
+  <a class="teacher-link" href="teacher.html?topic=shapes">📋 For teachers</a>
 
+  <script src="topics.js"></script>
   <script>
-    const cards = [
-      { word: "circle", picture: "images/shapes/circle.jpg" },
-      { word: "square", picture: "images/shapes/square.jpg" },
-      { word: "triangle", picture: "images/shapes/triangle.jpg" },
-      { word: "star", picture: "images/shapes/star.jpg" },
-      { word: "heart", picture: "images/shapes/heart.jpg" },
-      { word: "diamond", picture: "images/shapes/diamond.jpg" },
-      { word: "rectangle", picture: "images/shapes/rectangle.jpg" },
-      { word: "oval", picture: "images/shapes/oval.jpg" }
-    ];
+    const cards = TOPICS.shapes.cards;
   </script>
   <script src="flashcards.js"></script>
 </body>

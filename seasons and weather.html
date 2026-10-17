@@ -19,19 +19,11 @@
     <button onclick="nextCard()">Next</button>
   </div>
   <a class="home" href="index.html">🏠 Home</a>
+  <a class="teacher-link" href="teacher.html?topic=seasons">📋 For teachers</a>
 
+  <script src="topics.js"></script>
   <script>
-    const cards = [
-      { word: "summer", picture: "images/seasons and weather/summer.jpg" },
-      { word: "winter", picture: "images/seasons and weather/winter.jpg" },
-      { word: "spring", picture: "images/seasons and weather/spring.jpg" },
-      { word: "fall", picture: "images/seasons and weather/fall.jpg" },
-      { word: "sunny", picture: "images/seasons and weather/sunny.jpg" },
-      { word: "rainy", picture: "images/seasons and weather/rainy.jpg" },
-      { word: "cloudy", picture: "images/seasons and weather/cloudy.jpg" },
-      { word: "snowy", picture: "images/seasons and weather/snowy.jpg" },
-      { word: "windy", picture: "images/seasons and weather/windy.jpg" }
-    ];
+    const cards = TOPICS.seasons.cards;
   </script>
   <script src="flashcards.js"></script>
 </body>

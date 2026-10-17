@@ -92,6 +92,17 @@ button {
   text-decoration: none;
 }
 
+.teacher-link {
+  margin-top: 14px;
+  font-size: 16px;
+  color: var(--word);
+  opacity: 0.8;
+}
+
+.teacher-link:hover {
+  opacity: 1;
+}
+
 /* Button feedback: lift on hover, press down on click, clear outline for keyboard users */
 button,
 .home {
