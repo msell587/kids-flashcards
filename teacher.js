@@ -23,6 +23,8 @@ topicSelect.addEventListener("change", () => {
 });
 
 function showChooser() {
+  // The topic cards below do the same job as the dropdown, so the dropdown is only shown on a guide
+  document.querySelector(".topic-picker").hidden = true;
   main.innerHTML = `
     <h1>Teacher's Corner</h1>
     <p class="lead">Lesson plans, crafts, songs and games for each flashcard topic. For ages 3–5.</p>

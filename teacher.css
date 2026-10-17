@@ -66,6 +66,10 @@ h3 {
   color: var(--word);
 }
 
+.topic-picker[hidden] {
+  display: none;
+}
+
 .topic-picker select {
   font-family: inherit;
   font-size: 16px;
