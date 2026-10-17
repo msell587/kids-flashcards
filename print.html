@@ -37,17 +37,65 @@
       font-size: 22pt;
       color: #3a7ca5;
     }
+
+    /* Cards per page: 9 is the default above. Heights fit an A4 page with 10mm margins. */
+    .sheet.per-4 { grid-template-columns: repeat(2, 1fr); gap: 8mm; }
+    .sheet.per-4 .card { height: 130mm; }
+    .sheet.per-4 .card img { height: 95mm; }
+    .sheet.per-4 .card h2 { font-size: 36pt; }
+    .sheet.per-1 { grid-template-columns: 1fr; gap: 0; }
+    .sheet.per-1 .card { height: 265mm; break-after: page; }
+    .sheet.per-1 .card img { height: 200mm; }
+    .sheet.per-1 .card h2 { font-size: 64pt; margin-top: 8mm; }
+    .sheet.no-words .card h2 { display: none; }
+    .sheet.no-words .card img { height: 85%; }
+    .sheet.no-lines .card { border-color: transparent; }
+
+    /* Cover page */
+    .cover {
+      height: 265mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #3a7ca5;
+      border: 6px solid #3a7ca5;
+      border-radius: 12mm;
+      box-sizing: border-box;
+      padding: 15mm;
+      break-after: page;
+      margin-bottom: 6mm;
+    }
+    .cover[hidden] { display: none; }
+    .cover h1 { font-size: 48pt; margin: 0; }
+    .cover .subtitle { font-size: 22pt; margin: 4mm 0 12mm; }
+    .cover .preview {
+      display: grid;
+      grid-template-columns: repeat(2, 55mm);
+      gap: 8mm;
+      margin-bottom: 14mm;
+    }
+    .cover .preview img {
+      width: 55mm;
+      height: 55mm;
+      object-fit: contain;
+      border-radius: 6mm;
+      background: white;
+    }
+    .cover .contents { font-size: 14pt; color: #555; max-width: 150mm; line-height: 1.5; }
+    .cover .terms { margin-top: auto; font-size: 11pt; color: #777; }
+
     .bar {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       color: #3a7ca5;
       font-size: 18px;
     }
-    .bar button,
-    .bar a.choice {
+    .bar button {
       font-family: inherit;
       font-size: 18px;
       padding: 8px 18px;
@@ -57,29 +105,34 @@
       color: white;
       cursor: pointer;
     }
-    #picture-choice {
+    .options {
       display: flex;
-      gap: 8px;
-    }
-    #picture-choice[hidden] {
-      display: none;
-    }
-    .bar a.choice {
-      white-space: nowrap;
-      text-decoration: none;
-      background-color: white;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: white;
       color: #3a7ca5;
+      font-size: 16px;
+    }
+    .options label { white-space: nowrap; }
+    .options select,
+    .options input[type="text"] {
+      font-family: inherit;
+      font-size: 16px;
+      padding: 4px 8px;
       border: 2px solid #3a7ca5;
+      border-radius: 8px;
+      color: #333;
     }
-    .bar a.choice.chosen {
-      background-color: #3a7ca5;
-      color: white;
-    }
+    .options [hidden] { display: none; }
     @media screen {
       body { padding: 20px; background: #f4faf0; }
     }
     @media print {
-      .bar { display: none; }
+      .bar, .options { display: none; }
     }
   </style>
 </head>
@@ -87,44 +140,125 @@
   <div class="bar">
     <button onclick="window.print()">🖨 Print</button>
     <span id="heading"></span>
-    <span id="picture-choice" hidden>
-      <a class="choice" id="choose-photos">📷 Photos</a>
-      <a class="choice" id="choose-drawings">✏️ Drawings</a>
-    </span>
+  </div>
+  <div class="options">
+    <label id="pictures-option" hidden>Pictures
+      <select id="pictures">
+        <option value="photos">📷 Photos</option>
+        <option value="drawings">✏️ Drawings</option>
+      </select>
+    </label>
+    <label>Cards per page
+      <select id="per">
+        <option value="1">1 (big, for circle time)</option>
+        <option value="4">4 (medium)</option>
+        <option value="9">9 (small, for games)</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="words"> Words</label>
+    <label><input type="checkbox" id="lines"> Cutting lines</label>
+    <label><input type="checkbox" id="cover"> Cover page</label>
+    <label id="name-option" hidden>Your name or shop
+      <input type="text" id="name" placeholder="e.g. Bilingual Infantil Toolkit">
+    </label>
+  </div>
+
+  <div class="cover" id="cover-page" hidden>
+    <h1 id="cover-title"></h1>
+    <p class="subtitle">English flashcards for Infantil</p>
+    <div class="preview" id="cover-preview"></div>
+    <p class="contents" id="cover-contents"></p>
+    <p class="terms" id="cover-terms"></p>
   </div>
   <div class="sheet" id="sheet"></div>
 
   <script src="topics.js"></script>
   <script>
-    // Which topic to print comes from the address, e.g. print.html?topic=animals
+    // The choices live in the address, so a link reopens the same layout, e.g.
+    // print.html?topic=shapes&pictures=drawings&per=4&words=off&lines=off&cover=on
     const params = new URLSearchParams(location.search);
     const topicKey = TOPICS[params.get("topic")] ? params.get("topic") : "animals";
     const topic = TOPICS[topicKey];
-
-    // Topics with drawn pictures can print either photos or drawings, e.g. print.html?topic=shapes&pictures=drawings
     const hasDrawings = topic.cards.every(card => card.drawing);
-    const useDrawings = hasDrawings && params.get("pictures") === "drawings";
-    if (hasDrawings) {
-      document.getElementById("picture-choice").hidden = false;
-      document.getElementById("choose-photos").href = "print.html?topic=" + topicKey;
-      document.getElementById("choose-drawings").href = "print.html?topic=" + topicKey + "&pictures=drawings";
-      document.getElementById(useDrawings ? "choose-drawings" : "choose-photos").classList.add("chosen");
-    }
-    document.title = topic.title + " Flashcards (Print)";
-    document.getElementById("heading").textContent = topic.title + " flashcards: cut along the dashed lines";
 
-    const sheet = document.getElementById("sheet");
-    topic.cards.forEach(card => {
-      const div = document.createElement("div");
-      div.className = "card";
-      const img = document.createElement("img");
-      img.src = useDrawings ? card.drawing : card.picture;
-      img.alt = card.word;
-      const word = document.createElement("h2");
-      word.textContent = card.word;
-      div.append(img, word);
-      sheet.appendChild(div);
+    const controls = {
+      pictures: document.getElementById("pictures"),
+      per: document.getElementById("per"),
+      words: document.getElementById("words"),
+      lines: document.getElementById("lines"),
+      cover: document.getElementById("cover"),
+      name: document.getElementById("name")
+    };
+    controls.pictures.value = hasDrawings && params.get("pictures") === "drawings" ? "drawings" : "photos";
+    controls.per.value = ["1", "4", "9"].includes(params.get("per")) ? params.get("per") : "9";
+    controls.words.checked = params.get("words") !== "off";
+    controls.lines.checked = params.get("lines") !== "off";
+    controls.cover.checked = params.get("cover") === "on";
+    document.getElementById("pictures-option").hidden = !hasDrawings;
+
+    // The name for the cover is remembered on this computer only
+    try { controls.name.value = localStorage.getItem("printName") || ""; } catch (e) {}
+
+    document.title = topic.title + " Flashcards (Print)";
+
+    function render() {
+      const useDrawings = hasDrawings && controls.pictures.value === "drawings";
+      const pictureOf = card => useDrawings ? card.drawing : card.picture;
+
+      document.getElementById("heading").textContent = topic.title + " flashcards" +
+        (controls.lines.checked ? ": cut along the dashed lines" : "");
+
+      const sheet = document.getElementById("sheet");
+      sheet.className = "sheet per-" + controls.per.value +
+        (controls.words.checked ? "" : " no-words") +
+        (controls.lines.checked ? "" : " no-lines");
+      sheet.innerHTML = "";
+      topic.cards.forEach(card => {
+        const div = document.createElement("div");
+        div.className = "card";
+        const img = document.createElement("img");
+        img.src = pictureOf(card);
+        img.alt = card.word;
+        const word = document.createElement("h2");
+        word.textContent = card.word;
+        div.append(img, word);
+        sheet.appendChild(div);
+      });
+
+      const cover = document.getElementById("cover-page");
+      cover.hidden = !controls.cover.checked;
+      document.getElementById("name-option").hidden = !controls.cover.checked;
+      document.getElementById("cover-title").textContent = topic.title;
+      const preview = document.getElementById("cover-preview");
+      preview.innerHTML = "";
+      topic.cards.slice(0, 4).forEach(card => {
+        const img = document.createElement("img");
+        img.src = pictureOf(card);
+        img.alt = card.word;
+        preview.appendChild(img);
+      });
+      document.getElementById("cover-contents").textContent =
+        topic.cards.length + " cards: " + topic.cards.map(card => card.word).join(", ");
+      const name = controls.name.value.trim();
+      document.getElementById("cover-terms").textContent =
+        "© " + new Date().getFullYear() + (name ? " " + name : "") +
+        " · For use in your own classroom. Please don't share or resell.";
+
+      // Keep the address in step with the choices
+      const query = new URLSearchParams({ topic: topicKey });
+      if (useDrawings) query.set("pictures", "drawings");
+      if (controls.per.value !== "9") query.set("per", controls.per.value);
+      if (!controls.words.checked) query.set("words", "off");
+      if (!controls.lines.checked) query.set("lines", "off");
+      if (controls.cover.checked) query.set("cover", "on");
+      history.replaceState(null, "", "print.html?" + query);
+    }
+
+    Object.values(controls).forEach(control => control.addEventListener("input", render));
+    controls.name.addEventListener("input", () => {
+      try { localStorage.setItem("printName", controls.name.value); } catch (e) {}
     });
+    render();
   </script>
 </body>
 </html>
