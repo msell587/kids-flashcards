@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="santa">
+<circle cx="200" cy="205" r="82" fill="#f9d5b5" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M112 215 Q105 350 200 362 Q295 350 288 215 Q250 262 200 258 Q150 262 112 215 Z" fill="#ffffff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="148" cy="226" r="13" fill="#f4a3a8"/><circle cx="252" cy="226" r="13" fill="#f4a3a8"/>
+<ellipse cx="178" cy="262" rx="28" ry="14" fill="#ffffff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/><ellipse cx="222" cy="262" rx="28" ry="14" fill="#ffffff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="200" cy="240" r="13" fill="#e8747c" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="172" cy="205" r="8" fill="#333333"/><circle cx="228" cy="205" r="8" fill="#333333"/>
+<path d="M122 160 C130 75, 230 30, 305 78 L282 160 Z" fill="#e63946" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<rect x="104" y="146" width="192" height="36" rx="18" fill="#ffffff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="308" cy="80" r="24" fill="#ffffff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+</svg>

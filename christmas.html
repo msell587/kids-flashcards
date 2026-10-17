@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Christmas Flashcards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <img id="picture" src="images/christmas/santa.svg" alt="Santa">
+    <h1 id="word" aria-live="polite">Santa</h1>
+    <button class="speak" onclick="speakWord()" aria-label="Say the word">🔊</button>
+  </div>
+  <p id="counter">1 / 12</p>
+
+  <div>
+    <button onclick="prevCard()">Back</button>
+    <button onclick="nextCard()">Next</button>
+  </div>
+  <a class="home" href="index.html">🏠 Home</a>
+  <a class="teacher-link" href="teacher.html?topic=christmas">📋 For teachers</a>
+
+  <script src="topics.js"></script>
+  <script>
+    const cards = TOPICS.christmas.cards;
+  </script>
+  <script src="voice.js"></script>
+  <script src="flashcards.js"></script>
+</body>
+</html>

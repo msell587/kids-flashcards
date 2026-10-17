@@ -423,5 +423,79 @@ const TEACHER = {
       { word: "traffic light", url: "https://www.pexels.com/photo/11574912/" },
       { word: "bridge", url: "https://www.pexels.com/photo/37404655/" }
     ]
+  },
+  christmas: {
+    goal: "Children can name 12 Christmas words, and say “Merry Christmas!” and “Here's a present for you!”",
+    materials: [
+      "Screen or tablet with the Christmas flashcards",
+      "Printed Christmas cards (two sets for Memory Match)",
+      "A small bell, and a box wrapped like a present",
+      "Craft supplies: see “Paper Plate Santa” below",
+      "Christmas music to play and pause"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and mystery present", details: "Sing hello. Shake the wrapped box: “What's in the present?” Open it slowly and pull out one printed card. Everyone says the word." },
+      { time: "8 min", step: "Meet the Christmas words", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: ring a bell, shiver for snowflake, “ho ho ho” for Santa, hands up like branches for Christmas tree." },
+      { time: "5 min", step: "Song: Jingle Bells", details: "Sing or listen. Children shake pretend bells (or the real bell) every time they hear “jingle”." },
+      { time: "10 min", step: "Games", details: "Play What's in the Stocking?, then Ring the Bell." },
+      { time: "5 min", step: "Movement break", details: "Sing I'm a Little Snowman with actions, then Freeze like a Snowman to the music." },
+      { time: "15 min", step: "Craft: Paper Plate Santa", details: "Follow the craft steps below. Ask “What colour is Santa's hat?” and “Is the beard white or red?”" },
+      { time: "7 min", step: "Present swap", details: "Children sit in a circle and pass the wrapped box. Each child gives it to the next one: “Here's a present for you!” “Thank you! Merry Christmas!”" },
+      { time: "5 min", step: "Review and goodbye", details: "Quick round of What's Missing?, then click through the flashcards together to the 🎉 screen and say “Merry Christmas!”" }
+    ],
+    crafts: [
+      {
+        name: "Paper Plate Santa",
+        time: "15 min",
+        supplies: ["Paper plates", "Red paper triangles for the hat (cut before class)", "Cotton wool balls", "Glue sticks", "Crayons"],
+        steps: [
+          "Children colour a face in the middle of the plate: two eyes, a red nose and pink cheeks.",
+          "Glue the red triangle at the top for Santa's hat.",
+          "Glue cotton wool along the bottom half for the beard, and one ball on the tip of the hat.",
+          "Hold it up and say “Ho ho ho! Merry Christmas!”"
+        ],
+        tip: "Put a big dot of glue where the beard goes, so children just press the cotton wool on."
+      },
+      {
+        name: "Handprint Christmas Tree",
+        time: "15 min",
+        supplies: ["Green paint in a shallow tray", "White paper", "A brown paper rectangle for the trunk", "Coloured stickers or dot paints for baubles", "Wet wipes"],
+        steps: [
+          "Each child makes 3–6 green handprints, fingers pointing down, stacked like a triangle (adult guides).",
+          "Glue the brown trunk at the bottom.",
+          "When dry, add stickers as baubles and a yellow star on top.",
+          "Count the baubles together in English: “One, two, three…”"
+        ],
+        tip: "Write each child's name on the paper first, and have wipes ready before the paint comes out."
+      }
+    ],
+    songs: [
+      {
+        title: "Jingle Bells",
+        tune: "Traditional",
+        how: "Show the bell card before you start. Children shake pretend bells on every “jingle”, and gallop on the spot for “one-horse open sleigh”.",
+        search: "jingle bells kids song"
+      },
+      {
+        title: "I'm a Little Snowman",
+        tune: "I'm a Little Teapot",
+        words: "I'm a little snowman, round and white,\nHere is my scarf and my hat so bright.\nWhen the sun comes out, I melt away,\nDrip, drip, drip… goodbye for today!",
+        how: "Hands make a big round tummy, touch your neck for the scarf and your head for the hat. On “melt away”, sink slowly to the floor.",
+        search: "i'm a little teapot kids song"
+      },
+      {
+        title: "We Wish You a Merry Christmas",
+        tune: "Traditional",
+        how: "Sing the first verse only. Children wave on “Merry Christmas” and hug themselves on “and a happy new year”.",
+        search: "we wish you a merry christmas kids song"
+      }
+    ],
+    games: [
+      { name: "What's in the Stocking?", how: "Hide a printed card in a sock or stocking. Give clues (“It's cold. It's white. It has a carrot nose!”) until a child guesses. The winner hides the next card." },
+      { name: "Ring the Bell", how: "Lay out 4–6 printed cards. Say a word and a child rings the bell, then touches the right card. Let children take turns calling the word." },
+      { name: "What's Missing?", how: "Show 5 cards, say them together, then children close their eyes. Take one away: “What's missing?” Make it harder by adding more cards." },
+      { name: "Memory Match", how: "Print two sets and lay them face down. Children turn over two cards and say both words. A matching pair stays face up." },
+      { name: "Spain tip: Los Reyes Magos", how: "After the holidays, use the star, present and candle cards to talk about the Three Kings: “The Three Kings follow the star. They bring presents!” Children can draw their own crown." }
+    ]
   }
 };
