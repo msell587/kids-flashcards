@@ -29,8 +29,11 @@ function showChooser() {
     <section>
       <h2>Pick a topic</h2>
       <div class="chooser">
-        ${Object.keys(TOPICS).map(key =>
-          `<a class="btn" href="teacher.html?topic=${key}">${escapeHtml(TOPICS[key].title)}</a>`).join("")}
+        ${Object.keys(TOPICS).map(key => `
+          <a class="topic-choice" href="teacher.html?topic=${key}" style="--tile-color: var(--${key})">
+            <img src="${encodeURI(TOPICS[key].cards[0].picture)}" alt="">
+            <span><strong>${escapeHtml(TOPICS[key].title)}</strong>${TOPICS[key].cards.length} words</span>
+          </a>`).join("")}
       </div>
     </section>
     <section>

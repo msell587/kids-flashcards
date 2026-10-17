@@ -445,13 +445,59 @@ input[type="text"]:focus-visible {
 
 /* Topic chooser (when no topic is picked) */
 .chooser {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
 }
 
-.chooser a {
-  font-size: 20px;
+/* One small card per topic: its picture in the topic's colour, the name and the word count */
+.topic-choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  color: var(--word);
+  background-color: var(--background);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  text-decoration: none;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.topic-choice img {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 4px;
+  box-sizing: border-box;
+  object-fit: contain;
+  border-radius: 12px;
+  background-color: var(--tile-color, var(--soft-blue));
+}
+
+.topic-choice span {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.topic-choice strong {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--word);
+}
+
+.topic-choice:hover {
+  transform: translateY(-2px);
+  border-color: var(--word);
+  box-shadow: var(--shadow);
+}
+
+.topic-choice:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 2px;
 }
 
 @media (max-width: 500px) {
@@ -480,6 +526,29 @@ input[type="text"]:focus-visible {
 
   .actions {
     padding: 14px 16px;
+  }
+
+  .chooser {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .topic-choice {
+    gap: 8px;
+    padding: 6px 8px 6px 6px;
+  }
+
+  .topic-choice img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .topic-choice strong {
+    font-size: 14px;
+  }
+
+  .topic-choice span {
+    font-size: 12px;
   }
 
   .actions .btn {
