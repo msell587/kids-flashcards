@@ -67,7 +67,6 @@
       font-size: 22px;
       font-weight: 800;
       text-align: center;
-      text-decoration: none;
       transition: transform 0.15s, box-shadow 0.15s;
       /* "backwards" so the hover lift still works once the tile has arrived */
       animation: rise-in 0.5s ease-out backwards;
@@ -90,7 +89,15 @@
     .tile[data-topic="seasons"] { --tile-color: var(--seasons); }
     .tile[data-topic="city"] { --tile-color: var(--city); }
     .tile[data-topic="christmas"] { --tile-color: var(--christmas); }
-    .tile span {
+    .tile-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 20px;
+    }
+    .tile-main span {
       flex: 1;
       display: flex;
       align-items: center;
@@ -108,9 +115,28 @@
       transform: translateY(1px);
       box-shadow: var(--shadow);
     }
-    .tile:focus-visible {
+    .tile-main:focus-visible {
       outline: 4px solid var(--word);
       outline-offset: 4px;
+    }
+    /* Each tile's Lesson plan button, under the topic name */
+    .tile-plan {
+      margin-top: 10px;
+      padding: 6px 12px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--word);
+      background-color: var(--soft-blue);
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background-color 0.15s;
+    }
+    .tile-plan:hover {
+      background-color: #d6e8f6;
+    }
+    .tile-plan:focus-visible {
+      outline: 3px solid var(--word);
+      outline-offset: 3px;
     }
     .teacher-link {
       margin-top: 32px;
@@ -192,44 +218,71 @@
         border-radius: 16px;
         padding: 6px;
       }
+      .tile-plan {
+        margin-top: 8px;
+        padding: 5px 8px;
+        font-size: 13px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <header class="brand">
     <img class="logo" src="icons/icon.svg" alt="">
     <h1>Let's Learn!</h1>
     <p class="tagline">English flashcards for little learners</p>
   </header>
   <div class="topics">
-    <a class="tile" href="animals.html" data-topic="animals">
-      <img src="images/animals/elephant.jpg" alt="">
-      <span>Animals</span>
-    </a>
-    <a class="tile" href="colors.html" data-topic="colors">
-      <img src="images/colors/red-apple.jpg" alt="">
-      <span>Colors</span>
-    </a>
-    <a class="tile" href="shapes.html" data-topic="shapes">
-      <img src="images/shapes/circle.jpg" alt="">
-      <span>Shapes</span>
-    </a>
-    <a class="tile" href="house.html" data-topic="house">
-      <img src="images/house/house.jpg" alt="">
-      <span>My House</span>
-    </a>
-    <a class="tile" href="seasons and weather.html" data-topic="seasons">
-      <img src="images/seasons and weather/summer.jpg" alt="">
-      <span>Seasons and Weather</span>
-    </a>
-    <a class="tile" href="city.html" data-topic="city">
-      <img src="images/city/city.jpg" alt="">
-      <span>City</span>
-    </a>
-    <a class="tile" href="christmas.html" data-topic="christmas">
-      <img src="images/christmas/santa.svg" alt="">
-      <span>Christmas</span>
-    </a>
+    <div class="tile" data-topic="animals">
+      <a class="tile-main" href="animals.html">
+        <img src="images/animals/elephant.jpg" alt="">
+        <span>Animals</span>
+      </a>
+      <a class="tile-plan" href="teacher.html?topic=animals" aria-label="Animals lesson plan">📋 Lesson plan</a>
+    </div>
+    <div class="tile" data-topic="colors">
+      <a class="tile-main" href="colors.html">
+        <img src="images/colors/red-apple.jpg" alt="">
+        <span>Colors</span>
+      </a>
+      <a class="tile-plan" href="teacher.html?topic=colors" aria-label="Colors lesson plan">📋 Lesson plan</a>
+    </div>
+    <div class="tile" data-topic="shapes">
+      <a class="tile-main" href="shapes.html">
+        <img src="images/shapes/circle.jpg" alt="">
+        <span>Shapes</span>
+      </a>
+      <a class="tile-plan" href="teacher.html?topic=shapes" aria-label="Shapes lesson plan">📋 Lesson plan</a>
+    </div>
+    <div class="tile" data-topic="house">
+      <a class="tile-main" href="house.html">
+        <img src="images/house/house.jpg" alt="">
+        <span>My House</span>
+      </a>
+      <a class="tile-plan" href="teacher.html?topic=house" aria-label="My House lesson plan">📋 Lesson plan</a>
+    </div>
+    <div class="tile" data-topic="seasons">
+      <a class="tile-main" href="seasons and weather.html">
+        <img src="images/seasons and weather/summer.jpg" alt="">
+        <span>Seasons and Weather</span>
+      </a>
+      <a class="tile-plan" href="teacher.html?topic=seasons" aria-label="Seasons and Weather lesson plan">📋 Lesson plan</a>
+    </div>
+    <div class="tile" data-topic="city">
+      <a class="tile-main" href="city.html">
+        <img src="images/city/city.jpg" alt="">
+        <span>City</span>
+      </a>
+      <a class="tile-plan" href="teacher.html?topic=city" aria-label="City lesson plan">📋 Lesson plan</a>
+    </div>
+    <div class="tile" data-topic="christmas">
+      <a class="tile-main" href="christmas.html">
+        <img src="images/christmas/santa.svg" alt="">
+        <span>Christmas</span>
+      </a>
+      <a class="tile-plan" href="teacher.html?topic=christmas" aria-label="Christmas lesson plan">📋 Lesson plan</a>
+    </div>
   </div>
   <a class="teacher-link" href="teacher.html">📋 Teacher's corner</a>
   <button class="clear-stars" id="clear-stars" hidden>↺ Clear stars</button>
