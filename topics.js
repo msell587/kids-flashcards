@@ -4,8 +4,8 @@ const TOPICS = {
     title: "Animals",
     page: "animals.html",
     cards: [
-      { word: "ant", picture: "images/animals/ant.jpg" },
       { word: "elephant", picture: "images/animals/elephant.jpg" },
+      { word: "ant", picture: "images/animals/ant.jpg" },
       { word: "giraffe", picture: "images/animals/giraffe.jpg" },
       { word: "mouse", picture: "images/animals/mouse.jpg" },
       { word: "dog", picture: "images/animals/dog.jpg" },
