@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Listening Game</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <main>
+    <div class="panel" id="start">
+      <div class="big-emoji">🎧</div>
+      <h1 id="game-title">Listening Game</h1>
+      <p>Listen to the word, then tap the right picture!</p>
+      <button class="big-btn" id="start-btn">▶ Start</button>
+    </div>
+
+    <div id="play" hidden>
+      <div class="top-row">
+        <span id="progress"></span>
+        <span id="score" aria-label="Stars"></span>
+      </div>
+      <button class="listen-btn" id="listen-btn">🔊 Listen</button>
+      <p class="prompt" id="prompt" hidden></p>
+      <div class="choices" id="choices"></div>
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn">▶ Play again</button>
+    </div>
+
+    <nav class="links">
+      <a class="link-btn" href="index.html">🏠 Home</a>
+      <a class="link-btn" id="cards-link" href="index.html">🃏 Flashcards</a>
+      <button class="link-btn" id="voice-link">🗣 Voice</button>
+    </nav>
+  </main>
+
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

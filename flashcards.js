@@ -1,8 +1,12 @@
-// Shared flashcard behavior. Each topic page defines `cards` before loading this file.
+// Shared flashcard behavior. Each topic page defines `cards` (from topics.js) before loading this file.
+let deck = cards.slice(); // the order the cards are shown in; changes when shuffled
 let current = 0;
 let finished = false;
+let guessMode = false; // "Hide words": show the picture first, word on tap
 
 const card = document.querySelector(".card");
+const wordEl = document.getElementById("word");
+const topicKey = Object.keys(TOPICS).find(key => TOPICS[key].cards === cards);
 
 // The "well done" screen shown after the last card
 const celebration = document.createElement("div");
@@ -12,16 +16,39 @@ celebration.innerHTML =
   '<div class="celebration-emoji">🎉</div>' +
   "<h2>Well done!</h2>" +
   "<p>You finished all " + cards.length + " cards!</p>" +
+  '<p class="star-earned">⭐ You earned a star!</p>' +
   '<button onclick="nextCard()">Start again</button>';
 card.appendChild(celebration);
 
-// direction: 1 for Next, -1 for Back, 0 for the first card (no animation)
+// In "Hide words" mode this button sits where the word goes until it's tapped
+const revealButton = document.createElement("button");
+revealButton.className = "reveal";
+revealButton.textContent = "👀 Show the word";
+revealButton.addEventListener("click", (event) => {
+  event.stopPropagation();
+  revealWord();
+});
+wordEl.after(revealButton);
+
+// Extra tools under the cards
+const tools = document.createElement("div");
+tools.className = "tools";
+tools.innerHTML =
+  '<a class="tool" href="game.html?topic=' + topicKey + '">🎧 Listening game</a>' +
+  '<button class="tool" id="shuffle-btn">🔀 Shuffle</button>' +
+  '<button class="tool" id="guess-btn">🙈 Hide words</button>' +
+  '<button class="tool" id="big-btn">⛶ Big screen</button>' +
+  '<button class="tool" id="voice-btn">🗣 Voice</button>';
+document.querySelector(".teacher-link").before(tools);
+
+// direction: 1 for Next, -1 for Back, 0 for no animation
 function showCard(direction) {
-  const word = cards[current].word;
-  document.getElementById("word").textContent = word;
-  document.getElementById("picture").src = cards[current].picture;
-  document.getElementById("picture").alt = word;
-  document.getElementById("counter").textContent = (current + 1) + " / " + cards.length;
+  const word = deck[current].word;
+  wordEl.textContent = word;
+  document.getElementById("picture").src = deck[current].picture;
+  document.getElementById("picture").alt = guessMode ? "Guess the picture" : word;
+  document.getElementById("counter").textContent = (current + 1) + " / " + deck.length;
+  card.classList.toggle("hidden-word", guessMode);
 
   if (direction) {
     card.classList.remove("slide-next", "slide-back");
@@ -31,8 +58,15 @@ function showCard(direction) {
 
   // Load the neighbouring pictures early so they appear instantly
   for (const offset of [1, -1]) {
-    new Image().src = cards[(current + offset + cards.length) % cards.length].picture;
+    new Image().src = deck[(current + offset + deck.length) % deck.length].picture;
   }
+}
+
+function revealWord() {
+  if (!card.classList.contains("hidden-word")) return;
+  card.classList.remove("hidden-word");
+  document.getElementById("picture").alt = deck[current].word;
+  speakWord();
 }
 
 function showCelebration() {
@@ -41,7 +75,9 @@ function showCelebration() {
   celebration.hidden = false;
   document.getElementById("counter").textContent = "All done!";
   celebration.querySelector("button").focus();
+  earnStar();
   launchConfetti();
+  Voice.speak("Yay! You did it! " + Voice.praise());
 }
 
 function hideCelebration() {
@@ -54,7 +90,7 @@ function nextCard() {
   if (finished) {
     hideCelebration();
     current = 0;
-  } else if (current === cards.length - 1) {
+  } else if (current === deck.length - 1) {
     showCelebration();
     return;
   } else {
@@ -67,16 +103,26 @@ function prevCard() {
   if (finished) {
     hideCelebration(); // go back to the last card
   } else {
-    current = (current - 1 + cards.length) % cards.length;
+    current = (current - 1 + deck.length) % deck.length;
   }
   showCard(-1);
 }
 
 function speakWord() {
-  const utterance = new SpeechSynthesisUtterance(cards[current].word);
-  utterance.lang = "en-GB";
-  utterance.rate = 0.8;
-  speechSynthesis.speak(utterance);
+  Voice.speak(deck[current].word);
+}
+
+// Remember finished topics so the home page can show a star on their tile
+function earnStar() {
+  try {
+    const done = JSON.parse(localStorage.getItem("finished-topics") || "[]");
+    if (!done.includes(topicKey)) {
+      done.push(topicKey);
+      localStorage.setItem("finished-topics", JSON.stringify(done));
+    }
+  } catch (error) {
+    // Stars just won't be remembered in this browser
+  }
 }
 
 function launchConfetti() {
@@ -94,13 +140,70 @@ function launchConfetti() {
   }
 }
 
-// Keyboard: left and right arrow keys move between cards
+/* ---------- Tools ---------- */
+
+const shuffleButton = document.getElementById("shuffle-btn");
+shuffleButton.addEventListener("click", () => {
+  const isShuffled = shuffleButton.classList.toggle("on");
+  deck = isShuffled ? shuffled(cards) : cards.slice();
+  shuffleButton.textContent = isShuffled ? "🔢 Back to order" : "🔀 Shuffle";
+  if (finished) hideCelebration();
+  current = 0;
+  showCard(1);
+});
+
+const guessButton = document.getElementById("guess-btn");
+guessButton.addEventListener("click", () => {
+  guessMode = guessButton.classList.toggle("on");
+  guessButton.textContent = guessMode ? "👀 Show words" : "🙈 Hide words";
+  showCard(0);
+});
+
+// Tapping the card in "Hide words" mode shows the word
+card.addEventListener("click", (event) => {
+  if (!event.target.closest("button")) revealWord();
+});
+
+document.getElementById("voice-btn").addEventListener("click", () => Voice.openPicker());
+
+const bigButton = document.getElementById("big-btn");
+bigButton.addEventListener("click", () => {
+  if (document.body.classList.contains("classroom")) {
+    exitBigScreen();
+  } else {
+    document.body.classList.add("classroom");
+    bigButton.textContent = "✕ Exit big screen";
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+  }
+});
+
+function exitBigScreen() {
+  document.body.classList.remove("classroom");
+  bigButton.textContent = "⛶ Big screen";
+  if (document.fullscreenElement) document.exitFullscreen();
+}
+
+// Leaving full screen with the Esc key also leaves big-screen mode
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement && document.body.classList.contains("classroom")) exitBigScreen();
+});
+
+/* ---------- Keyboard and touch ---------- */
+
+// Arrow keys move between cards; Space shows the word in "Hide words" mode
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") nextCard();
   if (event.key === "ArrowLeft") prevCard();
+  const onControl = event.target instanceof Element && event.target.closest("button, a");
+  if (event.key === " " && card.classList.contains("hidden-word") && !onControl) {
+    event.preventDefault();
+    revealWord();
+  }
 });
 
-// Touch: swipe left for the next card, swipe right to go back
+// Swipe left for the next card, swipe right to go back
 let touchStartX = 0;
 let touchStartY = 0;
 card.addEventListener("touchstart", (event) => {

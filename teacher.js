@@ -28,7 +28,19 @@ function showChooser() {
         ${Object.keys(TOPICS).map(key =>
           `<a class="btn" href="teacher.html?topic=${key}">${escapeHtml(TOPICS[key].title)}</a>`).join("")}
       </div>
-    </section>`;
+    </section>
+    <section>
+      <h2>🗣 Getting the most natural voice</h2>
+      <p>The 🔊 voice comes from your device, so it sounds different on each computer or tablet. The app picks the most natural one it can find, and you can change it with the <strong>🗣 Voice</strong> button on any flashcard page. Voices marked ★ sound the most natural.</p>
+      <ul>
+        <li><strong>Mac:</strong> System Settings → Accessibility → Spoken Content → System Voice → Manage Voices. Download a “Premium” or “Enhanced” English voice (for example Serena, Daniel or Ava), then reopen the browser.</li>
+        <li><strong>iPhone or iPad:</strong> Settings → Accessibility → Spoken Content → Voices → English. Download an “Enhanced” or “Premium” voice.</li>
+        <li><strong>Windows:</strong> open the flashcards in Microsoft Edge, which includes very natural “Online (Natural)” voices.</li>
+        <li><strong>Chromebook or Android:</strong> use Chrome, which includes “Google UK English” and “Google US English” voices.</li>
+      </ul>
+    </section>
+    ${backupSectionHtml()}`;
+  setUpBackup();
 }
 
 function showGuide() {
@@ -73,6 +85,8 @@ function showGuide() {
     <p class="lead">For ages 3–5 · 1-hour lesson · ${topic.cards.length} words</p>
     <div class="actions">
       <a class="btn" href="${encodeURI(topic.page)}">▶ Open flashcards</a>
+      <a class="btn" href="game.html?topic=${topicKey}">🎧 Listening game</a>
+      <a class="btn" href="worksheet.html?topic=${topicKey}">📝 Worksheets</a>
       <a class="btn" href="print.html?topic=${topicKey}">🖨 Print flashcards</a>
       <button class="btn" onclick="window.print()">🖨 Print this guide</button>
     </div>
@@ -106,10 +120,12 @@ function showGuide() {
       <p class="hint no-print">Your own ideas for this topic. They save automatically on this device and browser only.</p>
       <textarea id="notes" aria-label="My notes for ${escapeHtml(topic.title)}" placeholder="e.g. Class loved Animal Moves. Next time add a zebra card."></textarea>
       <p id="saved" class="no-print" aria-live="polite"></p>
-    </section>`;
+    </section>
+    ${backupSectionHtml()}`;
 
   renderPlanSection();
   setUpNotes();
+  setUpBackup();
 }
 
 /* ---------- Lesson plans: the ready-made plan plus any the teacher edits or creates ---------- */
@@ -367,6 +383,145 @@ function setUpPlanEditor() {
   document.getElementById("cancel-edit").addEventListener("click", () => {
     editing = null;
     renderPlanSection();
+  });
+}
+
+/* ---------- Backup and sharing: plans and notes for every topic, as a file ---------- */
+
+function backupSectionHtml() {
+  return `
+    <section class="no-print">
+      <h2>💾 Back up and share</h2>
+      <p class="hint">Your plans and notes for all topics are saved only in this browser. Download a backup file to keep them safe, or send it to another teacher so they can load your plans.</p>
+      <div class="plan-tools">
+        <button class="btn" id="download-backup">⬇ Download my plans and notes</button>
+        <label class="btn btn-light file-btn">⬆ Load from a file
+          <input type="file" id="load-backup" accept=".json,application/json">
+        </label>
+      </div>
+      <p id="backup-status" class="hint" aria-live="polite"></p>
+    </section>`;
+}
+
+function isValidPlan(plan) {
+  const isText = value => typeof value === "string";
+  return plan && isText(plan.id) && isText(plan.name) &&
+    Array.isArray(plan.steps) && plan.steps.every(s => s && isText(s.time) && isText(s.step) && isText(s.details)) &&
+    Array.isArray(plan.materials) && plan.materials.every(isText);
+}
+
+function setUpBackup() {
+  const status = document.getElementById("backup-status");
+
+  document.getElementById("download-backup").addEventListener("click", () => {
+    const data = {};
+    try {
+      for (const key of Object.keys(TOPICS)) {
+        for (const name of ["teacher-plans-" + key, "teacher-notes-" + key]) {
+          const value = localStorage.getItem(name);
+          if (value) data[name] = value;
+        }
+      }
+    } catch (error) {
+      status.textContent = "This browser isn't letting the page read saved plans.";
+      return;
+    }
+    if (Object.keys(data).length === 0) {
+      status.textContent = "There's nothing to back up yet. Edit a plan or write some notes first.";
+      return;
+    }
+    const file = new Blob([JSON.stringify({ app: "flashcards-teacher", version: 1, saved: new Date().toISOString(), data }, null, 2)],
+      { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(file);
+    link.download = "flashcards-teacher-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+    status.textContent = "Downloaded ✓ Keep the file somewhere safe, or send it to a colleague.";
+  });
+
+  document.getElementById("load-backup").addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    event.target.value = ""; // let the same file be picked again later
+    if (!file) return;
+
+    let backup;
+    try {
+      backup = JSON.parse(await file.text());
+    } catch (error) {
+      status.textContent = "That file couldn't be read. Please choose a backup made by this app.";
+      return;
+    }
+    if (!backup || backup.app !== "flashcards-teacher" || typeof backup.data !== "object") {
+      status.textContent = "That doesn't look like a backup from this app.";
+      return;
+    }
+
+    // Collect what's usable from the file before changing anything
+    const incoming = [];
+    for (const key of Object.keys(TOPICS)) {
+      const notes = backup.data["teacher-notes-" + key];
+      if (typeof notes === "string" && notes.trim()) incoming.push({ key, notes });
+      try {
+        const plans = JSON.parse(backup.data["teacher-plans-" + key] || "null");
+        if (plans && Array.isArray(plans.plans)) {
+          const valid = plans.plans.filter(isValidPlan);
+          if (valid.length) incoming.push({ key, plans: valid });
+        }
+      } catch (error) {
+        // Skip a damaged topic, keep the rest
+      }
+    }
+    if (incoming.length === 0) {
+      status.textContent = "That backup doesn't have any plans or notes in it.";
+      return;
+    }
+
+    const planCount = incoming.reduce((n, item) => n + (item.plans ? item.plans.length : 0), 0);
+    const noteCount = incoming.filter(item => item.notes).length;
+    if (!confirm(`Load ${planCount} plan(s) and notes for ${noteCount} topic(s) from this file?\n\n` +
+      "Your own plans stay. Plans from the file are added (or updated if they're the same plan), and notes from the file are added below yours.")) return;
+
+    try {
+      for (const item of incoming) {
+        if (item.notes) {
+          const name = "teacher-notes-" + item.key;
+          const existing = localStorage.getItem(name) || "";
+          if (!existing.trim()) {
+            localStorage.setItem(name, item.notes);
+          } else if (!existing.includes(item.notes)) {
+            localStorage.setItem(name, existing + "\n\n--- From backup file ---\n" + item.notes);
+          }
+        }
+        if (item.plans) {
+          const name = "teacher-plans-" + item.key;
+          let store;
+          try {
+            store = JSON.parse(localStorage.getItem(name));
+          } catch (error) {
+            store = null;
+          }
+          if (!store || !Array.isArray(store.plans)) store = { plans: [], selected: READY_MADE };
+          for (const plan of item.plans) {
+            const mine = store.plans.findIndex(p => p.id === plan.id);
+            if (plan.id === READY_MADE && mine >= 0 && JSON.stringify(store.plans[mine]) !== JSON.stringify(plan)) {
+              // Both have edited the ready-made plan: keep theirs as a separate plan
+              store.plans.push({ ...plan, id: "plan-" + Date.now() + "-" + store.plans.length, name: "Edited ready-made plan (from file)" });
+            } else if (mine >= 0) {
+              store.plans[mine] = plan;
+            } else {
+              store.plans.push(plan);
+            }
+          }
+          localStorage.setItem(name, JSON.stringify(store));
+        }
+      }
+    } catch (error) {
+      status.textContent = "This browser couldn't save the loaded plans.";
+      return;
+    }
+    status.textContent = "Loaded ✓ Refreshing…";
+    setTimeout(() => location.reload(), 800);
   });
 }
 

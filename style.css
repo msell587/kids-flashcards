@@ -103,6 +103,82 @@ button {
   opacity: 1;
 }
 
+/* Extra tools under the cards (listening game, shuffle, hide words, big screen) */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  max-width: 460px;
+}
+
+.tool {
+  margin: 0;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--word);
+  background-color: white;
+  border: 2px solid #cfe3cb;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.tool {
+  box-shadow: none;
+}
+
+.tool.on {
+  color: white;
+  background-color: var(--word);
+  border-color: var(--word);
+}
+
+/* "Hide words" mode: the word is replaced by a Show button until tapped */
+.reveal {
+  display: none;
+}
+
+.card.hidden-word h1,
+.card.hidden-word .speak {
+  display: none;
+}
+
+.card.hidden-word .reveal {
+  display: block;
+  align-self: center;
+  margin: 0 0 20px 0;
+  height: 60px;
+  background-color: var(--border);
+}
+
+.card.hidden-word {
+  cursor: pointer;
+}
+
+.star-earned {
+  font-weight: bold;
+}
+
+/* Big screen (classroom) mode: a larger card, and only the essentials */
+body.classroom .card {
+  width: min(94vw, 1000px);
+  height: min(74vh, 900px);
+}
+
+body.classroom h1 {
+  font-size: 72px;
+  height: 100px;
+}
+
+body.classroom .home,
+body.classroom .teacher-link,
+body.classroom .tool:not(#big-btn) {
+  display: none;
+}
+
 /* Button feedback: lift on hover, press down on click, clear outline for keyboard users */
 button,
 .home {
@@ -226,7 +302,16 @@ button:focus-visible,
 /* Phones: bigger picture, smaller word, and room so the word never hits the speaker button */
 @media (max-width: 500px) {
   .card {
+    height: min(58vh, 640px);
     padding: 14px 14px 64px 14px;
+  }
+
+  .home {
+    margin-top: 16px;
+  }
+
+  .tools {
+    margin-top: 12px;
   }
 
   img {
@@ -237,6 +322,15 @@ button:focus-visible,
     font-size: 38px;
     height: 60px;
     margin: 0;
+  }
+
+  .card.hidden-word .reveal {
+    margin: 0;
+  }
+
+  .tool {
+    font-size: 14px;
+    padding: 5px 10px;
   }
 
   button {

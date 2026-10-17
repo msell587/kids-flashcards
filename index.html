@@ -35,6 +35,7 @@
       max-width: 700px;
     }
     .tile {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -80,6 +81,34 @@
       font-size: 18px;
       color: var(--word);
     }
+    /* Star sticker on topics a child has finished */
+    .star {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      font-size: 34px;
+      animation: star-pop 0.5s ease-out;
+    }
+    @keyframes star-pop {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+    .clear-stars {
+      margin-top: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--word);
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .star {
+        animation: none;
+      }
+    }
     /* Phones: two tiles per row */
     @media (max-width: 500px) {
       h1 {
@@ -99,27 +128,54 @@
 <body>
   <h1>Let's Learn!</h1>
   <div class="topics">
-    <a class="tile" href="animals.html">
+    <a class="tile" href="animals.html" data-topic="animals">
       <img src="images/animals/elephant.jpg" alt="">
       <span>Animals</span>
     </a>
-    <a class="tile" href="colors.html">
+    <a class="tile" href="colors.html" data-topic="colors">
       <img src="images/colors/red-apple.jpg" alt="">
       <span>Colors</span>
     </a>
-    <a class="tile" href="shapes.html">
+    <a class="tile" href="shapes.html" data-topic="shapes">
       <img src="images/shapes/circle.jpg" alt="">
       <span>Shapes</span>
     </a>
-    <a class="tile" href="house.html">
+    <a class="tile" href="house.html" data-topic="house">
       <img src="images/house/house.jpg" alt="">
       <span>My House</span>
     </a>
-    <a class="tile" href="seasons and weather.html">
+    <a class="tile" href="seasons and weather.html" data-topic="seasons">
       <img src="images/seasons and weather/summer.jpg" alt="">
       <span>Seasons and Weather</span>
     </a>
   </div>
   <a class="teacher-link" href="teacher.html">📋 Teacher's corner</a>
+  <button class="clear-stars" id="clear-stars" hidden>↺ Clear stars</button>
+
+  <script>
+    // Show a ⭐ on each topic the child has finished (saved by flashcards.js)
+    let finishedTopics = [];
+    try {
+      finishedTopics = JSON.parse(localStorage.getItem("finished-topics") || "[]");
+    } catch (error) {
+      // No stars in this browser
+    }
+    document.querySelectorAll(".tile").forEach(tile => {
+      if (finishedTopics.includes(tile.dataset.topic)) {
+        tile.insertAdjacentHTML("beforeend", '<span class="star" aria-label="Finished">⭐</span>');
+      }
+    });
+
+    const clearButton = document.getElementById("clear-stars");
+    clearButton.hidden = finishedTopics.length === 0;
+    clearButton.addEventListener("click", () => {
+      if (!confirm("Clear all the stars on this device? (Useful for a new class.)")) return;
+      try {
+        localStorage.removeItem("finished-topics");
+      } catch (error) {}
+      document.querySelectorAll(".star").forEach(star => star.remove());
+      clearButton.hidden = true;
+    });
+  </script>
 </body>
 </html>

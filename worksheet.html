@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Worksheets</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+    :root {
+      --border: #6bcb77;
+      --word: #3a7ca5;
+    }
+    body {
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: #2d3b45;
+      margin: 0;
+    }
+
+    /* Controls (screen only) */
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .bar a,
+    .bar button {
+      padding: 8px 16px;
+      font-family: inherit;
+      font-size: 17px;
+      color: var(--word);
+      background-color: white;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .bar [aria-current="page"],
+    .bar .primary {
+      color: white;
+      background-color: var(--word);
+    }
+    .bar a:focus-visible,
+    .bar button:focus-visible {
+      outline: 3px solid var(--border);
+      outline-offset: 2px;
+    }
+
+    /* The sheet itself */
+    .sheet {
+      background-color: white;
+      max-width: 186mm;
+      margin: 0 auto;
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 3px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+    }
+    .sheet-head h1 {
+      font-size: 24pt;
+      color: var(--word);
+      margin: 0;
+    }
+    .name-line {
+      font-size: 14pt;
+    }
+    .instructions {
+      font-size: 15pt;
+      margin: 8px 0 14px 0;
+    }
+
+    /* Match: pictures on the left, words on the right */
+    .match {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 40mm;
+      row-gap: 6mm;
+    }
+    .match .pic,
+    .match .word {
+      display: flex;
+      align-items: center;
+      height: 38mm;
+      break-inside: avoid;
+    }
+    .match .pic img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+    .match .pic::after,
+    .match .word::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 4mm;
+      height: 4mm;
+      border-radius: 50%;
+      background-color: #2d3b45;
+      margin: 0 3mm;
+    }
+    .match .word {
+      font-size: 26pt;
+      color: var(--word);
+    }
+
+    /* Trace: picture, outlined word, and a line to write on */
+    .trace-row {
+      display: flex;
+      align-items: center;
+      gap: 6mm;
+      padding: 3mm 0;
+      border-bottom: 1px dashed #c8d3da;
+      break-inside: avoid;
+    }
+    .trace-row img {
+      width: 32mm;
+      height: 24mm;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+    .trace-words {
+      flex: 1;
+    }
+    .trace {
+      font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+      font-size: 34pt;
+      color: #eef2f4;
+      -webkit-text-stroke: 1px #8a9aa6;
+      letter-spacing: 3px;
+      line-height: 1.1;
+    }
+    .write-line {
+      border-bottom: 2px solid #8a9aa6;
+      height: 12mm;
+    }
+
+    /* Find & circle: say the word, children circle the right picture */
+    .find-row {
+      display: grid;
+      grid-template-columns: 34mm 1fr 1fr 1fr;
+      align-items: center;
+      gap: 4mm;
+      padding: 3mm 0;
+      border-bottom: 1px dashed #c8d3da;
+      break-inside: avoid;
+    }
+    .find-row .label {
+      font-size: 16pt;
+      color: var(--word);
+    }
+    .find-row .label strong {
+      display: block;
+      font-size: 20pt;
+    }
+    .find-row img {
+      width: 100%;
+      height: 28mm;
+      object-fit: contain;
+    }
+
+    @media screen {
+      body {
+        background-color: #f4faf0;
+        padding: 16px;
+      }
+      .sheet {
+        padding: 12mm;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      .sheet {
+        padding: 16px;
+      }
+      .match {
+        column-gap: 10vw;
+      }
+      .match .pic,
+      .match .word {
+        height: 22vw;
+      }
+      .match .word,
+      .trace {
+        font-size: 22px;
+      }
+      .find-row {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .find-row .label {
+        grid-column: 1 / -1;
+      }
+      .find-row img {
+        height: 20vw;
+      }
+    }
+    @media print {
+      .bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar" id="bar"></div>
+  <div class="sheet" id="sheet"></div>
+
+  <script src="topics.js"></script>
+  <script>
+    // Printable worksheets for a topic, e.g. worksheet.html?topic=animals&type=match
+    const params = new URLSearchParams(location.search);
+    const topicKey = TOPICS[params.get("topic")] ? params.get("topic") : "animals";
+    const topic = TOPICS[topicKey];
+    const TYPES = {
+      match: { label: "Match", instructions: "Draw a line from each picture to its word." },
+      trace: { label: "Trace", instructions: "Trace the word, then write it on the line." },
+      find: { label: "Find & Circle", instructions: "Listen to the word and circle the right picture." }
+    };
+    const type = TYPES[params.get("type")] ? params.get("type") : "match";
+
+    function escapeHtml(text) {
+      return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    document.title = topic.title + " · " + TYPES[type].label + " worksheet";
+
+    document.getElementById("bar").innerHTML =
+      '<a href="teacher.html?topic=' + topicKey + '">← Teacher\'s guide</a>' +
+      Object.keys(TYPES).map(key =>
+        '<a href="worksheet.html?topic=' + topicKey + '&type=' + key + '"' +
+        (key === type ? ' aria-current="page"' : "") + ">" + TYPES[key].label + "</a>").join("") +
+      '<button onclick="buildSheet()">🔀 New sheet</button>' +
+      '<button class="primary" onclick="window.print()">🖨 Print</button>';
+
+    function picture(card) {
+      return '<img src="' + encodeURI(card.picture) + '" alt="' + escapeHtml(card.word) + '">';
+    }
+
+    function buildSheet() {
+      let body = "";
+
+      if (type === "match") {
+        const chosen = shuffled(topic.cards).slice(0, 5);
+        const words = shuffled(chosen);
+        body = '<div class="match">' + chosen.map((card, i) =>
+          '<div class="pic">' + picture(card) + '</div><div class="word">' + escapeHtml(words[i].word) + "</div>"
+        ).join("") + "</div>";
+      }
+
+      if (type === "trace") {
+        body = topic.cards.map(card =>
+          '<div class="trace-row">' + picture(card) +
+          '<div class="trace-words"><div class="trace">' + escapeHtml(card.word) + '</div><div class="write-line"></div></div></div>'
+        ).join("");
+      }
+
+      if (type === "find") {
+        body = shuffled(topic.cards).slice(0, 6).map(target => {
+          const options = shuffled([target, ...shuffled(topic.cards.filter(c => c !== target)).slice(0, 2)]);
+          return '<div class="find-row"><div class="label">Circle the<strong>' + escapeHtml(target.word) + "</strong></div>" +
+            options.map(picture).join("") + "</div>";
+        }).join("");
+      }
+
+      document.getElementById("sheet").innerHTML =
+        '<div class="sheet-head"><h1>' + escapeHtml(topic.title) + '</h1><div class="name-line">Name: ____________________</div></div>' +
+        '<p class="instructions">' + TYPES[type].instructions + "</p>" + body;
+    }
+
+    buildSheet();
+  </script>
+</body>
+</html>

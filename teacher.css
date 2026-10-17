@@ -378,6 +378,24 @@ input[type="text"]:focus-visible {
   min-height: 110px;
 }
 
+/* Backup: a file picker styled as a button */
+.file-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.file-btn input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-btn:focus-within {
+  outline: 3px solid var(--border);
+  outline-offset: 2px;
+}
+
 /* Topic chooser (when no topic is picked) */
 .chooser {
   display: flex;
