@@ -4,18 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Worksheets</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
   <style>
     @page {
       size: A4;
       margin: 12mm;
     }
-    :root {
-      --border: #6bcb77;
-      --word: #3a7ca5;
-    }
     body {
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      color: #2d3b45;
+      color: var(--text);
       margin: 0;
     }
 
@@ -103,7 +106,7 @@
       width: 4mm;
       height: 4mm;
       border-radius: 50%;
-      background-color: #2d3b45;
+      background-color: var(--text);
       margin: 0 3mm;
     }
     .match .word {
@@ -168,7 +171,7 @@
 
     @media screen {
       body {
-        background-color: #f4faf0;
+        background-color: var(--background);
         padding: 16px;
       }
       .sheet {
@@ -277,5 +280,6 @@
 
     buildSheet();
   </script>
+  <script src="pwa.js"></script>
 </body>
 </html>

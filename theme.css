@@ -1,0 +1,41 @@
+/* Shared look for every page: colours, font and background. Each page's own stylesheet loads after this. */
+:root {
+  --background: #fdf7ee;
+  --surface: #ffffff;
+  --border: #5cbf6e;       /* green accent: speaker button, "show" button, celebrations */
+  --word: #2f6f9f;         /* main blue: words, headings, buttons */
+  --word-dark: #245a83;
+  --text: #24323d;
+  --muted: #637280;
+  --line: #efe6d9;
+  --soft-blue: #e8f2fa;
+  --shadow: 0 1px 2px rgba(36, 50, 61, 0.06), 0 10px 30px rgba(47, 111, 159, 0.12);
+  --shadow-lift: 0 2px 4px rgba(36, 50, 61, 0.08), 0 18px 40px rgba(47, 111, 159, 0.18);
+  --radius: 28px;
+  --font: "Nunito", ui-rounded, "Trebuchet MS", Arial, sans-serif;
+
+  /* One soft colour per topic, used behind its picture on the home page */
+  --animals: #fff1d6;
+  --colors: #ffe3e0;
+  --shapes: #e3f0ff;
+  --house: #e6f6ea;
+  --seasons: #fff6cc;
+  --city: #ece6ff;
+  --christmas: #ffe6e9;
+}
+
+body {
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media screen {
+  body {
+    background-color: var(--background);
+    background-image:
+      radial-gradient(circle at 8% 12%, #fff0d4 0 140px, transparent 141px),
+      radial-gradient(circle at 94% 88%, #e2f3e7 0 190px, transparent 191px),
+      radial-gradient(circle at 88% 8%, #e6f0fb 0 90px, transparent 91px);
+    background-attachment: fixed;
+  }
+}

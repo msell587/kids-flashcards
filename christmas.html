@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Christmas Flashcards</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +23,7 @@
   <p id="counter">1 / 12</p>
 
   <div>
-    <button onclick="prevCard()">Back</button>
+    <button class="secondary" onclick="prevCard()">Back</button>
     <button onclick="nextCard()">Next</button>
   </div>
   <a class="home" href="index.html">🏠 Home</a>
@@ -27,5 +35,6 @@
   </script>
   <script src="voice.js"></script>
   <script src="flashcards.js"></script>
+  <script src="pwa.js"></script>
 </body>
 </html>

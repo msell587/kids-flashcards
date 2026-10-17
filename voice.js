@@ -157,21 +157,21 @@ const Voice = (() => {
   // Picker styles live here so every page that loads voice.js gets them
   const style = document.createElement("style");
   style.textContent = `
-    .voice-dialog { font-family: "Trebuchet MS", Arial, sans-serif; color: #2d3b45; border: 6px solid #6bcb77;
-      border-radius: 20px; padding: 20px 24px; width: min(90vw, 420px); box-sizing: border-box; }
+    .voice-dialog { font-family: var(--font, "Trebuchet MS", Arial, sans-serif); color: var(--text, #2d3b45); border: none;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25); border-radius: 28px; padding: 20px 24px; width: min(90vw, 420px); box-sizing: border-box; }
     .voice-dialog::backdrop { background: rgba(0, 0, 0, 0.35); }
-    .voice-dialog h2 { color: #3a7ca5; margin: 0 0 14px 0; font-size: 26px; }
+    .voice-dialog h2 { color: var(--word, #3a7ca5); margin: 0 0 14px 0; font-size: 26px; font-weight: 800; }
     .voice-dialog .voice-row { display: block; font-size: 17px; }
     .voice-dialog select { display: block; width: 100%; margin-top: 4px; padding: 8px; font: inherit; font-size: 17px;
-      border: 2px solid #cfe3cb; border-radius: 10px; }
+      border: 2px solid var(--line, #cfe3cb); border-radius: 12px; }
     .voice-dialog fieldset { border: none; padding: 0; margin: 12px 0 0 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 17px; }
     .voice-dialog legend { font-weight: bold; margin-bottom: 4px; padding: 0; }
     .voice-dialog .voice-hint { color: #5f6f7a; font-size: 14px; margin: 6px 0 0 0; }
     .voice-dialog .voice-buttons { display: flex; gap: 10px; margin-top: 18px; }
-    .voice-dialog button { margin: 0; padding: 10px 22px; font: inherit; font-size: 18px; border-radius: 12px; cursor: pointer;
-      color: #3a7ca5; background: white; border: 2px solid #3a7ca5; box-shadow: none; }
-    .voice-dialog button.voice-primary { color: white; background: #3a7ca5; }
-    .voice-dialog :focus-visible { outline: 3px solid #6bcb77; outline-offset: 2px; }`;
+    .voice-dialog button { margin: 0; padding: 10px 22px; font: inherit; font-size: 18px; font-weight: 800; border-radius: 999px; cursor: pointer;
+      color: var(--word, #3a7ca5); background: white; border: 2px solid var(--word, #3a7ca5); box-shadow: none; }
+    .voice-dialog button.voice-primary { color: white; background: var(--word, #3a7ca5); }
+    .voice-dialog :focus-visible { outline: 3px solid var(--border, #6bcb77); outline-offset: 2px; }`;
   document.head.appendChild(style);
 
   if (supported) {

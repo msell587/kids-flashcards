@@ -1,0 +1,17 @@
+{
+  "name": "Let's Learn! Flashcards",
+  "short_name": "Let's Learn",
+  "description": "Bilingual-classroom English flashcards, games, worksheets and lesson plans for children aged 3–6.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fdf7ee",
+  "theme_color": "#2f6f9f",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
