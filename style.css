@@ -1,0 +1,86 @@
+/* Shared styles for the flashcard topic pages */
+:root {
+  --background: #f4faf0;
+  --border: #6bcb77;
+  --word: #3a7ca5;
+}
+
+body {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.card {
+  position: relative;
+  background-color: white;
+  border: 6px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  width: min(90vw, 460px);
+  height: min(62vh, 640px);
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+img {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  padding: 25px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+h1 {
+  font-size: 48px;
+  height: 80px;
+  color: var(--word);
+  margin: 0 0 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#counter {
+  margin: 20px 0 0 0;
+  font-size: 22px;
+  color: var(--word);
+}
+
+button {
+  margin: 20px 10px 0 10px;
+  font-family: inherit;
+  font-size: 26px;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--word);
+  color: white;
+  cursor: pointer;
+}
+
+.speak {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: var(--border);
+  font-size: 22px;
+  padding: 8px 16px;
+  margin: 0;
+}
+
+a {
+  color: var(--word);
+  font-size: 22px;
+}

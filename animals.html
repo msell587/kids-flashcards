@@ -3,140 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <title>Animal Flashcards</title>
-  <style>
-   :root {
-  --background: #f4faf0;
-  --border: #6bcb77;
-  --word: #3a7ca5;
-}
-    body {
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      background-color: var(--background);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-    
-    .card {
-      position: relative;
-      background-color: white;
-      border: 6px solid var(--border);
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-      width: min(90vw, 460px);
-      height: min(62vh, 640px);
-      box-sizing: border-box;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-    }
-    img {
-     object-fit: cover;
-      width: 100%;
-      flex: 1;
-      min-height: 0;
-      box-sizing: border-box;
-      padding: 25px;
-      object-fit: contain;
-      object-position: center;
-      display: block;
-    }
-    h1 {
-       font-size: 48px;
-       height: 80px;
-      color: var(--word);
-      margin: 0 0 20px 0;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    #counter {
-      margin: 20px 0 0 0;
-      font-size: 22px;
-      color: var(--word);
-    }
-    button {
-      margin: 20px 10px 0 10px;
-      font-family: inherit;
-      font-size: 26px;
-      padding: 14px 36px;
-      border: none;
-      border-radius: 12px;
-      background-color: var(--word);
-      color: white;
-      cursor: pointer;
-    }
-.speak {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  background-color: var(--border);
-  font-size: 22px;
-  padding: 8px 16px;
-  margin: 0;
-}
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="card">
-  <img id="picture" src="images/animals/ant.jpg" alt="flashcard picture">
-  <h1 id="word">ant</h1>
-  <button class="speak" onclick="speakWord()">🔊</button>
-</div>
-<p id="counter">1 / 11</p>
+  <div class="card">
+    <img id="picture" src="images/animals/ant.jpg" alt="flashcard picture">
+    <h1 id="word">ant</h1>
+    <button class="speak" onclick="speakWord()">🔊</button>
+  </div>
+  <p id="counter">1 / 11</p>
 
-<div>
-  <button onclick="prevCard()">Back</button>
-  <button onclick="nextCard()">Next</button>
-</div>
-<p><a href="index.html">Home</a></p>
+  <div>
+    <button onclick="prevCard()">Back</button>
+    <button onclick="nextCard()">Next</button>
+  </div>
+  <p><a href="index.html">Home</a></p>
+
   <script>
-  const cards = [
-    { word: "ant", picture: "images/animals/ant.jpg" },
-    { word: "elephant", picture: "images/animals/elephant.jpg" },
-    { word: "giraffe", picture: "images/animals/giraffe.jpg" },
-    { word: "mouse", picture: "images/animals/mouse.jpg" },
-    { word: "dog", picture: "images/animals/dog.jpg" },
-    { word: "cat", picture: "images/animals/cat.jpg" },
-    { word: "rabbit", picture: "images/animals/rabbit.jpg" },
-    { word: "horse", picture: "images/animals/horse.jpg" },
-    { word: "lion", picture: "images/animals/lion.jpg" },
-    { word: "camel", picture: "images/animals/camel.jpg" },
-    { word: "sheep", picture: "images/animals/sheep.jpg" }
-  ];
-
-  let current = 0;
-
-  function showCard() {
-    document.getElementById("word").textContent = cards[current].word;
-    document.getElementById("picture").src = cards[current].picture;
-    document.getElementById("counter").textContent = (current + 1) + " / " + cards.length;
-  }
-
-  function nextCard() {
-    current = (current + 1) % cards.length;
-    showCard();
-  }
-
-  function prevCard() {
-    current = (current - 1 + cards.length) % cards.length;
-    showCard();
-  }
-
-  function speakWord() {
-    const utterance = new SpeechSynthesisUtterance(cards[current].word);
-    utterance.lang = "en-GB";
-    utterance.rate = 0.8;
-    speechSynthesis.speak(utterance);
-  }
-
-  showCard();
-</script>
+    const cards = [
+      { word: "ant", picture: "images/animals/ant.jpg" },
+      { word: "elephant", picture: "images/animals/elephant.jpg" },
+      { word: "giraffe", picture: "images/animals/giraffe.jpg" },
+      { word: "mouse", picture: "images/animals/mouse.jpg" },
+      { word: "dog", picture: "images/animals/dog.jpg" },
+      { word: "cat", picture: "images/animals/cat.jpg" },
+      { word: "rabbit", picture: "images/animals/rabbit.jpg" },
+      { word: "horse", picture: "images/animals/horse.jpg" },
+      { word: "lion", picture: "images/animals/lion.jpg" },
+      { word: "camel", picture: "images/animals/camel.jpg" },
+      { word: "sheep", picture: "images/animals/sheep.jpg" }
+    ];
+  </script>
+  <script src="flashcards.js"></script>
 </body>
 </html>
