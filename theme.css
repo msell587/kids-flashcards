@@ -33,63 +33,64 @@ body {
   body {
     background-color: var(--background);
   }
-
-  /* Three soft bubbles that drift slowly behind everything, each at its own pace */
-  html::before,
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    z-index: -1;
-    border-radius: 50%;
-    pointer-events: none;
-    will-change: transform;
-  }
-
-  body::before {
-    top: -60px;
-    left: -60px;
-    width: 300px;
-    height: 300px;
-    background-color: #fff0d4;
-    animation: drift-a 22s ease-in-out infinite alternate;
-  }
-
-  body::after {
-    bottom: -90px;
-    right: -90px;
-    width: 400px;
-    height: 400px;
-    background-color: #e2f3e7;
-    animation: drift-b 28s ease-in-out infinite alternate;
-  }
-
-  html::before {
-    top: -40px;
-    right: -30px;
-    width: 200px;
-    height: 200px;
-    background-color: #e6f0fb;
-    animation: drift-c 18s ease-in-out infinite alternate;
-  }
 }
+
+/* Soft bubbles that float around behind everything (the markup is a .bubbles div at the top of each page) */
+.bubbles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubbles span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.85;
+  will-change: transform;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.bubbles span:nth-child(1) { width: 300px; height: 300px; top: -80px; left: -80px; background: #ffe9c2; animation-name: drift-a; animation-duration: 14s; }
+.bubbles span:nth-child(2) { width: 400px; height: 400px; bottom: -120px; right: -120px; background: #d9f1e0; animation-name: drift-b; animation-duration: 17s; }
+.bubbles span:nth-child(3) { width: 210px; height: 210px; top: -40px; right: 4%; background: #dcebfa; animation-name: drift-c; animation-duration: 12s; }
+.bubbles span:nth-child(4) { width: 150px; height: 150px; top: 48%; left: 3%; background: #ffe1e7; animation-name: float-up; animation-duration: 11s; }
+.bubbles span:nth-child(5) { width: 110px; height: 110px; bottom: 6%; left: 30%; background: #ebe4ff; animation-name: float-up; animation-duration: 9s; animation-delay: -4s; }
+.bubbles span:nth-child(6) { width: 80px; height: 80px; top: 32%; right: 18%; background: #fff4b8; animation-name: drift-c; animation-duration: 8s; animation-delay: -3s; }
+.bubbles span:nth-child(7) { width: 130px; height: 130px; top: 70%; right: 34%; background: #d6f3f0; animation-name: drift-a; animation-duration: 13s; animation-delay: -6s; }
 
 @keyframes drift-a {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, 50px) scale(1.08); }
-  100% { transform: translate(20px, 110px) scale(0.96); }
+  50% { transform: translate(16vw, 10vh) scale(1.15); }
+  100% { transform: translate(5vw, 24vh) scale(0.9); }
 }
 
 @keyframes drift-b {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-70px, -40px) scale(1.06); }
-  100% { transform: translate(-20px, -90px) scale(0.95); }
+  50% { transform: translate(-18vw, -12vh) scale(1.1); }
+  100% { transform: translate(-6vw, -26vh) scale(0.92); }
 }
 
 @keyframes drift-c {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-50px, 40px) scale(1.12); }
-  100% { transform: translate(-90px, 10px) scale(1); }
+  50% { transform: translate(-14vw, 14vh) scale(1.2); }
+  100% { transform: translate(-24vw, 4vh) scale(1); }
+}
+
+@keyframes float-up {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -12vh) scale(1.1); }
+  66% { transform: translate(-30px, -24vh) scale(0.95); }
+  100% { transform: translate(20px, -36vh) scale(1.05); }
+}
+
+@media print {
+  .bubbles {
+    display: none;
+  }
 }
 
 /* Gentle shared animations */
