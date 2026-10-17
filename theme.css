@@ -39,3 +39,36 @@ body {
     background-attachment: fixed;
   }
 }
+
+/* Gentle shared animations */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg) scale(1.03); }
+  75% { transform: rotate(4deg) scale(1.03); }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 var(--pulse-color, rgba(92, 191, 110, 0.55)); }
+  100% { box-shadow: 0 0 0 16px rgba(92, 191, 110, 0); }
+}
+
+/* Devices set to "reduce motion" get no movement anywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

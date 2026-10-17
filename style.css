@@ -24,6 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  animation: rise-in 0.5s ease-out backwards;
 }
 
 img {
@@ -296,6 +297,15 @@ button:focus-visible,
 @keyframes slide-in-back {
   from { opacity: 0; transform: translateX(-24px); }
   to { opacity: 1; transform: none; }
+}
+
+/* While the word is being spoken */
+.card.speaking img {
+  animation: wiggle 0.6s ease-in-out infinite;
+}
+
+.speak.speaking {
+  animation: pulse-ring 1s ease-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

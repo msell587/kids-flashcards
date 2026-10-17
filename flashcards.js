@@ -136,7 +136,17 @@ function prevCard() {
 }
 
 function speakWord() {
-  Voice.speak(deck[current].word);
+  const speakButton = card.querySelector(".speak");
+  const stop = () => {
+    card.classList.remove("speaking");
+    speakButton.classList.remove("speaking");
+  };
+  // Clear the slide-in so it doesn't replay when the wiggle stops
+  card.classList.remove("slide-next", "slide-back");
+  card.classList.add("speaking");
+  speakButton.classList.add("speaking");
+  Voice.speak(deck[current].word, { onEnd: stop });
+  setTimeout(stop, 3000); // in case the device never says it has finished
 }
 
 // Remember finished topics so the home page can show a star on their tile
