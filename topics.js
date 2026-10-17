@@ -114,6 +114,24 @@ const TOPICS = {
       { word: "snowflake", picture: "images/christmas/snowflake.svg" },
       { word: "candy cane", picture: "images/christmas/candy-cane.svg" }
     ]
+  },
+  garden: {
+    title: "My Little Garden",
+    page: "garden.html",
+    cards: [
+      { word: "flower", picture: "images/garden/flower.svg" },
+      { word: "tree", picture: "images/garden/tree.svg" },
+      { word: "leaf", picture: "images/garden/leaf.svg" },
+      { word: "seed", picture: "images/garden/seed.svg" },
+      { word: "grass", picture: "images/garden/grass.svg" },
+      { word: "butterfly", picture: "images/garden/butterfly.svg" },
+      { word: "bee", picture: "images/garden/bee.svg" },
+      { word: "ladybird", picture: "images/garden/ladybird.svg" },
+      { word: "snail", picture: "images/garden/snail.svg" },
+      { word: "worm", picture: "images/garden/worm.svg" },
+      { word: "watering can", picture: "images/garden/watering-can.svg" },
+      { word: "spade", picture: "images/garden/spade.svg" }
+    ]
   }
 };
 

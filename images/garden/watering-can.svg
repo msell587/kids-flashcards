@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="watering can">
+<path d="M270 200 L345 125" stroke="#333333" stroke-width="30" stroke-linecap="round"/>
+<path d="M270 200 L345 125" stroke="#3a86ff" stroke-width="16" stroke-linecap="round"/>
+<ellipse cx="350" cy="120" rx="26" ry="14" transform="rotate(-45 350 120)" fill="#3a86ff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M120 160 C120 110, 230 110, 230 160" fill="none" stroke="#333333" stroke-width="26" stroke-linecap="round"/>
+<path d="M120 160 C120 110, 230 110, 230 160" fill="none" stroke="#3a86ff" stroke-width="12" stroke-linecap="round"/>
+<rect x="85" y="165" width="200" height="175" rx="22" fill="#3a86ff" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<rect x="85" y="210" width="200" height="22" fill="#1d6fe0"/>
+<path d="M370 175 q8 14 0 20 q-8 -6 0 -20 Z M350 210 q8 14 0 20 q-8 -6 0 -20 Z M385 225 q8 14 0 20 q-8 -6 0 -20 Z" fill="#8ecae6" stroke="#1d6fe0" stroke-width="3"/>
+</svg>

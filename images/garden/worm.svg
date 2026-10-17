@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="worm">
+<path d="M70 280 C110 200, 160 200, 190 260 C220 320, 270 320, 300 250 C315 215, 330 195, 345 190" fill="none" stroke="#333333" stroke-width="62" stroke-linecap="round"/>
+<path d="M70 280 C110 200, 160 200, 190 260 C220 320, 270 320, 300 250 C315 215, 330 195, 345 190" fill="none" stroke="#ff9eb5" stroke-width="46" stroke-linecap="round"/>
+<path d="M120 225 L128 250 M240 300 L232 275" stroke="#e57391" stroke-width="6" stroke-linecap="round"/>
+<circle cx="333" cy="182" r="6" fill="#333333"/><circle cx="357" cy="182" r="6" fill="#333333"/>
+<path d="M330 205 Q345 214 360 205" fill="none" stroke="#333333" stroke-width="5" stroke-linecap="round"/>
+</svg>

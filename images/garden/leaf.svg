@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="leaf">
+<path d="M200 50 C305 110, 320 260, 200 350 C80 260, 95 110, 200 50 Z" fill="#2bb04a" stroke="#333333" stroke-width="8" stroke-linejoin="round" transform="rotate(25 200 200)"/>
+<g transform="rotate(25 200 200)" fill="none" stroke="#1f8a3a" stroke-width="7" stroke-linecap="round">
+  <path d="M200 70 L200 375"/>
+  <path d="M200 140 L150 110 M200 140 L250 110 M200 200 L140 165 M200 200 L260 165 M200 260 L150 230 M200 260 L250 230"/>
+</g>
+</svg>

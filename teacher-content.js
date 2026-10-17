@@ -497,5 +497,73 @@ const TEACHER = {
       { name: "Memory Match", how: "Print two sets and lay them face down. Children turn over two cards and say both words. A matching pair stays face up." },
       { name: "Spain tip: Los Reyes Magos", how: "After the holidays, use the star, present and candle cards to talk about the Three Kings: “The Three Kings follow the star. They bring presents!” Children can draw their own crown." }
     ]
+  },
+  garden: {
+    goal: "Children can name 12 things found in a garden, and say what a plant needs: water and sun.",
+    materials: [
+      "Screen or tablet with the My Little Garden flashcards",
+      "Printed garden cards (stick a few around the room for Bug Hunt)",
+      "A real flower or leaf, and a few seeds (beans or sunflower seeds)",
+      "Small cups, soil and a watering can for the planting activity",
+      "Craft supplies: see “Paper Plate Flower” below"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and mystery bag", details: "Sing hello. Pull a real leaf, flower or seed out of a bag: “What is it? It's a leaf!” Let children touch and smell it." },
+      { time: "8 min", step: "Meet the garden", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: flap for butterfly, buzz for bee, wiggle for worm, slow creeping hands for snail, digging for spade." },
+      { time: "5 min", step: "Song: This Is the Way We Water the Flowers", details: "Sing it with actions: digging, planting a seed, watering and growing tall." },
+      { time: "10 min", step: "Games", details: "Play Bug Hunt, then Grow, Little Seed!" },
+      { time: "5 min", step: "Movement break", details: "Play Garden Moves: call out a card and children move like it (flutter, buzz, crawl, wriggle). Freeze when you say “Rain!”" },
+      { time: "15 min", step: "Craft: Paper Plate Flower", details: "Follow the craft steps below. Ask “What colour is your flower?” and “What does a flower need?” (water, sun)." },
+      { time: "7 min", step: "Plant a seed", details: "Each child puts soil in a cup, pushes in a seed and gives it a little water with the watering can. Say together: “Grow, grow, grow!” Put the cups by a sunny window." },
+      { time: "5 min", step: "Review and goodbye", details: "Quick round of Who's in the Garden?, then click through the flashcards together to the 🎉 screen." }
+    ],
+    crafts: [
+      {
+        name: "Paper Plate Flower",
+        time: "15 min",
+        supplies: ["Small paper plates (one per child)", "Coloured paper petals (cut before class)", "A green paper strip for the stem and two leaves", "Glue sticks", "Yellow crayons"],
+        steps: [
+          "Children colour the middle of the plate yellow.",
+          "Glue the petals all around the edge of the plate.",
+          "Glue on the green stem and two leaves.",
+          "Count the petals together in English: “One, two, three…”"
+        ],
+        tip: "Write each child's name on a leaf so the flowers can make a class garden on the wall."
+      },
+      {
+        name: "Handprint Butterfly",
+        time: "15 min",
+        supplies: ["Paint in two bright colours", "White paper", "A black paper strip for the body", "Wet wipes"],
+        steps: [
+          "Children press two handprints next to each other, thumbs touching (adult guides).",
+          "When dry, glue the black strip down the middle for the body.",
+          "Draw two antennae and add dots to the wings.",
+          "Flap your arms and fly your butterfly round the room!"
+        ],
+        tip: "Fold the paper in half for a quick mirror butterfly: paint dots on one side, fold, press and open."
+      }
+    ],
+    songs: [
+      {
+        title: "This Is the Way We Water the Flowers",
+        tune: "Here We Go Round the Mulberry Bush",
+        words: "This is the way we dig the ground, dig the ground, dig the ground,\nThis is the way we dig the ground in my little garden.\nThis is the way we plant a seed…\nThis is the way we water the flowers…\nThis is the way the flowers grow…",
+        how: "Do the actions: dig with a pretend spade, push in a seed, pour the watering can, then crouch down and grow up tall on tiptoes.",
+        search: "here we go round the mulberry bush kids song"
+      },
+      {
+        title: "Incy Wincy Spider",
+        tune: "Traditional",
+        how: "A favourite garden rhyme. Use finger actions for the spider climbing, rain falling and sun coming out. Then try it with “Busy busy bee” or “Slow slow snail”.",
+        search: "incy wincy spider kids song"
+      }
+    ],
+    games: [
+      { name: "Bug Hunt", how: "Hide the butterfly, bee, ladybird, snail and worm cards around the room. Children hunt for them. When they find one, they shout its name and bring it back to the “garden” (a green mat)." },
+      { name: "Grow, Little Seed!", how: "Children curl up small like seeds. Pretend to water them and say “Sun! Rain! Grow, grow, grow!” They slowly grow into tall flowers or trees, then open their arms like petals." },
+      { name: "Who's in the Garden?", how: "Lay out the cards and cover one with your hand. “Who's in the garden? It's small, red and has black dots!” Children guess: ladybird!" },
+      { name: "Garden Tools", how: "Mime using a spade or a watering can, or picking a flower. Children guess and point to the right card, then take turns miming." },
+      { name: "Spain tip: el huerto escolar", how: "If your school has a huerto, take the printed cards outside. Children find the real thing (a leaf, a worm, the spade) and hold the card next to it: “Look, a worm!”" }
+    ]
   }
 };

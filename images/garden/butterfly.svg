@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="butterfly">
+<path d="M195 190 C140 80, 50 90, 70 170 C85 220, 150 215, 195 200 Z" fill="#ff8fc0" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M205 190 C260 80, 350 90, 330 170 C315 220, 250 215, 205 200 Z" fill="#ff8fc0" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M195 210 C140 220, 80 260, 120 310 C150 340, 190 290, 196 225 Z" fill="#8ecae6" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M205 210 C260 220, 320 260, 280 310 C250 340, 210 290, 204 225 Z" fill="#8ecae6" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="125" cy="155" r="16" fill="#ffd23f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/><circle cx="275" cy="155" r="16" fill="#ffd23f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<ellipse cx="200" cy="215" rx="16" ry="80" fill="#5a3e2b" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<path d="M195 140 Q175 95 155 85 M205 140 Q225 95 245 85" fill="none" stroke="#333333" stroke-width="6" stroke-linecap="round"/>
+<circle cx="155" cy="85" r="8" fill="#333333"/><circle cx="245" cy="85" r="8" fill="#333333"/>
+</svg>

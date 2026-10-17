@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="ladybird">
+<path d="M120 135 L95 110 M140 125 L130 95 M260 125 L270 95 M280 135 L305 110" stroke="#333333" stroke-width="7" stroke-linecap="round"/>
+<circle cx="200" cy="140" r="58" fill="#1a1a1a" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<circle cx="200" cy="245" r="125" fill="#e63946" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
+<line x1="200" y1="125" x2="200" y2="368" stroke="#333333" stroke-width="7"/>
+<circle cx="150" cy="200" r="20" fill="#333333"/><circle cx="250" cy="200" r="20" fill="#333333"/><circle cx="130" cy="270" r="16" fill="#333333"/><circle cx="270" cy="270" r="16" fill="#333333"/><circle cx="175" cy="310" r="13" fill="#333333"/><circle cx="225" cy="310" r="13" fill="#333333"/>
+<circle cx="180" cy="128" r="9" fill="white"/><circle cx="220" cy="128" r="9" fill="white"/>
+</svg>
