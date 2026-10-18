@@ -91,6 +91,26 @@
     .tile[data-topic="city"] { --tile-color: var(--city); }
     .tile[data-topic="christmas"] { --tile-color: var(--christmas); }
     .tile[data-topic="garden"] { --tile-color: var(--garden); }
+    .tile[data-topic="madrid"] { --tile-color: var(--madrid); }
+    /* Special tile: a photo that fills the frame and a red-and-yellow "Special" ribbon */
+    .tile.special {
+      border: 4px solid #f2b705;
+    }
+    .tile.special img {
+      object-fit: cover;
+      padding: 0;
+    }
+    .ribbon {
+      position: absolute;
+      top: 18px;
+      left: 0;
+      padding: 4px 12px 4px 10px;
+      font-size: 14px;
+      color: #fff;
+      background-color: #c8102e;
+      border-radius: 0 999px 999px 0;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
     .tile span {
       flex: 1;
       display: flex;
@@ -236,6 +256,11 @@
     <a class="tile" href="garden.html" data-topic="garden">
       <img src="images/garden/flower.svg" alt="">
       <span>My Little Garden</span>
+    </a>
+    <a class="tile special" href="madrid.html" data-topic="madrid">
+      <img src="images/madrid/madrid.jpg" alt="">
+      <span>Madrid</span>
+      <b class="ribbon">Special</b>
     </a>
   </div>
   <a class="teacher-link" href="teacher.html">📋 Lesson plans &amp; teacher tools</a>
