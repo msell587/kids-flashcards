@@ -35,19 +35,20 @@ const tools = document.createElement("div");
 tools.className = "tools";
 tools.innerHTML =
   '<div class="tools-row">' +
-    '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">🎧 Listening game</a>' +
     '<button class="tool" id="options-btn" aria-expanded="false" aria-controls="options-panel">⚙️ Options</button>' +
   '</div>' +
   '<div class="options-panel" id="options-panel" hidden>' +
     '<div class="option-group" role="group" aria-labelledby="practise-label">' +
       '<h2 id="practise-label">Practise</h2>' +
       '<div><button class="tool" id="shuffle-btn">🔀 Shuffle</button>' +
-      '<button class="tool" id="guess-btn">🙈 Hide words</button></div>' +
+      '<button class="tool" id="guess-btn">🙈 Hide words</button>' +
+      '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">🎧 Listening game</a></div>' +
     '</div>' +
     '<div class="option-group" role="group" aria-labelledby="screen-label">' +
       '<h2 id="screen-label">Screen &amp; sound</h2>' +
       '<div><button class="tool" id="big-btn">⛶ Big screen</button>' +
-      '<button class="tool" id="voice-btn">🗣 Voice</button></div>' +
+      '<button class="tool" id="voice-btn">🗣 Voice</button>' +
+      '<button class="tool" id="speaker-btn" aria-pressed="false">🔊 Speaker button</button></div>' +
     '</div>' +
   '</div>';
 document.querySelector(".nav-buttons").after(tools);
@@ -207,6 +208,29 @@ card.addEventListener("click", (event) => {
 });
 
 document.getElementById("voice-btn").addEventListener("click", () => Voice.openPicker());
+
+// Optional 🔊 button on the card; off unless the user switches it on, and remembered
+const speakerButton = document.getElementById("speaker-btn");
+function setSpeakerButton(on) {
+  document.body.classList.toggle("show-speaker", on);
+  speakerButton.setAttribute("aria-pressed", on);
+  speakerButton.classList.toggle("on", on);
+  speakerButton.textContent = on ? "🔊 Speaker button: on" : "🔊 Speaker button";
+}
+try {
+  setSpeakerButton(localStorage.getItem("show-speaker") === "1");
+} catch (error) {
+  setSpeakerButton(false);
+}
+speakerButton.addEventListener("click", () => {
+  const on = !document.body.classList.contains("show-speaker");
+  setSpeakerButton(on);
+  try {
+    localStorage.setItem("show-speaker", on ? "1" : "0");
+  } catch (error) {
+    // The choice just won't be remembered in this browser
+  }
+});
 
 const bigButton = document.getElementById("big-btn");
 bigButton.addEventListener("click", () => {

@@ -97,7 +97,6 @@ function showGuide() {
         <h2 id="in-class-label">In class</h2>
         <div>
           <a class="btn" href="${encodeURI(topic.page)}">▶ Open flashcards</a>
-          <a class="btn" href="game.html?topic=${topicKey}">🎧 Listening game</a>
         </div>
       </div>
       <div class="action-group" role="group" aria-labelledby="print-label">
@@ -105,7 +104,6 @@ function showGuide() {
         <div>
           <a class="btn secondary" href="print.html?topic=${topicKey}">🃏 Flashcards</a>
           <a class="btn secondary" href="worksheet.html?topic=${topicKey}">📝 Worksheets</a>
-          <button class="btn secondary" onclick="window.print()">📄 This guide</button>
         </div>
       </div>
     </div>
