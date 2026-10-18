@@ -132,6 +132,17 @@ const TOPICS = {
       { word: "watering can", picture: "images/garden/watering-can.svg" },
       { word: "spade", picture: "images/garden/spade.svg" }
     ]
+  },
+  madrid: {
+    title: "Madrid",
+    page: "madrid.html",
+    cards: [
+      { word: "Madrid", picture: "images/madrid/madrid.jpg" },
+      { word: "Puerta del Sol", picture: "images/madrid/sol.jpg" },
+      { word: "Cibeles", picture: "images/madrid/cibeles.jpg" },
+      { word: "Retiro Park", picture: "images/madrid/retiro.jpg" },
+      { word: "Bernabéu", picture: "images/madrid/bernabeu.jpg" }
+    ]
   }
 };
 
