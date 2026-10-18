@@ -75,6 +75,7 @@ button {
 }
 
 .speak {
+  display: none; /* shown only when switched on in Options */
   position: absolute;
   bottom: 12px;
   right: 12px;
@@ -430,4 +431,39 @@ button:focus-visible,
     font-size: 22px;
     padding: 12px 30px;
   }
+}
+
+/* Animals page: tap the picture and the animal moves (see animals.js) */
+.card img.moving { transform-origin: 50% 90%; }
+.card img.moving[data-animal="elephant"] { animation: move-sway 1.4s ease-in-out; }
+.card img.moving[data-animal="ant"] { animation: move-scurry 1.2s linear; }
+.card img.moving[data-animal="giraffe"] { animation: move-nod 1.4s ease-in-out; }
+.card img.moving[data-animal="mouse"] { animation: move-squeak 0.9s ease-in-out; }
+.card img.moving[data-animal="dog"] { animation: move-bark 0.9s ease-out; }
+.card img.moving[data-animal="cat"] { animation: move-tilt 1.2s ease-in-out; }
+.card img.moving[data-animal="rabbit"] { animation: move-hop 1s ease-out; }
+.card img.moving[data-animal="horse"] { animation: move-rear 1.5s ease-in-out; }
+.card img.moving[data-animal="lion"] { animation: move-roar 1.6s ease-in-out; }
+.card img.moving[data-animal="camel"] { animation: move-plod 1.2s ease-in-out; }
+.card img.moving[data-animal="sheep"] { animation: move-bounce 1.1s ease-in-out; }
+
+@keyframes move-sway { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-5deg); } 40% { transform: rotate(5deg) scale(1.05); } 60% { transform: rotate(-5deg); } 80% { transform: rotate(4deg); } }
+@keyframes move-scurry { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-18px) rotate(-3deg); } 50% { transform: translateX(14px) rotate(3deg); } 75% { transform: translateX(-10px) rotate(-2deg); } }
+@keyframes move-nod { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-4deg) translateY(-12px); } 60% { transform: rotate(3deg) translateY(4px); } }
+@keyframes move-squeak { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.1) translateY(-8px); } 40% { transform: scale(0.95); } 60% { transform: scale(1.1) translateY(-8px); } 80% { transform: scale(0.97); } }
+@keyframes move-bark { 0%, 40%, 100% { transform: none; } 10% { transform: translateY(-14px) scale(1.06); } 20% { transform: none; } 50% { transform: translateY(-14px) scale(1.06); } 60% { transform: none; } }
+@keyframes move-tilt { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-8deg); } 55% { transform: rotate(8deg) scale(1.04); } 80% { transform: rotate(-3deg); } }
+@keyframes move-hop { 0%, 100% { transform: none; } 25% { transform: translateY(-34px); } 50% { transform: none; } 70% { transform: translateY(-20px); } }
+@keyframes move-rear { 0%, 100% { transform: none; } 30% { transform: rotate(-9deg) translateY(-14px); } 50% { transform: rotate(-9deg) translateY(-14px); } 70% { transform: rotate(3deg); } }
+@keyframes move-roar { 0%, 100% { transform: none; } 20% { transform: scale(1.12) translateY(-6px); } 30%, 60% { transform: scale(1.12) translate(3px, -6px); } 40%, 70% { transform: scale(1.12) translate(-3px, -6px); } }
+@keyframes move-plod { 0%, 100% { transform: none; } 25% { transform: translateY(-8px) rotate(-2deg); } 50% { transform: none; } 75% { transform: translateY(-8px) rotate(2deg); } }
+@keyframes move-bounce { 0%, 100% { transform: none; } 20% { transform: translateY(-22px) scale(1.04, 0.96); } 40% { transform: none; } 60% { transform: translateY(-22px); } 80% { transform: none; } }
+
+
+body.show-speaker .speak {
+  display: block;
+}
+
+body.show-speaker .card.hidden-word .speak {
+  display: none;
 }
