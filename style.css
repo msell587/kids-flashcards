@@ -467,3 +467,103 @@ body.show-speaker .speak {
 body.show-speaker .card.hidden-word .speak {
   display: none;
 }
+
+/* Seasons and Weather: weather that plays over the card when the picture is tapped (see seasons.js) */
+.weather {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.wx {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  font-size: var(--size);
+  line-height: 1;
+  opacity: 0;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+.wx-fall { animation-name: wx-fall; animation-timing-function: linear; }
+.wx-rain { animation-name: wx-rain; animation-timing-function: linear; }
+.wx-rise { top: auto; bottom: 0; animation-name: wx-rise; animation-timing-function: ease-out; }
+.wx-blow { left: 0; top: var(--y); animation-name: wx-blow; animation-timing-function: ease-in-out; }
+.wx-twinkle { top: var(--y); animation-name: wx-twinkle; animation-timing-function: ease-in-out; }
+.wx-sun { animation-name: wx-sun; animation-duration: 3s; animation-timing-function: ease-out; filter: drop-shadow(0 0 24px rgba(255, 200, 40, 0.9)); }
+.wx-sun.middle { left: calc(50% - var(--size) / 2); top: 18%; }
+.wx-sun.corner { left: auto; right: 16px; top: 16px; }
+
+/* Rain streaks, snow dots and wind lines are drawn shapes rather than emoji */
+.wx.drop {
+  width: 3px;
+  height: var(--size);
+  font-size: 0;
+  border-radius: 3px;
+  background: linear-gradient(rgba(74, 144, 217, 0), #4a90d9);
+}
+
+.wx.flake {
+  width: var(--size);
+  height: var(--size);
+  font-size: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 4px rgba(90, 140, 190, 0.9);
+}
+
+.wx.gust {
+  width: var(--size);
+  height: 4px;
+  font-size: 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(120, 160, 200, 0), rgba(120, 160, 200, 0.8), rgba(120, 160, 200, 0));
+}
+
+@keyframes wx-fall {
+  0% { opacity: 0; transform: translate(0, -60px) rotate(0); }
+  8% { opacity: 1; }
+  25% { transform: translate(var(--sway), calc(var(--h) * 0.25 - 30px)) rotate(calc(var(--spin) * 0.25)); }
+  50% { transform: translate(calc(var(--sway) * -1), calc(var(--h) * 0.5)) rotate(calc(var(--spin) * 0.5)); }
+  75% { transform: translate(var(--sway), calc(var(--h) * 0.75 + 30px)) rotate(calc(var(--spin) * 0.75)); }
+  92% { opacity: 1; }
+  100% { opacity: 0; transform: translate(0, calc(var(--h) + 60px)) rotate(var(--spin)); }
+}
+
+@keyframes wx-rain {
+  0% { opacity: 0; transform: translate(0, -40px) rotate(12deg); }
+  10%, 90% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-40px, calc(var(--h) + 40px)) rotate(12deg); }
+}
+
+@keyframes wx-rise {
+  0% { opacity: 0; transform: translate(0, 60px) scale(0.6); }
+  15% { opacity: 1; }
+  50% { transform: translate(var(--sway), calc(var(--h) * -0.5)) scale(1); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(var(--sway) * -1), calc(var(--h) * -1 - 20px)) scale(1); }
+}
+
+@keyframes wx-blow {
+  0% { opacity: 0; transform: translate(-130px, 0) rotate(0); }
+  12% { opacity: 1; }
+  50% { transform: translate(calc(var(--w) * 0.5), var(--drift)) rotate(calc(var(--spin) * 0.5)); }
+  88% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(var(--w) + 30px), 0) rotate(var(--spin)); }
+}
+
+@keyframes wx-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0); }
+  50% { opacity: 1; transform: scale(1.2) rotate(90deg); }
+}
+
+@keyframes wx-sun {
+  0% { opacity: 0; transform: scale(0.2) rotate(-90deg); }
+  25% { opacity: 1; transform: scale(1.15) rotate(0); }
+  40%, 80% { opacity: 1; transform: scale(1) rotate(20deg); }
+  100% { opacity: 0; transform: scale(1.3) rotate(40deg); }
+}

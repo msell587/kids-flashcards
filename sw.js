@@ -1,7 +1,7 @@
 // Offline support: saves every page, script, style and flashcard picture on the device the first time
 // the app is opened, then serves them from there. Pictures are read from topics.js, so new topics are included.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v6";
+const VERSION = "v7";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
@@ -9,7 +9,7 @@ importScripts("topics.js");
 const APP_FILES = [
   "./", "index.html", "teacher.html", "game.html", "print.html", "worksheet.html",
   "theme.css", "style.css", "game.css", "teacher.css",
-  "topics.js", "flashcards.js", "animals.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "pwa.js",
+  "topics.js", "flashcards.js", "animals.js", "seasons.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "pwa.js",
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/apple-touch-icon.png"
 ];
 
