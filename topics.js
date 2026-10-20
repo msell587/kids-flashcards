@@ -118,19 +118,20 @@ const TOPICS = {
   garden: {
     title: "My Little Garden",
     page: "garden.html",
+    // A card can also have video and crop: tapping the picture plays that part of the video (x, y, width, height in video pixels)
     cards: [
-      { word: "flower", picture: "images/garden/flower.svg" },
-      { word: "tree", picture: "images/garden/tree.svg" },
-      { word: "leaf", picture: "images/garden/leaf.svg" },
-      { word: "seed", picture: "images/garden/seed.svg" },
-      { word: "grass", picture: "images/garden/grass.svg" },
-      { word: "butterfly", picture: "images/garden/butterfly.svg" },
-      { word: "bee", picture: "images/garden/bee.svg" },
-      { word: "ladybird", picture: "images/garden/ladybird.svg" },
-      { word: "snail", picture: "images/garden/snail.svg" },
-      { word: "worm", picture: "images/garden/worm.svg" },
-      { word: "watering can", picture: "images/garden/watering-can.svg" },
-      { word: "spade", picture: "images/garden/spade.svg" }
+      { word: "flower", picture: "images/garden/flower.jpg" },
+      { word: "tree", picture: "images/garden/tree.jpg" },
+      { word: "leaf", picture: "images/garden/leaf.jpg" },
+      { word: "seed", picture: "images/garden/seed.jpg" },
+      { word: "grass", picture: "images/garden/grass.jpg" },
+      { word: "butterfly", picture: "images/garden/butterfly.jpg" },
+      { word: "bee", picture: "images/garden/bee.jpg" },
+      { word: "ladybird", picture: "images/garden/ladybird.jpg" },
+      { word: "snail", picture: "images/garden/snail.jpg" },
+      { word: "worm", picture: "images/garden/worm.jpg" },
+      { word: "watering can", picture: "images/garden/watering-can.jpg" },
+      { word: "spade", picture: "images/garden/spade.jpg" }
     ]
   },
   madrid: {
