@@ -75,7 +75,7 @@ const TEACHER = {
   colors: {
     goal: "Children can name the 10 colours and find things of each colour around them.",
     materials: [
-      "Screen or tablet with the Colors flashcards",
+      "Screen or tablet with the Colours flashcards",
       "Printed colour cards",
       "Coloured toys or blocks for sorting",
       "Music to play and pause",
@@ -301,11 +301,11 @@ const TEACHER = {
       {
         name: "Four Seasons Tree",
         time: "15 min",
-        supplies: ["A bare tree outline with four branches, on large paper", "Pink tissue paper (spring)", "Green paper (summer)", "Orange and brown paper (fall)", "Cotton wool (winter)", "Glue sticks"],
+        supplies: ["A bare tree outline with four branches, on large paper", "Pink tissue paper (spring)", "Green paper (summer)", "Orange and brown paper (autumn)", "Cotton wool (winter)", "Glue sticks"],
         steps: [
-          "Label the four branches spring, summer, fall and winter together.",
+          "Label the four branches spring, summer, autumn and winter together.",
           "Spring: scrunch pink tissue into blossoms and glue them on.",
-          "Summer: glue on green leaves. Fall: glue on orange and brown leaves.",
+          "Summer: glue on green leaves. Autumn: glue on orange and brown leaves.",
           "Winter: stick cotton wool snow on the last branch."
         ],
         tip: "Ask “What's the weather like in winter?” as children work, to link seasons to weather words."

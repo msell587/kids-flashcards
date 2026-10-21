@@ -1,5 +1,5 @@
 // Tap the picture and something happens on the card: the weather in Seasons and Weather
-// (leaves fall in fall, snow falls on the snowy card...), and fitting effects for Christmas and My Little Garden.
+// (leaves fall in autumn, snow falls on the snowy card...), and fitting effects for Christmas and My Little Garden.
 // Load it after flashcards.js on a topic page that has an entry below.
 (function tapEffects() {
   const picture = document.getElementById("picture");
@@ -26,7 +26,7 @@
         { motion: "fall", shapes: ["🌸", "🌼"], count: 16, size: [22, 34], time: [3, 4], sway: 40, spin: 270 },
         { motion: "rise", shapes: ["🦋"], count: 4, size: [32, 40], time: [3, 3.8], sway: 50 }
       ] },
-      fall: { parts: [
+      autumn: { parts: [
         { motion: "fall", shapes: ["🍂", "🍁", "🍂"], count: 20, size: [26, 42], time: [2.8, 4], sway: 45, spin: 360 }
       ] },
       sunny: { parts: [

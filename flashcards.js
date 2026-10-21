@@ -23,7 +23,7 @@ card.appendChild(celebration);
 // In "Hide words" mode this button sits where the word goes until it's tapped
 const revealButton = document.createElement("button");
 revealButton.className = "reveal";
-revealButton.textContent = "👀 Show the word";
+revealButton.textContent = "Show the word";
 revealButton.addEventListener("click", (event) => {
   event.stopPropagation();
   revealWord();
@@ -35,20 +35,20 @@ const tools = document.createElement("div");
 tools.className = "tools";
 tools.innerHTML =
   '<div class="tools-row">' +
-    '<button class="tool" id="options-btn" aria-expanded="false" aria-controls="options-panel">⚙️ Options</button>' +
+    '<button class="tool" id="options-btn" aria-expanded="false" aria-controls="options-panel">Options</button>' +
   '</div>' +
   '<div class="options-panel" id="options-panel" hidden>' +
     '<div class="option-group" role="group" aria-labelledby="practise-label">' +
       '<h2 id="practise-label">Practise</h2>' +
-      '<div><button class="tool" id="shuffle-btn">🔀 Shuffle</button>' +
-      '<button class="tool" id="guess-btn">🙈 Hide words</button>' +
-      '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">🎧 Listening game</a></div>' +
+      '<div><button class="tool" id="shuffle-btn">Shuffle</button>' +
+      '<button class="tool" id="guess-btn">Hide words</button>' +
+      '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">Listening game</a></div>' +
     '</div>' +
     '<div class="option-group" role="group" aria-labelledby="screen-label">' +
       '<h2 id="screen-label">Screen &amp; sound</h2>' +
-      '<div><button class="tool" id="big-btn">⛶ Big screen</button>' +
-      '<button class="tool" id="voice-btn">🗣 Voice</button>' +
-      '<button class="tool" id="speaker-btn" aria-pressed="false">🔊 Speaker button</button></div>' +
+      '<div><button class="tool" id="big-btn">Big screen</button>' +
+      '<button class="tool" id="voice-btn">Voice</button>' +
+      '<button class="tool" id="speaker-btn" aria-pressed="false">Speaker button</button></div>' +
     '</div>' +
   '</div>';
 document.querySelector(".nav-buttons").after(tools);
@@ -62,6 +62,7 @@ function setOptionsOpen(open) {
   if (open) optionsPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 optionsButton.addEventListener("click", () => setOptionsOpen(optionsPanel.hidden));
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !optionsPanel.hidden) {
     setOptionsOpen(false);
@@ -189,7 +190,7 @@ const shuffleButton = document.getElementById("shuffle-btn");
 shuffleButton.addEventListener("click", () => {
   const isShuffled = shuffleButton.classList.toggle("on");
   deck = isShuffled ? shuffled(cards) : cards.slice();
-  shuffleButton.textContent = isShuffled ? "🔢 Back to order" : "🔀 Shuffle";
+  shuffleButton.textContent = isShuffled ? "Back to order" : "Shuffle";
   if (finished) hideCelebration();
   current = 0;
   showCard(1);
@@ -198,7 +199,7 @@ shuffleButton.addEventListener("click", () => {
 const guessButton = document.getElementById("guess-btn");
 guessButton.addEventListener("click", () => {
   guessMode = guessButton.classList.toggle("on");
-  guessButton.textContent = guessMode ? "👀 Show words" : "🙈 Hide words";
+  guessButton.textContent = guessMode ? "Show words" : "Hide words";
   showCard(0);
 });
 
@@ -215,7 +216,7 @@ function setSpeakerButton(on) {
   document.body.classList.toggle("show-speaker", on);
   speakerButton.setAttribute("aria-pressed", on);
   speakerButton.classList.toggle("on", on);
-  speakerButton.textContent = on ? "🔊 Speaker button: on" : "🔊 Speaker button";
+  speakerButton.textContent = on ? "Speaker button: on" : "Speaker button";
 }
 try {
   setSpeakerButton(localStorage.getItem("show-speaker") === "1");
@@ -238,7 +239,7 @@ bigButton.addEventListener("click", () => {
     exitBigScreen();
   } else {
     document.body.classList.add("classroom");
-    bigButton.textContent = "✕ Exit big screen";
+    bigButton.textContent = "Exit big screen";
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen().catch(() => {});
     }
@@ -247,7 +248,7 @@ bigButton.addEventListener("click", () => {
 
 function exitBigScreen() {
   document.body.classList.remove("classroom");
-  bigButton.textContent = "⛶ Big screen";
+  bigButton.textContent = "Big screen";
   if (document.fullscreenElement) document.exitFullscreen();
 }
 

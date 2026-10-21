@@ -121,7 +121,7 @@ button {
 
 .teacher-link {
   justify-self: end;
-  box-shadow: 0 4px 0 rgba(36, 90, 131, 0.25);
+  box-shadow: 0 2px 4px rgba(36, 90, 131, 0.12);
   transition: transform 0.1s, filter 0.15s, box-shadow 0.1s;
 }
 
@@ -150,12 +150,13 @@ button {
 }
 
 .options-panel {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
   margin-top: 12px;
-  padding: 14px 18px;
+  padding: 16px;
   background-color: var(--surface);
   border-radius: 22px;
   box-shadow: var(--shadow);
@@ -166,19 +167,31 @@ button {
   display: none;
 }
 
+/* Practise and Screen & sound side by side, every option visible as soon as Options opens */
 .option-group h2 {
   margin: 0 0 8px 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--line);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
-  text-align: center;
+  text-align: left;
 }
 
 .option-group div {
   display: flex;
+  flex-direction: column;
   gap: 8px;
+}
+
+.option-group .tool {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .tool {
@@ -199,7 +212,31 @@ button.tool {
   box-shadow: none;
 }
 
-/* Back is the quieter of the two big buttons */
+/* Next and Back: smaller than the other big buttons */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.nav-buttons button {
+  margin: 0;
+  font-size: 20px;
+  padding: 10px 28px;
+}
+
+.nav-buttons #counter {
+  margin: 0;
+  padding: 0 4px;
+  background: none;
+  box-shadow: none;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Back is the quieter of the two buttons */
 button.secondary {
   color: var(--word);
   background-color: var(--surface);
@@ -256,7 +293,7 @@ body.classroom #game-link {
 /* Button feedback: lift on hover, press down on click, clear outline for keyboard users */
 button,
 .home {
-  box-shadow: 0 4px 0 rgba(36, 90, 131, 0.25);
+  box-shadow: 0 2px 4px rgba(36, 90, 131, 0.12);
   transition: transform 0.1s, filter 0.15s, box-shadow 0.1s;
 }
 
@@ -264,13 +301,13 @@ button:hover,
 .home:hover {
   filter: brightness(1.08);
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 rgba(36, 90, 131, 0.25);
+  box-shadow: 0 3px 6px rgba(36, 90, 131, 0.15);
 }
 
 button:active,
 .home:active {
   transform: translateY(2px);
-  box-shadow: 0 1px 0 rgba(36, 90, 131, 0.25);
+  box-shadow: 0 1px 2px rgba(36, 90, 131, 0.12);
 }
 
 button:focus-visible,
@@ -406,6 +443,10 @@ button:focus-visible,
 
   .tools {
     margin-top: 12px;
+  }
+
+  .options-panel {
+    padding: 12px;
   }
 
   img {

@@ -241,8 +241,8 @@
       Object.keys(TYPES).map(key =>
         '<a href="worksheet.html?topic=' + topicKey + '&type=' + key + '"' +
         (key === type ? ' aria-current="page"' : "") + ">" + TYPES[key].label + "</a>").join("") +
-      '<button onclick="buildSheet()">🔀 New sheet</button>' +
-      '<button class="primary" onclick="window.print()">🖨 Print</button>';
+      '<button onclick="buildSheet()">New sheet</button>' +
+      '<button class="primary" onclick="window.print()">Print</button>';
 
     function picture(card) {
       return '<img src="' + encodeURI(card.picture) + '" alt="' + escapeHtml(card.word) + '">';

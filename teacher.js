@@ -39,8 +39,8 @@ function showChooser() {
       </div>
     </section>
     <section>
-      <h2>🗣 Getting the most natural voice</h2>
-      <p>The 🔊 voice comes from your device, so it sounds different on each computer or tablet. The app picks the most natural one it can find, and you can change it with the <strong>🗣 Voice</strong> button on any flashcard page. Voices marked ★ sound the most natural.</p>
+      <h2>Getting the most natural voice</h2>
+      <p>The voice comes from your device, so it sounds different on each computer or tablet. The app picks the most natural one it can find, and you can change it with the <strong>Voice</strong> button on any flashcard page. Voices marked ★ sound the most natural.</p>
       <ul>
         <li><strong>Mac:</strong> System Settings → Accessibility → Spoken Content → System Voice → Manage Voices. Download a “Premium” or “Enhanced” English voice (for example Serena, Daniel or Ava), then reopen the browser.</li>
         <li><strong>iPhone or iPad:</strong> Settings → Accessibility → Spoken Content → Voices → English. Download an “Enhanced” or “Premium” voice.</li>
@@ -71,7 +71,7 @@ function showGuide() {
           <ol>${craft.steps.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ol>
         </div>
       </div>
-      ${craft.tip ? `<p class="tip">💡 ${escapeHtml(craft.tip)}</p>` : ""}
+      ${craft.tip ? `<p class="tip"><strong>Tip:</strong> ${escapeHtml(craft.tip)}</p>` : ""}
     </div>`).join("");
 
   const songs = guide.songs.map(song => `
@@ -96,20 +96,20 @@ function showGuide() {
       <div class="action-group" role="group" aria-labelledby="in-class-label">
         <h2 id="in-class-label">In class</h2>
         <div>
-          <a class="btn" href="${encodeURI(topic.page)}">▶ Open flashcards</a>
+          <a class="btn" href="${encodeURI(topic.page)}">Open flashcards</a>
         </div>
       </div>
       <div class="action-group" role="group" aria-labelledby="print-label">
         <h2 id="print-label">Print</h2>
         <div>
-          <a class="btn secondary" href="print.html?topic=${topicKey}">🃏 Flashcards</a>
-          <a class="btn secondary" href="worksheet.html?topic=${topicKey}">📝 Worksheets</a>
+          <a class="btn secondary" href="print.html?topic=${topicKey}">Flashcards</a>
+          <a class="btn secondary" href="worksheet.html?topic=${topicKey}">Worksheets</a>
         </div>
       </div>
     </div>
 
     <section>
-      <h2>🎯 Goal</h2>
+      <h2>Goal</h2>
       <p>${escapeHtml(guide.goal)}</p>
       <h3>Words</h3>
       <ul class="words">${words}</ul>
@@ -118,29 +118,29 @@ function showGuide() {
     <section id="plan-section"></section>
 
     <section>
-      <h2>✂️ Crafts</h2>
+      <h2>Crafts</h2>
       ${crafts}
     </section>
 
     <section>
-      <h2>🎵 Songs</h2>
+      <h2>Songs</h2>
       ${songs}
     </section>
 
     <section>
-      <h2>🎲 Games</h2>
+      <h2>Games</h2>
       ${games}
     </section>
 
     ${guide.photoCredits ? `
       <section>
-        <h2>📷 Photo credits</h2>
+        <h2>Photo credits</h2>
         <p class="hint">Free photos from Pexels (free to use, no credit required).</p>
         <p>${guide.photoCredits.map(c => `<a href="${escapeHtml(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.word)}</a>`).join(" · ")}</p>
       </section>` : ""}
 
     <section>
-      <h2>✏️ My notes</h2>
+      <h2>My notes</h2>
       <p class="hint no-print">Your own ideas for this topic. They save automatically on this device and browser only.</p>
       <textarea id="notes" aria-label="My notes for ${escapeHtml(topic.title)}" placeholder="e.g. Class loved Animal Moves. Next time add a zebra card."></textarea>
       <p id="saved" class="no-print" aria-live="polite"></p>
@@ -223,7 +223,7 @@ function renderPlanSection() {
 
   section.innerHTML = `
     <div class="plan-head">
-      <h2>📋 Lesson plan</h2>
+      <h2>Lesson plan</h2>
       ${plans.length > 1 ? `
         <label class="no-print picker">Plan:
           <select id="plan-picker">
@@ -243,13 +243,13 @@ function renderPlanSection() {
       <h3>You'll need</h3>
       <ul>${plan.materials.map(m => `<li>${escapeHtml(m)}</li>`).join("")}</ul>` : ""}
     <div class="plan-tools no-print">
-      <button class="btn" id="edit-plan">✏️ Edit this plan</button>
-      <button class="btn btn-light" id="copy-plan">⧉ Copy as new plan</button>
-      <button class="btn btn-light" id="new-plan">＋ New blank plan</button>
-      ${isEdited ? '<button class="btn btn-light" id="reset-plan">↺ Reset to original</button>' : ""}
-      ${!isReadyMade ? '<button class="btn btn-danger" id="delete-plan">🗑 Delete plan</button>' : ""}
+      <button class="btn" id="edit-plan">Edit this plan</button>
+      <button class="btn btn-light" id="copy-plan">Copy as new plan</button>
+      <button class="btn btn-light" id="new-plan">New blank plan</button>
+      ${isEdited ? '<button class="btn btn-light" id="reset-plan">Reset to original</button>' : ""}
+      ${!isReadyMade ? '<button class="btn btn-danger" id="delete-plan">Delete plan</button>' : ""}
     </div>
-    ${storageWorks ? "" : '<p class="hint no-print">⚠️ This browser can\'t save plans, so changes will be lost when you close the page.</p>'}`;
+    ${storageWorks ? "" : '<p class="hint no-print">This browser can\'t save plans, so changes will be lost when you close the page.</p>'}`;
 
   const picker = document.getElementById("plan-picker");
   if (picker) {
@@ -308,7 +308,7 @@ function renderPlanSection() {
 function planEditorHtml() {
   const isReadyMade = editing.id === READY_MADE;
   return `
-    <h2>✏️ Editing: ${escapeHtml(editing.name)}</h2>
+    <h2>Editing: ${escapeHtml(editing.name)}</h2>
     ${isReadyMade ? "" : `
       <label class="field">Plan name
         <input type="text" id="plan-name" value="${escapeHtml(editing.name)}">
@@ -329,12 +329,12 @@ function planEditorHtml() {
           </div>
         </li>`).join("")}
     </ol>
-    <button class="btn btn-light" id="add-step">＋ Add step</button>
+    <button class="btn btn-light" id="add-step">Add step</button>
     <label class="field">You'll need (one item per line)
       <textarea id="plan-materials" rows="5">${escapeHtml(editing.materials.join("\n"))}</textarea>
     </label>
     <div class="plan-tools">
-      <button class="btn" id="save-plan">💾 Save plan</button>
+      <button class="btn" id="save-plan">Save plan</button>
       <button class="btn btn-light" id="cancel-edit">Cancel</button>
     </div>`;
 }
@@ -415,11 +415,11 @@ function setUpPlanEditor() {
 function backupSectionHtml() {
   return `
     <section class="no-print">
-      <h2>💾 Back up and share</h2>
+      <h2>Back up and share</h2>
       <p class="hint">Your plans and notes for all topics are saved only in this browser. Download a backup file to keep them safe, or send it to another teacher so they can load your plans.</p>
       <div class="plan-tools">
-        <button class="btn" id="download-backup">⬇ Download my plans and notes</button>
-        <label class="btn btn-light file-btn">⬆ Load from a file
+        <button class="btn" id="download-backup">Download my plans and notes</button>
+        <label class="btn btn-light file-btn">Load from a file
           <input type="file" id="load-backup" accept=".json,application/json">
         </label>
       </div>
