@@ -1,5 +1,5 @@
 // Shared voice for the flashcards and the listening game.
-// Picks the most natural-sounding English voice on this device, or the one chosen in the 🗣 Voice picker.
+// Picks the most natural-sounding English voice on this device, or the one chosen in the Voice picker.
 const Voice = (() => {
   const supported = "speechSynthesis" in window;
 
@@ -93,7 +93,7 @@ const Voice = (() => {
     return PRAISE[Math.floor(Math.random() * PRAISE.length)];
   }
 
-  /* ---------- The 🗣 Voice picker ---------- */
+  /* ---------- The Voice picker ---------- */
 
   function escapeHtml(text) {
     return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -119,7 +119,7 @@ const Voice = (() => {
       `<label><input type="radio" name="${name}" value="${key}"${key === selected ? " checked" : ""}> ${key[0].toUpperCase() + key.slice(1)}</label>`).join("");
 
     dialog.innerHTML = `
-      <h2>🗣 Choose a voice</h2>
+      <h2>Choose a voice</h2>
       <label class="voice-row">Voice
         <select id="voice-name">
           ${ranked().map(v => `<option value="${escapeHtml(v.name)}"${chosen && v.name === chosen.name ? " selected" : ""}>${escapeHtml(label(v))}</option>`).join("")}
@@ -129,7 +129,7 @@ const Voice = (() => {
       <fieldset><legend>Speed</legend>${choices("voice-speed", SPEEDS, s.speed || "normal")}</fieldset>
       <fieldset><legend>Style</legend>${choices("voice-pitch", PITCHES, s.pitch || "cheerful")}</fieldset>
       <div class="voice-buttons">
-        <button type="button" id="voice-test">▶ Test</button>
+        <button type="button" id="voice-test">Test</button>
         <button type="button" id="voice-done" class="voice-primary">Done</button>
       </div>
       <p class="voice-hint">Want even more natural voices? See the tips in the Teacher's Corner.</p>`;

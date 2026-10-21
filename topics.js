@@ -19,7 +19,7 @@ const TOPICS = {
     ]
   },
   colors: {
-    title: "Colors",
+    title: "Colours",
     page: "colors.html",
     cards: [
       { word: "red", picture: "images/colors/red-apple.jpg", drawing: "images/colors/drawn/red.svg" },
@@ -72,7 +72,7 @@ const TOPICS = {
       { word: "summer", picture: "images/seasons and weather/summer.jpg" },
       { word: "winter", picture: "images/seasons and weather/winter.jpg" },
       { word: "spring", picture: "images/seasons and weather/spring.jpg" },
-      { word: "fall", picture: "images/seasons and weather/fall.jpg" },
+      { word: "autumn", picture: "images/seasons and weather/fall.jpg" },
       { word: "sunny", picture: "images/seasons and weather/sunny.jpg" },
       { word: "rainy", picture: "images/seasons and weather/rainy.jpg" },
       { word: "cloudy", picture: "images/seasons and weather/cloudy.jpg" },
