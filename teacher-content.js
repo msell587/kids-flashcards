@@ -371,7 +371,7 @@ const TEACHER = {
   },
 
   city: {
-    goal: "Children can name 11 places and things in a city, and say what we do there.",
+    goal: "Children can name 12 places and things in a city, and say what we do there.",
     materials: [
       "Screen or tablet with the City flashcards",
       "Printed city cards (stick some on the walls for Bus Stops)",

@@ -149,26 +149,37 @@
       outline: 4px solid var(--word);
       outline-offset: 4px;
     }
-    .teacher-link {
+    /* Small and quiet, so it does not look like a button for children; press and hold to open */
+    .grownup {
       margin-top: 32px;
-      padding: 11px 24px;
-      font-size: 18px;
-      font-weight: 800;
+      padding: 7px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      background-color: transparent;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .grownup.holding {
       color: white;
       background-color: var(--word);
-      border-radius: 999px;
-      box-shadow: var(--shadow);
-      text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
+      border-color: var(--word);
     }
-    .teacher-link:hover {
-      transform: translateY(-2px);
-      background-color: var(--word-dark);
-      box-shadow: var(--shadow-lift);
-    }
-    .teacher-link:focus-visible {
+    .grownup:focus-visible {
       outline: 3px solid var(--word);
       outline-offset: 3px;
+    }
+    .grownup-hint {
+      margin: 6px 0 0 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
     }
     /* Star sticker on topics a child has finished */
     .star {
@@ -193,13 +204,25 @@
       text-decoration: underline;
       cursor: pointer;
     }
+    /* The title letters arrive one at a time */
+    .brand h1 .letter {
+      display: inline-block;
+      animation: letter-in 0.5s ease-out backwards;
+    }
+    @keyframes letter-in {
+      from { opacity: 0; transform: translateY(-16px) scale(0.7); }
+      to { opacity: 1; transform: none; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .star {
         animation: none;
       }
       .tile,
-      .teacher-link {
+      .grownup {
         transition: none;
+      }
+      .brand h1 .letter {
+        animation: none;
       }
     }
     /* Phones: two tiles per row */
@@ -237,9 +260,18 @@
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <header class="brand">
     <img class="logo" src="icons/icon.svg" alt="">
-    <h1>Let's Learn!</h1>
+    <h1 id="wordmark">Let's Learn!</h1>
     <p class="tagline">English flashcards for little learners</p>
   </header>
+  <script>
+    // Split the title into letters so each one animates in on its own
+    const wordmark = document.getElementById("wordmark");
+    const title = wordmark.textContent;
+    wordmark.setAttribute("aria-label", title);
+    wordmark.innerHTML = [...title].map((letter, i) =>
+      `<span class="letter" aria-hidden="true" style="animation-delay:${i * 0.09}s">${letter === " " ? "&nbsp;" : letter}</span>`
+    ).join("");
+  </script>
   <div class="topics">
     <a class="tile" href="animals.html" data-topic="animals">
       <img src="images/animals/elephant.jpg" alt="">
@@ -283,7 +315,8 @@
       <b class="ribbon">Special</b>
     </a>
   </div>
-  <a class="teacher-link" href="teacher.html">For teachers</a>
+  <button class="grownup" id="grownup" type="button">For grown-ups</button>
+  <p class="grownup-hint">Press and hold to open</p>
   <button class="clear-stars" id="clear-stars" hidden>↺ Clear stars</button>
 
   <script>
@@ -301,6 +334,30 @@
         tile.insertAdjacentHTML("beforeend", '<span class="star" aria-label="Finished">⭐</span>');
       }
     });
+
+    // The grown-ups' area opens only after a press-and-hold of two seconds,
+    // so a small child tapping the home screen does not land in it by accident
+    const grownUp = document.getElementById("grownup");
+    let holdTimer = null;
+    function startHold(event) {
+      if (event.type === "keydown") {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        if (event.repeat) return;
+        event.preventDefault();
+      }
+      grownUp.classList.add("holding");
+      holdTimer = setTimeout(() => { location.href = "teacher.html"; }, 2000);
+    }
+    function cancelHold() {
+      clearTimeout(holdTimer);
+      grownUp.classList.remove("holding");
+    }
+    grownUp.addEventListener("pointerdown", startHold);
+    grownUp.addEventListener("keydown", startHold);
+    ["pointerup", "pointerleave", "pointercancel", "keyup", "blur"].forEach(name =>
+      grownUp.addEventListener(name, cancelHold));
+    grownUp.addEventListener("click", event => event.preventDefault());
+    grownUp.addEventListener("contextmenu", event => event.preventDefault());
 
     const clearButton = document.getElementById("clear-stars");
     clearButton.hidden = finishedTopics.length === 0;

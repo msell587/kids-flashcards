@@ -1,35 +1,27 @@
-// Offline support: saves every page, script, style and flashcard picture on the device the first time
-// the app is opened, then serves them from there. Pictures are read from topics.js, so new topics are included.
+// Offline support: saves every page, script and style on the device the first time the app is opened.
+// Each flashcard picture is saved the first time it is shown, so the first visit stays small.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v28";
+const VERSION = "v46";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
 
 const APP_FILES = [
-  "./", "index.html", "teacher.html", "game.html", "print.html", "worksheet.html",
+  "./", "index.html", "teacher.html", "game.html", "season-game.html", "classroom-game.html", "colouring.html", "print.html", "worksheet.html",
   "theme.css", "style.css", "game.css", "teacher.css",
-  "topics.js", "flashcards.js", "animals.js", "effects.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "pwa.js",
+  "topics.js", "flashcards.js", "animals.js", "effects.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "colouring-scenes.js", "pwa.js",
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/apple-touch-icon.png"
 ];
 
-function topicFiles() {
-  const files = [];
-  Object.values(TOPICS).forEach(topic => {
-    files.push(topic.page);
-    topic.cards.forEach(card => {
-      files.push(card.picture);
-      if (card.drawing) files.push(card.drawing);
-      if (card.video) files.push(card.video);
-    });
-  });
-  return [...new Set(files)]; // several cards can share one video
+// Topic pages are saved up front; their pictures are saved when first shown (see the fetch handler)
+function topicPages() {
+  return [...new Set(Object.values(TOPICS).map(topic => topic.page))];
 }
 
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE)
-      .then(cache => cache.addAll(APP_FILES.concat(topicFiles()).map(encodeURI)))
+      .then(cache => cache.addAll(APP_FILES.concat(topicPages()).map(encodeURI)))
       .then(() => self.skipWaiting())
   );
 });

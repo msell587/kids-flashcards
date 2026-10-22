@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Class Game</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Class Game: the teacher shows a picture on the board, the class says the word,
+       and the teacher gives the point to the team that said it first */
+    .team-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: min(94vw, 620px);
+      margin: 0 auto;
+    }
+    .team-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 8px;
+      background-color: var(--surface);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      color: var(--word-dark);
+      font-family: var(--font);
+    }
+    .team-box .team-name {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .team-box .team-score {
+      font-size: 36px;
+      font-weight: 800;
+    }
+    .team-box button {
+      width: 100%;
+      padding: 12px 8px;
+      border: 0;
+      border-radius: 16px;
+      background-color: var(--word);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .team-box button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .class-pic {
+      display: block;
+      width: min(90vw, 560px);
+      height: min(42vh, 420px);
+      margin: 14px auto 0 auto;
+      object-fit: cover;
+      border-radius: 24px;
+      background-color: #fff;
+      border: 6px solid #fff;
+      box-sizing: border-box;
+      box-shadow: var(--shadow);
+    }
+    .class-word {
+      min-height: 52px;
+      margin: 10px 0 0 0;
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .class-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .class-controls button {
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 999px;
+      background-color: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .setup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: min(90vw, 360px);
+      margin: 16px auto 0 auto;
+    }
+    .setup-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: left;
+    }
+    .setup-form input {
+      padding: 10px 12px;
+      border: 3px solid var(--word);
+      border-radius: 14px;
+      font-family: var(--font);
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🏆</div>
+      <h1 id="game-title">Class Game</h1>
+      <p>Two teams. Show a picture, the class says the word, and the first team to say it gets a point.</p>
+      <form class="setup-form" id="setup-form">
+        <label>Team 1 name <input id="team-a" value="Team Sun" maxlength="20"></label>
+        <label>Team 2 name <input id="team-b" value="Team Star" maxlength="20"></label>
+        <button class="big-btn" type="submit">Start</button>
+      </form>
+    </div>
+
+    <div id="play" hidden>
+      <div class="team-row">
+        <div class="team-box">
+          <span class="team-name" id="name-a"></span>
+          <span class="team-score" id="score-a">0</span>
+          <button id="point-a" type="button">Said it first!</button>
+        </div>
+        <div class="team-box">
+          <span class="team-name" id="name-b"></span>
+          <span class="team-score" id="score-b">0</span>
+          <button id="point-b" type="button">Said it first!</button>
+        </div>
+      </div>
+      <p class="top-row" style="justify-content:center; margin-top:10px">
+        <span id="progress"></span>
+      </p>
+      <img class="class-pic" id="pic" alt="">
+      <p class="class-word" id="word" aria-live="polite"></p>
+      <div class="class-controls">
+        <button type="button" id="show-btn">Show and say the word</button>
+        <button type="button" id="nobody-btn">Nobody this time</button>
+      </div>
+    </div>
+
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1 id="end-title">Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+
+    <nav class="links">
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const topicKey = TOPICS[params.get("topic")] ? params.get("topic") : "animals";
+    const topic = TOPICS[topicKey];
+    const canSpeak = Voice.supported;
+
+    document.title = topic.title + " · Class Game";
+    document.getElementById("game-title").textContent = topic.title + " Class Game";
+
+    const $ = id => document.getElementById(id);
+    let names = ["", ""];
+    let scores = [0, 0];
+    let queue = [];
+    let index = 0;
+    let busy = false;
+
+    function say(text) {
+      if (canSpeak) Voice.speak(text);
+    }
+
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+    }
+
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function drawScores() {
+      $("name-a").textContent = names[0];
+      $("name-b").textContent = names[1];
+      $("score-a").textContent = scores[0];
+      $("score-b").textContent = scores[1];
+    }
+
+    function startGame(event) {
+      event.preventDefault();
+      names = [$("team-a").value.trim() || "Team 1", $("team-b").value.trim() || "Team 2"];
+      scores = [0, 0];
+      queue = shuffled(topic.cards);
+      index = 0;
+      busy = false;
+      show("play");
+      drawScores();
+      showCard();
+    }
+
+    function showCard() {
+      const card = queue[index];
+      busy = false;
+      $("pic").src = card.picture;
+      $("pic").alt = "";
+      $("word").textContent = "";
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("point-a").disabled = false;
+      $("point-b").disabled = false;
+      $("nobody-btn").disabled = false;
+    }
+
+    // Reveal the word for the class and say it aloud
+    function showWord() {
+      const word = queue[index].word;
+      $("word").textContent = word;
+      say(word);
+    }
+
+    // A point to one team, then the next picture
+    function award(team) {
+      if (busy) return;
+      busy = true;
+      scores[team]++;
+      drawScores();
+      const word = queue[index].word;
+      $("word").textContent = word;
+      say(names[team] + " said it first! " + word);
+      setTimeout(nextCard, 1500);
+    }
+
+    function nextCard() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showCard();
+      }
+    }
+
+    function finish() {
+      show("end");
+      const [a, b] = scores;
+      let title = "It's a tie!";
+      if (a > b) title = names[0] + " wins!";
+      if (b > a) title = names[1] + " wins!";
+      $("end-title").textContent = title;
+      $("end-message").textContent = names[0] + ": " + a + "    " + names[1] + ": " + b;
+      say(title);
+    }
+
+    $("setup-form").addEventListener("submit", startGame);
+    $("again-btn").addEventListener("click", () => show("setup"));
+    $("show-btn").addEventListener("click", showWord);
+    $("pic").addEventListener("click", showWord);
+    $("point-a").addEventListener("click", () => award(0));
+    $("point-b").addEventListener("click", () => award(1));
+    $("nobody-btn").addEventListener("click", () => {
+      if (busy) return;
+      busy = true;
+      $("word").textContent = queue[index].word;
+      setTimeout(nextCard, 800);
+    });
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>

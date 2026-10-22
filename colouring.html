@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colouring</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Colouring: tap a part of the picture to colour it with the chosen crayon */
+    .scene-wrap {
+      width: min(94vw, 560px);
+      margin: 8px auto 0 auto;
+      background-color: var(--surface);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .scene {
+      display: block;
+      width: 100%;
+      height: auto;
+      background-color: #fff;
+      border-radius: 16px;
+    }
+    .scene * {
+      stroke: #333;
+      stroke-width: 3;
+      stroke-linejoin: round;
+    }
+    .scene .region {
+      cursor: pointer;
+    }
+    .scene .region * {
+      fill: #fff;
+      transition: fill 0.15s;
+    }
+    .scene .region:hover * {
+      opacity: 0.85;
+    }
+    /* Details are never coloured: outlines stay open, dots and words stay black */
+    .scene .line {
+      fill: none;
+    }
+    .scene .dot {
+      fill: #222;
+      stroke: none;
+    }
+    .scene .shine {
+      fill: #fff;
+      stroke: none;
+    }
+    .scene .label {
+      fill: #222;
+      stroke: none;
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 800;
+      text-anchor: middle;
+    }
+    /* Printable sheet: no crayons, just the picture to print */
+    body.sheet .palette,
+    body.sheet .hint,
+    body.sheet #clear-btn {
+      display: none;
+    }
+    body.sheet .scene .region {
+      cursor: default;
+    }
+    .palette {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 14px auto 0 auto;
+      width: min(94vw, 560px);
+    }
+    .crayon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .crayon[aria-pressed="true"] {
+      outline: 4px solid var(--word-dark);
+      outline-offset: 3px;
+    }
+    .tools-line {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tools-line button {
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 999px;
+      background-color: var(--word);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .tools-line button.secondary {
+      background-color: var(--surface);
+      color: var(--word-dark);
+      box-shadow: var(--shadow);
+    }
+    /* Top bar: the same Home and Back pills as the rest of the app */
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      width: min(90vw, 460px);
+      margin: 0 auto 16px auto;
+    }
+    .topbar .topic-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--word);
+      text-align: center;
+    }
+    .home,
+    .teacher-link {
+      padding: 7px 14px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--word);
+      background-color: var(--surface);
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 2px 4px rgba(36, 90, 131, 0.12);
+    }
+    .home {
+      justify-self: start;
+    }
+    .teacher-link {
+      justify-self: end;
+    }
+    .page-title {
+      text-align: center;
+      margin: 14px 0 0 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--word-dark);
+    }
+    .hint {
+      text-align: center;
+      margin: 6px 0 0 0;
+      font-size: 16px;
+      color: var(--muted);
+    }
+    .sheet-page {
+      display: block;
+      width: 100%;
+      margin: 0 0 12px 0;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .sheet-label {
+      margin: 0 0 6px 0;
+      font-size: 28px;
+      font-weight: 800;
+      text-align: center;
+      color: #222;
+    }
+    .sheet-page img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    @media print {
+      .bubbles, .topbar, .palette, .tools-line, .hint, .links, .page-title {
+        display: none !important;
+      }
+      .sheet-page {
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+      }
+      .sheet-label {
+        font-size: 24px;
+        color: #000;
+      }
+      /* No page break after the last picture, so no blank page is printed */
+      .sheet-page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+      body {
+        background: #fff !important;
+      }
+      .scene-wrap {
+        box-shadow: none;
+        width: 100%;
+        padding: 0;
+      }
+      .scene .region * {
+        fill: #fff !important;
+      }
+      .scene .region {
+        cursor: default;
+      }
+      .print-title {
+        display: block !important;
+      }
+    }
+    .print-title {
+      display: none;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0 0 12px 0;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <nav class="topbar">
+      <a class="home" href="index.html">Home</a>
+      <span class="topic-title" id="topic-title"></span>
+      <a class="teacher-link" id="back-link" href="index.html">Back</a>
+    </nav>
+
+    <h1 class="page-title" id="page-title">Colouring</h1>
+    <p class="print-title" id="print-title"></p>
+
+    <div class="scene-wrap">
+      <svg class="scene" id="scene" viewBox="0 0 400 300" role="img" aria-label="Colouring picture"></svg>
+    </div>
+
+    <p class="hint">Pick a crayon, then tap a part of the picture.</p>
+
+    <div class="palette" id="palette" role="group" aria-label="Crayons"></div>
+
+    <div class="tools-line">
+      <button type="button" class="secondary" id="clear-btn">Clear</button>
+      <button type="button" id="print-btn">Print</button>
+    </div>
+
+  </main>
+
+  <script src="topics.js"></script>
+  <script src="colouring-scenes.js"></script>
+  <script src="voice.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const topicKey = SCENES[params.get("topic")] ? params.get("topic") : "animals";
+    const scene = SCENES[topicKey];
+    const topic = TOPICS[topicKey];
+
+    const CRAYONS = [
+      { name: "red", colour: "#e53935" },
+      { name: "orange", colour: "#fb8c00" },
+      { name: "yellow", colour: "#fdd835" },
+      { name: "green", colour: "#43a047" },
+      { name: "blue", colour: "#1e88e5" },
+      { name: "purple", colour: "#8e24aa" },
+      { name: "pink", colour: "#ec407a" },
+      { name: "brown", colour: "#8d6e63" },
+      { name: "black", colour: "#222222" },
+      { name: "eraser", colour: "#ffffff" }
+    ];
+    let chosen = CRAYONS[0];
+
+    // ?sheet=1 is the printable sheet from the teacher's guide: outlines only, no crayons
+    const sheetMode = params.get("sheet") === "1";
+    if (sheetMode) document.body.classList.add("sheet");
+
+    document.title = scene.title + (sheetMode ? " · Colouring sheet" : " · Colouring");
+    document.getElementById("topic-title").textContent = scene.title;
+    document.getElementById("page-title").textContent = sheetMode
+      ? scene.title + " colouring sheet"
+      : scene.title + " Colouring";
+    document.getElementById("print-title").textContent = scene.title + " colouring";
+    document.getElementById("back-link").href = sheetMode ? "teacher.html?topic=" + topicKey : topic.page;
+
+    // Draw the picture: one group per tappable region, then the details on top
+    const svg = document.getElementById("scene");
+    svg.innerHTML = scene.regions.map(region =>
+      `<g class="region" data-name="${region.name}">${region.svg}</g>`
+    ).join("") + `<g class="details">${scene.details}</g>`;
+
+    // Printable sheets that are pictures (e.g. the Seasons pages) replace the drawing
+    if (sheetMode && scene.sheetImages) {
+      svg.style.display = "none";
+      const pages = document.createElement("div");
+      pages.className = "sheet-pages";
+      // ?season=spring prints just one season's sheet
+      const only = params.get("season");
+      const sheets = only ? scene.sheetImages.filter(s => s.label.toLowerCase() === only) : scene.sheetImages;
+      pages.innerHTML = sheets.map(sheet =>
+        `<figure class="sheet-page"><figcaption class="sheet-label">${sheet.label}</figcaption>` +
+        `<img src="${sheet.src}" alt="${sheet.label}"></figure>`
+      ).join("");
+      svg.after(pages);
+    }
+
+    // Crayon buttons
+    const palette = document.getElementById("palette");
+    palette.innerHTML = CRAYONS.map((c, i) =>
+      `<button type="button" class="crayon" data-index="${i}" style="background:${c.colour}" ` +
+        `aria-label="${c.name}" aria-pressed="${i === 0}"></button>`
+    ).join("");
+
+    palette.addEventListener("click", (event) => {
+      const button = event.target.closest(".crayon");
+      if (!button) return;
+      chosen = CRAYONS[Number(button.dataset.index)];
+      palette.querySelectorAll(".crayon").forEach(b => b.setAttribute("aria-pressed", b === button));
+    });
+
+    // Tap a region: colour all of its parts, and say its name
+    svg.addEventListener("click", (event) => {
+      const region = event.target.closest(".region");
+      if (!region || sheetMode) return;
+      region.querySelectorAll("*").forEach(shape => shape.style.fill = chosen.colour);
+      if (Voice.supported) Voice.speak(region.dataset.name);
+    });
+
+    document.getElementById("clear-btn").addEventListener("click", () => {
+      svg.querySelectorAll(".region *").forEach(shape => shape.style.fill = "");
+    });
+
+    document.getElementById("print-btn").addEventListener("click", () => window.print());
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>

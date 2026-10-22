@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Season Sort</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Season Sort: drag each picture onto its season (or tap it, then tap the season) */
+    .pic-stage {
+      display: flex;
+      justify-content: center;
+      height: min(40vh, 300px);
+      margin: 12px 0 8px 0;
+    }
+    .pic {
+      height: 100%;
+      max-width: 92vw;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 24px;
+      background-color: #fff;
+      box-shadow: var(--shadow);
+      border: 6px solid #fff;
+      box-sizing: border-box;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .pic.dragging {
+      cursor: grabbing;
+      pointer-events: none;
+      box-shadow: var(--shadow-lift);
+    }
+    .pic.selected {
+      border-color: var(--word-dark);
+    }
+    .pic.fit {
+      transition: transform 0.15s;
+    }
+    .pic.placed {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .bins {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      width: min(94vw, 720px);
+      margin: 16px auto 0 auto;
+    }
+    .bin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 6px;
+      background-color: var(--surface);
+      border: 4px dashed var(--word);
+      border-radius: 20px;
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s, background-color 0.15s;
+    }
+    .bin.hover {
+      background-color: #e3f1ff;
+      transform: scale(1.06);
+    }
+    .bin.right {
+      background-color: #d9f5df;
+      border-style: solid;
+    }
+    .bin.wrong {
+      animation: shake 0.4s;
+    }
+    .bin-emoji {
+      font-size: 34px;
+      line-height: 1;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+    .game-feedback {
+      min-height: 28px;
+      margin: 10px 0 0 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    @media (max-width: 500px) {
+      .bins {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bin.wrong { animation: none; }
+      .pic.placed { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="start">
+      <div class="big-emoji">🍂</div>
+      <h1>Season Sort</h1>
+      <p>Drag each picture onto its season. Or tap a picture, then tap its season.</p>
+      <button class="big-btn" id="start-btn">Start</button>
+    </div>
+
+    <div id="play" hidden>
+      <div class="top-row">
+        <span id="progress"></span>
+        <span id="score" aria-label="Stars"></span>
+      </div>
+      <div class="pic-stage">
+        <img class="pic" id="pic" alt="" draggable="false">
+      </div>
+      <p class="game-feedback" id="feedback" aria-live="polite"></p>
+      <div class="bins" id="bins"></div>
+    </div>
+
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn">Play again</button>
+    </div>
+
+    <nav class="links">
+      <a class="link-btn" href="index.html">Home</a>
+      <a class="link-btn" href="seasons.html">Seasons flashcards</a>
+    </nav>
+  </main>
+
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script>
+    // The four seasons, with a picture for each bin
+    const EMOJI = { summer: "☀️", winter: "❄️", spring: "🌸", autumn: "🍂" };
+    const cards = TOPICS.seasons.cards;
+    const canSpeak = Voice.supported;
+
+    const pic = document.getElementById("pic");
+    const feedback = document.getElementById("feedback");
+    const binsEl = document.getElementById("bins");
+
+    let queue = [];
+    let index = 0;
+    let firstTry = 0;
+    let missedThisPicture = false;
+    let busy = false;
+    let selected = false;
+    let drag = null;
+
+    function say(text) {
+      if (canSpeak) Voice.speak(text);
+    }
+
+    function show(id) {
+      for (const panel of ["start", "play", "end"]) {
+        document.getElementById(panel).hidden = panel !== id;
+      }
+    }
+
+    // Build the four season bins once
+    binsEl.innerHTML = cards.map(card =>
+      `<button class="bin" data-season="${card.word}" aria-label="${card.word}">` +
+        `<span class="bin-emoji" aria-hidden="true">${EMOJI[card.word]}</span>` +
+        `<span>${card.word}</span></button>`
+    ).join("");
+    const bins = [...binsEl.querySelectorAll(".bin")];
+
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function startGame() {
+      queue = shuffled(cards);
+      index = 0;
+      firstTry = 0;
+      show("play");
+      showPicture();
+    }
+
+    function showPicture() {
+      const card = queue[index];
+      missedThisPicture = false;
+      busy = false;
+      selected = false;
+      pic.className = "pic";
+      pic.style.transform = "";
+      pic.src = card.picture;
+      pic.alt = card.word;
+      feedback.textContent = "Where does " + card.word + " go?";
+      bins.forEach(bin => bin.className = "bin");
+      document.getElementById("progress").textContent = (index + 1) + " / " + queue.length;
+      document.getElementById("score").textContent = "⭐".repeat(firstTry);
+      say("Where does " + card.word + " go?");
+    }
+
+    function binAt(x, y) {
+      const el = document.elementFromPoint(x, y);
+      return el ? el.closest(".bin") : null;
+    }
+
+    function answer(season) {
+      if (busy) return;
+      busy = true;
+      const card = queue[index];
+      selected = false;
+      pic.classList.remove("selected");
+      const bin = bins.find(b => b.dataset.season === season);
+
+      if (season === card.word) {
+        if (!missedThisPicture) firstTry++;
+        bin.classList.add("right");
+        pic.classList.add("placed");
+        feedback.textContent = "Yes! " + card.word + "!";
+        say("Yes! " + card.word + "!");
+        setTimeout(() => {
+          index++;
+          if (index >= queue.length) {
+            finish();
+          } else {
+            pic.classList.remove("placed");
+            showPicture();
+          }
+        }, 1300);
+      } else {
+        missedThisPicture = true;
+        busy = false;
+        bin.classList.add("wrong");
+        feedback.textContent = "Not quite. Try another season.";
+        say("Not quite. Try another season.");
+        setTimeout(() => bin.classList.remove("wrong"), 450);
+      }
+    }
+
+    function finish() {
+      show("end");
+      const message = "You got " + firstTry + " of " + queue.length + " right the first time.";
+      document.getElementById("end-message").textContent = message;
+      say("Well done! " + message);
+    }
+
+    // Dragging with a finger, pen or mouse
+    // Stop the browser taking the picture as its own drag, which cancels ours
+    pic.addEventListener("dragstart", (event) => event.preventDefault());
+
+    pic.addEventListener("pointerdown", (event) => {
+      if (busy) return;
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, base: pic.getBoundingClientRect() };
+      pic.setPointerCapture(event.pointerId);
+    });
+
+    pic.addEventListener("pointermove", (event) => {
+      if (!drag || drag.id !== event.pointerId) return;
+      const dx = event.clientX - drag.x;
+      const dy = event.clientY - drag.y;
+      if (!drag.moved && Math.hypot(dx, dy) > 10) {
+        drag.moved = true;
+        pic.classList.add("dragging");
+      }
+      if (drag.moved) {
+        const bin = binAt(event.clientX, event.clientY);
+        bins.forEach(b => b.classList.toggle("hover", b === bin));
+        if (bin) {
+          // Over a season box: shrink the picture so it fits inside that box
+          const box = bin.getBoundingClientRect();
+          const base = drag.base;
+          const scale = Math.min(box.width / base.width, box.height / base.height) * 0.9;
+          const tx = box.left + box.width / 2 - (base.left + base.width / 2);
+          const ty = box.top + box.height / 2 - (base.top + base.height / 2);
+          pic.classList.add("fit");
+          pic.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+        } else {
+          pic.classList.remove("fit");
+          pic.style.transform = `translate(${dx}px, ${dy}px)`;
+        }
+      }
+    });
+
+    pic.addEventListener("pointerup", (event) => {
+      if (!drag || drag.id !== event.pointerId) return;
+      const wasDrag = drag.moved;
+      drag = null;
+      pic.classList.remove("dragging", "fit");
+      pic.style.transform = "";
+      bins.forEach(bin => bin.classList.remove("hover"));
+
+      if (wasDrag) {
+        const bin = binAt(event.clientX, event.clientY);
+        if (bin) answer(bin.dataset.season);
+      } else if (!busy) {
+        // A tap picks the picture up; the next tap on a season answers
+        selected = !selected;
+        pic.classList.toggle("selected", selected);
+        feedback.textContent = selected ? "Now tap the season." : "Where does " + queue[index].word + " go?";
+      }
+    });
+
+    pic.addEventListener("pointercancel", () => {
+      drag = null;
+      pic.classList.remove("dragging", "fit");
+      pic.style.transform = "";
+      bins.forEach(bin => bin.classList.remove("hover"));
+    });
+
+    binsEl.addEventListener("click", (event) => {
+      const bin = event.target.closest(".bin");
+      if (!bin || !selected) return;
+      answer(bin.dataset.season);
+    });
+
+    document.getElementById("start-btn").addEventListener("click", startGame);
+    document.getElementById("again-btn").addEventListener("click", startGame);
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>

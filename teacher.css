@@ -447,6 +447,152 @@ input[type="text"]:focus-visible {
   outline-offset: 2px;
 }
 
+/* Quick start steps on the Teacher's Corner */
+.steps {
+  margin: 0;
+  padding-left: 22px;
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+.hint-line {
+  margin: 0 0 14px 0;
+  color: var(--muted);
+}
+
+/* Topic cards: one card per topic, with every tool for it as a button */
+.topic-list {
+  display: grid;
+  gap: 14px;
+}
+
+.topic-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px;
+  background-color: var(--surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  border-left: 10px solid var(--tile-color, var(--soft-blue));
+}
+
+.topic-card > img {
+  width: 110px;
+  height: 82px;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 14px;
+  background-color: var(--tile-color, var(--soft-blue));
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.topic-info h3 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--word-dark);
+}
+
+.topic-info > p {
+  margin: 2px 0 8px 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.topic-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* One filled button per topic, the rest quiet outlined links */
+.topic-actions a,
+.more-tools summary {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid #cfdde8;
+  border-radius: 999px;
+  background-color: #fff;
+  color: var(--word-dark);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.topic-actions a.action-main {
+  background-color: var(--word-dark);
+  border-color: var(--word-dark);
+  color: #fff;
+}
+
+.topic-actions a:hover,
+.more-tools summary:hover {
+  background-color: #eef5fa;
+}
+
+.topic-actions a.action-main:hover {
+  background-color: var(--word);
+}
+
+.topic-actions a:focus-visible,
+.more-tools summary:focus-visible {
+  outline: 3px solid var(--word);
+  outline-offset: 3px;
+}
+
+.more-tools {
+  position: relative;
+}
+
+.more-tools summary {
+  list-style: none;
+}
+
+.more-tools summary::-webkit-details-marker {
+  display: none;
+}
+
+.more-links {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 6px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px;
+  min-width: 190px;
+  background-color: #fff;
+  border: 1px solid #cfdde8;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.more-links a {
+  color: var(--word-dark);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.more-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  .topic-card {
+    flex-direction: column;
+  }
+  .topic-card > img {
+    width: 100%;
+    height: 120px;
+  }
+}
+
 /* Topic chooser (when no topic is picked) */
 .chooser {
   display: grid;

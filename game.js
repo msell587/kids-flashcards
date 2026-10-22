@@ -25,7 +25,13 @@ function say(text, options) {
   Voice.speak(text, options);
 }
 
+// Timers for the next word and the next round, cancelled when the game restarts
+let wordTimer = null;
+let nextTimer = null;
+
 function startGame() {
+  clearTimeout(wordTimer);
+  clearTimeout(nextTimer);
   rounds = shuffled(topic.cards);
   round = 0;
   firstTryCount = 0;
@@ -67,7 +73,7 @@ function startRound() {
   // Load the next round's picture early
   if (rounds[round + 1]) new Image().src = rounds[round + 1].picture;
 
-  setTimeout(() => say(target.word), 400);
+  wordTimer = setTimeout(() => say(target.word), 400);
 }
 
 function choose(button, option, target) {
@@ -83,7 +89,7 @@ function choose(button, option, target) {
     feedback.textContent = cheer + " " + target.word + "!";
     say("Yes! " + target.word + "! " + cheer);
     document.querySelectorAll(".choice").forEach(b => (b.disabled = true));
-    setTimeout(nextRound, 2400);
+    nextTimer = setTimeout(nextRound, 2400);
   } else {
     missedThisRound = true;
     button.classList.add("wrong");
