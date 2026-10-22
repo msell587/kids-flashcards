@@ -28,7 +28,10 @@
       ] },
       autumn: { parts: [
         { motion: "fall", shapes: ["🍂", "🍁", "🍂"], count: 20, size: [26, 42], time: [2.8, 4], sway: 45, spin: 360 }
-      ] },
+      ] }
+    },
+
+    weather: {
       sunny: { parts: [
         { motion: "sun", shapes: ["☀️"], size: [140, 140], place: "middle" },
         { motion: "twinkle", shapes: ["✨", "🌟"], count: 12, size: [20, 34], time: [1.2, 1.8] }
@@ -47,6 +50,10 @@
       windy: { parts: [
         { motion: "blow", shapes: [""], count: 10, size: [60, 120], time: [0.9, 1.4], drift: 20, className: "gust" },
         { motion: "blow", shapes: ["🍃", "🍂", "🍃"], count: 12, size: [24, 36], time: [1.4, 2.2], drift: 60, spin: 540 }
+      ] },
+      stormy: { parts: [
+        { motion: "rain", shapes: [""], count: 60, size: [18, 30], time: [0.5, 0.8], className: "drop" },
+        { motion: "twinkle", shapes: ["⚡"], count: 3, size: [40, 56], time: [0.6, 1] }
       ] }
     },
 

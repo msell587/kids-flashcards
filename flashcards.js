@@ -63,6 +63,14 @@ function setOptionsOpen(open) {
 }
 optionsButton.addEventListener("click", () => setOptionsOpen(optionsPanel.hidden));
 
+// Picking any option closes the panel again, so it does not cover the cards
+optionsPanel.addEventListener("click", (event) => {
+  if (event.target.closest("button, a")) {
+    setOptionsOpen(false);
+    optionsButton.focus({ preventScroll: true });
+  }
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !optionsPanel.hidden) {
     setOptionsOpen(false);

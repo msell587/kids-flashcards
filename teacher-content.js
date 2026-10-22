@@ -73,7 +73,7 @@ const TEACHER = {
   },
 
   colors: {
-    goal: "Children can name the 10 colours and find things of each colour around them.",
+    goal: "Children can name the 12 colours and find things of each colour around them.",
     materials: [
       "Screen or tablet with the Colours flashcards",
       "Printed colour cards",
@@ -280,22 +280,21 @@ const TEACHER = {
   },
 
   seasons: {
-    goal: "Children can name the 4 seasons and 5 kinds of weather, and say what the weather is like today.",
+    goal: "Children can name the 4 seasons and say one thing that happens in each.",
     materials: [
-      "Screen or tablet with the Seasons and Weather flashcards",
-      "Printed season and weather cards",
+      "Screen or tablet with the Seasons flashcards",
+      "Printed season cards (use “Print flashcards” above)",
       "Dress-up clothes if you have them (hat, scarf, sunglasses)",
       "Craft supplies: see “Four Seasons Tree” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and weather check", details: "Sing hello, then sing “What's the Weather?” and look out of the window together." },
-      { time: "8 min", step: "Meet the weather", details: "Go through the flashcards. Say each word, press 🔊, have the class repeat, and add an action (shiver for snowy, sway for windy)." },
-      { time: "5 min", step: "Song: Rain, Rain, Go Away", details: "Tap fingers like rain, then throw arms up for the sun." },
-      { time: "10 min", step: "Games", details: "Play Act the Weather, then Four Corners with the season cards." },
-      { time: "5 min", step: "Movement break", details: "Play Dress for the Weather, using real clothes if you have them." },
+      { time: "5 min", step: "Hello", details: "Sing hello, then ask “Which season is it now?” and listen to the answers." },
+      { time: "8 min", step: "Meet the seasons", details: "Go through the flashcards: summer, winter, spring, autumn. Say each word, press 🔊, have the class repeat, and add an action (sunglasses for summer, a shiver for winter, a jump for spring, a rake for autumn)." },
+      { time: "10 min", step: "Games", details: "Play Four Corners with the season cards." },
+      { time: "5 min", step: "Movement break", details: "Play Dress for the Season: put on a coat in winter, sunglasses in summer." },
       { time: "15 min", step: "Craft: Four Seasons Tree", details: "Follow the craft steps below. Name each season as children decorate its branch." },
-      { time: "7 min", step: "Weather Reporter", details: "Children take turns being the reporter, holding up the right card: “Today it's sunny!” Others point to the matching season on their tree." },
-      { time: "5 min", step: "Review and goodbye", details: "Sing “What's the Weather?” once more, then click through the flashcards together to the 🎉 screen." }
+      { time: "7 min", step: "Season Guess", details: "Say something a season is like (“Snow falls!”, “Flowers grow!”). Children hold up the matching season card." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen." }
     ],
     crafts: [
       {
@@ -308,14 +307,41 @@ const TEACHER = {
           "Summer: glue on green leaves. Autumn: glue on orange and brown leaves.",
           "Winter: stick cotton wool snow on the last branch."
         ],
-        tip: "Ask “What's the weather like in winter?” as children work, to link seasons to weather words."
-      },
+        tip: "Ask “What happens in winter?” as children work, so they say one thing about each season."
+      }
+    ],
+    songs: [],
+    games: [
+      { name: "Four Corners", how: "Put a season card in each corner of the room. Call a season and children run to that corner. Then call “Summer, sunny!” for a challenge." },
+      { name: "Dress for the Season", how: "Call out a season and children mime putting on the right clothes: a coat and hat for winter, sunglasses for summer, a raincoat for autumn." }
+    ]
+  },
+
+  weather: {
+    goal: "Children can name the 6 kinds of weather and say what the weather is like today.",
+    materials: [
+      "Screen or tablet with the Weather flashcards",
+      "Printed weather cards (use “Print flashcards” above)",
+      "Dress-up clothes if you have them (hat, scarf, sunglasses)",
+      "Craft supplies: see “Weather Wheel” below"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and weather check", details: "Sing hello, then sing “What's the Weather?” and look out of the window together." },
+      { time: "8 min", step: "Meet the weather", details: "Go through the flashcards: sunny, rainy, cloudy, snowy, windy, stormy. Say each word, press 🔊, have the class repeat, and add an action (big arms for sunny, tapping fingers for rainy, a shiver for snowy, a sway for windy)." },
+      { time: "5 min", step: "Song: Rain, Rain, Go Away", details: "Tap fingers like rain, then throw arms up for the sun." },
+      { time: "10 min", step: "Games", details: "Play Act the Weather, then Weather Reporter." },
+      { time: "5 min", step: "Movement break", details: "Play Dress for the Weather, using real clothes if you have them." },
+      { time: "15 min", step: "Craft: Weather Wheel", details: "Follow the craft steps below. Name each weather as children colour their section." },
+      { time: "7 min", step: "Weather Reporter", details: "Children take turns being the reporter, holding up the right card: “Today it's sunny!” Others point to the matching picture on their wheel." },
+      { time: "5 min", step: "Review and goodbye", details: "Sing “What's the Weather?” once more, then click through the flashcards together to the 🎉 screen." }
+    ],
+    crafts: [
       {
         name: "Weather Wheel",
         time: "15 min",
-        supplies: ["Paper plates divided into five sections", "Crayons", "A card arrow", "Split pin fastener (adult only)"],
+        supplies: ["Paper plates divided into six sections", "Crayons", "A card arrow", "Split pin fastener (adult only)"],
         steps: [
-          "Children draw sunny, rainy, cloudy, snowy and windy, one in each section.",
+          "Children draw sunny, rainy, cloudy, snowy, windy and stormy, one in each section.",
           "An adult attaches the arrow to the centre with the split pin.",
           "Each morning, children turn the arrow to today's weather and say it."
         ],
@@ -338,12 +364,12 @@ const TEACHER = {
       }
     ],
     games: [
-      { name: "Act the Weather", how: "Show a card and everyone acts it out: big arms for sunny, tapping fingers for rainy, swaying for windy, shivering for snowy, floating slowly for cloudy." },
+      { name: "Act the Weather", how: "Show a card and everyone acts it out: big arms for sunny, tapping fingers for rainy, swaying for windy, shivering for snowy, floating slowly for cloudy, stamping for stormy." },
       { name: "Weather Reporter", how: "A child stands at the front, looks outside and holds up the right card: “Today it's sunny!” The class claps." },
-      { name: "Dress for the Weather", how: "Call out a weather and children mime putting on the right clothes: a coat and scarf for snowy, sunglasses for sunny, boots for rainy." },
-      { name: "Four Corners", how: "Put a season card in each corner of the room. Call a season and children run to that corner. Then call “Summer, sunny!” for a challenge." }
+      { name: "Dress for the Weather", how: "Call out a weather and children mime putting on the right clothes: a coat and scarf for snowy, sunglasses for sunny, boots for rainy." }
     ]
   },
+
   city: {
     goal: "Children can name 11 places and things in a city, and say what we do there.",
     materials: [
