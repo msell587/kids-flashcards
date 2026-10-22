@@ -29,13 +29,39 @@ function showChooser() {
     <h1>Teacher's Corner</h1>
     <p class="lead">Lesson plans, crafts, songs and games for each flashcard topic. For ages 3–5.</p>
     <section>
+      <h2>Quick start</h2>
+      <ol class="steps">
+        <li><strong>Show the flashcards</strong> on the board, and let the class say each word.</li>
+        <li><strong>Play the Class Game</strong> with two teams. The first team to say the word gets a point.</li>
+        <li><strong>Finish with a colouring sheet</strong> for everyone to take home or work on at their table.</li>
+      </ol>
+    </section>
+    <section>
       <h2>Pick a topic</h2>
-      <div class="chooser">
+      <p class="hint-line">Each topic has its own lesson plan and everything to go with it. Choose what you need below.</p>
+      <div class="topic-list">
         ${Object.keys(TOPICS).map(key => `
-          <a class="topic-choice" href="teacher.html?topic=${key}" style="--tile-color: var(--${key})">
+          <article class="topic-card" style="--tile-color: var(--${key})">
             <img src="${encodeURI(TOPICS[key].cards[0].picture)}" alt="">
-            <span><strong>${escapeHtml(TOPICS[key].title)}</strong>${TOPICS[key].cards.length} words</span>
-          </a>`).join("")}
+            <div class="topic-info">
+              <h3>${escapeHtml(TOPICS[key].title)}</h3>
+              <p>${TOPICS[key].cards.length} words</p>
+              <nav class="topic-actions" aria-label="Tools for ${escapeHtml(TOPICS[key].title)}">
+                <a class="action-main" href="teacher.html?topic=${key}">Lesson plan</a>
+                <a href="${encodeURI(TOPICS[key].page)}">Flashcards</a>
+                <a href="classroom-game.html?topic=${key}">Class game</a>
+                <details class="more-tools">
+                  <summary>More</summary>
+                  <div class="more-links">
+                    ${key === "seasons" ? '<a href="season-game.html">Season Sort</a>' : ""}
+                    <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
+                    <a href="worksheet.html?topic=${key}">Worksheets</a>
+                    <a href="print.html?topic=${key}">Print cards</a>
+                  </div>
+                </details>
+              </nav>
+            </div>
+          </article>`).join("")}
       </div>
     </section>
     <section>
@@ -97,6 +123,7 @@ function showGuide() {
         <h2 id="in-class-label">In class</h2>
         <div>
           <a class="btn" href="${encodeURI(topic.page)}">Open flashcards</a>
+          <a class="btn" href="classroom-game.html?topic=${topicKey}">Class game</a>
         </div>
       </div>
       <div class="action-group" role="group" aria-labelledby="print-label">
@@ -104,6 +131,11 @@ function showGuide() {
         <div>
           <a class="btn secondary" href="print.html?topic=${topicKey}">Flashcards</a>
           <a class="btn secondary" href="worksheet.html?topic=${topicKey}">Worksheets</a>
+          ${topicKey === "seasons"
+            ? ["spring", "summer", "autumn", "winter"].map(season =>
+                `<a class="btn secondary" href="colouring.html?topic=seasons&sheet=1&season=${season}">${season[0].toUpperCase() + season.slice(1)} colouring</a>`
+              ).join("")
+            : `<a class="btn secondary" href="colouring.html?topic=${topicKey}&sheet=1">Colouring sheet</a>`}
         </div>
       </div>
     </div>
@@ -476,7 +508,7 @@ function setUpBackup() {
       status.textContent = "That file couldn't be read. Please choose a backup made by this app.";
       return;
     }
-    if (!backup || backup.app !== "flashcards-teacher" || typeof backup.data !== "object") {
+    if (!backup || backup.app !== "flashcards-teacher" || !backup.data || typeof backup.data !== "object") {
       status.textContent = "That doesn't look like a backup from this app.";
       return;
     }
@@ -563,17 +595,24 @@ function setUpNotes() {
     return;
   }
 
-  let timer;
+  // Notes are saved a moment after typing stops, and straight away when the page is left
+  let timer = null;
+  function save() {
+    clearTimeout(timer);
+    timer = null;
+    try {
+      localStorage.setItem(storageKey, box.value);
+      status.textContent = "Saved ✓";
+    } catch (error) {
+      status.textContent = "Couldn't save. Copy your notes somewhere safe.";
+    }
+  }
   box.addEventListener("input", () => {
     clearTimeout(timer);
-    timer = setTimeout(() => {
-      try {
-        localStorage.setItem(storageKey, box.value);
-        status.textContent = "Saved ✓";
-      } catch (error) {
-        status.textContent = "Couldn't save. Copy your notes somewhere safe.";
-      }
-    }, 400);
+    timer = setTimeout(save, 400);
+  });
+  window.addEventListener("pagehide", () => {
+    if (timer !== null) save();
   });
 }
 

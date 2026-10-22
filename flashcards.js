@@ -35,14 +35,19 @@ const tools = document.createElement("div");
 tools.className = "tools";
 tools.innerHTML =
   '<div class="tools-row">' +
+    '<button class="tool" id="know-btn" aria-pressed="false">I know this</button>' +
     '<button class="tool" id="options-btn" aria-expanded="false" aria-controls="options-panel">Options</button>' +
   '</div>' +
   '<div class="options-panel" id="options-panel" hidden>' +
     '<div class="option-group" role="group" aria-labelledby="practise-label">' +
       '<h2 id="practise-label">Practise</h2>' +
       '<div><button class="tool" id="shuffle-btn">Shuffle</button>' +
+      '<button class="tool" id="missed-btn">Just the missed words</button>' +
       '<button class="tool" id="guess-btn">Hide words</button>' +
-      '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">Listening game</a></div>' +
+      '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">Listening game</a>' +
+      (topicKey === "seasons" ? '<a class="tool" id="season-sort-link" href="season-game.html">Season Sort</a>' : '') +
+      (topicKey === "colors" ? '<a class="tool" id="colour-link" href="colouring.html?topic=colors">Colouring</a>' : '') +
+      '</div>' +
     '</div>' +
     '<div class="option-group" role="group" aria-labelledby="screen-label">' +
       '<h2 id="screen-label">Screen &amp; sound</h2>' +
@@ -197,12 +202,19 @@ function launchConfetti() {
 const shuffleButton = document.getElementById("shuffle-btn");
 shuffleButton.addEventListener("click", () => {
   const isShuffled = shuffleButton.classList.toggle("on");
-  deck = isShuffled ? shuffled(cards) : cards.slice();
   shuffleButton.textContent = isShuffled ? "Back to order" : "Shuffle";
+  applyDeck();
+});
+
+// Rebuilds the deck from the chosen words (all, or only the missed ones), shuffled or in order
+function applyDeck() {
+  const missed = missedCards();
+  const base = missedOnly && missed.length ? missed : cards;
+  deck = shuffleButton.classList.contains("on") ? shuffled(base) : base.slice();
   if (finished) hideCelebration();
   current = 0;
   showCard(1);
-});
+}
 
 const guessButton = document.getElementById("guess-btn");
 guessButton.addEventListener("click", () => {
@@ -297,4 +309,67 @@ card.addEventListener("touchend", (event) => {
   }
 });
 
+/* ---------- Words the child knows ---------- */
+
+// Saved per topic in this browser, e.g. { "animals": ["cat", "dog"] }
+function knownWords() {
+  try {
+    const all = JSON.parse(localStorage.getItem("known-words") || "{}");
+    return Array.isArray(all[topicKey]) ? all[topicKey] : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveKnownWords(words) {
+  try {
+    const all = JSON.parse(localStorage.getItem("known-words") || "{}");
+    all[topicKey] = words;
+    localStorage.setItem("known-words", JSON.stringify(all));
+  } catch (error) {
+    // Progress just won't be remembered in this browser
+  }
+}
+
+function missedCards() {
+  const known = knownWords();
+  return cards.filter(card => !known.includes(card.word));
+}
+
+const knowButton = document.getElementById("know-btn");
+function showKnownState() {
+  const known = knownWords().includes(deck[current].word);
+  knowButton.classList.toggle("on", known);
+  knowButton.setAttribute("aria-pressed", known);
+  knowButton.textContent = known ? "✓ I know this" : "I know this";
+}
+
+knowButton.addEventListener("click", () => {
+  const word = deck[current].word;
+  const words = knownWords();
+  saveKnownWords(words.includes(word) ? words.filter(w => w !== word) : words.concat(word));
+  showKnownState();
+  updateMissedButton();
+});
+
+// "Just the missed words" practises only the words not yet marked as known
+const missedButton = document.getElementById("missed-btn");
+let missedOnly = false;
+function updateMissedButton() {
+  const missed = missedCards().length;
+  missedButton.classList.toggle("on", missedOnly);
+  missedButton.disabled = !missedOnly && missed === 0;
+  if (missedOnly) missedButton.textContent = "All the words";
+  else if (missed === 0) missedButton.textContent = "Every word is known!";
+  else missedButton.textContent = "Just the missed words (" + missed + ")";
+}
+
+missedButton.addEventListener("click", () => {
+  missedOnly = !missedOnly;
+  updateMissedButton();
+  applyDeck();
+});
+
+showKnownState();
+updateMissedButton();
 showCard(0);

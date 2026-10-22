@@ -105,7 +105,8 @@ const TOPICS = {
       { word: "bus", picture: "images/city/bus.jpg" },
       { word: "car", picture: "images/city/car.jpg" },
       { word: "traffic light", picture: "images/city/traffic-light.jpg" },
-      { word: "bridge", picture: "images/city/bridge.jpg" }
+      { word: "bridge", picture: "images/city/bridge.jpg" },
+      { word: "train", picture: "images/city/train.jpg" }
     ]
   },
   christmas: {

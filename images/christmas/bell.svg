@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="bell">
-<circle cx="200" cy="340" r="22" fill="#c9a227" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
-<path d="M118 305 C118 200, 140 112, 200 112 C260 112, 282 200, 282 305 L310 330 L90 330 Z" fill="#ffd23f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
-<circle cx="200" cy="100" r="16" fill="#ffd23f" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
-<path d="M140 240 C150 180, 165 150, 185 140" fill="none" stroke="#fff6c2" stroke-width="10" stroke-linecap="round"/>
-<ellipse cx="160" cy="78" rx="34" ry="18" transform="rotate(20 160 78)" fill="#e63946" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
-<ellipse cx="240" cy="78" rx="34" ry="18" transform="rotate(-20 240 78)" fill="#e63946" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
-<circle cx="200" cy="88" r="14" fill="#e63946" stroke="#333333" stroke-width="8" stroke-linejoin="round"/>
-</svg>
