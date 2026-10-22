@@ -1,7 +1,7 @@
 // Offline support: saves every page, script, style and flashcard picture on the device the first time
 // the app is opened, then serves them from there. Pictures are read from topics.js, so new topics are included.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v21";
+const VERSION = "v28";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
