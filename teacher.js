@@ -3,6 +3,8 @@ const topicKey = new URLSearchParams(location.search).get("topic");
 const topic = TOPICS[topicKey];
 const guide = TEACHER[topicKey];
 const main = document.getElementById("guide");
+// Topics that have a Picture Guess game (picture-guess.html?topic=...)
+const GUESS_TOPICS = ["seasons", "weather"];
 
 function escapeHtml(text) {
   return String(text)
@@ -57,6 +59,7 @@ function showChooser() {
                   <summary>More</summary>
                   <div class="more-links">
                     ${key === "seasons" ? '<a href="season-game.html">Season Sort</a><a href="autumn-guess.html">Autumn Guess</a>' : ""}
+                    ${GUESS_TOPICS.includes(key) ? `<a href="picture-guess.html?topic=${key}">Picture Guess</a>` : ""}
                     <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
                     <a href="worksheet.html?topic=${key}">Worksheets</a>
                     <a href="print.html?topic=${key}">Print cards</a>

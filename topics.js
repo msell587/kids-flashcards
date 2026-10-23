@@ -73,22 +73,22 @@ const TOPICS = {
     title: "Seasons",
     page: "seasons.html",
     cards: [
-      { word: "summer", picture: "images/seasons and weather/summer.jpg" },
-      { word: "winter", picture: "images/seasons and weather/winter.jpg" },
-      { word: "spring", picture: "images/seasons and weather/spring.jpg" },
-      { word: "autumn", picture: "images/seasons and weather/autumn.jpg" }
+      { word: "summer", es: "verano", picture: "images/seasons and weather/summer.jpg" },
+      { word: "winter", es: "invierno", picture: "images/seasons and weather/winter.jpg" },
+      { word: "spring", es: "primavera", picture: "images/seasons and weather/spring.jpg" },
+      { word: "autumn", es: "otoño", picture: "images/seasons and weather/autumn.jpg" }
     ]
   },
   weather: {
     title: "Weather",
     page: "weather.html",
     cards: [
-      { word: "sunny", picture: "images/seasons and weather/sunny.jpg" },
-      { word: "rainy", picture: "images/seasons and weather/rainy.jpg" },
-      { word: "cloudy", picture: "images/seasons and weather/cloudy.jpg" },
-      { word: "snowy", picture: "images/seasons and weather/snowy.jpg" },
-      { word: "windy", picture: "images/seasons and weather/windy.jpg" },
-      { word: "stormy", picture: "images/seasons and weather/stormy.jpg" }
+      { word: "sunny", es: "soleado", picture: "images/seasons and weather/sunny.jpg" },
+      { word: "rainy", es: "lluvioso", picture: "images/seasons and weather/rainy.jpg" },
+      { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.jpg" },
+      { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.jpg" },
+      { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.jpg" },
+      { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.jpg" }
     ]
   },
   city: {
