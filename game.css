@@ -160,6 +160,7 @@ button:focus-visible,
 
 .links {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
   margin-top: 20px;
@@ -175,6 +176,7 @@ button:focus-visible,
   border-radius: 999px;
   box-shadow: var(--shadow);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {

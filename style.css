@@ -24,7 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
-  animation: rise-in 0.5s ease-out backwards;
+  animation: rise-in 0.3s ease-out backwards;
 }
 
 img {
