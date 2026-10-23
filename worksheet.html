@@ -218,6 +218,7 @@
   <div class="sheet" id="sheet"></div>
 
   <script src="topics.js"></script>
+  <script src="save-print.js"></script>
   <script>
     // Printable worksheets for a topic, e.g. worksheet.html?topic=animals&type=match
     const params = new URLSearchParams(location.search);
@@ -242,7 +243,8 @@
         '<a href="worksheet.html?topic=' + topicKey + '&type=' + key + '"' +
         (key === type ? ' aria-current="page"' : "") + ">" + TYPES[key].label + "</a>").join("") +
       '<button onclick="buildSheet()">New sheet</button>' +
-      '<button class="primary" onclick="window.print()">Print</button>';
+      '<button class="primary" onclick="window.print()">Print</button>' +
+      '<button onclick="savePrintable(topic.title + \' \' + TYPES[type].label + \' worksheet.html\', \'.bar, .bubbles\')">Download</button>';
 
     function picture(card) {
       return '<img src="' + encodeURI(card.picture) + '" alt="' + escapeHtml(card.word) + '">';

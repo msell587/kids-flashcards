@@ -1,15 +1,15 @@
 // Offline support: saves every page, script and style on the device the first time the app is opened.
 // Each flashcard picture is saved the first time it is shown, so the first visit stays small.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v46";
+const VERSION = "v51";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
 
 const APP_FILES = [
-  "./", "index.html", "teacher.html", "game.html", "season-game.html", "classroom-game.html", "colouring.html", "print.html", "worksheet.html",
+  "./", "index.html", "teacher.html", "game.html", "season-game.html", "autumn-guess.html", "classroom-game.html", "colouring.html", "print.html", "worksheet.html",
   "theme.css", "style.css", "game.css", "teacher.css",
-  "topics.js", "flashcards.js", "animals.js", "effects.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "colouring-scenes.js", "pwa.js",
+  "topics.js", "flashcards.js", "animals.js", "effects.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "colouring-scenes.js", "pwa.js", "save-print.js",
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/apple-touch-icon.png"
 ];
 

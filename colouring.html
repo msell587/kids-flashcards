@@ -163,15 +163,47 @@
       font-size: 16px;
       color: var(--muted);
     }
+    /* Printable sheets sit on the page with no card or shadow around them */
+    body.sheet .scene-wrap {
+      background: none;
+      box-shadow: none;
+      padding: 0;
+    }
+    .season-picker {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 14px 0 4px 0;
+    }
+    .season-picker button {
+      padding: 8px 18px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background-color: var(--surface);
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .season-picker button[aria-pressed="true"] {
+      background-color: var(--word);
+      color: #fff;
+    }
+    .sheet-page[hidden] {
+      display: none;
+    }
     .sheet-page {
       display: block;
       width: 100%;
       margin: 0 0 12px 0;
-      padding: 10px;
+      padding: 0;
       box-sizing: border-box;
       border-radius: 16px;
-      background-color: #fff;
-      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: none;
+      box-shadow: none;
     }
     .sheet-label {
       margin: 0 0 6px 0;
@@ -186,7 +218,7 @@
       height: auto;
     }
     @media print {
-      .bubbles, .topbar, .palette, .tools-line, .hint, .links, .page-title {
+      .bubbles, .topbar, .palette, .tools-line, .hint, .links, .page-title, .season-picker {
         display: none !important;
       }
       .sheet-page {
@@ -257,6 +289,7 @@
     <div class="tools-line">
       <button type="button" class="secondary" id="clear-btn">Clear</button>
       <button type="button" id="print-btn">Print</button>
+      <button type="button" id="download-btn">Download</button>
     </div>
 
   </main>
@@ -264,6 +297,7 @@
   <script src="topics.js"></script>
   <script src="colouring-scenes.js"></script>
   <script src="voice.js"></script>
+  <script src="save-print.js"></script>
   <script>
     const params = new URLSearchParams(location.search);
     const topicKey = SCENES[params.get("topic")] ? params.get("topic") : "animals";
@@ -307,14 +341,33 @@
       svg.style.display = "none";
       const pages = document.createElement("div");
       pages.className = "sheet-pages";
-      // ?season=spring prints just one season's sheet
-      const only = params.get("season");
-      const sheets = only ? scene.sheetImages.filter(s => s.label.toLowerCase() === only) : scene.sheetImages;
-      pages.innerHTML = sheets.map(sheet =>
-        `<figure class="sheet-page"><figcaption class="sheet-label">${sheet.label}</figcaption>` +
+      pages.innerHTML = scene.sheetImages.map(sheet =>
+        `<figure class="sheet-page" data-season="${sheet.label.toLowerCase()}"><figcaption class="sheet-label">${sheet.label}</figcaption>` +
         `<img src="${sheet.src}" alt="${sheet.label}"></figure>`
       ).join("");
-      svg.after(pages);
+
+      // Pick one season (or all) to show, print or download; ?season=spring opens with that one chosen
+      const picker = document.createElement("div");
+      picker.className = "season-picker";
+      picker.setAttribute("role", "group");
+      picker.setAttribute("aria-label", "Choose which sheet to show");
+      picker.innerHTML = ["All", ...scene.sheetImages.map(sheet => sheet.label)].map(label =>
+        `<button type="button" data-season="${label.toLowerCase()}">${label}</button>`
+      ).join("");
+      const showSeason = season => {
+        pages.querySelectorAll(".sheet-page").forEach(page => {
+          page.hidden = season !== "all" && page.dataset.season !== season;
+        });
+        picker.querySelectorAll("button").forEach(button =>
+          button.setAttribute("aria-pressed", button.dataset.season === season));
+      };
+      picker.addEventListener("click", event => {
+        const button = event.target.closest("button");
+        if (button) showSeason(button.dataset.season);
+      });
+      const only = params.get("season");
+      showSeason(scene.sheetImages.some(sheet => sheet.label.toLowerCase() === only) ? only : "all");
+      svg.after(picker, pages);
     }
 
     // Crayon buttons
@@ -344,6 +397,13 @@
     });
 
     document.getElementById("print-btn").addEventListener("click", () => window.print());
+    document.getElementById("download-btn").addEventListener("click", () => {
+      // The file is named after the season being shown, e.g. "Seasons Spring colouring sheet.html"
+      const picked = document.querySelector(".season-picker [aria-pressed='true']");
+      const season = picked && picked.dataset.season !== "all" ? picked.textContent + " " : "";
+      savePrintable(scene.title + " " + season + (sheetMode ? "colouring sheet.html" : "colouring.html"),
+        ".topbar, .hint, .palette, .tools-line, .season-picker, .sheet-page[hidden], .bubbles");
+    });
   </script>
   <script src="pwa.js"></script>
 </body>

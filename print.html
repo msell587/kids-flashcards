@@ -147,6 +147,7 @@
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <div class="bar">
     <button onclick="window.print()">Print</button>
+    <button onclick="savePrintable(topic.title + ' flashcards.html', '.bar, .options, .bubbles')">Download</button>
     <span id="heading"></span>
   </div>
   <div class="options">
@@ -181,6 +182,7 @@
   <div class="sheet" id="sheet"></div>
 
   <script src="topics.js"></script>
+  <script src="save-print.js"></script>
   <script>
     // The choices live in the address, so a link reopens the same layout, e.g.
     // print.html?topic=shapes&pictures=drawings&per=4&words=off&lines=off&cover=on

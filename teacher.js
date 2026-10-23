@@ -22,6 +22,9 @@ topicSelect.addEventListener("change", () => {
   location.href = topicSelect.value ? "teacher.html?topic=" + topicSelect.value : "teacher.html";
 });
 
+// "All topics" keeps you in the Teacher's Corner; on the topic list it would just repeat the page you are on
+if (!topicKey) document.getElementById("all-topics-link").remove();
+
 function showChooser() {
   // The topic cards below do the same job as the dropdown, so the dropdown is only shown on a guide
   document.querySelector(".topic-picker").hidden = true;
@@ -53,7 +56,7 @@ function showChooser() {
                 <details class="more-tools">
                   <summary>More</summary>
                   <div class="more-links">
-                    ${key === "seasons" ? '<a href="season-game.html">Season Sort</a>' : ""}
+                    ${key === "seasons" ? '<a href="season-game.html">Season Sort</a><a href="autumn-guess.html">Autumn Guess</a>' : ""}
                     <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
                     <a href="worksheet.html?topic=${key}">Worksheets</a>
                     <a href="print.html?topic=${key}">Print cards</a>
