@@ -290,7 +290,7 @@ const TEACHER = {
     plan: [
       { time: "5 min", step: "Hello", details: "Sing hello, then ask “Which season is it now?” and listen to the answers." },
       { time: "8 min", step: "Meet the seasons", details: "Go through the flashcards: summer, winter, spring, autumn. Say each word, press 🔊, have the class repeat, and add an action (sunglasses for summer, a shiver for winter, a jump for spring, a rake for autumn)." },
-      { time: "10 min", step: "Games", details: "Play Four Corners with the season cards." },
+      { time: "10 min", step: "Games", details: "Play Four Corners with the season cards, then Autumn Guess on the screen: tap the picture for clues, then show the word." },
       { time: "5 min", step: "Movement break", details: "Play Dress for the Season: put on a coat in winter, sunglasses in summer." },
       { time: "15 min", step: "Craft: Four Seasons Tree", details: "Follow the craft steps below. Name each season as children decorate its branch." },
       { time: "7 min", step: "Season Guess", details: "Say something a season is like (“Snow falls!”, “Flowers grow!”). Children hold up the matching season card." },
@@ -310,10 +310,19 @@ const TEACHER = {
         tip: "Ask “What happens in winter?” as children work, so they say one thing about each season."
       }
     ],
-    songs: [],
+    songs: [
+      {
+        title: "The Four Seasons",
+        tune: "Frère Jacques (Are You Sleeping?)",
+        words: "Spring has flowers, spring has flowers,\nSummer sun, summer sun,\nAutumn leaves fall down, autumn leaves fall down,\nWinter snow, winter snow.",
+        how: "Hold up each season card as its line is sung. Children do the action: jump for spring, big arms for summer, leaves floating down for autumn, a shiver for winter.",
+        search: "frere jacques kids song"
+      }
+    ],
     games: [
       { name: "Four Corners", how: "Put a season card in each corner of the room. Call a season and children run to that corner. Then call “Summer, sunny!” for a challenge." },
-      { name: "Dress for the Season", how: "Call out a season and children mime putting on the right clothes: a coat and hat for winter, sunglasses for summer, a raincoat for autumn." }
+      { name: "Dress for the Season", how: "Call out a season and children mime putting on the right clothes: a coat and hat for winter, sunglasses for summer, a raincoat for autumn." },
+      { name: "Autumn Guess", how: "Open the Autumn Guess game on the screen. Show a picture of an autumn object, such as a leaf, a pumpkin or an umbrella. Tap the picture to clear it a little more with each clue. Children guess the object in English or Spanish, then show the word." }
     ]
   },
 
