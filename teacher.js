@@ -58,7 +58,7 @@ function showChooser() {
                 <details class="more-tools">
                   <summary>More</summary>
                   <div class="more-links">
-                    ${key === "seasons" ? '<a href="season-game.html">Season Sort</a><a href="autumn-guess.html">Autumn Guess</a>' : ""}
+                    ${key === "seasons" ? '<a href="season-game.html">Season Sort</a><a href="autumn-guess.html">Autumn Guess</a><a href="summer-guess.html">Summer Guess</a>' : ""}
                     ${GUESS_TOPICS.includes(key) ? `<a href="picture-guess.html?topic=${key}">Picture Guess</a>` : ""}
                     <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
                     <a href="worksheet.html?topic=${key}">Worksheets</a>
