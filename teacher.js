@@ -622,6 +622,19 @@ function setUpNotes() {
   });
 }
 
+// A More menu closes when you click or tap anywhere else, or press Escape
+function closeMoreMenus(except) {
+  document.querySelectorAll(".more-tools[open]").forEach(menu => {
+    if (menu !== except) menu.open = false;
+  });
+}
+document.addEventListener("click", event => {
+  closeMoreMenus(event.target.closest(".more-tools"));
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeMoreMenus(null);
+});
+
 // Start: show the chosen topic's guide, or the topic list if none was picked
 if (!topic || !guide) {
   showChooser();

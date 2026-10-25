@@ -238,7 +238,7 @@
         bin.classList.add("right");
         pic.classList.add("placed");
         feedback.textContent = "Yes! " + card.word + "!";
-        say("Yes! " + card.word + "!");
+        // Move on first, so a speech problem can never leave the game stuck on this picture
         setTimeout(() => {
           index++;
           if (index >= queue.length) {
@@ -248,6 +248,7 @@
             showPicture();
           }
         }, 1300);
+        say("Yes! " + card.word + "!");
       } else {
         missedThisPicture = true;
         busy = false;

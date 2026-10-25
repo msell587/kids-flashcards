@@ -119,11 +119,6 @@
     @keyframes confetti-fall {
       to { transform: translateY(110vh) rotate(720deg); }
     }
-    .guess-hint {
-      margin: 8px 0 0 0;
-      font-size: 16px;
-      color: var(--word-dark);
-    }
     /* The emoji and photo use display:flex/block, so keep the hidden attribute working */
     [hidden] { display: none !important; }
     @media (prefers-reduced-motion: reduce) {
@@ -150,7 +145,7 @@
         <div class="guess-emoji" id="emoji" hidden></div>
       </div>
       <div class="clue-dots" id="dots" aria-hidden="true">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </div>
       <p class="guess-word" id="word" aria-live="polite"></p>
       <div class="guess-controls">
@@ -158,7 +153,6 @@
         <button type="button" id="say-btn" class="primary">Show the word</button>
         <button type="button" id="next-btn">Next picture</button>
       </div>
-      <p class="guess-hint">Keys: Space = clue · Enter = show the word · → = next picture</p>
     </div>
     <div class="panel" id="end" hidden>
       <div class="big-emoji">🎉</div>
