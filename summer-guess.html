@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Summer Guess</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Summer Guess: the picture starts blurred, each tap clears it a little more,
+       then the teacher shows the word and the class celebrates */
+    .guess-box {
+      position: relative;
+      width: min(90vw, 520px);
+      height: min(44vh, 420px);
+      margin: 14px auto 0 auto;
+      border-radius: 28px;
+      border: 6px solid #fff;
+      box-sizing: border-box;
+      box-shadow: var(--shadow);
+      background-color: #fff;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .guess-pic,
+    .guess-emoji {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.6s ease, transform 0.3s ease;
+    }
+    .guess-emoji {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: min(30vh, 200px);
+      background: linear-gradient(160deg, #fff9c4, #ffe082);
+    }
+    /* A multicoloured beach ball, drawn in CSS until a photo is added */
+    .beach-ball {
+      width: 60%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: conic-gradient(#e53935 0 60deg, #fff 60deg 120deg, #fdd835 120deg 180deg,
+        #fff 180deg 240deg, #1e88e5 240deg 300deg, #fff 300deg 360deg);
+      box-shadow: inset -14px -14px 0 rgba(0, 0, 0, 0.08);
+    }
+    .guess-box:hover .guess-pic,
+    .guess-box:hover .guess-emoji { transform: scale(1.02); }
+    .blur-0 { filter: blur(28px) saturate(0.6); }
+    .blur-1 { filter: blur(9px); }
+    .blur-2 { filter: none; }
+    .clue-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .clue-dots span {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--surface);
+      box-shadow: var(--shadow);
+      transition: background-color 0.3s ease;
+    }
+    .clue-dots span.on { background-color: var(--word); }
+    .guess-word {
+      min-height: 56px;
+      margin: 10px 0 0 0;
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .guess-word small {
+      display: block;
+      font-size: 22px;
+      color: var(--word);
+    }
+    .guess-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .guess-controls button {
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 999px;
+      background-color: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .guess-controls button.primary {
+      background-color: var(--word);
+      color: #fff;
+    }
+    .guess-controls button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .confetti-piece {
+      position: fixed;
+      top: -20px;
+      width: 12px;
+      height: 16px;
+      border-radius: 3px;
+      pointer-events: none;
+      z-index: 10;
+      animation: confetti-fall linear forwards;
+    }
+    @keyframes confetti-fall {
+      to { transform: translateY(110vh) rotate(720deg); }
+    }
+    /* The emoji and photo use display:flex/block, so keep the hidden attribute working */
+    [hidden] { display: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+      .confetti-piece { display: none; }
+      .guess-pic, .guess-emoji { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">☀️</div>
+      <h1>Summer Guess</h1>
+      <p>Tap the picture to see more of it. Who knows what it is?</p>
+      <button class="big-btn" id="start-btn" type="button">Let's guess!</button>
+    </div>
+    <div id="play" hidden>
+      <p class="top-row" style="justify-content:center">
+        <span id="progress"></span>
+      </p>
+      <div class="guess-box" id="guess-box" role="button" tabindex="0" aria-label="Tap for a clue">
+        <img class="guess-pic" id="pic" alt="">
+        <div class="guess-emoji" id="emoji" hidden></div>
+      </div>
+      <div class="clue-dots" id="dots" aria-hidden="true">
+        <span></span><span></span>
+      </div>
+      <p class="guess-word" id="word" aria-live="polite"></p>
+      <div class="guess-controls">
+        <button type="button" id="clue-btn">Clue</button>
+        <button type="button" id="say-btn" class="primary">Show the word</button>
+        <button type="button" id="next-btn">Next picture</button>
+      </div>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message">You guessed all the summer pictures.</p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="teacher.html?topic=seasons">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="voice.js"></script>
+  <script>
+    // Each item: the English word, the Spanish word, an emoji shown until a photo is added
+    // at images/summer-guess/<english word>.jpg
+    const ITEMS = [
+      { word: "ice cream", es: "helado", emoji: "🍦" },
+      { word: "sunglasses", es: "gafas de sol", emoji: "🕶️" },
+      { word: "watermelon", es: "sandía", emoji: "🍉" },
+      { word: "flip-flops", es: "chanclas", emoji: "🩴" },
+      { word: "sunscreen", es: "protector solar", emoji: "🧴" },
+      { word: "beach", es: "playa", emoji: "☀️⛱️🏖️" },
+      { word: "a bucket and a shovel", es: "un cubo y una pala", emoji: "🪣⛏️" },
+      { word: "swimwear", es: "ropa de baño", emoji: "👙🥽" },
+      { word: "surfboard", es: "tabla de surf", emoji: "🏄🌊" },
+      { word: "kite", es: "cometa", emoji: "🪁" },
+      { word: "beach ball", es: "pelota de playa", emoji: '<span class="beach-ball"></span>' }
+    ];
+    const CLUES = 2;
+    const canSpeak = Voice.supported;
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const $ = id => document.getElementById(id);
+    let queue = [];
+    let index = 0;
+    let clue = 0;
+    let wordShown = false;
+
+    function say(text) {
+      if (canSpeak) Voice.speak(text);
+    }
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+    }
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+    // Little paper confetti falling from the top of the screen
+    function celebrate() {
+      if (reduceMotion) return;
+      const colours = ["#ff8c42", "#f4a261", "#e76f51", "#e9c46a", "#2a9d8f", "#2f6f9f"];
+      for (let i = 0; i < 40; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = colours[i % colours.length];
+        piece.style.animationDuration = 1.8 + Math.random() * 1.6 + "s";
+        piece.style.animationDelay = Math.random() * 0.4 + "s";
+        document.body.appendChild(piece);
+        piece.addEventListener("animationend", () => piece.remove());
+      }
+    }
+    function drawClue() {
+      const box = $("guess-box");
+      box.querySelector(".guess-pic").className = "guess-pic blur-" + clue;
+      $("emoji").className = "guess-emoji blur-" + clue;
+      document.querySelectorAll("#dots span").forEach((dot, i) => {
+        dot.classList.toggle("on", i < clue);
+      });
+      $("clue-btn").disabled = clue >= CLUES || wordShown;
+    }
+    function showCard() {
+      const item = queue[index];
+      wordShown = false;
+      clue = 0;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      // Use the photo if it is there, otherwise the big emoji
+      $("pic").onerror = () => {
+        $("pic").hidden = true;
+        $("emoji").hidden = false;
+        $("emoji").innerHTML = item.emoji;
+      };
+      $("pic").onload = () => {
+        $("pic").hidden = false;
+        $("emoji").hidden = true;
+      };
+      $("pic").hidden = false;
+      $("emoji").hidden = true;
+      $("pic").src = "images/summer-guess/" + item.word + ".jpg";
+      $("pic").alt = "Picture to guess";
+      $("emoji").innerHTML = item.emoji;
+      $("word").textContent = "";
+      $("say-btn").disabled = false;
+      // Blur the new picture at once: switch off the fade for this change, so it does not
+      // start sharp and fade to blurred
+      const pictures = [$("pic"), $("emoji")];
+      pictures.forEach(el => el.style.transition = "none");
+      drawClue();
+      void $("pic").offsetWidth;
+      pictures.forEach(el => el.style.transition = "");
+    }
+    function nextClue() {
+      if (wordShown) return;
+      if (clue < CLUES) {
+        clue++;
+        drawClue();
+      }
+    }
+    // Show the word in English and Spanish, say it, and celebrate
+    function showWord() {
+      if (wordShown) return;
+      const item = queue[index];
+      wordShown = true;
+      clue = CLUES;
+      drawClue();
+      $("word").innerHTML = item.word + "<small>" + item.es + "</small>";
+      $("say-btn").disabled = true;
+      celebrate();
+      say("It's a " + item.word + "!");
+    }
+    function nextCard() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showCard();
+      }
+    }
+    function finish() {
+      show("end");
+      say("Well done! You guessed all the pictures!");
+    }
+    function startGame() {
+      queue = shuffled(ITEMS);
+      index = 0;
+      show("play");
+      showCard();
+    }
+
+    // Back returns to the page the teacher came from (the teacher corner), not to Home
+    $("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
+    $("start-btn").addEventListener("click", startGame);
+    $("again-btn").addEventListener("click", () => show("setup"));
+    $("guess-box").addEventListener("click", () => wordShown ? null : nextClue());
+    $("clue-btn").addEventListener("click", nextClue);
+    $("say-btn").addEventListener("click", showWord);
+    $("next-btn").addEventListener("click", nextCard);
+    // Keyboard for the teacher at the board: Space = clue, Enter = word, Right arrow = next picture
+    document.addEventListener("keydown", event => {
+      if ($("play").hidden || event.target.tagName === "BUTTON") return;
+      if (event.key === " ") {
+        event.preventDefault();
+        nextClue();
+      } else if (event.key === "Enter") {
+        showWord();
+      } else if (event.key === "ArrowRight") {
+        nextCard();
+      }
+    });
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>
