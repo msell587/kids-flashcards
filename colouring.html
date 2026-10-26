@@ -112,6 +112,25 @@
       font-weight: 800;
       cursor: pointer;
     }
+    /* Printable sheets: the season name on each picture is the only heading, and Download is replaced by the PDF link */
+    body.sheet .page-title,
+    body.sheet #download-btn {
+      display: none;
+    }
+    /* A link that looks like the Download button, for the ready-made PDF */
+    .tools-link {
+      padding: 10px 20px;
+      border-radius: 999px;
+      background-color: var(--word);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .tools-link[hidden] {
+      display: none;
+    }
     .tools-line button.secondary {
       background-color: var(--surface);
       color: var(--word-dark);
@@ -168,6 +187,10 @@
       background: none;
       box-shadow: none;
       padding: 0;
+    }
+    /* The printable sheet is white, not the cream of the rest of the app */
+    body.sheet {
+      background-color: #fff;
     }
     .season-picker {
       display: flex;
@@ -240,6 +263,13 @@
       }
       body {
         background: #fff !important;
+        /* The page is centred on screen; on paper it must start at the top, not in the middle */
+        display: block !important;
+        min-height: 0 !important;
+      }
+      /* The sheet already has its own name under each picture, so no heading at the top */
+      body.sheet .print-title {
+        display: none !important;
       }
       .scene-wrap {
         box-shadow: none;
@@ -254,6 +284,17 @@
       }
       .print-title {
         display: block !important;
+      }
+      /* One picture per A4 page, centred with a 10 mm margin all round */
+      @page {
+        size: A4;
+        margin: 10mm;
+      }
+      .sheet-page img {
+        width: auto;
+        max-width: 100%;
+        max-height: 255mm;
+        margin: 0 auto;
       }
     }
     .print-title {
@@ -290,6 +331,7 @@
       <button type="button" class="secondary" id="clear-btn">Clear</button>
       <button type="button" id="print-btn">Print</button>
       <button type="button" id="download-btn">Download</button>
+      <a class="tools-link" id="pdf-link" hidden>Download PDF</a>
     </div>
 
   </main>
@@ -360,6 +402,11 @@
         });
         picker.querySelectorAll("button").forEach(button =>
           button.setAttribute("aria-pressed", button.dataset.season === season));
+        // One ready-made A4 PDF per season, so no printing is needed; "All" has none
+        const pdfLink = document.getElementById("pdf-link");
+        pdfLink.hidden = season === "all";
+        pdfLink.href = `images/coloring-sheets/${season}.pdf`;
+        pdfLink.download = `Seasons ${season[0].toUpperCase()}${season.slice(1)} colouring sheet A4.pdf`;
       };
       picker.addEventListener("click", event => {
         const button = event.target.closest("button");
