@@ -12,6 +12,8 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
   if (document.getElementById("back-link") || document.getElementById("back-btn")) return;
   const bar = document.querySelector("nav.topbar, nav.links, header.top, .bar");
   if (!bar) return;
+  // A bar that already has a Back link or button does not get a second one
+  if ([...bar.querySelectorAll("a, button")].some(el => el.textContent.trim() === "Back")) return;
   const back = document.createElement("a");
   back.id = "page-back";
   back.href = "index.html";
