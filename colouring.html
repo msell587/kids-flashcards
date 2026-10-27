@@ -330,6 +330,7 @@
     <div class="tools-line">
       <button type="button" class="secondary" id="clear-btn">Clear</button>
       <button type="button" id="print-btn">Print</button>
+      <button type="button" data-big-screen>Big screen</button>
       <button type="button" id="download-btn">Download</button>
       <a class="tools-link" id="pdf-link" hidden>Download PDF</a>
     </div>
@@ -443,7 +444,7 @@
       svg.querySelectorAll(".region *").forEach(shape => shape.style.fill = "");
     });
 
-    document.getElementById("print-btn").addEventListener("click", () => window.print());
+    document.getElementById("print-btn").addEventListener("click", () => printWhenLoaded());
     document.getElementById("download-btn").addEventListener("click", () => {
       // The file is named after the season being shown, e.g. "Seasons Spring colouring sheet.html"
       const picked = document.querySelector(".season-picker [aria-pressed='true']");
@@ -452,6 +453,7 @@
         ".topbar, .hint, .palette, .tools-line, .season-picker, .sheet-page[hidden], .bubbles");
     });
   </script>
+  <script src="bigscreen.js"></script>
   <script src="pwa.js"></script>
 </body>
 </html>

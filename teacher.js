@@ -58,11 +58,13 @@ function showChooser() {
                 <details class="more-tools">
                   <summary>More</summary>
                   <div class="more-links">
-                    ${key === "seasons" ? '<a href="season-game.html">Season Sort</a><a href="autumn-guess.html">Autumn Guess</a><a href="summer-guess.html">Summer Guess</a>' : ""}
-                    ${GUESS_TOPICS.includes(key) ? `<a href="picture-guess.html?topic=${key}">Picture Guess</a>` : ""}
-                    <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
-                    <a href="worksheet.html?topic=${key}">Worksheets</a>
-                    <a href="print.html?topic=${key}">Print cards</a>
+                    ${key === "seasons" ? `<div class="more-group"><h4>Guess games</h4><a href="spring-guess.html">Spring Guess</a><a href="winter-guess.html">Winter Guess</a><a href="autumn-guess.html">Autumn Guess</a><a href="summer-guess.html">Summer Guess</a><a href="picture-guess.html?topic=seasons">Picture Guess</a></div><div class="more-group"><h4>Other games</h4><a href="season-game.html">Season Sort</a><a href="season-quiz.html">Season Quiz</a></div>` : ""}
+                    ${key !== "seasons" && GUESS_TOPICS.includes(key) ? `<div class="more-group"><h4>Guess games</h4><a href="picture-guess.html?topic=${key}">Picture Guess</a></div>` : ""}
+                    <div class="more-group"><h4>Print</h4>
+                      <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
+                      <a href="worksheet.html?topic=${key}">Worksheets</a>
+                      <a href="print.html?topic=${key}">Print cards</a>
+                    </div>
                   </div>
                 </details>
               </nav>

@@ -1,3 +1,12 @@
+// Prints once every picture on the page has loaded, so none are left blank on paper
+function printWhenLoaded() {
+  const waiting = [...document.images].filter(img => !img.complete);
+  Promise.all(waiting.map(img => new Promise(resolve => {
+    img.addEventListener("load", resolve, { once: true });
+    img.addEventListener("error", resolve, { once: true });
+  }))).then(() => window.print());
+}
+
 // Downloads the printable page as one HTML file, with its styles and pictures built in,
 // so it still prints the same way later and works offline. Open the file and print it.
 // removeSelector: the parts of the page that are only for the screen (buttons, options)
