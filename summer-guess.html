@@ -161,6 +161,14 @@
         <button type="button" id="clue-btn">Clue</button>
         <button type="button" id="say-btn" class="primary">Show the word</button>
         <button type="button" id="next-btn">Next picture</button>
+        <details class="tools-menu">
+          <summary>Tools</summary>
+          <div class="tools-list">
+            <button type="button" data-big-screen>Big screen</button>
+            <button type="button" data-print-pictures data-folder="images/summer-guess/">Print pictures</button>
+            <a class="tools-pdf" href="images/guess-pdfs/summer-pictures.pdf" download>Download PDF</a>
+          </div>
+        </details>
       </div>
     </div>
     <div class="panel" id="end" hidden>
@@ -334,6 +342,9 @@
       }
     });
   </script>
+  <script src="save-print.js"></script>
+  <script src="guess-print.js"></script>
+  <script src="bigscreen.js"></script>
   <script src="pwa.js"></script>
 </body>
 </html>

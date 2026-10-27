@@ -140,13 +140,15 @@
     }
     @media print {
       .bar, .options { display: none; }
+      /* Keep the pictures in their real colours on paper */
+      img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
 <body>
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <div class="bar">
-    <button onclick="window.print()">Print</button>
+    <button onclick="printWhenLoaded()">Print</button>
     <button onclick="savePrintable(topic.title + ' flashcards.html', '.bar, .options, .bubbles')">Download</button>
     <span id="heading"></span>
   </div>
@@ -213,7 +215,7 @@
 
     function render() {
       const useDrawings = hasDrawings && controls.pictures.value === "drawings";
-      const pictureOf = card => useDrawings ? card.drawing : card.picture;
+      const pictureOf = card => encodeURI(useDrawings ? card.drawing : card.picture);
 
       document.getElementById("heading").textContent = topic.title + " flashcards" +
         (controls.lines.checked ? ": cut along the dashed lines" : "");
