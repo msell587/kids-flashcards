@@ -68,13 +68,6 @@ const SCENES = {
       { name: "rectangle", svg: '<rect x="280" y="185" width="95" height="60" rx="10"/>' }
     ],
     details:
-      face(60, 78, 16, 1.1) +
-      face(175, 72, 16, 1.1) +
-      face(265, 88, 10, 0.9) +
-      face(350, 78, 14, 1) +
-      face(50, 212, 14, 1) +
-      face(200, 212, 10, 0.9) +
-      face(327, 212, 16, 1) +
       '<text class="label" x="60" y="152">circle</text>' +
       '<text class="label" x="175" y="152">square</text>' +
       '<text class="label" x="270" y="152">triangle</text>' +
@@ -100,6 +93,12 @@ const SCENES = {
 
   animals: {
     title: "Animals",
+    // The picture shown on screen and on the printable sheet (no crayons)
+    picture: "images/coloring-sheets/animals.webp",
+    // Printable sheet: one picture, printed on its own A4 page
+    sheetImages: [
+      { label: "Animals", src: "images/coloring-sheets/animals.webp" }
+    ],
     regions: [
       { name: "grass", svg: '<rect x="0" y="240" width="400" height="60"/>' },
       { name: "sun", svg: '<circle cx="355" cy="50" r="26"/>' },
@@ -134,6 +133,12 @@ const SCENES = {
 
   house: {
     title: "My House",
+    // The picture shown on screen and on the printable sheet (no crayons)
+    picture: "images/coloring-sheets/my-house.webp",
+    // Printable sheet: one picture, printed on its own A4 page
+    sheetImages: [
+      { label: "My House", src: "images/coloring-sheets/my-house.webp" }
+    ],
     regions: [
       { name: "sun", svg: '<circle cx="340" cy="50" r="28"/>' },
       { name: "chimney", svg: '<rect x="260" y="80" width="22" height="45"/>' },
@@ -217,6 +222,12 @@ const SCENES = {
 
   city: {
     title: "City",
+    // The picture shown on screen and on the printable sheet (no crayons)
+    picture: "images/coloring-sheets/city.webp",
+    // Printable sheet: one picture, printed on its own A4 page
+    sheetImages: [
+      { label: "City", src: "images/coloring-sheets/city.webp" }
+    ],
     regions: [
       { name: "building", svg: '<rect x="30" y="60" width="80" height="190" rx="6"/><rect x="230" y="110" width="70" height="140" rx="6"/>' },
       { name: "shop", svg: '<rect x="130" y="160" width="85" height="90" rx="6"/><polygon points="122,160 134,136 212,136 222,160"/>' },
@@ -244,6 +255,12 @@ const SCENES = {
 
   christmas: {
     title: "Christmas",
+    // The picture shown on screen and on the printable sheet (no crayons)
+    picture: "images/coloring-sheets/christmas.webp",
+    // Printable sheet: one picture, printed on its own A4 page
+    sheetImages: [
+      { label: "Christmas", src: "images/coloring-sheets/christmas.webp" }
+    ],
     regions: [
       { name: "tree", svg: '<polygon points="150,40 115,110 185,110"/><polygon points="150,80 105,160 195,160"/><polygon points="150,120 95,210 205,210"/><rect x="135" y="210" width="30" height="40"/>' },
       { name: "star", svg: '<polygon points="150,5 160,30 186,30 165,45 173,70 150,55 127,70 135,45 114,30 140,30"/>' },
@@ -264,6 +281,12 @@ const SCENES = {
 
   garden: {
     title: "My Little Garden",
+    // The picture shown on screen and on the printable sheet (no crayons)
+    picture: "images/coloring-sheets/my-little-garden.webp",
+    // Printable sheet: one picture, printed on its own A4 page
+    sheetImages: [
+      { label: "My Little Garden", src: "images/coloring-sheets/my-little-garden.webp" }
+    ],
     regions: [
       { name: "sun", svg: '<circle cx="350" cy="50" r="28"/>' },
       { name: "tree", svg: '<rect x="195" y="170" width="24" height="80" rx="4"/><circle cx="207" cy="130" r="52"/>' },
