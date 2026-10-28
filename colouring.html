@@ -389,7 +389,9 @@
         `<img src="${sheet.src}" alt="${sheet.label}"></figure>`
       ).join("");
 
-      // Pick one season (or all) to show, print or download; ?season=spring opens with that one chosen
+      // Several sheets (Seasons): pick one season or all to show, print or download; ?season=spring opens with that one chosen.
+      // One sheet (Weather): it is always shown with its own PDF, so there is no picker
+      const single = scene.sheetImages.length === 1;
       const picker = document.createElement("div");
       picker.className = "season-picker";
       picker.setAttribute("role", "group");
@@ -407,15 +409,22 @@
         const pdfLink = document.getElementById("pdf-link");
         pdfLink.hidden = season === "all";
         pdfLink.href = `images/coloring-sheets/${season}.pdf`;
-        pdfLink.download = `Seasons ${season[0].toUpperCase()}${season.slice(1)} colouring sheet A4.pdf`;
+        pdfLink.download = single
+          ? `${scene.title} colouring sheet A4.pdf`
+          : `${scene.title} ${season[0].toUpperCase()}${season.slice(1)} colouring sheet A4.pdf`;
       };
       picker.addEventListener("click", event => {
         const button = event.target.closest("button");
         if (button) showSeason(button.dataset.season);
       });
       const only = params.get("season");
-      showSeason(scene.sheetImages.some(sheet => sheet.label.toLowerCase() === only) ? only : "all");
-      svg.after(picker, pages);
+      if (single) {
+        showSeason(scene.sheetImages[0].label.toLowerCase());
+        svg.after(pages);
+      } else {
+        showSeason(scene.sheetImages.some(sheet => sheet.label.toLowerCase() === only) ? only : "all");
+        svg.after(picker, pages);
+      }
     }
 
     // Crayon buttons

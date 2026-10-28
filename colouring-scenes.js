@@ -193,6 +193,10 @@ const SCENES = {
 
   weather: {
     title: "Weather",
+    // Printable sheet: one picture with all the weather, printed on one A4 page
+    sheetImages: [
+      { label: "Weather", src: "images/coloring-sheets/weather.png" }
+    ],
     regions: [
       { name: "sunny", svg: '<circle cx="65" cy="75" r="34"/>' },
       { name: "cloudy", svg: cloud(190, 75, 1.1) },

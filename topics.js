@@ -88,7 +88,11 @@ const TOPICS = {
       { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.jpg" },
       { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.jpg" },
       { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.jpg" },
-      { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.jpg" }
+      { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.jpg" },
+      { word: "hot", es: "caliente", picture: "images/seasons and weather/hot.jpg" },
+      { word: "cold", es: "frío", picture: "images/seasons and weather/cold.jpg" },
+      { word: "wet", es: "mojado", picture: "images/seasons and weather/wet.jpg" },
+      { word: "dry", es: "seco", picture: "images/seasons and weather/dry.jpg" }
     ]
   },
   city: {
