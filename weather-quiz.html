@@ -245,6 +245,13 @@
       say("You got " + firstTryRight + " of " + questions.length + " right!");
     }
 
+    // Back returns to the page the teacher came from, not to Home
+    $("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
     $("start-btn").addEventListener("click", startQuiz);
     $("again-btn").addEventListener("click", startQuiz);
     $("choices").addEventListener("click", choose);

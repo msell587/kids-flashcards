@@ -33,6 +33,9 @@
       color: var(--word-dark);
       padding: 4px;
     }
+    .chart th:first-child {
+      text-align: left;
+    }
     .chart .weather-name {
       text-align: left;
       display: flex;
@@ -98,6 +101,18 @@
     .chart-controls button.secondary {
       background-color: var(--surface);
       color: var(--word-dark);
+    }
+    /* Download PDF: a link that looks like the buttons beside it */
+    .chart-controls .pdf-link {
+      padding: 12px 22px;
+      border-radius: 999px;
+      background-color: var(--word);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: var(--shadow);
     }
     .print-title {
       display: none;
@@ -186,9 +201,10 @@
       <button type="button" class="secondary" id="clear-btn">Clear</button>
       <button type="button" id="print-btn">Print</button>
       <button type="button" data-big-screen>Big screen</button>
+      <a class="pdf-link" href="printables/weather-chart.pdf" download="Weather chart A4.pdf">Download PDF</a>
     </div>
     <nav class="links">
-      <a class="link-btn" href="teacher.html?topic=weather">Back</a>
+      <a class="link-btn" id="back-btn" href="teacher.html?topic=weather">Back</a>
       <a class="link-btn" href="index.html">Home</a>
     </nav>
   </main>
@@ -221,6 +237,14 @@
     });
 
     document.getElementById("print-btn").addEventListener("click", () => window.print());
+
+    // Back returns to the page the teacher came from, not to Home
+    document.getElementById("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
   </script>
   <script src="bigscreen.js"></script>
   <script src="pwa.js"></script>
