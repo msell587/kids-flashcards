@@ -66,6 +66,15 @@
       font-weight: 800;
       text-anchor: middle;
     }
+    /* Pictures that are not coloured on screen: shown as one picture, no crayons */
+    .scene-picture {
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 12px;
+      background: #fff;
+    }
     /* Printable sheet: no crayons, just the picture to print */
     body.sheet .palette,
     body.sheet .hint,
@@ -386,6 +395,19 @@
       `<g class="region" data-name="${region.name}">${region.svg}</g>`
     ).join("") + `<g class="details">${scene.details}</g>`;
 
+    // Pictures that are not coloured show the picture instead of the crayon drawing, so the crayons and Clear are not needed
+    if (scene.picture && !sheetMode) {
+      svg.style.display = "none";
+      const image = document.createElement("img");
+      image.className = "scene-picture";
+      image.src = scene.picture;
+      image.alt = scene.title;
+      svg.after(image);
+      document.getElementById("palette").style.display = "none";
+      document.getElementById("clear-btn").style.display = "none";
+      document.querySelector(".hint").style.display = "none";
+    }
+
     // Printable sheets that are pictures (e.g. the Seasons pages) replace the drawing
     if (sheetMode && scene.sheetImages) {
       svg.style.display = "none";
@@ -462,12 +484,12 @@
 
     document.getElementById("print-btn").addEventListener("click", () => printWhenLoaded());
     document.getElementById("download-btn").addEventListener("click", () => {
-      // The file is named after the season being shown, e.g. "Seasons Spring colouring sheet.html"
+      // The file is named after the season being shown, e.g. "Seasons Spring colouring sheet.pdf"
       const picked = document.querySelector(".season-picker [aria-pressed='true']");
       const name = picked && picked.dataset.season !== "all" ? picked.textContent : "";
       const title = name && !name.startsWith(scene.title) ? scene.title + " " + name : name || scene.title;
-      savePrintable(title + " " + (sheetMode ? "colouring sheet.html" : "colouring.html"),
-        ".topbar, .hint, .palette, .tools-line, .season-picker, .sheet-page[hidden], .bubbles");
+      savePrintable(title + " " + (sheetMode ? "colouring sheet.pdf" : "colouring.pdf"),
+        ".topbar, .hint, .palette, .tools-line, .season-picker, .sheet-page[hidden], .bubbles", { centre: sheetMode });
     });
   </script>
   <script src="bigscreen.js"></script>

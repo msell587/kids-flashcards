@@ -244,7 +244,7 @@
         (key === type ? ' aria-current="page"' : "") + ">" + TYPES[key].label + "</a>").join("") +
       '<button onclick="buildSheet()">New sheet</button>' +
       '<button class="primary" onclick="printWhenLoaded()">Print</button>' +
-      '<button onclick="savePrintable(topic.title + \' \' + TYPES[type].label + \' worksheet.html\', \'.bar, .bubbles\')">Download</button>';
+      '<button onclick="savePrintable(topic.title + \' \' + TYPES[type].label + \' worksheet.pdf\', \'.bar, .bubbles\')">Download PDF</button>';
 
     function picture(card) {
       return '<img src="' + encodeURI(card.picture) + '" alt="' + escapeHtml(card.word) + '">';
