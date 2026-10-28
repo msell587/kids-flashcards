@@ -35,3 +35,11 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
   });
   bar.appendChild(back);
 })();
+
+// Drop-down menus (the More and Tools menus) close when anything else on the page is clicked,
+// or when one of their links or buttons is used. Clicking a menu's own button still opens and closes it.
+document.addEventListener("click", event => {
+  document.querySelectorAll("details[open]").forEach(menu => {
+    if (!menu.querySelector("summary").contains(event.target)) menu.open = false;
+  });
+});
