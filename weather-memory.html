@@ -170,7 +170,7 @@
     function startGame() {
       // One picture tile and one word tile for each weather card, shuffled together
       tiles = shuffled(CARDS.flatMap((card, pairId) => [
-        { pairId, kind: "picture", card, state: "closed" },
+        { pairId, kind: "picture", card, photo: gamePicture(card), state: "closed" },
         { pairId, kind: "word", card, state: "closed" }
       ]));
       open = [];
@@ -183,7 +183,7 @@
     }
     function faceHtml(tile) {
       if (tile.kind === "picture") {
-        return `<img src="${encodeURI(tile.card.picture)}" alt="">`;
+        return `<img src="${encodeURI(tile.photo)}" alt="">`;
       }
       return `<span class="word-text">${tile.card.word}</span>`;
     }

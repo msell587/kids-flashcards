@@ -199,7 +199,7 @@
       answered = false;
       missed = false;
       $("progress").textContent = (index + 1) + " / " + questions.length;
-      $("pic").src = encodeURI(item.card.picture);
+      $("pic").src = encodeURI(gamePicture(item.card));
       $("pic").alt = "Picture of the weather";
       $("feedback").textContent = "";
       $("next-btn").disabled = true;
