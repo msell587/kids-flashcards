@@ -372,6 +372,13 @@
       : scene.title + " Colouring";
     document.getElementById("print-title").textContent = scene.title + " colouring";
     document.getElementById("back-link").href = sheetMode ? "teacher.html?topic=" + topicKey : topic.page;
+    // Back returns to the page the teacher came from, not to Home
+    document.getElementById("back-link").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
 
     // Draw the picture: one group per tappable region, then the details on top
     const svg = document.getElementById("scene");

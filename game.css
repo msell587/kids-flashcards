@@ -65,7 +65,7 @@ button:focus-visible,
   border-radius: 999px;
   background-color: var(--word);
   color: white;
-  box-shadow: 0 4px 0 rgba(36, 90, 131, 0.25);
+  box-shadow: 0 2px 6px rgba(36, 90, 131, 0.12);
 }
 
 .listen-btn {

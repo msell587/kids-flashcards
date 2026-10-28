@@ -135,7 +135,7 @@
       <button class="big-btn" id="again-btn" type="button">Play again</button>
     </div>
     <nav class="links">
-      <a class="link-btn" href="teacher.html?topic=weather">Back</a>
+      <a class="link-btn" id="back-btn" href="teacher.html?topic=weather">Back</a>
       <a class="link-btn" href="index.html">Home</a>
     </nav>
   </main>
@@ -240,6 +240,13 @@
       say("You found all the pairs! Well done!");
     }
 
+    // Back returns to the page the teacher came from, not to Home
+    $("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
     $("start-btn").addEventListener("click", startGame);
     $("again-btn").addEventListener("click", startGame);
     $("board").addEventListener("click", flip);
