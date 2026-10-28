@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Chart</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Weather Chart: each day, tick the weather you see. Tap a box to tick it.
+       Printing gives a blank-ready sheet with the same grid. */
+    .chart-wrap {
+      width: min(96vw, 760px);
+      margin: 12px auto 0 auto;
+      overflow-x: auto;
+    }
+    .chart {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 6px;
+      font-family: var(--font);
+    }
+    .chart th {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--word-dark);
+      padding: 4px;
+    }
+    .chart .weather-name {
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--word-dark);
+      white-space: nowrap;
+    }
+    .chart .weather-name img {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .chart td {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      text-align: center;
+    }
+    .tick {
+      width: 44px;
+      height: 44px;
+      border: 3px solid var(--word);
+      border-radius: 12px;
+      background-color: #fff;
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 24px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .tick[aria-pressed="true"] {
+      background-color: #e6f6ea;
+      border-color: #2e9e44;
+    }
+    .chart-note {
+      text-align: center;
+      margin: 14px 0 0 0;
+      font-size: 16px;
+      color: var(--muted);
+    }
+    .chart-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .chart-controls button {
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 999px;
+      background-color: var(--word);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .chart-controls button.secondary {
+      background-color: var(--surface);
+      color: var(--word-dark);
+    }
+    .print-title {
+      display: none;
+    }
+    @media print {
+      .bubbles, .topbar, .links, .chart-note, .chart-controls, .page-title {
+        display: none !important;
+      }
+      .print-title {
+        display: block !important;
+        text-align: center;
+        font-size: 26px;
+        font-weight: 800;
+        color: #000;
+        margin: 0 0 12px 0;
+      }
+      body {
+        background: #fff !important;
+        display: block !important;
+      }
+      .chart-wrap {
+        width: 100%;
+        overflow: visible;
+      }
+      .tick {
+        border-color: #000;
+      }
+      .tick[aria-pressed="true"] {
+        background-color: #fff;
+        border-color: #000;
+      }
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+    }
+    /* Big screen: bigger boxes and words, so the chart can be seen from across the room */
+    body.big-screen .chart-wrap {
+      width: min(96vw, 1100px);
+    }
+    body.big-screen .chart .weather-name {
+      font-size: 26px;
+    }
+    body.big-screen .chart .weather-name img {
+      width: 60px;
+      height: 60px;
+    }
+    body.big-screen .chart th {
+      font-size: 22px;
+    }
+    body.big-screen .tick {
+      width: 60px;
+      height: 60px;
+      font-size: 32px;
+    }
+    body.big-screen .chart td {
+      width: 60px;
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <h1 class="page-title">My weather this week</h1>
+    <p class="print-title">My weather this week</p>
+    <div class="chart-wrap">
+      <table class="chart" id="chart">
+        <thead>
+          <tr>
+            <th scope="col">Weather</th>
+            <th scope="col">Mon</th>
+            <th scope="col">Tue</th>
+            <th scope="col">Wed</th>
+            <th scope="col">Thu</th>
+            <th scope="col">Fri</th>
+            <th scope="col">Sat</th>
+            <th scope="col">Sun</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="chart-note">Tap a box on the day you see that weather.</p>
+    <div class="chart-controls">
+      <button type="button" class="secondary" id="clear-btn">Clear</button>
+      <button type="button" id="print-btn">Print</button>
+      <button type="button" data-big-screen>Big screen</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" href="teacher.html?topic=weather">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script>
+    const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const rows = document.getElementById("rows");
+
+    // One row per weather card, one box per day
+    rows.innerHTML = TOPICS.weather.cards.map(card =>
+      `<tr><th scope="row"><span class="weather-name"><img src="${encodeURI(card.picture)}" alt="">${card.word}</span></th>` +
+      DAYS.map(day =>
+        `<td><button type="button" class="tick" aria-pressed="false" aria-label="${card.word} on ${day}">&nbsp;</button></td>`
+      ).join("") + `</tr>`
+    ).join("");
+
+    rows.addEventListener("click", event => {
+      const box = event.target.closest(".tick");
+      if (!box) return;
+      const ticked = box.getAttribute("aria-pressed") !== "true";
+      box.setAttribute("aria-pressed", ticked);
+      box.textContent = ticked ? "✓" : " ";
+    });
+
+    document.getElementById("clear-btn").addEventListener("click", () => {
+      rows.querySelectorAll(".tick").forEach(box => {
+        box.setAttribute("aria-pressed", "false");
+        box.textContent = " ";
+      });
+    });
+
+    document.getElementById("print-btn").addEventListener("click", () => window.print());
+  </script>
+  <script src="bigscreen.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>
