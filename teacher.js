@@ -57,7 +57,7 @@ function showChooser() {
                   <div class="more-links">
                     ${key === "seasons" ? `<div class="more-group"><h4>Guess games</h4><a href="spring-guess.html">Spring Guess</a><a href="winter-guess.html">Winter Guess</a><a href="autumn-guess.html">Autumn Guess</a><a href="summer-guess.html">Summer Guess</a><a href="picture-guess.html?topic=seasons">Picture Guess</a></div><div class="more-group"><h4>Other games</h4><a href="season-game.html">Season Sort</a><a href="season-quiz.html">Season Quiz</a></div>` : ""}
                     ${key !== "seasons" && GUESS_TOPICS.includes(key) ? `<div class="more-group"><h4>Guess games</h4><a href="picture-guess.html?topic=${key}">Picture Guess</a></div>` : ""}
-                    ${key === "weather" ? `<div class="more-group"><h4>Other games</h4><a href="weather-quiz.html">Weather Quiz</a><a href="weather-memory.html">Weather Memory</a></div><div class="more-group"><h4>Chart</h4><a href="weather-chart.html">Weather chart</a></div>` : ""}
+                    ${key === "weather" ? `<div class="more-group"><h4>Other games</h4><a href="weather-sort.html">Weather Sort</a><a href="weather-quiz.html">Weather Quiz</a><a href="weather-memory.html">Weather Memory</a></div><div class="more-group"><h4>Chart</h4><a href="weather-chart.html">Weather chart</a></div>` : ""}
                     <div class="more-group"><h4>Print</h4>
                       <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
                       <a href="worksheet.html?topic=${key}">Worksheets</a>

@@ -327,7 +327,7 @@ const TEACHER = {
   },
 
   weather: {
-    goal: "Children can name the 6 kinds of weather and say what the weather is like today.",
+    goal: "Children can name the 8 weather words (sunny, rainy, cloudy, snowy, windy, stormy, hot, cold) and say what the weather is like today.",
     materials: [
       "Screen or tablet with the Weather flashcards",
       "Printed weather cards (use “Print flashcards” above)",
@@ -336,9 +336,9 @@ const TEACHER = {
     ],
     plan: [
       { time: "5 min", step: "Hello and weather check", details: "Sing hello, then sing “What's the Weather?” and look out of the window together." },
-      { time: "8 min", step: "Meet the weather", details: "Go through the flashcards: sunny, rainy, cloudy, snowy, windy, stormy. Say each word, press 🔊, have the class repeat, and add an action (big arms for sunny, tapping fingers for rainy, a shiver for snowy, a sway for windy)." },
+      { time: "8 min", step: "Meet the weather", details: "Go through the flashcards: sunny, rainy, cloudy, snowy, windy, stormy, hot, cold. Say each word, press 🔊, have the class repeat, and add an action (big arms for sunny, tapping fingers for rainy, a shiver for snowy, a sway for windy, fanning for hot, hugging yourself for cold)." },
       { time: "5 min", step: "Song: Rain, Rain, Go Away", details: "Tap fingers like rain, then throw arms up for the sun." },
-      { time: "10 min", step: "Games", details: "Play Act the Weather, then Weather Reporter." },
+      { time: "10 min", step: "Games", details: "Play Act the Weather, then Weather Reporter. Older or more confident children can also try Weather Sort, Weather Quiz and Weather Memory from the More menu." },
       { time: "5 min", step: "Movement break", details: "Play Dress for the Weather, using real clothes if you have them." },
       { time: "15 min", step: "Craft: Weather Wheel", details: "Follow the craft steps below. Name each weather as children colour their section." },
       { time: "7 min", step: "Weather Reporter", details: "Children take turns being the reporter, holding up the right card: “Today it's sunny!” Others point to the matching picture on their wheel." },
@@ -348,9 +348,9 @@ const TEACHER = {
       {
         name: "Weather Wheel",
         time: "15 min",
-        supplies: ["Paper plates divided into six sections", "Crayons", "A card arrow", "Split pin fastener (adult only)"],
+        supplies: ["Paper plates divided into eight sections", "Crayons", "A card arrow", "Split pin fastener (adult only)"],
         steps: [
-          "Children draw sunny, rainy, cloudy, snowy, windy and stormy, one in each section.",
+          "Children draw sunny, rainy, cloudy, snowy, windy, stormy, hot and cold, one in each section.",
           "An adult attaches the arrow to the centre with the split pin.",
           "Each morning, children turn the arrow to today's weather and say it."
         ],

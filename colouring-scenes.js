@@ -193,9 +193,10 @@ const SCENES = {
 
   weather: {
     title: "Weather",
-    // Printable sheet: one picture with all the weather, printed on one A4 page
+    // Printable sheets: one picture with all the weather, and one with hot and cold; each is printed on its own A4 page
     sheetImages: [
-      { label: "Weather", src: "images/coloring-sheets/weather.png" }
+      { label: "Weather", src: "images/coloring-sheets/weather.png" },
+      { label: "Hot and cold", src: "images/coloring-sheets/hot-and-cold.svg" }
     ],
     regions: [
       { name: "sunny", svg: '<circle cx="65" cy="75" r="34"/>' },

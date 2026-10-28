@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 840" width="600" height="840">
+  <!-- Colouring sheet: hot (top) and cold (bottom). Thick outlines, white inside, no text. -->
+  <g fill="#fff" stroke="#222" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="30" y="30" width="540" height="380" rx="22"/>
+    <rect x="30" y="430" width="540" height="380" rx="22"/>
+
+    <!-- HOT: a big sun with a smiling face -->
+    <circle cx="140" cy="140" r="58"/>
+    <path d="M140 60 L140 36 M140 220 L140 244 M60 140 L36 140 M220 140 L244 140 M85 85 L68 68 M195 85 L212 68 M85 195 L68 212 M195 195 L212 212"/>
+    <circle cx="122" cy="128" r="6" fill="#222" stroke="none"/>
+    <circle cx="158" cy="128" r="6" fill="#222" stroke="none"/>
+    <path d="M118 150 Q140 170 162 150"/>
+
+    <!-- HOT: sand and a sun hat on the ground -->
+    <path d="M30 330 Q300 300 570 330"/>
+    <path d="M280 330 Q300 262 330 262 Q360 262 380 330"/>
+    <ellipse cx="330" cy="332" rx="90" ry="16"/>
+    <path d="M296 300 L364 300"/>
+
+    <!-- HOT: a glass of lemonade with a lemon slice -->
+    <path d="M430 230 L444 340 L498 340 L512 230 Z"/>
+    <ellipse cx="471" cy="230" rx="41" ry="9"/>
+    <circle cx="455" cy="262" r="16"/>
+    <path d="M455 262 L455 246 M455 262 L470 262 M455 262 L441 268"/>
+
+    <!-- COLD: snowflakes falling -->
+    <path d="M90 470 L90 500 M75 485 L105 485 M78 473 L102 497 M102 473 L78 497"/>
+    <path d="M480 470 L480 500 M465 485 L495 485 M468 473 L492 497 M492 473 L468 497"/>
+    <path d="M520 520 L520 540 M511 530 L529 530"/>
+    <path d="M70 560 L70 580 M61 570 L79 570"/>
+    <path d="M530 600 L530 620 M521 610 L539 610"/>
+
+    <!-- COLD: a child in a hat, scarf, coat and mittens, standing in the snow -->
+    <circle cx="300" cy="590" r="38"/>
+    <path d="M262 580 Q300 520 338 580 Z"/>
+    <rect x="252" y="572" width="96" height="12" rx="6"/>
+    <circle cx="287" cy="594" r="4" fill="#222" stroke="none"/>
+    <circle cx="313" cy="594" r="4" fill="#222" stroke="none"/>
+    <path d="M288 608 Q300 618 312 608"/>
+    <rect x="262" y="626" width="76" height="18" rx="8"/>
+    <path d="M250 644 Q300 630 350 644 L364 720 L236 720 Z"/>
+    <path d="M250 652 L212 700"/>
+    <path d="M350 652 L388 700"/>
+    <circle cx="204" cy="706" r="14"/>
+    <circle cx="396" cy="706" r="14"/>
+    <path d="M270 720 L270 778 M330 720 L330 778"/>
+    <rect x="254" y="778" width="46" height="16" rx="8"/>
+    <rect x="300" y="778" width="46" height="16" rx="8"/>
+    <path d="M30 800 Q300 782 570 800"/>
+  </g>
+</svg>

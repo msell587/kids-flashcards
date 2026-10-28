@@ -416,9 +416,9 @@
         const pdfLink = document.getElementById("pdf-link");
         pdfLink.hidden = season === "all";
         pdfLink.href = `images/coloring-sheets/${season}.pdf`;
-        pdfLink.download = single
-          ? `${scene.title} colouring sheet A4.pdf`
-          : `${scene.title} ${season[0].toUpperCase()}${season.slice(1)} colouring sheet A4.pdf`;
+        // "Spring" becomes "Seasons Spring", but "Weather" is not doubled into "Weather Weather"
+        const label = season[0].toUpperCase() + season.slice(1);
+        pdfLink.download = (label.startsWith(scene.title) ? label : scene.title + " " + label) + " colouring sheet A4.pdf";
       };
       picker.addEventListener("click", event => {
         const button = event.target.closest("button");
@@ -464,8 +464,9 @@
     document.getElementById("download-btn").addEventListener("click", () => {
       // The file is named after the season being shown, e.g. "Seasons Spring colouring sheet.html"
       const picked = document.querySelector(".season-picker [aria-pressed='true']");
-      const season = picked && picked.dataset.season !== "all" ? picked.textContent + " " : "";
-      savePrintable(scene.title + " " + season + (sheetMode ? "colouring sheet.html" : "colouring.html"),
+      const name = picked && picked.dataset.season !== "all" ? picked.textContent : "";
+      const title = name && !name.startsWith(scene.title) ? scene.title + " " + name : name || scene.title;
+      savePrintable(title + " " + (sheetMode ? "colouring sheet.html" : "colouring.html"),
         ".topbar, .hint, .palette, .tools-line, .season-picker, .sheet-page[hidden], .bubbles");
     });
   </script>
