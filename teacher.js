@@ -24,9 +24,6 @@ topicSelect.addEventListener("change", () => {
   location.href = topicSelect.value ? "teacher.html?topic=" + topicSelect.value : "teacher.html";
 });
 
-// "All topics" keeps you in the Teacher's Corner; on the topic list it would just repeat the page you are on
-if (!topicKey) document.getElementById("all-topics-link").remove();
-
 function showChooser() {
   // The topic cards below do the same job as the dropdown, so the dropdown is only shown on a guide
   document.querySelector(".topic-picker").hidden = true;
