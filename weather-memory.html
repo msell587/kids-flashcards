@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Memory</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Weather Memory: every weather picture and its word are face-down tiles.
+       Tap two tiles: a picture and its word make a pair. */
+    .mem-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      width: min(94vw, 520px);
+      margin: 12px auto 0 auto;
+    }
+    .mem-tile {
+      aspect-ratio: 1;
+      padding: 0;
+      border: 4px solid #fff;
+      border-radius: 18px;
+      background-color: var(--word);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 34px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .mem-tile.open {
+      background-color: var(--surface);
+      color: var(--word-dark);
+    }
+    .mem-tile.matched {
+      background-color: #e6f6ea;
+      border-color: #2e9e44;
+      cursor: default;
+    }
+    .mem-tile img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mem-tile .word-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 6px;
+      box-sizing: border-box;
+      font-size: clamp(15px, 4.2vw, 24px);
+    }
+    .mem-tile:disabled {
+      cursor: default;
+    }
+    .mem-stats {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--word-dark);
+      margin: 10px 0 0 0;
+    }
+    .quiz-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .quiz-controls button {
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 999px;
+      background-color: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .score-stars {
+      font-size: 48px;
+      letter-spacing: 6px;
+      margin: 8px 0;
+    }
+    /* Big screen: the board grows to fill a TV or projector, with bigger tiles and words */
+    body.big-screen .mem-board {
+      width: min(96vw, 84vh);
+      gap: 14px;
+    }
+    body.big-screen .mem-tile {
+      font-size: 48px;
+    }
+    body.big-screen .mem-tile .word-text {
+      font-size: clamp(20px, 3.4vw, 36px);
+    }
+    body.big-screen .mem-stats {
+      font-size: 26px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🧠</div>
+      <h1>Weather Memory</h1>
+      <p>Tap two tiles. A picture and its word make a pair.</p>
+      <button class="big-btn" id="start-btn" type="button">Let's start!</button>
+    </div>
+    <div id="play" hidden>
+      <p class="mem-stats" id="stats" aria-live="polite"></p>
+      <div class="mem-board" id="board"></div>
+      <div class="quiz-controls">
+        <button type="button" data-big-screen>Big screen</button>
+      </div>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p class="score-stars" id="stars"></p>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" href="teacher.html?topic=weather">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script>
+    const CARDS = TOPICS.weather.cards;
+    const canSpeak = Voice.supported;
+    const $ = id => document.getElementById(id);
+    let tiles = [];
+    let open = [];       // the tiles turned over this go (at most two)
+    let moves = 0;      // each go of two tiles counts as one move
+    let matchedCount = 0;
+    let locked = false;
+
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+    function say(text) {
+      if (canSpeak) Voice.speak(text);
+    }
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+    }
+    function startGame() {
+      // One picture tile and one word tile for each weather card, shuffled together
+      tiles = shuffled(CARDS.flatMap((card, pairId) => [
+        { pairId, kind: "picture", card, state: "closed" },
+        { pairId, kind: "word", card, state: "closed" }
+      ]));
+      open = [];
+      moves = 0;
+      matchedCount = 0;
+      locked = false;
+      show("play");
+      drawBoard();
+      updateStats();
+    }
+    function faceHtml(tile) {
+      if (tile.kind === "picture") {
+        return `<img src="${encodeURI(tile.card.picture)}" alt="">`;
+      }
+      return `<span class="word-text">${tile.card.word}</span>`;
+    }
+    function drawBoard() {
+      $("board").innerHTML = tiles.map((tile, i) => {
+        const shown = tile.state !== "closed";
+        const classes = ["mem-tile", shown ? "open" : "", tile.state === "matched" ? "matched" : ""].join(" ").trim();
+        return `<button type="button" class="${classes}" data-index="${i}" aria-label="${shown ? tile.card.word : "face-down tile"}">` +
+          (shown ? faceHtml(tile) : "?") + `</button>`;
+      }).join("");
+    }
+    function updateStats() {
+      $("stats").textContent = "Pairs found: " + matchedCount + " of " + CARDS.length + "   ·   Moves: " + moves;
+    }
+    function flip(event) {
+      const button = event.target.closest(".mem-tile");
+      if (!button || locked) return;
+      const tile = tiles[Number(button.dataset.index)];
+      if (tile.state !== "closed") return;
+      tile.state = "open";
+      open.push(tile);
+      drawBoard();
+      if (open.length < 2) return;
+
+      moves++;
+      updateStats();
+      const [first, second] = open;
+      if (first.pairId === second.pairId && first.kind !== second.kind) {
+        first.state = "matched";
+        second.state = "matched";
+        matchedCount++;
+        open = [];
+        drawBoard();
+        updateStats();
+        say(first.card.word + ". " + Voice.praise());
+        if (matchedCount === CARDS.length) setTimeout(finish, 900);
+      } else {
+        locked = true;
+        setTimeout(() => {
+          first.state = "closed";
+          second.state = "closed";
+          open = [];
+          locked = false;
+          drawBoard();
+        }, 1000);
+      }
+    }
+    function finish() {
+      show("end");
+      // Fewest moves get the most stars: the perfect game is one move per pair
+      const stars = Math.max(1, Math.min(5, Math.round((CARDS.length / moves) * 5)));
+      $("stars").textContent = "⭐".repeat(stars);
+      $("end-message").textContent = "You found all the pairs in " + moves + " moves.";
+      say("You found all the pairs! Well done!");
+    }
+
+    $("start-btn").addEventListener("click", startGame);
+    $("again-btn").addEventListener("click", startGame);
+    $("board").addEventListener("click", flip);
+  </script>
+  <script src="bigscreen.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>
