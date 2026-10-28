@@ -211,7 +211,7 @@
       selected = false;
       pic.className = "pic";
       pic.style.transform = "";
-      pic.src = encodeURI(card.picture);
+      pic.src = encodeURI(gamePicture(card));
       pic.alt = card.word;
       feedback.textContent = "Which weather is this?";
       bins.forEach(bin => bin.className = "bin");

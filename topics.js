@@ -83,14 +83,15 @@ const TOPICS = {
     title: "Weather",
     page: "weather.html",
     cards: [
-      { word: "sunny", es: "soleado", picture: "images/seasons and weather/sunny.jpg" },
-      { word: "rainy", es: "lluvioso", picture: "images/seasons and weather/rainy.jpg" },
-      { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.jpg" },
-      { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.jpg" },
-      { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.jpg" },
-      { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.jpg" },
-      { word: "hot", es: "caliente", picture: "images/seasons and weather/hot.jpg" },
-      { word: "cold", es: "frío", picture: "images/seasons and weather/cold.jpg" }
+      // picture: the flashcard photo. picture2: a second photo of the same weather, used in the games
+      { word: "sunny", es: "soleado", picture: "images/seasons and weather/sunny.jpg", picture2: "images/seasons and weather/sunny-2.jpg" },
+      { word: "rainy", es: "lluvioso", picture: "images/seasons and weather/rainy.jpg", picture2: "images/seasons and weather/rainy-2.jpg" },
+      { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.jpg", picture2: "images/seasons and weather/cloudy-2.jpg" },
+      { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.jpg", picture2: "images/seasons and weather/snowy-2.jpg" },
+      { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.jpg", picture2: "images/seasons and weather/windy-2.jpg" },
+      { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.jpg", picture2: "images/seasons and weather/stormy-2.jpg" },
+      { word: "hot", es: "caliente", picture: "images/seasons and weather/hot.jpg", picture2: "images/seasons and weather/hot-2.jpg" },
+      { word: "cold", es: "frío", picture: "images/seasons and weather/cold.jpg", picture2: "images/seasons and weather/cold-2.jpg" }
     ]
   },
   opposites: {
@@ -177,4 +178,9 @@ function shuffled(list) {
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
+}
+
+// Games use a card's second photo half the time, when it has one, so the same word can look different
+function gamePicture(card) {
+  return card.picture2 && Math.random() < 0.5 ? card.picture2 : card.picture;
 }
