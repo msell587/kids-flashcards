@@ -110,6 +110,25 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+    /* Big screen: the picture and the season buttons grow to fill a TV or projector */
+    body.big-screen .quiz-pic-box {
+      width: min(96vw, 130vh);
+      height: 46vh;
+    }
+    body.big-screen .season-buttons {
+      width: min(96vw, 1000px);
+    }
+    body.big-screen .season-btn {
+      font-size: clamp(22px, 2.8vw, 36px);
+      padding: 18px 8px;
+      white-space: nowrap;
+    }
+    body.big-screen .quiz-word {
+      font-size: clamp(36px, 4.4vw, 56px);
+    }
+    body.big-screen #progress {
+      font-size: 24px;
+    }
   </style>
 </head>
 <body>

@@ -124,6 +124,21 @@
       font-size: 16px;
       color: var(--word-dark);
     }
+    /* Big screen: the word and clue dots grow so they can be read from the back of the room */
+    body.big-screen .guess-box {
+      height: 60vh;
+    }
+    body.big-screen .guess-word {
+      font-size: clamp(40px, 4.6vw, 64px);
+      min-height: 0;
+    }
+    body.big-screen .guess-word small {
+      font-size: clamp(24px, 2.6vw, 34px);
+    }
+    body.big-screen .clue-dots span {
+      width: 22px;
+      height: 22px;
+    }
     /* The emoji and photo use display:flex/block, so keep the hidden attribute working */
     [hidden] { display: none !important; }
     @media (prefers-reduced-motion: reduce) {
@@ -157,6 +172,7 @@
         <button type="button" id="clue-btn" title="Keyboard: Space">Clue</button>
         <button type="button" id="say-btn" class="primary" title="Keyboard: Enter">Show the word</button>
         <button type="button" id="next-btn" title="Keyboard: Right arrow">Next picture</button>
+        <button type="button" data-big-screen>Big screen</button>
       </div>
     </div>
     <div class="panel" id="end" hidden>
@@ -324,6 +340,7 @@
       }
     });
   </script>
+  <script src="bigscreen.js"></script>
   <script src="pwa.js"></script>
 </body>
 </html>
