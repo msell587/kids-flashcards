@@ -180,7 +180,16 @@ const TOPICS = {
       { word: "seed", es: "semilla", picture: "images/garden/seed.jpg" },
       { word: "grass", es: "hierba", picture: "images/garden/grass.jpg" },
       { word: "watering can", es: "regadera", picture: "images/garden/watering-can.jpg" },
-      { word: "spade", es: "pala", picture: "images/garden/spade.jpg" }
+      { word: "spade", es: "pala", picture: "images/garden/spade.jpg" },
+      { word: "apple", es: "manzana", food: true, picture: "images/autumn-guess/apple.jpg" },
+      { word: "banana", es: "plátano", food: true, picture: "images/colors/yellow-banana.jpg" },
+      { word: "grapes", es: "uvas", food: true, picture: "images/colors/purple-grapes.jpg" },
+      { word: "orange", es: "naranja", food: true, picture: "images/colors/orange-orange.jpg" },
+      { word: "strawberry", es: "fresa", food: true, picture: "images/garden/strawberry.jpg" },
+      { word: "carrot", es: "zanahoria", food: true, picture: "images/garden/carrot.jpg" },
+      { word: "tomato", es: "tomate", food: true, picture: "images/garden/tomato.jpg" },
+      { word: "cucumber", es: "pepino", food: true, picture: "images/garden/cucumber.jpg" },
+      { word: "potato", es: "patata", food: true, picture: "images/garden/potato.jpg" }
     ]
   },
   explorers: {

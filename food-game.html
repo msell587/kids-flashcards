@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food Game</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Food game: I want, I don't want, and Do you like? */
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: min(94vw, 480px);
+      margin: 16px auto 0 auto;
+    }
+    .menu button,
+    .options button {
+      padding: 12px 10px;
+      border: 0;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .prompt {
+      margin: 8px 0 0 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .pics {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .pic-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+      border: 4px solid transparent;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-family: var(--font);
+      color: var(--word-dark);
+    }
+    .pic-btn img {
+      width: 110px;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+    .pic-btn span {
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .pic-btn.right {
+      border-color: #2e9e44;
+    }
+    .pic-btn.wrong {
+      opacity: 0.45;
+    }
+    .pic-btn:disabled {
+      cursor: default;
+    }
+    .options {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .options button {
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 17px;
+    }
+    .options button.right {
+      background: #e6f6ea;
+      border: 4px solid #2e9e44;
+    }
+    .options button.wrong {
+      opacity: 0.45;
+    }
+    .options button:disabled {
+      cursor: default;
+    }
+    .explain {
+      min-height: 48px;
+      margin: 12px auto 0 auto;
+      font-size: 20px;
+      color: var(--word-dark);
+      text-align: center;
+      max-width: 90vw;
+    }
+    .score {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .next {
+      display: block;
+      margin: 12px auto 0 auto;
+    }
+    .big-screen-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .big-screen-row button {
+      padding: 10px 28px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    body.big-screen .pic-btn img {
+      width: 220px;
+      height: 170px;
+    }
+    body.big-screen .prompt {
+      font-size: clamp(40px, 4.6vw, 60px);
+    }
+    body.big-screen .options button {
+      font-size: clamp(28px, 3.4vw, 42px);
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🍎</div>
+      <h1>Food Game</h1>
+      <p>Choose a game.</p>
+      <div class="menu">
+        <button type="button" data-game="want">I want</button>
+        <button type="button" data-game="dontwant">I don't want</button>
+        <button type="button" data-game="like">Do you like?</button>
+      </div>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <p class="prompt" id="prompt"></p>
+      <div class="pics" id="pics"></div>
+      <div class="options" id="options"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <div class="big-screen-row" id="big-row" hidden>
+      <button type="button" data-big-screen>Big screen</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="teacher.html?topic=garden">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="bigscreen.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const foods = TOPICS.garden.cards.filter(card => card.food);
+    let game = "";
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+    function pick(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+      $("big-row").hidden = id !== "play";
+    }
+    function say(text) {
+      if (Voice.supported) Voice.speak(text);
+    }
+    // "I want an apple." / "I don't want a banana." (a, an and the plural are kept simple)
+    function article(word) {
+      return /^[aeiou]/i.test(word) ? "an " + word : "a " + word;
+    }
+
+    function makeQuestion(card) {
+      if (game === "want") {
+        const others = shuffled(foods.filter(f => f !== card)).slice(0, 2);
+        return {
+          prompt: "I want " + article(card.word) + ".",
+          pics: shuffled([card, ...others]),
+          answer: card.word,
+          explain: "Yes! I want " + article(card.word) + ".",
+          wrongText: "Not quite. Try another one.",
+          say: "I want " + article(card.word) + "."
+        };
+      }
+      if (game === "dontwant") {
+        // The child picks any food that is NOT the one named
+        const others = shuffled(foods.filter(f => f !== card)).slice(0, 2);
+        return {
+          prompt: "I don't want " + article(card.word) + ".",
+          pics: shuffled([card, ...others]),
+          answer: null,
+          rejected: card.word,
+          explain: "Yes! I don't want " + article(card.word) + ".",
+          wrongText: "Not quite. That is the one we don't want. Try another.",
+          say: "I don't want " + article(card.word) + "."
+        };
+      }
+      // Do you like? The child answers out loud; the teacher reads the answer
+      return {
+        prompt: "Do you like " + card.word + "?",
+        pics: [card],
+        options: ["Yes, I do.", "No, I don't."],
+        answer: "Yes, I do.",
+        explain: "Well done! Say your answer out loud.",
+        wrongText: "",
+        say: "Do you like " + card.word + "?"
+      };
+    }
+
+    function showQuestion() {
+      answered = false;
+      const card = queue[index].card;
+      const q = makeQuestion(card);
+      queue[index].q = q;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("prompt").textContent = q.prompt;
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      $("pics").innerHTML = q.pics.map(c =>
+        `<button type="button" class="pic-btn" data-word="${c.word}"><img src="${c.picture}" alt="${c.word}"><span>${c.word}</span></button>`
+      ).join("");
+      $("options").innerHTML = q.options
+        ? q.options.map(label => `<button type="button" data-answer="${label}">${label}</button>`).join("")
+        : "";
+      say(q.say);
+    }
+
+    function checkAnswer(chosen, element) {
+      if (answered) return;
+      const q = queue[index].q;
+      // "Do you like?" is answered with the buttons, not the picture
+      if (q.options && !q.options.includes(chosen)) return;
+      const correct = q.rejected ? chosen !== q.rejected : chosen === q.answer;
+      if (q.options) {
+        // The child answers out loud, so either answer counts
+        answered = true;
+        right++;
+        element.classList.add("right");
+        $("explain").textContent = q.explain;
+        say(q.explain);
+        finishTurn();
+        return;
+      }
+      if (correct) {
+        answered = true;
+        right++;
+        element.classList.add("right");
+        $("explain").textContent = q.explain;
+        say(q.explain);
+        finishTurn();
+      } else {
+        element.classList.add("wrong");
+        element.disabled = true;
+        $("explain").textContent = q.wrongText;
+        say(q.wrongText);
+      }
+    }
+    function finishTurn() {
+      for (const b of document.querySelectorAll("#pics button, #options button")) b.disabled = true;
+      $("next-btn").hidden = false;
+      $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+    }
+    function nextQuestion() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showQuestion();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You got " + right + " of " + queue.length + " right.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame(name) {
+      game = name;
+      queue = shuffled(foods).map(card => ({ card, word: card.word }));
+      index = 0;
+      right = 0;
+      show("play");
+      showQuestion();
+    }
+
+    for (const button of document.querySelectorAll("[data-game]")) {
+      button.addEventListener("click", () => startGame(button.dataset.game));
+    }
+    $("again-btn").addEventListener("click", () => show("setup"));
+    $("next-btn").addEventListener("click", nextQuestion);
+    $("pics").addEventListener("click", event => {
+      const button = event.target.closest("button[data-word]");
+      if (button && !button.disabled) checkAnswer(button.dataset.word, button);
+    });
+    $("options").addEventListener("click", event => {
+      const button = event.target.closest("button[data-answer]");
+      if (button && !button.disabled) checkAnswer(button.dataset.answer, button);
+    });
+    $("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>
