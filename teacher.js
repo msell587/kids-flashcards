@@ -5,6 +5,8 @@ const guide = TEACHER[topicKey];
 const main = document.getElementById("guide");
 // Topics that have a Picture Guess game (picture-guess.html?topic=...)
 const GUESS_TOPICS = ["seasons", "weather"];
+// Topics with no colouring scene: their colouring link would open the Animals sheet instead
+const NO_COLOURING = ["feelings", "opposites"];
 
 function escapeHtml(text) {
   return String(text)
@@ -68,7 +70,7 @@ function showChooser() {
                     ${key !== "seasons" && GUESS_TOPICS.includes(key) ? `<div class="more-group"><h4>Guess games</h4><a href="picture-guess.html?topic=${key}">Picture Guess</a></div>` : ""}
                     ${key === "weather" ? `<div class="more-group"><h4>Other games</h4><a href="weather-sort.html">Weather Sort</a><a href="weather-quiz.html">Weather Quiz</a><a href="weather-memory.html">Weather Memory</a></div><div class="more-group"><h4>Chart</h4><a href="weather-chart.html">Weather chart</a></div>` : ""}
                     <div class="more-group"><h4>Print</h4>
-                      ${key === "feelings" ? "" : `<a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>`}
+                      ${NO_COLOURING.includes(key) ? "" : `<a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>`}
                       <a href="worksheet.html?topic=${key}">Worksheets</a>
                       <a href="print.html?topic=${key}">Print cards</a>
                       ${(TOPIC_SHEETS[key] || []).map(sheet => `<a href="${sheet.href}" target="_blank" rel="noopener">${sheet.label}</a>`).join("")}
@@ -151,7 +153,7 @@ function showGuide() {
             ? ["spring", "summer", "autumn", "winter"].map(season =>
                 `<a class="btn secondary" href="colouring.html?topic=seasons&sheet=1&season=${season}">${season[0].toUpperCase() + season.slice(1)} colouring</a>`
               ).join("")
-            : `<a class="btn secondary" href="colouring.html?topic=${topicKey}&sheet=1">Colouring sheet</a>`}
+            : NO_COLOURING.includes(topicKey) ? "" : `<a class="btn secondary" href="colouring.html?topic=${topicKey}&sheet=1">Colouring sheet</a>`}
           ${(TOPIC_SHEETS[topicKey] || []).map(sheet => `<a class="btn secondary" href="${sheet.href}" target="_blank" rel="noopener">${sheet.label}</a>`).join("")}
         </div>
       </div>

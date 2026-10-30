@@ -600,5 +600,149 @@ const TEACHER = {
       { name: "Garden Tools", how: "Mime using a spade or a watering can, or picking a flower. Children guess and point to the right card, then take turns miming." },
       { name: "Spain tip: el huerto escolar", how: "If your school has a huerto, take the printed cards outside. Children find the real thing (a leaf, a worm, the spade) and hold the card next to it: “Look, a worm!”" }
     ]
+  },
+  feelings: {
+    goal: "Children can name 10 feelings, show each one with their face, and say when they might feel it.",
+    materials: [
+      "Screen or tablet with the Feelings flashcards",
+      "Printed feelings cards (use “Print cards” on the topic page)",
+      "A small mirror for each pair of children (or one for the class)",
+      "Feelings colouring sheets (see the Printable Worksheets page)",
+      "Craft supplies: see “Paper Plate Face” below"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and mirror faces", details: "Sing hello. Children look in a mirror and show how they feel today: “I feel happy!” Let them swap and say what they see." },
+      { time: "8 min", step: "Meet the feelings", details: "Go through the flashcards. Say each word, press 🔊, and have the class copy the face together. Ask “When do you feel this way?” and take one or two answers." },
+      { time: "5 min", step: "Song: If You're Happy and You Know It", details: "Sing with actions for each feeling: clap for happy, stomp for angry, rub the eyes for sleepy." },
+      { time: "10 min", step: "Games", details: "Play Feelings Freeze, then Guess the Feeling." },
+      { time: "5 min", step: "Movement break", details: "Feeling Walk: stomp like angry, tiptoe like scared, wiggle like silly, then freeze with a calm face." },
+      { time: "15 min", step: "Craft: Paper Plate Face", details: "Follow the craft steps below. Ask “What face are you making?” and “What would make you feel that way?”" },
+      { time: "7 min", step: "Colour the feelings", details: "Give out the feelings colouring sheet. Children colour one face and say which feeling it shows." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together all the way to the 🎉 screen. Each child shows their favourite feeling face." }
+    ],
+    crafts: [
+      {
+        name: "Paper Plate Face",
+        time: "15 min",
+        supplies: ["Paper plates (one per child)", "Crayons", "Cotton wool for hair or a beard", "Yarn for hair", "Glue sticks"],
+        steps: [
+          "Children draw eyes, a nose and a mouth with crayons, showing one feeling.",
+          "Glue on cotton wool or yarn for hair.",
+          "Hold the face up and say the feeling: “I am sleepy!”",
+          "Ask the class to guess the feeling from the face."
+        ],
+        tip: "Draw a simple face outline on each plate before class, so children only add the features."
+      }
+    ],
+    songs: [
+      {
+        title: "If You're Happy and You Know It",
+        tune: "Traditional",
+        how: "Use the actions for each feeling: clap for happy, stomp for angry, tiptoe for scared, rub eyes for sleepy, and wave for silly.",
+        search: "if you're happy and you know it kids song"
+      }
+    ],
+    games: [
+      { name: "Feelings Freeze", how: "Play music and dance. When the music stops, call out a feeling. Children freeze and show that face. Children who show it well can call the next feeling." },
+      { name: "Guess the Feeling", how: "Make a face without words. Children guess the feeling, then point to the right card. Take turns so each child has a go." },
+      { name: "Calm Down", how: "When a child is upset, use the calm card. Breathe in like smelling a flower, and breathe out like blowing out a candle. Repeat three times together." }
+    ]
+  },
+  opposites: {
+    goal: "Children can say the opposite of each word in the 10 pairs, and point to the one that matches.",
+    materials: [
+      "Screen or tablet with the Opposites pairs",
+      "Printed opposites cards (use “Print cards” on the topic page)",
+      "A big ball and a small ball, or a big cup and a small cup",
+      "A torch, for light and dark",
+      "A cardboard box, for in and out",
+      "Craft supplies: see “Big and Small Paper Balls” below"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and big and small", details: "Sing hello. Stand up big with arms wide, then small, crouched down. Ask “Am I big or small?”" },
+      { time: "8 min", step: "Meet the pairs", details: "Show each pair on the screen. Press 🔊 Say the pair, so children hear “hot is the opposite of cold”, then have them repeat it and point to each picture." },
+      { time: "5 min", step: "Song: Up and Down", details: "Sing with actions: arms up for up, bend down for down. Then try fast and slow, moving quickly, then slowly." },
+      { time: "10 min", step: "Games", details: "Play Say the Opposite, then Find the Pair." },
+      { time: "5 min", step: "Movement break", details: "Hop up and down, then move fast and then slow. Call out “In!” and children go into a circle, “Out!” and they step out." },
+      { time: "15 min", step: "Craft: Big and Small Paper Balls", details: "Follow the craft steps below. Ask “Which one is big? Which one is small?”" },
+      { time: "7 min", step: "Light and dark", details: "Turn off the lights for ten seconds, then switch them on. Ask “Is it light or dark?” Use the torch to show light." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the pairs together to the 🎉 screen. Each child says one pair." }
+    ],
+    crafts: [
+      {
+        name: "Big and Small Paper Balls",
+        time: "15 min",
+        supplies: ["Sheets of scrap paper", "Glue sticks", "Crayons", "A sheet of coloured paper for each child"],
+        steps: [
+          "Children crumple one sheet tightly into a small ball and one sheet loosely into a big ball.",
+          "Glue the small ball on one side of the coloured paper and the big ball on the other.",
+          "Write or draw “big” and “small” next to each ball.",
+          "Hold up the two balls and say “big and small” together."
+        ],
+        tip: "Use a sheet of paper for the big ball and a quarter sheet for the small one, so the difference is clear."
+      }
+    ],
+    songs: [
+      {
+        title: "Up and Down",
+        tune: "Head, Shoulders, Knees and Toes",
+        words: "Up and down, up and down,\nHands go up and hands go down,\nFast and slow, fast and slow,\nWe can move the way we go.",
+        how: "Sing the verses and do the actions: hands up for up, bend down for down, hop fast, then move slowly.",
+        search: "head shoulders knees and toes kids song"
+      }
+    ],
+    games: [
+      { name: "Say the Opposite", how: "Say a word, such as “big”. Children shout the opposite, “small!”, then point to the card. Change the words quickly as they get good at it." },
+      { name: "Find the Pair", how: "Put two cards from one pair on the floor, one at each side of the room. Children run to the one that matches the word you say." },
+      { name: "Open or Closed?", how: "Hold up the card for open or closed. Children make the action: arms wide for open, hands together for closed." }
+    ]
+  },
+  madrid: {
+    goal: "Children can name 5 places in Madrid, point to each one on a picture, and say which one they like best.",
+    materials: [
+      "Screen or tablet with the Madrid flashcards",
+      "Printed Madrid cards (use “Print cards” on the topic page)",
+      "A map of Spain, or a globe, to show where Madrid is",
+      "A picture of a bus or a metro train, if you have one",
+      "Craft supplies: see “Madrid Postcard” below"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and where are we?", details: "Sing hello. Show the map of Spain and point to Madrid in the middle. Say “This is where we are going today!”" },
+      { time: "8 min", step: "Meet Madrid", details: "Go through the flashcards. Say each name, press 🔊, and have the class repeat it. Point to the picture and ask “What can you see?”" },
+      { time: "5 min", step: "Song: Madrid, Madrid", details: "Sing to a traditional tune, pointing to each card as you name it." },
+      { time: "10 min", step: "Games", details: "Play Where Am I?, then Walk to the Park." },
+      { time: "5 min", step: "Movement break", details: "Walk around the room like a visitor, stopping at each card to say its name and do a big stretch for the tall buildings." },
+      { time: "15 min", step: "Craft: Madrid Postcard", details: "Follow the craft steps below. Ask “Which place would you like to visit?”" },
+      { time: "7 min", step: "Show and tell", details: "Each child holds up their postcard and says the name of their place: “This is Retiro Park!”" },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen." }
+    ],
+    crafts: [
+      {
+        name: "Madrid Postcard",
+        time: "15 min",
+        supplies: ["A4 card, cut in half (one per child)", "Crayons", "A printed Madrid card for each child"],
+        steps: [
+          "Children draw a picture of the place on the front of the card.",
+          "Glue the printed card or write the name in the middle.",
+          "On the back, draw a line for the address and a stamp.",
+          "Read the name together: “Madrid!”"
+        ],
+        tip: "Give each child a different place, so the class ends up with a set of five postcards."
+      }
+    ],
+    songs: [
+      {
+        title: "Madrid, Madrid",
+        tune: "Frère Jacques",
+        words: "Madrid, Madrid,\nWhere is the sun?\nPark, park, Retiro park,\nWe have big fun.",
+        how: "Sing the words, pointing to each card in turn. Change the last line to name another place from the cards.",
+        search: "frere jacques kids song"
+      }
+    ],
+    games: [
+      { name: "Where Am I?", how: "Show a card with its picture covered, then slowly show more. Children guess the place, then point to the matching card." },
+      { name: "Walk to the Park", how: "Lay the cards in a line on the floor, with Retiro Park at the end. Children take turns walking from one card to the next, saying each name." },
+      { name: "Which One Is It?", how: "Describe a place: “It has a big park and a lake!” Children guess and point to the card, such as Retiro Park." }
+    ]
   }
 };
