@@ -202,6 +202,25 @@ const TOPICS = {
       { word: "spider", es: "araña", insect: false, moves: ["climb", "walk"], picture: "images/explorers/spider.jpg" }
     ]
   },
+  transport: {
+    title: "On the Move",
+    page: "transport.html",
+    // Vehicles for the grammar lessons: singular and plural, this and that, its and they're (see the teacher guide)
+    // "plural" is the plural word; "size" (small, medium, big), "speed" (slow, fast) and "wheels" are used by the On the Move games
+    cards: [
+      { word: "car", es: "coche", plural: "cars", size: "medium", speed: "fast", wheels: true, picture: "images/city/car.jpg" },
+      { word: "bus", es: "autobús", plural: "buses", size: "big", wheels: true, picture: "images/city/bus.jpg" },
+      { word: "train", es: "tren", plural: "trains", size: "big", speed: "fast", wheels: true, picture: "images/city/train.jpg" },
+      { word: "taxi", es: "taxi", plural: "taxis", size: "medium", speed: "fast", wheels: true, picture: "images/transport/taxi.jpg" },
+      { word: "truck", es: "camión", plural: "trucks", size: "big", speed: "slow", wheels: true, picture: "images/transport/truck.jpg" },
+      { word: "aeroplane", es: "avión", plural: "aeroplanes", size: "big", speed: "fast", wheels: false, picture: "images/transport/aeroplane.jpg" },
+      { word: "helicopter", es: "helicóptero", plural: "helicopters", size: "medium", speed: "fast", wheels: false, picture: "images/transport/helicopter.jpg" },
+      { word: "boat", es: "barco", plural: "boats", size: "medium", speed: "slow", wheels: false, picture: "images/transport/boat.jpg" },
+      { word: "motorcycle", es: "moto", plural: "motorcycles", size: "small", speed: "fast", wheels: true, picture: "images/transport/motorcycle.jpg" },
+      { word: "bicycle", es: "bicicleta", plural: "bicycles", size: "small", speed: "slow", wheels: true, picture: "images/transport/bicycle.jpg" },
+      { word: "scooter", es: "patinete", plural: "scooters", size: "small", speed: "slow", wheels: true, picture: "images/transport/scooter.jpg" }
+    ]
+  },
   feelings: {
     title: "Feelings",
     page: "feelings.html",
