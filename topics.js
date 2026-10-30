@@ -166,7 +166,11 @@ const TOPICS = {
       { word: "angry", picture: "images/feelings/angry.jpg" },
       { word: "scared", picture: "images/feelings/scared.jpg" },
       { word: "surprised", picture: "images/feelings/surprised.jpg" },
-      { word: "sleepy", picture: "images/feelings/sleepy.jpg" }
+      { word: "sleepy", picture: "images/feelings/sleepy.jpg" },
+      { word: "worried", picture: "images/feelings/worried.jpg" },
+      { word: "excited", picture: "images/feelings/excited.jpg" },
+      { word: "calm", picture: "images/feelings/calm.jpg" },
+      { word: "silly", picture: "images/feelings/silly.jpg" }
     ]
   },
   madrid: {
