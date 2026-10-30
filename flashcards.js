@@ -48,7 +48,6 @@ tools.innerHTML =
       '<div><button class="tool" id="shuffle-btn">Shuffle</button>' +
       '<button class="tool" id="guess-btn">Hide words</button>' +
       '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">Listening game</a>' +
-      (topicKey === "seasons" ? '<a class="tool" id="season-sort-link" href="season-game.html">Season Sort</a>' : '') +
       (topicKey === "colors" ? '<a class="tool" id="colour-link" href="colouring.html?topic=colors">Colouring</a>' : '') +
       '</div>' +
     '</div>' +
