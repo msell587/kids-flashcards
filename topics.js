@@ -157,6 +157,18 @@ const TOPICS = {
       { word: "spade", picture: "images/garden/spade.jpg" }
     ]
   },
+  feelings: {
+    title: "Feelings",
+    page: "feelings.html",
+    cards: [
+      { word: "happy", picture: "images/feelings/happy.jpg" },
+      { word: "sad", picture: "images/feelings/sad.jpg" },
+      { word: "angry", picture: "images/feelings/angry.jpg" },
+      { word: "scared", picture: "images/feelings/scared.jpg" },
+      { word: "surprised", picture: "images/feelings/surprised.jpg" },
+      { word: "sleepy", picture: "images/feelings/sleepy.jpg" }
+    ]
+  },
   madrid: {
     title: "Madrid",
     page: "madrid.html",

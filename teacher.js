@@ -16,6 +16,12 @@ function escapeHtml(text) {
 }
 
 // Topic picker in the top bar: choosing a topic opens its guide
+// Printable sheets that belong to one topic, listed in its Print group
+const TOPIC_SHEETS = {
+  shapes: [{ label: "Tracing shapes", href: "printables/worksheets/tracing-shapes.pdf" }],
+  feelings: [{ label: "Feelings colouring page", href: "printables/worksheets/feelings-colouring.pdf" }]
+};
+
 const topicSelect = document.getElementById("topic-select");
 topicSelect.innerHTML = `<option value="">All topics</option>` + Object.keys(TOPICS).map(key =>
   `<option value="${key}"${key === topicKey ? " selected" : ""}>${escapeHtml(TOPICS[key].title)}</option>`
@@ -59,9 +65,10 @@ function showChooser() {
                     ${key !== "seasons" && GUESS_TOPICS.includes(key) ? `<div class="more-group"><h4>Guess games</h4><a href="picture-guess.html?topic=${key}">Picture Guess</a></div>` : ""}
                     ${key === "weather" ? `<div class="more-group"><h4>Other games</h4><a href="weather-sort.html">Weather Sort</a><a href="weather-quiz.html">Weather Quiz</a><a href="weather-memory.html">Weather Memory</a></div><div class="more-group"><h4>Chart</h4><a href="weather-chart.html">Weather chart</a></div>` : ""}
                     <div class="more-group"><h4>Print</h4>
-                      <a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>
+                      ${key === "feelings" ? "" : `<a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>`}
                       <a href="worksheet.html?topic=${key}">Worksheets</a>
                       <a href="print.html?topic=${key}">Print cards</a>
+                      ${(TOPIC_SHEETS[key] || []).map(sheet => `<a href="${sheet.href}" target="_blank" rel="noopener">${sheet.label}</a>`).join("")}
                     </div>
                   </div>
                 </details>
@@ -142,6 +149,7 @@ function showGuide() {
                 `<a class="btn secondary" href="colouring.html?topic=seasons&sheet=1&season=${season}">${season[0].toUpperCase() + season.slice(1)} colouring</a>`
               ).join("")
             : `<a class="btn secondary" href="colouring.html?topic=${topicKey}&sheet=1">Colouring sheet</a>`}
+          ${(TOPIC_SHEETS[topicKey] || []).map(sheet => `<a class="btn secondary" href="${sheet.href}" target="_blank" rel="noopener">${sheet.label}</a>`).join("")}
         </div>
       </div>
     </div>
