@@ -537,20 +537,20 @@ const TEACHER = {
     goal: "Children can name 12 things found in a garden, and say what a plant needs: water and sun.",
     materials: [
       "Screen or tablet with the My Little Garden flashcards",
-      "Printed garden cards (stick a few around the room for Bug Hunt)",
+      "Printed garden cards",
       "A real flower or leaf, and a few seeds (beans or sunflower seeds)",
       "Small cups, soil and a watering can for the planting activity",
       "Craft supplies: see “Paper Plate Flower” below"
     ],
     plan: [
       { time: "5 min", step: "Hello and mystery bag", details: "Sing hello. Pull a real leaf, flower or seed out of a bag: “What is it? It's a leaf!” Let children touch and smell it." },
-      { time: "8 min", step: "Meet the garden", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: flap for butterfly, buzz for bee, wiggle for worm, slow creeping hands for snail, digging for spade." },
+      { time: "8 min", step: "Meet the garden", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: digging for spade, pouring for watering can, and reaching up for tree." },
       { time: "5 min", step: "Song: This Is the Way We Water the Flowers", details: "Sing it with actions: digging, planting a seed, watering and growing tall." },
-      { time: "10 min", step: "Games", details: "Play Bug Hunt, then Grow, Little Seed!" },
-      { time: "5 min", step: "Movement break", details: "Play Garden Moves: call out a card and children move like it (flutter, buzz, crawl, wriggle). Freeze when you say “Rain!”" },
+      { time: "10 min", step: "Games", details: "Play Grow, Little Seed!, then Garden Tools." },
+      { time: "5 min", step: "Movement break", details: "Play Garden Moves: call out a card and children move like it (dig, water, grow tall, sway like a leaf). Freeze when you say “Rain!”" },
       { time: "15 min", step: "Craft: Paper Plate Flower", details: "Follow the craft steps below. Ask “What colour is your flower?” and “What does a flower need?” (water, sun)." },
       { time: "7 min", step: "Plant a seed", details: "Each child puts soil in a cup, pushes in a seed and gives it a little water with the watering can. Say together: “Grow, grow, grow!” Put the cups by a sunny window." },
-      { time: "5 min", step: "Review and goodbye", details: "Quick round of Who's in the Garden?, then click through the flashcards together to the 🎉 screen." }
+      { time: "5 min", step: "Review and goodbye", details: "Quick round of Garden Tools, then click through the flashcards together to the 🎉 screen." }
     ],
     crafts: [
       {
@@ -594,9 +594,7 @@ const TEACHER = {
       }
     ],
     games: [
-      { name: "Bug Hunt", how: "Hide the butterfly, bee, ladybird, snail and worm cards around the room. Children hunt for them. When they find one, they shout its name and bring it back to the “garden” (a green mat)." },
       { name: "Grow, Little Seed!", how: "Children curl up small like seeds. Pretend to water them and say “Sun! Rain! Grow, grow, grow!” They slowly grow into tall flowers or trees, then open their arms like petals." },
-      { name: "Who's in the Garden?", how: "Lay out the cards and cover one with your hand. “Who's in the garden? It's small, red and has black dots!” Children guess: ladybird!" },
       { name: "Garden Tools", how: "Mime using a spade or a watering can, or picking a flower. Children guess and point to the right card, then take turns miming." },
       { name: "Spain tip: el huerto escolar", how: "If your school has a huerto, take the printed cards outside. Children find the real thing (a leaf, a worm, the spade) and hold the card next to it: “Look, a worm!”" }
     ]
@@ -743,6 +741,56 @@ const TEACHER = {
       { name: "Where Am I?", how: "Show a card with its picture covered, then slowly show more. Children guess the place, then point to the matching card." },
       { name: "Walk to the Park", how: "Lay the cards in a line on the floor, with Retiro Park at the end. Children take turns walking from one card to the next, saying each name." },
       { name: "Which One Is It?", how: "Describe a place: “It has a big park and a lake!” Children guess and point to the card, such as Retiro Park." }
+    ]
+  },
+  explorers: {
+    goal: "Children can name 5 insects and minibeasts, say how each one moves, and use the words fast, slow, big and small to compare them.",
+    materials: [
+      "Screen or tablet with the Animal Explorers flashcards",
+      "Printed Animal Explorers cards (use “Print cards” on the topic page)",
+      "A magnifying glass",
+      "A picture or real leaf with a snail or worm on it (optional, return them outside afterwards)",
+      "Craft supplies: see “Paper Plate Ladybird” below"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and what can you see?", details: "Sing hello. Pass round the magnifying glass and ask “What can you see? Is it big or small?”" },
+      { time: "8 min", step: "Meet the explorers", details: "Go through the flashcards. Say each word, press 🔊, and have the class copy how it moves: flutter the fingers for butterfly, buzz for bee, walk the fingers for ladybird, slide a flat hand for snail, wriggle for worm." },
+      { time: "5 min", step: "Song: Fast Bee, Slow Snail", details: "Sing to a traditional tune, moving fast for the bee and slowly for the snail." },
+      { time: "10 min", step: "Games", details: "Play Move Like a Minibeast, then Fly, Crawl, Slide or Wriggle?" },
+      { time: "5 min", step: "Movement break", details: "Call out “fast” or “slow”. Children move quickly like a bee, or slowly like a snail. Freeze when you say “Stop!”" },
+      { time: "15 min", step: "Craft: Paper Plate Ladybird", details: "Follow the craft steps below. Ask “How does a ladybird move? Does it fly or walk?”" },
+      { time: "7 min", step: "Sort the movers", details: "Children sort the printed cards into four piles: fly, crawl, slide and wriggle. Check each group together." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child shows one way a minibeast moves." }
+    ],
+    crafts: [
+      {
+        name: "Paper Plate Ladybird",
+        time: "15 min",
+        supplies: ["Red paper plates (one per child)", "Black paper for the head and spots", "Glue sticks", "A black crayon"],
+        steps: [
+          "Children colour the head end of the plate black, or glue on a black half-circle.",
+          "Glue black dots on the red wings.",
+          "Draw a line down the middle of the wings with a black crayon.",
+          "Walk the ladybird across the table, then say “walk, walk, walk!”"
+        ],
+        tip: "Fold the plate in half before class so the wings line up. Children only need to glue the dots."
+      }
+    ],
+    songs: [
+      {
+        title: "Fast Bee, Slow Snail",
+        tune: "Twinkle, Twinkle, Little Star",
+        words: "Fast goes the bee, buzz, buzz, buzz!\nSlow goes the snail, slide, slide, slide!\nWalk, walk, goes the ladybird,\nWriggle, wriggle, goes the worm.",
+        how: "Sing the verse and move as the words say: buzz quickly, slide slowly, walk with your fingers, wriggle low on the floor.",
+        search: "twinkle twinkle little star kids song"
+      }
+    ],
+    games: [
+      { name: "Move Like a Minibeast", how: "Hold up a card. Children move the way it moves: flutter, buzz, walk, slide or wriggle. Freeze when you say “Stop!” and look at each other's moves." },
+      { name: "Fly, Crawl, Slide or Wriggle?", how: "Point to a card and say how it moves: “Does the bee fly or crawl?” Children answer with the action. Then sort the cards together into the four groups." },
+      { name: "Fast or Slow?", how: "Hold up the bee and the snail. Ask which one is fast and which one is slow. Children point to the card, then copy the movement." },
+      { name: "Insect or Bug? (in Class Game, More games)", how: "Children look at each picture and say whether it is an insect or another bug. Insects have 6 legs and 3 body parts. Spiders, snails and worms are bugs, but not insects." },
+      { name: "What Can It Do? (in Class Game, More games)", how: "Show a creature, and children choose the action word that fits it: fly, buzz, walk, crawl, jump, climb, slide or wriggle." }
     ]
   }
 };

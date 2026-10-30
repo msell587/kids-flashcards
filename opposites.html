@@ -103,13 +103,22 @@
       font-size: 24px;
     }
     /* The Big screen button is small, so it does not take up the pair */
-    .tools-line {
-      text-align: center;
-      margin: 12px 0 0 0;
+    /* Big screen button: styled like the Back and Next buttons on the other pages */
+    .big-screen-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
     }
-    .tools-line button[data-big-screen] {
-      font-size: 14px;
-      padding: 6px 14px;
+    .big-screen-row button {
+      padding: 10px 28px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -140,9 +149,9 @@
     <p id="counter"></p>
     <button onclick="nextPair()">Next</button>
   </div>
-  <p class="tools-line">
-    <button type="button" class="secondary" data-big-screen>Big screen</button>
-  </p>
+  <div class="big-screen-row">
+    <button type="button" data-big-screen>Big screen</button>
+  </div>
 
   <script src="topics.js"></script>
   <script src="voice.js"></script>
