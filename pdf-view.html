@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>View PDF</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    /* Shows a printable PDF first; the Download PDF button saves it when the teacher is ready */
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg, #fdf8f0);
+      color: var(--word-dark);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh;
+    }
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .bar h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .bar nav {
+      display: flex;
+      gap: 8px;
+    }
+    .bar a {
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 2px solid var(--word);
+      color: var(--word);
+      background: #fff;
+    }
+    .bar a.primary {
+      background: var(--word);
+      color: #fff;
+    }
+    .viewer {
+      flex: 1;
+      width: 100%;
+      border: 0;
+    }
+    .fallback {
+      padding: 16px;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <header class="bar">
+    <h1 id="title">Printable sheet</h1>
+    <nav>
+      <a href="#" id="back-btn">Back</a>
+      <a class="primary" id="download-btn" href="#" download>Download PDF</a>
+    </nav>
+  </header>
+  <iframe class="viewer" id="viewer" title="Printable sheet"></iframe>
+  <p class="fallback" id="fallback" hidden>
+    This browser can't show the sheet here. <a id="open-link" href="#" target="_blank" rel="noopener">Open the sheet</a>
+  </p>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const file = params.get("file") || "";
+    const name = params.get("name") || "Printable sheet.pdf";
+    // Only the project's own PDFs can be shown, so the page cannot be used to open other sites
+    const allowed = /^(printables|images)\/[^:]*\.pdf$/i.test(file) && !file.includes("..");
+
+    if (allowed) {
+      document.getElementById("title").textContent = name.replace(/\.pdf$/i, "");
+      document.getElementById("viewer").src = encodeURI(file);
+      document.getElementById("download-btn").href = encodeURI(file);
+      document.getElementById("download-btn").setAttribute("download", name);
+      document.getElementById("open-link").href = encodeURI(file);
+    } else {
+      document.getElementById("title").textContent = "Sheet not found";
+      document.getElementById("viewer").remove();
+      document.getElementById("download-btn").remove();
+      document.getElementById("fallback").hidden = false;
+    }
+    document.getElementById("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
+  </script>
+</body>
+</html>

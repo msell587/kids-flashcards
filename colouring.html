@@ -437,10 +437,11 @@
         // One ready-made A4 PDF per season, so no printing is needed; "All" has none
         const pdfLink = document.getElementById("pdf-link");
         pdfLink.hidden = season === "all";
-        pdfLink.href = `images/coloring-sheets/${season}.pdf`;
         // "Spring" becomes "Seasons Spring", but "Weather" is not doubled into "Weather Weather"
         const label = season[0].toUpperCase() + season.slice(1);
-        pdfLink.download = (label.startsWith(scene.title) ? label : scene.title + " " + label) + " colouring sheet A4.pdf";
+        const sheetName = (label.startsWith(scene.title) ? label : scene.title + " " + label) + " colouring sheet A4.pdf";
+        // The viewer shows the sheet first, and its Download PDF button saves it
+        pdfLink.href = "pdf-view.html?file=" + encodeURIComponent(`images/coloring-sheets/${season}.pdf`) + "&name=" + encodeURIComponent(sheetName);
       };
       picker.addEventListener("click", event => {
         const button = event.target.closest("button");

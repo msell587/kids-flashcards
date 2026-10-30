@@ -96,6 +96,9 @@
         { title: "Feelings Colouring Page", file: "feelings-colouring.pdf", note: "Six cartoon faces on one A4 page: happy, sad, angry, scared, surprised and sleepy." },
         { title: "Feelings Colouring Page: Boxes", file: "feelings-colouring-boxes.pdf", note: "Twelve cartoon faces in boxes, with big expressions, on one A4 page." }
       ] },
+      { title: "Animal Explorers", sheets: [
+        { title: "Insects and Bugs Colouring", file: "animal-explorers-colouring.pdf", note: "Eleven cartoon insects and bugs on one A4 page." }
+      ] },
       { title: "Shapes and maths", sheets: [
         { title: "Tracing Shapes", file: "tracing-shapes.pdf", note: "Trace and match the shapes, 6 pages." },
         { title: "Simple Shapes Tracing", file: "simple-shapes-tracing.pdf" },
@@ -145,14 +148,15 @@
         <h2 class="group-title">${group.title}</h2>
         <div class="sheet-list">
           ${group.sheets.map(sheet => {
-            const path = encodeURI(sheet.path || "printables/worksheets/" + sheet.file);
+            const file = sheet.path || "printables/worksheets/" + sheet.file;
+            const viewer = "pdf-view.html?file=" + encodeURIComponent(file) + "&name=" + encodeURIComponent(sheet.title + ".pdf");
             return `
           <article class="sheet-card">
             <h3>${sheet.title}</h3>
             ${sheet.note ? `<p>${sheet.note}</p>` : ""}
             <nav class="sheet-actions">
-              <a href="${path}" download="${sheet.title}.pdf">Download PDF</a>
-              <a class="secondary" href="${path}" target="_blank" rel="noopener">Open to print</a>
+              <a href="${viewer}">Download PDF</a>
+              <a class="secondary" href="${encodeURI(file)}" target="_blank" rel="noopener">Open to print</a>
             </nav>
           </article>`;
           }).join("")}
