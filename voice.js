@@ -83,7 +83,7 @@ const Voice = (() => {
     } else {
       utterance.lang = "en-GB";
     }
-    utterance.rate = SPEEDS[s.speed] || SPEEDS.normal;
+    utterance.rate = SPEEDS[s.speed] || SPEEDS.slow;
     utterance.pitch = PITCHES[s.pitch] || PITCHES.cheerful;
     if (options.onEnd) utterance.onend = utterance.onerror = options.onEnd;
     speechSynthesis.speak(utterance);
@@ -126,7 +126,7 @@ const Voice = (() => {
         </select>
       </label>
       <p class="voice-hint">★ = natural-sounding voice</p>
-      <fieldset><legend>Speed</legend>${choices("voice-speed", SPEEDS, s.speed || "normal")}</fieldset>
+      <fieldset><legend>Speed</legend>${choices("voice-speed", SPEEDS, s.speed || "slow")}</fieldset>
       <fieldset><legend>Style</legend>${choices("voice-pitch", PITCHES, s.pitch || "cheerful")}</fieldset>
       <div class="voice-buttons">
         <button type="button" id="voice-test">Test</button>
