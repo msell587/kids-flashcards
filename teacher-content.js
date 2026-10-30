@@ -792,5 +792,54 @@ const TEACHER = {
       { name: "Insect or Bug? (in Class Game, More games)", how: "Children look at each picture and say whether it is an insect or another bug. Insects have 6 legs and 3 body parts. Spiders, snails and worms are bugs, but not insects." },
       { name: "What Can It Do? (in Class Game, More games)", how: "Show a creature, and children choose the action word that fits it: fly, buzz, walk, crawl, jump, climb, slide or wriggle." }
     ]
+  },
+  transport: {
+    goal: "Children can name a car, a bus and a train, say “this” and “that” for near and far things, make a word plural (car, cars), and use “its” and “they're” in simple sentences.",
+    materials: [
+      "Screen or tablet with the On the Move flashcards",
+      "Printed transport cards (use “Print cards” on the topic page)",
+      "A toy car, bus or train, to hold up and move",
+      "Two chairs or spots on the floor: one near and one far",
+      "Craft supplies: see “Paper Plate Bus” below"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and what's this?", details: "Sing hello. Hold up the toy car: “What's this? It's a car!” Children repeat." },
+      { time: "8 min", step: "Meet the vehicles", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What colour is the bus?” and “Is the train fast or slow?”" },
+      { time: "5 min", step: "Song: The Wheels on the Bus", details: "Sing with actions: wheels going round, wipers swishing, the horn beeping." },
+      { time: "8 min", step: "This and that", details: "Put the car near the children and the train far away. “This is a car. That is a train.” Children point and repeat. Then ask “What's this? What's that?”" },
+      { time: "5 min", step: "One car, two cars", details: "Show one toy car, then two. “One car. Two cars.” Add -s for cars and trains, and -es for buses: “One bus, two buses.”" },
+      { time: "5 min", step: "Its or they're?", details: "Show a picture of the bus and say: “The bus is big. Its wheels are round.” Then the trains: “The trains are fast. They're fast!” Explain that “its” is for one thing that belongs to it, and “they're” means “they are.”" },
+      { time: "10 min", step: "Games", details: "Play What's This or That?, then Singular or Plural?" },
+      { time: "5 min", step: "Movement break", details: "Drive like a car, a bus or a train around the room. Call out “fast” or “slow” and change speed." },
+      { time: "15 min", step: "Craft: Paper Plate Bus", details: "Follow the craft steps below. Ask “What is this?” and “What are these?” as children hold up their buses." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence with “this” or “that”." }
+    ],
+    crafts: [
+      {
+        name: "Paper Plate Bus",
+        time: "15 min",
+        supplies: ["Paper plates (one per child)", "Yellow and blue paper", "Glue sticks", "Two paper circles for wheels", "Crayons"],
+        steps: [
+          "Children colour the plate yellow for the bus.",
+          "Glue on blue strips for the windows.",
+          "Glue two paper circles underneath for wheels.",
+          "Hold it up: “This is my bus! Its wheels are round.”"
+        ],
+        tip: "Draw the window shapes before class, so children only need to colour and glue."
+      }
+    ],
+    songs: [
+      {
+        title: "The Wheels on the Bus",
+        tune: "Traditional",
+        how: "Do the actions: wheels going round and round, wipers swishing, horn beeping, and the people moving up and down.",
+        search: "wheels on the bus kids song"
+      }
+    ],
+    games: [
+      { name: "What's This or That?", how: "Put a card near a child and another far away. Ask “What's this?” for the near card and “What's that?” for the far one. Children answer with the name." },
+      { name: "Singular or Plural?", how: "Hold up one card, then two. Children say “one car” or “two cars”, then sort the cards into two piles: one thing and many things." },
+      { name: "Its or They're?", how: "Read a sentence with a gap, such as “The bus is big. ___ wheels are round.” Children choose “its” or “they're” and explain their choice." }
+    ]
   }
 };

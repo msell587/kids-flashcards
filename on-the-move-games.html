@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>On the Move Games</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* On the Move games: adjectives, singular or plural, it's or they're, this or that */
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: min(94vw, 520px);
+      margin: 16px auto 0 auto;
+    }
+    .menu button,
+    .options button {
+      padding: 14px 10px;
+      border: 0;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .prompt {
+      margin: 8px 0 0 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .sentence {
+      margin: 10px 0 0 0;
+      font-size: 28px;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .pics {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .pic-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px;
+      border: 4px solid transparent;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-family: var(--font);
+      color: var(--word-dark);
+    }
+    .pic-btn img {
+      width: 96px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .pic-btn span {
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .pic-btn.big img {
+      width: 150px;
+      height: 110px;
+    }
+    .pic-btn.right {
+      border-color: #2e9e44;
+    }
+    .pic-btn.wrong {
+      opacity: 0.45;
+    }
+    .pic-btn:disabled {
+      cursor: default;
+    }
+    .options {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .options button {
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 17px;
+    }
+    .options button.right {
+      background: #e6f6ea;
+      border: 4px solid #2e9e44;
+    }
+    .options button.wrong {
+      opacity: 0.45;
+    }
+    .options button:disabled {
+      cursor: default;
+    }
+    .explain {
+      min-height: 48px;
+      margin: 12px auto 0 auto;
+      font-size: 20px;
+      color: var(--word-dark);
+      text-align: center;
+      max-width: 90vw;
+    }
+    .score {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .next {
+      display: block;
+      margin: 12px auto 0 auto;
+    }
+    .big-screen-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .big-screen-row button {
+      padding: 10px 28px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    /* Big screen: the pictures and words grow to fill a TV or projector */
+    body.big-screen .pic-btn img {
+      width: 260px;
+      height: 190px;
+    }
+    body.big-screen .pic-btn.big img {
+      width: 340px;
+      height: 240px;
+    }
+    body.big-screen .prompt {
+      font-size: clamp(40px, 4.6vw, 60px);
+    }
+    body.big-screen .sentence {
+      font-size: clamp(34px, 3.8vw, 48px);
+    }
+    body.big-screen .options button {
+      font-size: clamp(28px, 3.4vw, 42px);
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🚗</div>
+      <h1>On the Move Games</h1>
+      <p>Choose a game.</p>
+      <div class="menu">
+        <button type="button" data-game="adjectives">Big, small, fast or slow?</button>
+        <button type="button" data-game="plural">One or many?</button>
+        <button type="button" data-game="its">Its or they're?</button>
+        <button type="button" data-game="thisthat">This or that?</button>
+      </div>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <p class="prompt" id="prompt"></p>
+      <p class="sentence" id="sentence" hidden></p>
+      <div class="pics" id="pics"></div>
+      <div class="options" id="options"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <div class="big-screen-row" id="big-row" hidden>
+      <button type="button" data-big-screen>Big screen</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="teacher.html?topic=transport">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="bigscreen.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const cards = TOPICS.transport.cards;
+    const ADJECTIVES = ["big", "small", "fast", "slow"];
+    let game = "";
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+    function pick(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+      $("big-row").hidden = id !== "play";
+    }
+    function say(text) {
+      if (Voice.supported) Voice.speak(text);
+    }
+    function picButton(card, big) {
+      return `<button type="button" class="pic-btn${big ? " big" : ""}" data-word="${card.word}"><img src="${card.picture}" alt="${card.word}"><span>${card.word}</span></button>`;
+    }
+    function optionButton(label) {
+      return `<button type="button" data-answer="${label}">${label}</button>`;
+    }
+
+    // Each game builds one question at a time, then checks the answer the child gives
+    function makeQuestion() {
+      const card = queue[index].card;
+      if (game === "adjectives") {
+        const attribute = pick(ADJECTIVES);
+        const matches = c => c.size === attribute || c.speed === attribute;
+        const correct = pick(cards.filter(matches));
+        const wrong = shuffled(cards.filter(c => !matches(c))).slice(0, 2);
+        return {
+          prompt: "Which one is " + attribute + "?",
+          pics: shuffled([correct, ...wrong]),
+          answer: correct.word,
+          explain: "Yes! The " + correct.word + " is " + attribute + ".",
+          wrongText: "Not quite. Try another one.",
+          big: false,
+          say: "Which one is " + attribute + "?"
+        };
+      }
+      if (game === "plural") {
+        const asPlural = Math.random() < 0.5;
+        const label = asPlural ? card.plural : card.word;
+        return {
+          prompt: label,
+          pics: [],
+          picCard: card,
+          options: ["One", "Many"],
+          // Show three pictures for a plural word, so the child can see "many"
+          count: asPlural ? 3 : 1,
+          answer: asPlural ? "Many" : "One",
+          explain: asPlural ? "Yes! " + card.plural + " means many." : "Yes! " + card.word + " means one.",
+          wrongText: "Not quite. Try another one.",
+          say: label
+        };
+      }
+      if (game === "its") {
+        const templates = [];
+        if (card.wheels) {
+          templates.push({ sentence: "The " + card.word + " has wheels. ____ wheels are round.", answer: "its" });
+        }
+        templates.push({ sentence: "____ a " + card.word + ".", answer: "it's" });
+        if (card.speed) {
+          templates.push({ sentence: "Look at the two " + card.plural + ". ____ " + card.speed + "!", answer: "they're" });
+        }
+        const choice = pick(templates);
+        return {
+          prompt: "Pick the right word.",
+          sentence: choice.sentence,
+          picCard: card,
+          options: shuffled(["its", "it's", "they're"]),
+          answer: choice.answer,
+          explain: "Yes! Its means belongs to it. It's means it is. They're means they are.",
+          wrongText: "Not quite. Think: does it belong to it, is it, or are they?",
+          say: choice.sentence.replace("____", "blank")
+        };
+      }
+      // This or that: two pictures, one near (big) and one far (small)
+      const near = card;
+      const far = pick(cards.filter(c => c !== near));
+      const asThis = Math.random() < 0.5;
+      const target = asThis ? near : far;
+      return {
+        prompt: asThis ? "What's this?" : "What's that?",
+        pics: shuffled([near, far]),
+        nearCard: near,
+        target: target.word,
+        explain: asThis ? "Yes! This is a " + target.word + "." : "Yes! That is a " + target.word + ".",
+        wrongText: "Not quite. Try the other one.",
+        say: asThis ? "What's this?" : "What's that?"
+      };
+    }
+
+    function showQuestion() {
+      answered = false;
+      const q = makeQuestion();
+      queue[index].q = q;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("prompt").textContent = q.prompt;
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      $("sentence").hidden = !q.sentence;
+      $("sentence").textContent = q.sentence || "";
+      let pics = "";
+      let options = "";
+      if (game === "adjectives" || game === "thisthat") {
+        const big = game === "thisthat";
+        pics = q.pics.map((c, i) => {
+          const label = game === "thisthat" ? (c === q.nearCard ? "near" : "far") : "";
+          return `<button type="button" class="pic-btn${big && c === q.nearCard ? " big" : ""}" data-word="${c.word}"><img src="${c.picture}" alt="${c.word}"><span>${label || c.word}</span></button>`;
+        }).join("");
+      }
+      if (game === "plural" || game === "its") {
+        const count = q.count || 1;
+        const photo = `<img src="${q.picCard.picture}" alt="${q.picCard.word}">`;
+        pics = Array.from({ length: count }, () =>
+          `<div class="pic-btn${count === 1 ? " big" : ""}">${photo}</div>`
+        ).join("");
+      }
+      if (q.options) {
+        options = q.options.map(optionButton).join("");
+      }
+      $("pics").innerHTML = pics;
+      $("options").innerHTML = options;
+      say(q.say);
+    }
+
+    function markRight(element) {
+      element.classList.add("right");
+    }
+    function checkAnswer(chosen, element) {
+      if (answered) return;
+      const q = queue[index].q;
+      if (chosen === q.answer || chosen === q.target) {
+        answered = true;
+        right++;
+        markRight(element);
+        $("explain").textContent = q.explain;
+        say(q.explain);
+        finishTurn();
+      } else {
+        element.classList.add("wrong");
+        element.disabled = true;
+        $("explain").textContent = q.wrongText;
+        say(q.wrongText);
+      }
+    }
+    function finishTurn() {
+      for (const b of document.querySelectorAll("#pics button, #options button")) b.disabled = true;
+      $("next-btn").hidden = false;
+      $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+    }
+    function nextQuestion() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showQuestion();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You got " + right + " of " + queue.length + " right.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame(name) {
+      game = name;
+      queue = shuffled(cards).slice(0, 8).map(card => ({ word: card.word, card }));
+      index = 0;
+      right = 0;
+      show("play");
+      showQuestion();
+    }
+
+    for (const button of document.querySelectorAll("[data-game]")) {
+      button.addEventListener("click", () => startGame(button.dataset.game));
+    }
+    // A link such as on-the-move-games.html?game=plural starts that game straight away
+    const requested = new URLSearchParams(location.search).get("game");
+    if (["adjectives", "plural", "its", "thisthat"].includes(requested)) {
+      startGame(requested);
+    }
+    $("again-btn").addEventListener("click", () => show("setup"));
+    $("next-btn").addEventListener("click", nextQuestion);
+    $("pics").addEventListener("click", event => {
+      const button = event.target.closest("button[data-word]");
+      if (button && !button.disabled) checkAnswer(button.dataset.word, button);
+    });
+    $("options").addEventListener("click", event => {
+      const button = event.target.closest("button[data-answer]");
+      if (button && !button.disabled) checkAnswer(button.dataset.answer, button);
+    });
+    // Back returns to the page the child came from, not always the topic page
+    $("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>
