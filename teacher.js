@@ -122,7 +122,7 @@ function showGuide() {
       <div class="tune">Tune: ${escapeHtml(song.tune)}</div>
       ${song.words ? `<div class="lyrics">${escapeHtml(song.words)}</div>` : ""}
       <p>${escapeHtml(song.how)}</p>
-      ${song.search ? `<p class="no-print"><a href="https://www.youtube.com/results?search_query=${encodeURIComponent(song.search)}" target="_blank" rel="noopener">Find the tune on YouTube ↗</a></p>` : ""}
+      ${song.search ? `<p class="no-print">Find the tune by searching for “${escapeHtml(song.search)}”.</p>` : ""}
     </div>`).join("");
 
   const games = guide.games.map(game => `

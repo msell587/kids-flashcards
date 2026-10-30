@@ -97,9 +97,40 @@ const TOPICS = {
   opposites: {
     title: "Opposites",
     page: "opposites.html",
+    // Each pair is shown together on one card: the two words are opposites of each other
+    pairs: [
+      ["wet", "dry"],
+      ["hot", "cold"],
+      ["happy", "sad"],
+      ["big", "small"],
+      ["up", "down"],
+      ["open", "closed"],
+      ["fast", "slow"],
+      ["full", "empty"],
+      ["light", "dark"],
+      ["in", "out"]
+    ],
     cards: [
       { word: "wet", es: "mojado", picture: "images/seasons and weather/wet.jpg" },
-      { word: "dry", es: "seco", picture: "images/seasons and weather/dry.jpg" }
+      { word: "dry", es: "seco", picture: "images/seasons and weather/dry.jpg" },
+      { word: "hot", es: "caliente", picture: "images/seasons and weather/hot.jpg" },
+      { word: "cold", es: "frío", picture: "images/seasons and weather/cold.jpg" },
+      { word: "happy", es: "feliz", picture: "images/feelings/happy.jpg" },
+      { word: "sad", es: "triste", picture: "images/feelings/sad.jpg" },
+      { word: "big", es: "grande", picture: "images/opposites/big.jpg" },
+      { word: "small", es: "pequeño", picture: "images/opposites/small.jpg" },
+      { word: "up", es: "arriba", picture: "images/opposites/up.jpg" },
+      { word: "down", es: "abajo", picture: "images/opposites/down.jpg" },
+      { word: "open", es: "abierto", picture: "images/opposites/open.jpg" },
+      { word: "closed", es: "cerrado", picture: "images/opposites/closed.jpg" },
+      { word: "fast", es: "rápido", picture: "images/opposites/fast.jpg" },
+      { word: "slow", es: "lento", picture: "images/opposites/slow.jpg" },
+      { word: "full", es: "lleno", picture: "images/opposites/full.jpg" },
+      { word: "empty", es: "vacío", picture: "images/opposites/empty.jpg" },
+      { word: "light", es: "claro", picture: "images/opposites/light.jpg" },
+      { word: "dark", es: "oscuro", picture: "images/opposites/dark.jpg" },
+      { word: "in", es: "dentro", picture: "images/opposites/in.jpg" },
+      { word: "out", es: "fuera", picture: "images/opposites/out.jpg" }
     ]
   },
   city: {

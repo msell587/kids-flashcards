@@ -13,6 +13,105 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Each card shows an opposite pair side by side, with a ↔ sign between them */
+    .pair {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 0;
+    }
+    .pair-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 0;
+      cursor: pointer;
+      border: 0;
+      background: none;
+      padding: 0;
+      font-family: inherit;
+      color: inherit;
+    }
+    .pair-pic {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 5px solid #fff;
+      box-sizing: border-box;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+    .pair-word {
+      margin: 10px 0 0 0;
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 800;
+      color: var(--word-dark);
+    }
+    .pair-es {
+      margin: 0;
+      font-size: 18px;
+      color: var(--word);
+    }
+    .pair-sign {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--word);
+    }
+    .pair-say {
+      margin-top: 14px;
+      align-self: center;
+    }
+    .pair-side:focus-visible,
+    .pair-say:focus-visible {
+      outline: 4px solid var(--word);
+      outline-offset: 4px;
+    }
+    .card { justify-content: space-between; }
+    /* Big screen: the pair fills the screen for a TV or projector; the teacher's buttons stay */
+    body.big-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 8px 0;
+      box-sizing: border-box;
+    }
+    body.big-screen .topbar,
+    body.big-screen .bubbles {
+      display: none;
+    }
+    body.big-screen .card {
+      width: min(96vw, 160vh);
+      height: 80vh;
+    }
+    body.big-screen .pair-word {
+      font-size: clamp(40px, 5vw, 72px);
+    }
+    body.big-screen .pair-es {
+      font-size: 28px;
+    }
+    body.big-screen .pair-sign {
+      font-size: 80px;
+    }
+    body.big-screen .pair-say {
+      font-size: 24px;
+    }
+    /* The Big screen button is small, so it does not take up the pair */
+    .tools-line {
+      text-align: center;
+      margin: 12px 0 0 0;
+    }
+    .tools-line button[data-big-screen] {
+      font-size: 14px;
+      padding: 6px 14px;
+    }
+  </style>
 </head>
 <body>
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
@@ -21,23 +120,76 @@
     <span class="topic-title">Opposites</span>
   </nav>
   <div class="card">
-    <img id="picture" src="images/seasons and weather/wet.jpg" alt="wet">
-    <h1 id="word" aria-live="polite">wet</h1>
-    <button class="speak" onclick="speakWord()" aria-label="Say the word">🔊</button>
+    <div class="pair">
+      <button type="button" class="pair-side" id="left-side" aria-label="Say the first word">
+        <img class="pair-pic" id="left-pic" alt="">
+        <p class="pair-word" id="left-word"></p>
+        <p class="pair-es" id="left-es"></p>
+      </button>
+      <span class="pair-sign" aria-hidden="true">↔</span>
+      <button type="button" class="pair-side" id="right-side" aria-label="Say the second word">
+        <img class="pair-pic" id="right-pic" alt="">
+        <p class="pair-word" id="right-word"></p>
+        <p class="pair-es" id="right-es"></p>
+      </button>
+    </div>
+    <button type="button" class="pair-say" id="say-btn">🔊 Say the pair</button>
   </div>
   <div class="nav-buttons">
-    <button class="secondary" onclick="prevCard()">Back</button>
-    <p id="counter">1 / 2</p>
-    <button onclick="nextCard()">Next</button>
+    <button class="secondary" onclick="prevPair()">Back</button>
+    <p id="counter"></p>
+    <button onclick="nextPair()">Next</button>
   </div>
+  <p class="tools-line">
+    <button type="button" class="secondary" data-big-screen>Big screen</button>
+  </p>
 
   <script src="topics.js"></script>
-  <script>
-    const cards = TOPICS.opposites.cards;
-  </script>
   <script src="voice.js"></script>
-  <script src="flashcards.js"></script>
-  <script src="effects.js"></script>
+  <script src="bigscreen.js"></script>
+  <script>
+    // Look up each card by its word, so the pairs can be listed by word in topics.js
+    const byWord = Object.fromEntries(TOPICS.opposites.cards.map(card => [card.word, card]));
+    const pairs = TOPICS.opposites.pairs.map(([first, second]) => [byWord[first], byWord[second]]);
+    let current = 0;
+
+    function show() {
+      const [first, second] = pairs[current];
+      for (const [side, card] of [["left", first], ["right", second]]) {
+        document.getElementById(side + "-pic").src = card.picture;
+        document.getElementById(side + "-pic").alt = card.word;
+        document.getElementById(side + "-word").textContent = card.word;
+        document.getElementById(side + "-es").textContent = card.es || "";
+      }
+      document.getElementById("counter").textContent = (current + 1) + " / " + pairs.length;
+    }
+    function say(text) {
+      if (Voice.supported) Voice.speak(text);
+    }
+    function prevPair() {
+      current = (current - 1 + pairs.length) % pairs.length;
+      show();
+    }
+    function nextPair() {
+      current = (current + 1) % pairs.length;
+      show();
+    }
+
+    document.getElementById("left-side").addEventListener("click", () => say(pairs[current][0].word));
+    document.getElementById("right-side").addEventListener("click", () => say(pairs[current][1].word));
+    // Say the pair as one sentence, e.g. "hot is the opposite of cold"
+    document.getElementById("say-btn").addEventListener("click", () => {
+      const [first, second] = pairs[current];
+      say(first.word + " is the opposite of " + second.word);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.target.tagName === "BUTTON") return;
+      if (event.key === "ArrowRight") nextPair();
+      if (event.key === "ArrowLeft") prevPair();
+    });
+
+    show();
+  </script>
   <script src="pwa.js"></script>
 </body>
 </html>
