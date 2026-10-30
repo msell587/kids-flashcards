@@ -30,6 +30,11 @@ revealButton.addEventListener("click", (event) => {
 });
 wordEl.after(revealButton);
 
+// The Spanish word under the English one, hidden with it in "Hide words" mode
+const spanishEl = document.createElement("p");
+spanishEl.className = "spanish-word";
+wordEl.after(spanishEl);
+
 // Extra tools under the cards: the game, plus an Options button that opens the rest, grouped
 const tools = document.createElement("div");
 tools.className = "tools";
@@ -85,6 +90,7 @@ document.addEventListener("keydown", (event) => {
 function showCard(direction) {
   const word = deck[current].word;
   wordEl.textContent = word;
+  spanishEl.textContent = deck[current].es || "";
   document.getElementById("picture").src = deck[current].picture;
   document.getElementById("picture").alt = guessMode ? "Guess the picture" : word;
   document.getElementById("counter").textContent = (current + 1) + " / " + deck.length;

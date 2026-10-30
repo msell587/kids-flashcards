@@ -254,8 +254,17 @@ button.secondary {
 }
 
 .card.hidden-word h1,
+.card.hidden-word .spanish-word,
 .card.hidden-word .speak {
   display: none;
+}
+
+/* The Spanish word, shown under the English word */
+.spanish-word {
+  margin: 4px 0 0 0;
+  font-size: 26px;
+  color: var(--word);
+  text-align: center;
 }
 
 .card.hidden-word .reveal {
