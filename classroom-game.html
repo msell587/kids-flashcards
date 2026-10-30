@@ -16,27 +16,90 @@
   <style>
     /* More games: the other games for the topic, listed under the Class Game setup */
     .more-games {
-      margin-top: 24px;
+      margin: 8px auto 12px auto;
+      padding: 12px;
+      border-radius: 22px;
+      background-color: var(--surface);
+      box-shadow: var(--shadow);
     }
     .more-games h2 {
-      margin: 0 0 10px 0;
-      font-size: 22px;
+      margin: 0 0 8px 0;
+      font-size: 18px;
       color: var(--word-dark);
     }
     .more-games-list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
     }
+    /* The setup screen is kept small, so the games are the first thing seen */
+    .setup-emoji {
+      font-size: 44px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    #setup h1 {
+      font-size: 30px;
+      margin: 6px 0;
+    }
+    #setup > p {
+      font-size: 16px;
+      margin: 6px 0 10px 0;
+    }
+    #setup label {
+      font-size: 14px;
+    }
+    /* A coloured band, so the team part of the page stands out from the games */
+    .team-title {
+      margin: 0 0 8px 0;
+      padding: 8px 14px;
+      border-radius: 18px;
+      background-color: #e76f51;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    #setup input {
+      font-size: 16px;
+      padding: 8px 12px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .start-btn {
+      align-self: center;
+      width: auto;
+      padding: 8px 26px;
+      border: 0;
+      border-radius: 999px;
+      background-color: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    /* Every game button is the same size, so the list stays compact */
     .game-btn {
-      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      min-height: 52px;
+      padding: 8px 12px;
+      box-sizing: border-box;
       border-radius: 999px;
       background-color: var(--word);
       color: #fff;
       font-family: var(--font);
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
       text-decoration: none;
       box-shadow: var(--shadow);
     }
@@ -156,18 +219,19 @@
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <main>
     <div class="panel" id="setup">
-      <div class="big-emoji">🏆</div>
+      <div class="setup-emoji">🏆</div>
       <h1 id="game-title">Class Game</h1>
       <p>Two teams. Show a picture, the class says the word, and the first team to say it gets a point.</p>
-      <form class="setup-form" id="setup-form">
-        <label>Team 1 name <input id="team-a" value="Team Sun" maxlength="20"></label>
-        <label>Team 2 name <input id="team-b" value="Team Star" maxlength="20"></label>
-        <button class="big-btn" type="submit">Start</button>
-      </form>
       <div class="more-games" id="more-games" hidden>
-        <h2>More games for this topic</h2>
+        <h2>Pick a game</h2>
         <div class="more-games-list" id="more-games-list"></div>
       </div>
+      <form class="setup-form" id="setup-form">
+        <h2 class="team-title">Team Challenge</h2>
+        <label>Team 1 name <input id="team-a" value="Team Sun" maxlength="20"></label>
+        <label>Team 2 name <input id="team-b" value="Team Star" maxlength="20"></label>
+        <button class="start-btn" type="submit">Start</button>
+      </form>
     </div>
 
     <div id="play" hidden>
@@ -229,6 +293,9 @@
         { name: "Season Sort", href: "season-game.html" },
         { name: "Season Quiz", href: "season-quiz.html" }
       ],
+      garden: [
+        { name: "Food Game", href: "food-game.html" }
+      ],
       transport: [
         { name: "Big, Small, Fast or Slow?", href: "on-the-move-games.html?game=adjectives" },
         { name: "One or Many?", href: "on-the-move-games.html?game=plural" },
@@ -244,8 +311,10 @@
     };
     const otherGames = TOPIC_GAMES[topicKey] || [];
     if (otherGames.length) {
-      document.getElementById("more-games-list").innerHTML = otherGames.map(game =>
-        `<a class="game-btn" href="${game.href}">${game.name}</a>`
+      // Each game gets its own colour, so the games are easy to tell apart
+      const GAME_COLOURS = ["#2f6f9f", "#2a9d8f", "#c4553a", "#7b5ea7", "#3d7a3a", "#b5651d"];
+      document.getElementById("more-games-list").innerHTML = otherGames.map((game, i) =>
+        `<a class="game-btn" style="background-color: ${GAME_COLOURS[i % GAME_COLOURS.length]}" href="${game.href}">${game.name}</a>`
       ).join("");
       document.getElementById("more-games").hidden = false;
     }
