@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Can It Do?</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* What Can It Do?: look at the creature, then choose the action word that fits it */
+    .pic-box {
+      width: min(90vw, 420px);
+      height: min(36vh, 300px);
+      margin: 12px auto 0 auto;
+      border-radius: 28px;
+      border: 6px solid #fff;
+      box-sizing: border-box;
+      box-shadow: var(--shadow);
+      background: #fff;
+      overflow: hidden;
+    }
+    .pic-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .question {
+      margin: 12px 0 0 0;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: min(94vw, 560px);
+      margin: 14px auto 0 auto;
+    }
+    .choices button {
+      padding: 14px 8px;
+      border: 4px solid transparent;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 24px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .choices button.right {
+      border-color: #2e9e44;
+      background: #e6f6ea;
+    }
+    .choices button.wrong {
+      opacity: 0.45;
+    }
+    .choices button:disabled {
+      cursor: default;
+    }
+    .explain {
+      min-height: 48px;
+      margin: 12px auto 0 auto;
+      font-size: 20px;
+      color: var(--word-dark);
+      text-align: center;
+      max-width: 90vw;
+    }
+    .score {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .next {
+      display: block;
+      margin: 12px auto 0 auto;
+    }
+    /* Big screen button: styled like the Back and Next buttons on the other pages */
+    .big-screen-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .big-screen-row button {
+      padding: 10px 28px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    /* Big screen: the picture and the action buttons grow to fill a TV or projector */
+    body.big-screen .pic-box {
+      width: min(96vw, 130vh);
+      height: 52vh;
+    }
+    body.big-screen .question {
+      font-size: clamp(36px, 4.4vw, 56px);
+    }
+    body.big-screen .choices {
+      width: min(96vw, 1000px);
+    }
+    body.big-screen .choices button {
+      font-size: clamp(28px, 3.6vw, 44px);
+      padding: 18px 8px;
+    }
+    body.big-screen .explain {
+      font-size: clamp(24px, 2.6vw, 34px);
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🏃</div>
+      <h1>What Can It Do?</h1>
+      <p>Look at the animal. Which action word fits it?</p>
+      <button class="big-btn" id="start-btn" type="button">Let's play!</button>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <div class="pic-box"><img id="pic" alt=""></div>
+      <p class="question" id="question"></p>
+      <div class="choices" id="choices"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <div class="big-screen-row">
+      <button type="button" data-big-screen>Big screen</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="explorers.html">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="bigscreen.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const cards = TOPICS.explorers.cards;
+    // Every action word used by the creatures
+    const ACTIONS = ["fly", "buzz", "walk", "crawl", "jump", "climb", "slide", "wriggle"];
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+    }
+    function say(text) {
+      if (Voice.supported) Voice.speak(text);
+    }
+    // Three choices: one action the creature can do, and two it cannot
+    function choicesFor(card) {
+      const wrong = shuffled(ACTIONS.filter(action => !card.moves.includes(action))).slice(0, 2);
+      return shuffled([card.moves[Math.floor(Math.random() * card.moves.length)], ...wrong]);
+    }
+    function showCard() {
+      const card = queue[index];
+      answered = false;
+      $("pic").src = card.picture;
+      $("pic").alt = card.word;
+      $("question").textContent = "What can the " + card.word + " do?";
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      $("choices").innerHTML = choicesFor(card).map(action =>
+        `<button type="button" data-action="${action}">${action}</button>`
+      ).join("");
+      say("What can the " + card.word + " do?");
+    }
+    function choose(event) {
+      const button = event.target.closest("button[data-action]");
+      if (!button || answered) return;
+      const card = queue[index];
+      const action = button.dataset.action;
+      if (card.moves.includes(action)) {
+        answered = true;
+        right++;
+        button.classList.add("right");
+        for (const other of $("choices").querySelectorAll("button")) other.disabled = true;
+        const text = "Yes! The " + card.word + " can " + action + ".";
+        $("explain").textContent = text;
+        say(text);
+        $("next-btn").hidden = false;
+        $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+      } else {
+        button.classList.add("wrong");
+        button.disabled = true;
+        const text = "Not quite. Try another one.";
+        $("explain").textContent = text;
+        say(text);
+      }
+    }
+    function nextCard() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showCard();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You found the right action on " + right + " of " + queue.length + " animals.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame() {
+      queue = shuffled(cards);
+      index = 0;
+      right = 0;
+      show("play");
+      showCard();
+    }
+
+    $("start-btn").addEventListener("click", startGame);
+    $("again-btn").addEventListener("click", startGame);
+    $("choices").addEventListener("click", choose);
+    $("next-btn").addEventListener("click", nextCard);
+    // Back returns to the page the child came from, not always the topic page
+    $("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>

@@ -14,6 +14,35 @@
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="game.css">
   <style>
+    /* More games: the other games for the topic, listed under the Class Game setup */
+    .more-games {
+      margin-top: 24px;
+    }
+    .more-games h2 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      color: var(--word-dark);
+    }
+    .more-games-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .game-btn {
+      padding: 14px 24px;
+      border-radius: 999px;
+      background-color: var(--word);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+    .game-btn:hover {
+      box-shadow: var(--shadow-lift);
+    }
     /* Class Game: the teacher shows a picture on the board, the class says the word,
        and the teacher gives the point to the team that said it first */
     .team-row {
@@ -135,6 +164,10 @@
         <label>Team 2 name <input id="team-b" value="Team Star" maxlength="20"></label>
         <button class="big-btn" type="submit">Start</button>
       </form>
+      <div class="more-games" id="more-games" hidden>
+        <h2>More games for this topic</h2>
+        <div class="more-games-list" id="more-games-list"></div>
+      </div>
     </div>
 
     <div id="play" hidden>
@@ -180,6 +213,36 @@
     const topicKey = TOPICS[params.get("topic")] ? params.get("topic") : "animals";
     const topic = TOPICS[topicKey];
     const canSpeak = Voice.supported;
+
+    // Other games for each topic, shown under the Class Game setup
+    const TOPIC_GAMES = {
+      explorers: [
+        { name: "Insect or Bug?", href: "insect-or-bug.html" },
+        { name: "What Can It Do?", href: "what-can-it-do.html" }
+      ],
+      seasons: [
+        { name: "Picture Guess", href: "picture-guess.html?topic=seasons" },
+        { name: "Spring Guess", href: "spring-guess.html" },
+        { name: "Summer Guess", href: "summer-guess.html" },
+        { name: "Autumn Guess", href: "autumn-guess.html" },
+        { name: "Winter Guess", href: "winter-guess.html" },
+        { name: "Season Sort", href: "season-game.html" },
+        { name: "Season Quiz", href: "season-quiz.html" }
+      ],
+      weather: [
+        { name: "Picture Guess", href: "picture-guess.html?topic=weather" },
+        { name: "Weather Sort", href: "weather-sort.html" },
+        { name: "Weather Quiz", href: "weather-quiz.html" },
+        { name: "Weather Memory", href: "weather-memory.html" }
+      ]
+    };
+    const otherGames = TOPIC_GAMES[topicKey] || [];
+    if (otherGames.length) {
+      document.getElementById("more-games-list").innerHTML = otherGames.map(game =>
+        `<a class="game-btn" href="${game.href}">${game.name}</a>`
+      ).join("");
+      document.getElementById("more-games").hidden = false;
+    }
 
     document.title = topic.title + " · Class Game";
     document.getElementById("game-title").textContent = topic.title + " Class Game";

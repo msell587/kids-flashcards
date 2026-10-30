@@ -179,13 +179,27 @@ const TOPICS = {
       { word: "leaf", es: "hoja", picture: "images/garden/leaf.jpg" },
       { word: "seed", es: "semilla", picture: "images/garden/seed.jpg" },
       { word: "grass", es: "hierba", picture: "images/garden/grass.jpg" },
-      { word: "butterfly", es: "mariposa", picture: "images/garden/butterfly.jpg" },
-      { word: "bee", es: "abeja", picture: "images/garden/bee.jpg" },
-      { word: "ladybird", es: "mariquita", picture: "images/garden/ladybird.jpg" },
-      { word: "snail", es: "caracol", picture: "images/garden/snail.jpg" },
-      { word: "worm", es: "gusano", picture: "images/garden/worm.jpg" },
       { word: "watering can", es: "regadera", picture: "images/garden/watering-can.jpg" },
       { word: "spade", es: "pala", picture: "images/garden/spade.jpg" }
+    ]
+  },
+  explorers: {
+    title: "Animal Explorers",
+    page: "explorers.html",
+    // Insects and bugs (minibeasts). "insect" is true for insects: six legs and three body parts.
+    // "moves" are the action words that fit the creature (see the What Can It Do? game).
+    cards: [
+      { word: "butterfly", es: "mariposa", insect: true, moves: ["fly"], picture: "images/garden/butterfly.jpg" },
+      { word: "bee", es: "abeja", insect: true, moves: ["fly", "buzz"], picture: "images/garden/bee.jpg" },
+      { word: "ladybird", es: "mariquita", insect: true, moves: ["walk", "crawl", "fly"], picture: "images/garden/ladybird.jpg" },
+      { word: "ant", es: "hormiga", insect: true, moves: ["walk", "crawl"], picture: "images/explorers/ant.jpg" },
+      { word: "dragonfly", es: "libélula", insect: true, moves: ["fly"], picture: "images/explorers/dragonfly.jpg" },
+      { word: "grasshopper", es: "saltamontes", insect: true, moves: ["jump", "climb"], picture: "images/explorers/grasshopper.jpg" },
+      { word: "beetle", es: "escarabajo", insect: true, moves: ["walk", "crawl"], picture: "images/explorers/beetle.jpg" },
+      { word: "caterpillar", es: "oruga", insect: true, moves: ["crawl", "climb"], picture: "images/explorers/caterpillar.jpg" },
+      { word: "snail", es: "caracol", insect: false, moves: ["slide", "crawl"], picture: "images/garden/snail.jpg" },
+      { word: "worm", es: "gusano", insect: false, moves: ["wriggle"], picture: "images/garden/worm.jpg" },
+      { word: "spider", es: "araña", insect: false, moves: ["climb", "walk"], picture: "images/explorers/spider.jpg" }
     ]
   },
   feelings: {
