@@ -19,7 +19,10 @@ function escapeHtml(text) {
 // Printable sheets that belong to one topic, listed in its Print group
 const TOPIC_SHEETS = {
   shapes: [{ label: "Tracing shapes", href: "printables/worksheets/tracing-shapes.pdf" }],
-  feelings: [{ label: "Feelings colouring page", href: "printables/worksheets/feelings-colouring.pdf" }]
+  feelings: [
+    { label: "Feelings colouring page", href: "printables/worksheets/feelings-colouring.pdf" },
+    { label: "Feelings colouring page: boxes", href: "printables/worksheets/feelings-colouring-boxes.pdf" }
+  ]
 };
 
 const topicSelect = document.getElementById("topic-select");
