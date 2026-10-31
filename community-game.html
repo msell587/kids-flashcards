@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Community Helpers Game</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Community Helpers game: who is a ___, who is ___ing, what does a ___ do */
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      width: min(94vw, 520px);
+      margin: 16px auto 0 auto;
+    }
+    .menu button,
+    .options button {
+      padding: 14px 10px;
+      border: 0;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .prompt {
+      margin: 8px 0 0 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .pics {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .pic-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+      border: 4px solid transparent;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .pic-btn img {
+      width: 150px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+    .pic-btn.right {
+      border-color: #2e9e44;
+    }
+    .pic-btn.wrong {
+      opacity: 0.45;
+    }
+    .pic-btn:disabled {
+      cursor: default;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .options button {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 19px;
+    }
+    .options button.right {
+      background: #e6f6ea;
+      border: 4px solid #2e9e44;
+    }
+    .options button.wrong {
+      opacity: 0.45;
+    }
+    .options button:disabled {
+      cursor: default;
+    }
+    .explain {
+      min-height: 48px;
+      margin: 12px auto 0 auto;
+      font-size: 20px;
+      color: var(--word-dark);
+      text-align: center;
+      max-width: 90vw;
+    }
+    .score {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .next {
+      display: block;
+      margin: 12px auto 0 auto;
+    }
+    .big-screen-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .big-screen-row button {
+      padding: 10px 28px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    body.big-screen .pic-btn img {
+      width: 260px;
+      height: 200px;
+    }
+    body.big-screen .prompt {
+      font-size: clamp(40px, 4.6vw, 60px);
+    }
+    body.big-screen .options button {
+      font-size: clamp(28px, 3.4vw, 42px);
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🧑‍⚕️</div>
+      <h1>Community Helpers Game</h1>
+      <p>Choose a game.</p>
+      <div class="menu">
+        <button type="button" data-game="who">Who is a ___?</button>
+        <button type="button" data-game="doing">Who is ___ing?</button>
+        <button type="button" data-game="does">What does a ___ do?</button>
+      </div>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <p class="prompt" id="prompt"></p>
+      <div class="pics" id="pics"></div>
+      <div class="options" id="options"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <div class="big-screen-row" id="big-row" hidden>
+      <button type="button" data-big-screen>Big screen</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="community.html">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="game-common.js"></script>
+  <script src="bigscreen.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const cards = TOPICS.community.cards;
+    let game = "";
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+      $("big-row").hidden = id !== "play";
+    }
+    // "She is helping sick people." becomes "Who is helping sick people?"
+    function whoIsDoing(card) {
+      return "Who is " + card.doing.replace(/^(She|He) is /, "").replace(/\.$/, "") + "?";
+    }
+
+    // Each game makes one question, then checks the answer the child gives
+    function makeQuestion(card) {
+      const others = shuffled(cards.filter(c => c !== card)).slice(0, 2);
+      if (game === "who") {
+        return {
+          prompt: "Who is a " + card.word + "?",
+          pics: shuffled([card, ...others]),
+          answer: card.word,
+          explain: "Yes! " + card.is,
+          wrongText: "Not quite. Try another one.",
+          say: "Who is a " + card.word + "?"
+        };
+      }
+      if (game === "doing") {
+        return {
+          prompt: whoIsDoing(card),
+          pics: shuffled([card, ...others]),
+          answer: card.word,
+          explain: "Yes! " + card.doing,
+          wrongText: "Not quite. Look at the pictures again.",
+          say: whoIsDoing(card)
+        };
+      }
+      // What does a ___ do?
+      return {
+        prompt: "What does a " + card.word + " do?",
+        pic: card,
+        options: shuffled([card, ...others]).map(c => ({ text: c.does, correct: c === card })),
+        answer: card.does,
+        explain: "Yes! " + card.does,
+        wrongText: "Not quite. Try another one.",
+        say: "What does a " + card.word + " do?"
+      };
+    }
+
+    function showQuestion() {
+      answered = false;
+      const q = makeQuestion(queue[index]);
+      queue[index].q = q;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("prompt").textContent = q.prompt;
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      if (game === "does") {
+        $("pics").innerHTML = `<button type="button" class="pic-btn"><img src="${q.pic.picture}" alt=""></button>`;
+        $("options").innerHTML = q.options.map(o => `<button type="button" data-answer="${o.text}" data-correct="${o.correct}">${o.text}</button>`).join("");
+      } else {
+        $("pics").innerHTML = q.pics.map(c => `<button type="button" class="pic-btn" data-answer="${c.word}"><img src="${c.picture}" alt=""></button>`).join("");
+        $("options").innerHTML = "";
+      }
+      say(q.say);
+    }
+
+    function checkAnswer(element) {
+      if (answered) return;
+      const q = queue[index].q;
+      const chosen = element.dataset.answer;
+      const isRight = game === "does" ? element.dataset.correct === "true" : chosen === q.answer;
+      if (isRight) {
+        answered = true;
+        right++;
+        element.classList.add("right");
+        $("explain").textContent = q.explain;
+        say(q.explain);
+        finishTurn();
+      } else {
+        element.classList.add("wrong");
+        element.disabled = true;
+        $("explain").textContent = q.wrongText;
+        say(q.wrongText);
+      }
+    }
+    function finishTurn() {
+      for (const b of document.querySelectorAll("#pics button, #options button")) b.disabled = true;
+      $("next-btn").hidden = false;
+      $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+    }
+    function nextQuestion() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showQuestion();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You got " + right + " of " + queue.length + " right.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame(name) {
+      game = name;
+      queue = shuffled(cards).slice(0, 8);
+      index = 0;
+      right = 0;
+      show("play");
+      showQuestion();
+    }
+
+    for (const button of document.querySelectorAll("[data-game]")) {
+      button.addEventListener("click", () => startGame(button.dataset.game));
+    }
+    $("pics").addEventListener("click", event => {
+      const button = event.target.closest("button[data-answer]");
+      if (button) checkAnswer(button);
+    });
+    $("options").addEventListener("click", event => {
+      const button = event.target.closest("button[data-answer]");
+      if (button) checkAnswer(button);
+    });
+    $("next-btn").addEventListener("click", nextQuestion);
+    // A link such as community-game.html?game=who starts that game straight away
+    const requested = new URLSearchParams(location.search).get("game");
+    if (["who", "doing", "does"].includes(requested)) {
+      startGame(requested);
+    }
+    $("again-btn").addEventListener("click", () => show("setup"));
+    // Back returns to the page the child came from, not always the topic page
+    backToPrevious($("back-btn"));
+  </script>
+</body>
+</html>
