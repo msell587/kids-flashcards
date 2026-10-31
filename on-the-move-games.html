@@ -207,6 +207,7 @@
   <script src="topics.js"></script>
   <script src="voice.js"></script>
   <script src="bigscreen.js"></script>
+  <script src="game-common.js"></script>
   <script>
     const $ = id => document.getElementById(id);
     const cards = TOPICS.transport.cards;
@@ -217,25 +218,11 @@
     let right = 0;
     let answered = false;
 
-    function shuffled(list) {
-      const copy = [...list];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
-    function pick(list) {
-      return list[Math.floor(Math.random() * list.length)];
-    }
     function show(id) {
       for (const panel of ["setup", "play", "end"]) {
         $(panel).hidden = panel !== id;
       }
       $("big-row").hidden = id !== "play";
-    }
-    function say(text) {
-      if (Voice.supported) Voice.speak(text);
     }
     function picButton(card, big) {
       return `<button type="button" class="pic-btn${big ? " big" : ""}" data-word="${card.word}"><img src="${card.picture}" alt="${card.word}"><span>${card.word}</span></button>`;
@@ -415,12 +402,7 @@
       if (button && !button.disabled) checkAnswer(button.dataset.answer, button);
     });
     // Back returns to the page the child came from, not always the topic page
-    $("back-btn").addEventListener("click", event => {
-      if (history.length > 1) {
-        event.preventDefault();
-        history.back();
-      }
-    });
+    backToPrevious($("back-btn"));
   </script>
   <script src="pwa.js"></script>
 </body>

@@ -4,7 +4,7 @@ const topic = TOPICS[topicKey];
 const guide = TEACHER[topicKey];
 const main = document.getElementById("guide");
 // Topics with no colouring scene: their colouring link would open the Animals sheet instead
-const NO_COLOURING = ["feelings", "opposites"];
+const NO_COLOURING = ["feelings", "opposites", "transport", "community"];
 
 function escapeHtml(text) {
   return String(text)
@@ -23,6 +23,12 @@ const TOPIC_SHEETS = {
   feelings: [
     { label: "Feelings colouring page", href: "printables/worksheets/feelings-colouring.pdf" },
     { label: "Feelings colouring page: boxes", href: "printables/worksheets/feelings-colouring-boxes.pdf" }
+  ],
+  transport: [{ label: "On the Move colouring", href: "images/coloring-sheets/on-the-move.pdf" }],
+  opposites: [{ label: "Opposites colouring", href: "images/coloring-sheets/opposites.pdf" }],
+  community: [
+    { label: "Community Helpers colouring", href: "images/coloring-sheets/community-helpers.pdf" },
+    { label: "I Spy Community Helpers", href: "images/coloring-sheets/ispy-community-helpers.pdf" }
   ]
 };
 

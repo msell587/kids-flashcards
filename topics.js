@@ -230,6 +230,25 @@ const TOPICS = {
       { word: "scooter", es: "patinete", plural: "scooters", size: "small", speed: "slow", wheels: true, picture: "images/transport/scooter.jpg" }
     ]
   },
+  community: {
+    title: "Community Helpers",
+    page: "community.html",
+    // "is" is "He/She is a ...", "doing" is the present continuous, "does" answers "What does a ... do?"
+    cards: [
+      { word: "doctor", es: "médica", picture: "images/community-helpers/doctor.jpg", is: "She is a doctor.", doing: "She is helping sick people.", does: "A doctor helps sick people." },
+      { word: "teacher", es: "profesor", picture: "images/community-helpers/teacher.jpg", is: "He is a teacher.", doing: "He is teaching children.", does: "A teacher teaches children." },
+      { word: "firefighter", es: "bombero", picture: "images/community-helpers/firefighter.jpg", is: "He is a firefighter.", doing: "He is putting out a fire.", does: "A firefighter puts out fires." },
+      { word: "police officer", es: "policía", picture: "images/community-helpers/police-officer.jpg", is: "He is a police officer.", doing: "He is keeping people safe.", does: "A police officer keeps people safe." },
+      { word: "nurse", es: "enfermero", picture: "images/community-helpers/nurse.jpg", is: "He is a nurse.", doing: "He is looking after patients.", does: "A nurse looks after patients." },
+      { word: "farmer", es: "granjero", picture: "images/community-helpers/farmer.jpg", is: "He is a farmer.", doing: "He is growing food.", does: "A farmer grows food." },
+      { word: "cook", es: "cocinera", picture: "images/community-helpers/cook.jpg", is: "She is a cook.", doing: "She is cooking dinner.", does: "A cook makes meals." },
+      { word: "postal worker", es: "cartera", picture: "images/community-helpers/postal-worker.jpg", is: "She is a postal worker.", doing: "She is delivering letters.", does: "A postal worker delivers letters." },
+      { word: "builder", es: "albañil", picture: "images/community-helpers/builder.jpg", is: "He is a builder.", doing: "He is building a house.", does: "A builder builds houses." },
+      { word: "dentist", es: "dentista", picture: "images/community-helpers/dentist.jpg", is: "She is a dentist.", doing: "She is looking after teeth.", does: "A dentist looks after teeth." },
+      { word: "vet", es: "veterinario", picture: "images/community-helpers/vet.jpg", is: "He is a vet.", doing: "He is looking after animals.", does: "A vet looks after animals." },
+      { word: "bus driver", es: "conductora", picture: "images/community-helpers/bus-driver.jpg", is: "She is a bus driver.", doing: "She is driving a bus.", does: "A bus driver drives the bus." }
+    ]
+  },
   feelings: {
     title: "Feelings",
     page: "feelings.html",

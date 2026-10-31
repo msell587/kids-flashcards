@@ -14,6 +14,7 @@ Before the school sees the app, check these:
 | images/christmas | 12 | Midjourney or Canva | no | | |
 | images/city | 12 | Midjourney or Canva | no | | |
 | images/colors | 32 | Midjourney or Canva | no | | |
+| images/community-helpers | 12 | Midjourney (author's subscription) | no (adults only) | | |
 | images/feelings | 10 | Midjourney | yes (AI-made children) | | |
 | images/garden | 24 | Midjourney or Canva | no | | |
 | images/house | 12 | Midjourney or Canva | no | | |
@@ -30,4 +31,5 @@ Before the school sees the app, check these:
 ## Notes
 - "Made with" follows the author's statement. Only the "Shows a child" column needs checking per file.
 - The `images/feelings/` and `images/opposites/` faces were made with Midjourney. Keep the prompts so the set can be recreated.
+- The coloring sheets added later (`on-the-move.pdf`, `opposites.pdf`, `community-helpers.pdf`, `ispy-community-helpers.pdf`) were drawn as vector outlines in code, not made with Midjourney or Canva.
 - Once every row is filled in, add the credits to a page for teachers.
