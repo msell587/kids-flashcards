@@ -270,6 +270,23 @@ const TOPICS = {
       { word: "running", es: "correr", picture: "images/sports/running.jpg", ball: false, pronoun: "they", doing: "They are running." }
     ]
   },
+  undersea: {
+    title: "Under the Sea",
+    page: "undersea.html",
+    // "sentence" has a blank for the place word; "answer" is the right one (in, on, under, behind, next to)
+    cards: [
+      { word: "fish", es: "pez", picture: "images/undersea/fish.jpg", sentence: "The fish is ___ the water.", answer: "in" },
+      { word: "shark", es: "tiburón", picture: "images/undersea/shark.jpg", sentence: "The shark is ___ the water.", answer: "in" },
+      { word: "octopus", es: "pulpo", picture: "images/undersea/octopus.jpg", sentence: "The octopus is ___ the rock.", answer: "behind" },
+      { word: "crab", es: "cangrejo", picture: "images/undersea/crab.jpg", sentence: "The crab is ___ the sand.", answer: "on" },
+      { word: "dolphin", es: "delfín", picture: "images/undersea/dolphin.jpg", sentence: "The dolphin is ___ the boat.", answer: "next to" },
+      { word: "whale", es: "ballena", picture: "images/undersea/whale.jpg", sentence: "The whale is ___ the water.", answer: "in" },
+      { word: "starfish", es: "estrella de mar", picture: "images/undersea/starfish.jpg", sentence: "The starfish is ___ the rock.", answer: "on" },
+      { word: "turtle", es: "tortuga", picture: "images/undersea/turtle.jpg", sentence: "The turtle is ___ the coral.", answer: "next to" },
+      { word: "seahorse", es: "caballito de mar", picture: "images/undersea/seahorse.jpg", sentence: "The seahorse is ___ the seaweed.", answer: "behind" },
+      { word: "jellyfish", es: "medusa", picture: "images/undersea/jellyfish.jpg", sentence: "The jellyfish is ___ the sea.", answer: "in" }
+    ]
+  },
   feelings: {
     title: "Feelings",
     page: "feelings.html",
