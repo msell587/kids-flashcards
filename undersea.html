@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Under the Sea Flashcards</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <nav class="topbar">
+    <a class="home" href="index.html">Home</a>
+    <span class="topic-title">Under the Sea</span>
+  </nav>
+  <div class="card">
+    <img id="picture" src="images/undersea/fish.jpg" alt="fish">
+    <h1 id="word" aria-live="polite">fish</h1>
+    <button class="speak" onclick="speakWord()" aria-label="Say the word">🔊</button>
+  </div>
+  <div class="nav-buttons">
+    <button class="secondary" onclick="prevCard()">Back</button>
+    <p id="counter">1 / 10</p>
+    <button onclick="nextCard()">Next</button>
+  </div>
+
+  <script src="topics.js"></script>
+  <script>
+    const cards = TOPICS.undersea.cards;
+  </script>
+  <script src="voice.js"></script>
+  <script src="flashcards.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>

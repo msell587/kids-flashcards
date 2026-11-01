@@ -932,5 +932,51 @@ const TEACHER = {
       { name: "Who Is ___ing?", how: "Read a sentence with the helper’s action: “Who is putting out a fire?” Children point to the right picture and say the sentence: “He is putting out a fire.”" },
       { name: "What Does a ___ Do?", how: "Show a helper and ask “What does a dentist do?” Children choose the right sentence, then say it in full: “A dentist looks after teeth.”" }
     ]
+  },
+  undersea: {
+    goal: "Children can name 10 sea animals, point to the one that is “this” (near) or “that” (far), and say where an animal is: “The crab is on the sand.”",
+    materials: [
+      "Screen or tablet with the Under the Sea flashcards",
+      "Printed Under the Sea cards (use “Print cards” on the topic page)",
+      "A toy fish or crab, to hold up and place",
+      "A blue sheet or cloth, for the sea",
+      "A small box or cup, to place things in, on, under and behind"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and what's this?", details: "Sing hello. Hold up the toy fish: “What's this? It's a fish!” Children repeat." },
+      { time: "8 min", step: "Meet the sea animals", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What colour is the crab?” and “Is the whale big or small?”" },
+      { time: "6 min", step: "This and that", details: "Put the toy crab near the children and the toy fish far away. “This is a crab. That is a fish.” Children point and repeat. Then ask “What's this? What's that?”" },
+      { time: "8 min", step: "Where is it?", details: "Place the toy crab on the blue cloth, then under the box, then behind the cup. Say “The crab is on the sand. The crab is under the box.” Children repeat each place word with their hands: on (flat hand on top), under (hand below), behind (hand behind back)." },
+      { time: "10 min", step: "Games", details: "Play This or That?, Where Is It? and Which One Is a ___? on the Under the Sea game page or in the Class Game." },
+      { time: "15 min", step: "Craft: Paper Plate Fish", details: "Children colour a paper plate and add paper fins, then say “The fish is in the water.” as they place it on the sea cloth." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “The turtle is next to the coral.”" }
+    ],
+    crafts: [
+      {
+        name: "Paper Plate Fish",
+        time: "15 min",
+        supplies: ["Paper plates (one per child)", "Crayons or paint", "Paper for fins and tail", "Glue sticks", "Googly eyes or drawn eyes"],
+        steps: [
+          "Children colour the plate in sea colours: blue, green or orange.",
+          "Glue on a triangle of paper for the tail and two fins.",
+          "Add eyes and a smile.",
+          "Hold the fish up: “This is my fish. It is in the water.”"
+        ],
+        tip: "Cut the tails and fins before class so children can glue them straight away."
+      }
+    ],
+    songs: [
+      {
+        title: "Baby Shark",
+        tune: "Traditional",
+        how: "Sing it with the actions: a hand for the shark’s mouth, going “doo doo” for each part. Change the animal name in each verse and point to its card.",
+        search: "baby shark kids song actions"
+      }
+    ],
+    games: [
+      { name: "This or That?", how: "Put a toy near the children and another far away. Ask “What's this?” for the near one and “What's that?” for the far one. Children point and answer with the full sentence: “This is a crab.”" },
+      { name: "Where Is It?", how: "Read a sentence with a blank: “The crab is ___ the sand.” Children choose on, in, under, behind or next to, then act out the place with their hands." },
+      { name: "Which One Is a ___?", how: "Show three cards and ask “Which one is a starfish?” Children point to the right card, then say “That is a starfish.”" }
+    ]
   }
 };
