@@ -249,6 +249,27 @@ const TOPICS = {
       { word: "bus driver", es: "conductora", picture: "images/community-helpers/bus-driver.jpg", is: "She is a bus driver.", doing: "She is driving a bus.", does: "A bus driver drives the bus." }
     ]
   },
+  toys: {
+    title: "Toy Makers",
+    page: "toys.html",
+    // Toys take a possessive sentence ("I have a kite. It is ___ kite." -> my).
+    // Sports take a "ball" flag (true when a ball is in the picture) and a "doing" sentence for the present continuous.
+    cards: [
+      { word: "kite", es: "cometa", picture: "images/toys/kite.jpg", owner: "I have a kite. It is ___ kite.", possessive: "my" },
+      { word: "toy car", es: "coche de juguete", picture: "images/toys/toy-car.jpg", owner: "You have a toy car. It is ___ toy car.", possessive: "your" },
+      { word: "teddy bear", es: "oso de peluche", picture: "images/toys/teddy-bear.jpg", owner: "He has a teddy bear. It is ___ teddy bear.", possessive: "his" },
+      { word: "doll", es: "muñeca", picture: "images/toys/doll.jpg", owner: "She has a doll. It is ___ doll.", possessive: "her" },
+      { word: "toy train", es: "tren de juguete", picture: "images/toys/train.jpg", owner: "The toy train has a bell. ___ bell is loud.", possessive: "its" },
+      { word: "robot", es: "robot", picture: "images/toys/robot.jpg", owner: "We have a robot. It is ___ robot.", possessive: "our" },
+      { word: "drum", es: "tambor", picture: "images/toys/drum.jpg", owner: "They have a drum. It is ___ drum.", possessive: "their" },
+      { word: "football", es: "fútbol", picture: "images/sports/football.jpg", ball: true, pronoun: "he", doing: "He is playing football." },
+      { word: "basketball", es: "baloncesto", picture: "images/sports/basketball.jpg", ball: true, pronoun: "she", doing: "She is playing basketball." },
+      { word: "tennis", es: "tenis", picture: "images/sports/tennis.jpg", ball: true, pronoun: "he", doing: "He is playing tennis." },
+      { word: "swimming", es: "nadar", picture: "images/sports/swimming.jpg", ball: false, pronoun: "he", doing: "He is swimming." },
+      { word: "cycling", es: "ir en bicicleta", picture: "images/sports/cycling.jpg", ball: false, pronoun: "they", doing: "They are cycling." },
+      { word: "running", es: "correr", picture: "images/sports/running.jpg", ball: false, pronoun: "they", doing: "They are running." }
+    ]
+  },
   feelings: {
     title: "Feelings",
     page: "feelings.html",

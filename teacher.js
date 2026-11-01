@@ -4,7 +4,7 @@ const topic = TOPICS[topicKey];
 const guide = TEACHER[topicKey];
 const main = document.getElementById("guide");
 // Topics with no colouring scene: their colouring link would open the Animals sheet instead
-const NO_COLOURING = ["feelings", "opposites", "transport", "community"];
+const NO_COLOURING = ["feelings", "opposites", "transport", "community", "toys"];
 
 function escapeHtml(text) {
   return String(text)
@@ -25,6 +25,7 @@ const TOPIC_SHEETS = {
     { label: "Feelings colouring page: boxes", href: "printables/worksheets/feelings-colouring-boxes.pdf" }
   ],
   transport: [{ label: "On the Move colouring", href: "images/coloring-sheets/on-the-move.pdf" }],
+  toys: [{ label: "I Spy Toys", href: "images/coloring-sheets/toy-i-spy.pdf" }],
   opposites: [{ label: "Opposites colouring", href: "images/coloring-sheets/opposites.pdf" }],
   community: [
     { label: "Community Helpers colouring", href: "images/coloring-sheets/community-helpers.pdf" },
@@ -171,15 +172,17 @@ function showGuide() {
 
     <section id="plan-section"></section>
 
+    ${guide.crafts.length ? `
     <section>
       <h2>Crafts</h2>
       ${crafts}
-    </section>
+    </section>` : ""}
 
+    ${guide.songs.length ? `
     <section>
       <h2>Songs</h2>
       ${songs}
-    </section>
+    </section>` : ""}
 
     <section>
       <h2>Games</h2>

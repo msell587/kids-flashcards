@@ -841,5 +841,96 @@ const TEACHER = {
       { name: "Singular or Plural?", how: "Hold up one card, then two. Children say “one car” or “two cars”, then sort the cards into two piles: one thing and many things." },
       { name: "Its or They're?", how: "Read a sentence with a gap, such as “The bus is big. ___ wheels are round.” Children choose “its” or “they're” and explain their choice." }
     ]
+  },
+  toys: {
+    goal: "Children can name 7 toys and 6 sports, say what a person is doing (“He is swimming”), say whether a ball is in the picture, and choose my, your, his, her, its, our or their.",
+    materials: [
+      "Screen or tablet with the Toy Makers flashcards",
+      "Printed Toy Makers cards (use “Print cards” on the topic page)",
+      "A ball, and a toy car or teddy bear to hold up",
+      "Floor space for children to stand or sit in response to a card"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and what's this?", details: "Sing hello. Hold up a toy: “What's this? It's a kite!” Children repeat." },
+      { time: "8 min", step: "Meet the toys and sports", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. For sports, ask “What are they doing?”" },
+      { time: "8 min", step: "Ball or no ball?", details: "Hold up a sports card. Children stand up if there is a ball and sit down if there is not." },
+      { time: "8 min", step: "What is he or she doing?", details: "Show a sports card and say “He is swimming.” Children act it out, then repeat the sentence. Keep “is” and the -ing word together." },
+      { time: "8 min", step: "Whose is it?", details: "Hold up a toy and read “I have a kite. It is ___ kite.” Children choose my, your, his, her, its, our or their, and say the full sentence." },
+      { time: "10 min", step: "Games", details: "Play Ball or No Ball, What Is He Doing?, then Whose Is It? on the Toy Makers game page or in the Class Game." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “He is playing tennis” or “It is my kite.”" }
+    ],
+    crafts: [
+      {
+        name: "Paper Roll Drum",
+        time: "15 min",
+        supplies: ["Cardboard tube (one per child)", "Paper for the drum top", "Elastic band", "Two pencils or straws", "Crayons"],
+        steps: [
+          "Children colour the tube in bright stripes.",
+          "Stretch paper over one end and hold it with the elastic band.",
+          "Tape the two pencils together to make drumsticks.",
+          "Tap the drum: “I have a drum! They have a drum!”"
+        ],
+        tip: "Cut the tubes before class so children can start colouring straight away."
+      }
+    ],
+    songs: [
+      {
+        title: "Teddy Bear, Teddy Bear",
+        tune: "Traditional",
+        how: "Sing “Teddy bear, teddy bear, turn around”, then turn, touch the floor and show your shoes. Change the actions for each toy you are practising.",
+        search: "teddy bear teddy bear turn around nursery rhyme"
+      }
+    ],
+    games: [
+      { name: "Ball or No Ball?", how: "Show a sports card. Children stand up if there is a ball in the picture and sit down if there is not. Ask “Is there a ball?” and let them answer “with a ball” or “without a ball”." },
+      { name: "What Is He or She Doing?", how: "Show a sports card and ask “What is he doing?” or “What is she doing?” Children act out the sport and say the full sentence: “He is swimming.”" },
+      { name: "Whose Is It?", how: "Hold up a toy and read the sentence with the blank: “We have a robot. It is ___ robot.” Children choose the right word from my, your, his, her, its, our or their, and say the whole sentence." }
+    ]
+  },
+  community: {
+    goal: "Children can name 12 community helpers, say “He is a doctor” or “She is a teacher”, say what each helper does, and say what a helper is doing right now (“He is putting out a fire”).",
+    materials: [
+      "Screen or tablet with the Community Helpers flashcards",
+      "Printed Community Helpers cards (use “Print cards” on the topic page)",
+      "Community Helpers colouring sheet (from the printables page)",
+      "Props to show: a stethoscope, a book, a toy hose or a letter",
+      "Floor space for children to stand up and sit down"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and who is this?", details: "Sing hello. Hold up a prop: “Who is this? She is a doctor!” Children repeat the sentence." },
+      { time: "8 min", step: "Meet the helpers", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What does a doctor do?” and let children answer, “A doctor helps sick people.”" },
+      { time: "5 min", step: "He is or she is?", details: "Show a helper card and say “He is a teacher.” or “She is a teacher.” Children clap for “he” and stamp for “she”." },
+      { time: "8 min", step: "What are they doing?", details: "Show a card and say the action: “She is cooking dinner.” Children act it out, then say the sentence with “is” and the -ing word together." },
+      { time: "10 min", step: "Games", details: "Play Who Is a ___?, Who Is ___ing? and What Does a ___ Do? on the Community Helpers game page or in the Class Game." },
+      { time: "15 min", step: "Craft: Helper Badge", details: "Children make a badge for their favourite helper, then say “I want to be a ___” or “I am a ___.”" },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “He is a farmer. A farmer grows food.”" }
+    ],
+    crafts: [
+      {
+        name: "Helper Badge",
+        time: "15 min",
+        supplies: ["Card circles (one per child)", "Crayons or pens", "String or a safety pin", "A printed helper picture or a drawing of the tool"],
+        steps: [
+          "Children draw their favourite helper's tool on the card: a stethoscope, a hat, a hose.",
+          "They write the helper's name with your help.",
+          "Attach the string or pin.",
+          "Children wear the badge and say: “I am a ___. I help people.”"
+        ],
+        tip: "Write the helper names on the board, so children can copy them."
+      }
+    ],
+    songs: [
+      {
+        title: "Old MacDonald",
+        tune: "Traditional",
+        how: "Sing it with the farmer: “Old MacDonald had a farm.” Change the animal in each verse, and use the farmer card at the start to say “He is a farmer.”",
+        search: "old macdonald had a farm nursery rhyme"
+      }
+    ],
+    games: [
+      { name: "Who Is a ___?", how: "Show three pictures and ask “Who is a farmer?” Children point to the right helper, then say the full sentence: “He is a farmer.”" },
+      { name: "Who Is ___ing?", how: "Read a sentence with the helper’s action: “Who is putting out a fire?” Children point to the right picture and say the sentence: “He is putting out a fire.”" },
+      { name: "What Does a ___ Do?", how: "Show a helper and ask “What does a dentist do?” Children choose the right sentence, then say it in full: “A dentist looks after teeth.”" }
+    ]
   }
 };
