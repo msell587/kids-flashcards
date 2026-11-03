@@ -19,7 +19,9 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
-      width: min(94vw, 520px);
+      width: 100%;
+      max-width: 520px;
+      box-sizing: border-box;
       margin: 16px auto 0 auto;
     }
     .menu button,
@@ -120,7 +122,7 @@
       margin-top: 16px;
     }
     .big-screen-row button {
-      padding: 10px 28px;
+      padding: 9px 26px;
       border: 2px solid var(--word);
       border-radius: 999px;
       background: #fff;
@@ -140,6 +142,12 @@
     body.big-screen .options button {
       font-size: clamp(28px, 3.4vw, 42px);
     }
+    /* Bigger pictures in the game: they grow with the screen, up to a limit */
+    .pic-btn img { width: min(320px, 80vw); height: auto; }
+    .pic-btn.big img { width: min(400px, 86vw); height: auto; }
+    /* Big screen: the pictures fill the projector, and grow with it */
+    body.big-screen .pic-btn img { width: min(560px, 88vw); height: auto; }
+    body.big-screen .pic-btn.big img { width: min(640px, 92vw); height: auto; }
   </style>
 </head>
 <body>

@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="game.css">
   <style>
-    /* Weather Sort: drag each picture onto its weather word (or tap it, then tap the word) */
+    /* Weather Sort: tap a picture, then tap its weather word */
     .pic-stage {
       display: flex;
       justify-content: center;
@@ -38,7 +38,6 @@
     }
     .pic.dragging {
       cursor: grabbing;
-      pointer-events: none;
       box-shadow: var(--shadow-lift);
     }
     .pic.selected {
@@ -120,7 +119,7 @@
     <div class="panel" id="start">
       <div class="big-emoji">🌦️</div>
       <h1>Weather Sort</h1>
-      <p>Drag each picture onto its weather. Or tap a picture, then tap its weather.</p>
+      <p>Tap a picture, then tap its weather.</p>
       <button class="big-btn" id="start-btn">Start</button>
     </div>
 
@@ -167,7 +166,6 @@
     let missedThisPicture = false;
     let busy = false;
     let selected = false;
-    let drag = null;
 
     function say(text) {
       if (canSpeak) Voice.speak(text);
@@ -220,11 +218,6 @@
       say("Which weather is this?");
     }
 
-    function binAt(x, y) {
-      const el = document.elementFromPoint(x, y);
-      return el ? el.closest(".bin") : null;
-    }
-
     function answer(word) {
       if (busy) return;
       busy = true;
@@ -267,71 +260,21 @@
     }
 
     // Dragging with a finger, pen or mouse
-    // Stop the browser taking the picture as its own drag, which cancels ours
-    pic.addEventListener("dragstart", (event) => event.preventDefault());
-
-    pic.addEventListener("pointerdown", (event) => {
+    // Tap a picture to pick it up, then tap its weather box
+    pic.addEventListener("click", () => {
       if (busy) return;
-      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, base: pic.getBoundingClientRect() };
-      pic.setPointerCapture(event.pointerId);
-    });
-
-    pic.addEventListener("pointermove", (event) => {
-      if (!drag || drag.id !== event.pointerId) return;
-      const dx = event.clientX - drag.x;
-      const dy = event.clientY - drag.y;
-      if (!drag.moved && Math.hypot(dx, dy) > 10) {
-        drag.moved = true;
-        pic.classList.add("dragging");
-      }
-      if (drag.moved) {
-        const bin = binAt(event.clientX, event.clientY);
-        bins.forEach(b => b.classList.toggle("hover", b === bin));
-        if (bin) {
-          // Over a weather box: shrink the picture so it fits inside that box
-          const box = bin.getBoundingClientRect();
-          const base = drag.base;
-          const scale = Math.min(box.width / base.width, box.height / base.height) * 0.9;
-          const tx = box.left + box.width / 2 - (base.left + base.width / 2);
-          const ty = box.top + box.height / 2 - (base.top + base.height / 2);
-          pic.classList.add("fit");
-          pic.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
-        } else {
-          pic.classList.remove("fit");
-          pic.style.transform = `translate(${dx}px, ${dy}px)`;
-        }
-      }
-    });
-
-    pic.addEventListener("pointerup", (event) => {
-      if (!drag || drag.id !== event.pointerId) return;
-      const wasDrag = drag.moved;
-      drag = null;
-      pic.classList.remove("dragging", "fit");
-      pic.style.transform = "";
-      bins.forEach(bin => bin.classList.remove("hover"));
-
-      if (wasDrag) {
-        const bin = binAt(event.clientX, event.clientY);
-        if (bin) answer(bin.dataset.word);
-      } else if (!busy) {
-        // A tap picks the picture up; the next tap on a weather word answers
-        selected = !selected;
-        pic.classList.toggle("selected", selected);
-        feedback.textContent = selected ? "Now tap the weather." : "Which weather is this?";
-      }
-    });
-
-    pic.addEventListener("pointercancel", () => {
-      drag = null;
-      pic.classList.remove("dragging", "fit");
-      pic.style.transform = "";
-      bins.forEach(bin => bin.classList.remove("hover"));
+      selected = !selected;
+      pic.classList.toggle("selected", selected);
+      feedback.textContent = selected ? "Now tap the weather." : "Which weather is this?";
     });
 
     binsEl.addEventListener("click", (event) => {
       const bin = event.target.closest(".bin");
-      if (!bin || !selected) return;
+      if (!bin || busy) return;
+      if (!selected) {
+        feedback.textContent = "Tap the picture first.";
+        return;
+      }
       answer(bin.dataset.word);
     });
 

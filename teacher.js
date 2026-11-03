@@ -4,7 +4,7 @@ const topic = TOPICS[topicKey];
 const guide = TEACHER[topicKey];
 const main = document.getElementById("guide");
 // Topics with no colouring scene: their colouring link would open the Animals sheet instead
-const NO_COLOURING = ["feelings", "opposites", "transport", "community", "toys", "undersea"];
+const NO_COLOURING = ["feelings", "opposites", "transport", "community", "toys", "undersea", "days"];
 
 function escapeHtml(text) {
   return String(text)
