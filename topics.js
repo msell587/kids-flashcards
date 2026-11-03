@@ -277,14 +277,28 @@ const TOPICS = {
     cards: [
       { word: "fish", es: "pez", picture: "images/undersea/fish.jpg", sentence: "The fish is ___ the water.", answer: "in" },
       { word: "shark", es: "tiburón", picture: "images/undersea/shark.jpg", sentence: "The shark is ___ the water.", answer: "in" },
-      { word: "octopus", es: "pulpo", picture: "images/undersea/octopus.jpg", sentence: "The octopus is ___ the rock.", answer: "behind" },
+      { word: "octopus", es: "pulpo", picture: "images/undersea/octopus.jpg", sentence: "The octopus is ___ the rock.", answer: "on" },
       { word: "crab", es: "cangrejo", picture: "images/undersea/crab.jpg", sentence: "The crab is ___ the sand.", answer: "on" },
-      { word: "dolphin", es: "delfín", picture: "images/undersea/dolphin.jpg", sentence: "The dolphin is ___ the boat.", answer: "next to" },
+      { word: "dolphin", es: "delfín", picture: "images/undersea/dolphin.jpg", sentence: "The dolphin is ___ the water.", answer: "in" },
       { word: "whale", es: "ballena", picture: "images/undersea/whale.jpg", sentence: "The whale is ___ the water.", answer: "in" },
-      { word: "starfish", es: "estrella de mar", picture: "images/undersea/starfish.jpg", sentence: "The starfish is ___ the rock.", answer: "on" },
-      { word: "turtle", es: "tortuga", picture: "images/undersea/turtle.jpg", sentence: "The turtle is ___ the coral.", answer: "next to" },
-      { word: "seahorse", es: "caballito de mar", picture: "images/undersea/seahorse.jpg", sentence: "The seahorse is ___ the seaweed.", answer: "behind" },
+      { word: "starfish", es: "estrella de mar", picture: "images/undersea/starfish.jpg", sentence: "The starfish is ___ the waves.", answer: "next to" },
+      { word: "turtle", es: "tortuga", picture: "images/undersea/turtle.jpg", sentence: "The turtle is ___ the water.", answer: "in" },
+      { word: "seahorse", es: "caballito de mar", picture: "images/undersea/seahorse.jpg", sentence: "The seahorse is ___ the water.", answer: "in" },
       { word: "jellyfish", es: "medusa", picture: "images/undersea/jellyfish.jpg", sentence: "The jellyfish is ___ the sea.", answer: "in" }
+    ]
+  },
+  days: {
+    title: "Days of the Week",
+    page: "days.html",
+    // "prev" and "next" are the days before and after, for the "What day comes after ___?" game
+    cards: [
+      { word: "Monday", es: "lunes", picture: "images/days/monday.jpg", prev: "Sunday", next: "Tuesday" },
+      { word: "Tuesday", es: "martes", picture: "images/days/tuesday.jpg", prev: "Monday", next: "Wednesday" },
+      { word: "Wednesday", es: "miércoles", picture: "images/days/wednesday.jpg", prev: "Tuesday", next: "Thursday" },
+      { word: "Thursday", es: "jueves", picture: "images/days/thursday.jpg", prev: "Wednesday", next: "Friday" },
+      { word: "Friday", es: "viernes", picture: "images/days/friday.jpg", prev: "Thursday", next: "Saturday" },
+      { word: "Saturday", es: "sábado", picture: "images/days/saturday.jpg", prev: "Friday", next: "Sunday" },
+      { word: "Sunday", es: "domingo", picture: "images/days/sunday.jpg", prev: "Saturday", next: "Monday" }
     ]
   },
   feelings: {

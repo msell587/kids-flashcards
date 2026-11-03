@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>It Is Sunny Today Game</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* It is ___ today: weather sentences */
+    .pic-btn.near img { width: 240px; height: 190px; }
+    .pic-btn.far img { width: 110px; height: 88px; }
+    .pic-btn.far span { font-size: 15px; font-weight: 800; }
+    .place { font-size: 26px; font-weight: 800; color: var(--word-dark); text-align: center; margin: 6px 0 0 0; }
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 520px;
+      box-sizing: border-box;
+      margin: 16px auto 0 auto;
+    }
+    .menu button,
+    .options button {
+      padding: 14px 10px;
+      border: 0;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .prompt {
+      margin: 8px 0 0 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .pics {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .pic-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+      border: 4px solid transparent;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .pic-btn img {
+      width: 150px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+    .pic-btn.right {
+      border-color: #2e9e44;
+    }
+    .pic-btn.wrong {
+      opacity: 0.45;
+    }
+    .pic-btn:disabled {
+      cursor: default;
+    }
+    /* The answer choices sit in one horizontal row (wrapping onto a second row only if they don't fit) */
+    .options {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .options button {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 19px;
+    }
+    .options button.right {
+      background: #e6f6ea;
+      border: 4px solid #2e9e44;
+    }
+    .options button.wrong {
+      opacity: 0.45;
+    }
+    .options button:disabled {
+      cursor: default;
+    }
+    .explain {
+      min-height: 48px;
+      margin: 12px auto 0 auto;
+      font-size: 20px;
+      color: var(--word-dark);
+      text-align: center;
+      max-width: 90vw;
+    }
+    .score {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .next {
+      display: block;
+      margin: 12px auto 0 auto;
+    }
+    .big-screen-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .big-screen-row button {
+      padding: 9px 26px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    body.big-screen .pic-btn img {
+      width: 260px;
+      height: 200px;
+    }
+    body.big-screen .prompt {
+      font-size: clamp(40px, 4.6vw, 60px);
+    }
+    body.big-screen .options button {
+      font-size: clamp(28px, 3.4vw, 42px);
+    }
+    /* Bigger pictures in the game: they grow with the screen, up to a limit */
+    .pic-btn img { width: min(320px, 80vw); height: auto; }
+    .pic-btn.big img { width: min(400px, 86vw); height: auto; }
+    .pic-btn.near img { width: min(400px, 86vw); height: auto; }
+    .pic-btn.far img { width: min(240px, 52vw); height: auto; }
+    /* Big screen: the pictures fill the projector, and grow with it */
+    body.big-screen .pic-btn img { width: min(560px, 88vw); height: auto; }
+    body.big-screen .pic-btn.big img { width: min(640px, 92vw); height: auto; }
+    body.big-screen .pic-btn.near img { width: min(640px, 92vw); height: auto; }
+    body.big-screen .pic-btn.far img { width: min(380px, 60vw); height: auto; }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🌦️</div>
+      <h1>It Is Sunny Today</h1>
+      <p>Choose a game.</p>
+      <div class="menu">
+        <button type="button" data-game="fill">It is ___ today.</button>
+        <button type="button" data-game="yesno">Is it ___ today?</button>
+      </div>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <p class="prompt" id="prompt"></p>
+      <div class="pics" id="pics"></div>
+      <div class="options" id="options"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <div class="big-screen-row" id="big-row" hidden>
+      <button type="button" data-big-screen>Big screen</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="weather.html">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="bigscreen.js"></script>
+  <script src="game-common.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const cards = TOPICS.weather.cards;
+    const WORDS = cards.map(c => c.word);
+    let game = "";
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+      $("big-row").hidden = id !== "play";
+    }
+    function say(text) {
+      if (Voice.supported) Voice.speak(text);
+    }
+    // A random photo of the weather (each card has two)
+    function photoOf(card) {
+      return card.picture2 && Math.random() < 0.5 ? card.picture2 : card.picture;
+    }
+
+    // Each question: a weather photo, and a sentence about today
+    function makeQuestion(item) {
+      if (game === "fill") {
+        const wrong = shuffled(WORDS.filter(w => w !== item.card.word)).slice(0, 2);
+        return {
+          prompt: "It is ___ today.",
+          picture: item.picture,
+          options: shuffled([item.card.word, ...wrong]),
+          answer: item.card.word,
+          explain: "Yes! It is " + item.card.word + " today.",
+          wrongText: "Not quite. Look at the picture again.",
+          say: "It is blank today."
+        };
+      }
+      // Is it ___ today? The word asked is right for this photo only some of the time
+      return {
+        prompt: "Is it " + item.asked + " today?",
+        picture: item.picture,
+        options: ["yes", "no"],
+        answer: item.asked === item.card.word ? "yes" : "no",
+        explain: item.asked === item.card.word
+          ? "Yes! It is " + item.card.word + " today."
+          : "No. It is " + item.card.word + " today.",
+        wrongText: "Not quite. Look at the picture again.",
+        say: "Is it " + item.asked + " today?"
+      };
+    }
+
+    function showQuestion() {
+      answered = false;
+      const q = makeQuestion(queue[index]);
+      queue[index].q = q;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("prompt").textContent = q.prompt;
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      $("pics").innerHTML = `<div class="pic-btn big"><img src="${q.picture}" alt=""></div>`;
+      $("options").innerHTML = q.options.map(o => `<button type="button" data-answer="${o}">${o}</button>`).join("");
+      say(q.say);
+    }
+
+    function checkAnswer(element) {
+      if (answered) return;
+      const q = queue[index].q;
+      if (element.dataset.answer === q.answer) {
+        answered = true;
+        right++;
+        element.classList.add("right");
+        $("explain").textContent = q.explain;
+        say(q.explain);
+        finishTurn();
+      } else {
+        element.classList.add("wrong");
+        element.disabled = true;
+        $("explain").textContent = q.wrongText;
+        say(q.wrongText);
+      }
+    }
+    function finishTurn() {
+      for (const b of document.querySelectorAll("#options button")) b.disabled = true;
+      $("next-btn").hidden = false;
+      $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+    }
+    function nextQuestion() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showQuestion();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You got " + right + " of " + queue.length + " right.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame(name) {
+      game = name;
+      // Each weather word once, with one of its two photos
+      const items = shuffled(cards).map(card => ({ card, picture: photoOf(card) }));
+      queue = items.map(item => {
+        if (name === "yesno") {
+          // Half the questions ask about the right word, half about another word
+          const others = WORDS.filter(w => w !== item.card.word);
+          const asked = Math.random() < 0.5 ? item.card.word : pick(others);
+          return { ...item, asked };
+        }
+        return item;
+      });
+      index = 0;
+      right = 0;
+      show("play");
+      showQuestion();
+    }
+
+    for (const button of document.querySelectorAll("[data-game]")) {
+      button.addEventListener("click", () => startGame(button.dataset.game));
+    }
+    // A link such as weather-sentence-game.html?game=yesno starts that game straight away
+    const requested = new URLSearchParams(location.search).get("game");
+    if (["fill", "yesno"].includes(requested)) {
+      startGame(requested);
+    }
+    $("options").addEventListener("click", event => {
+      const button = event.target.closest("button[data-answer]");
+      if (button && !button.disabled) checkAnswer(button);
+    });
+    $("next-btn").addEventListener("click", nextQuestion);
+    $("again-btn").addEventListener("click", () => show("setup"));
+    backToPrevious($("back-btn"));
+  </script>
+</body>
+</html>

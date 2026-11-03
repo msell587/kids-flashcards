@@ -949,7 +949,7 @@ const TEACHER = {
       { time: "8 min", step: "Where is it?", details: "Place the toy crab on the blue cloth, then under the box, then behind the cup. Say “The crab is on the sand. The crab is under the box.” Children repeat each place word with their hands: on (flat hand on top), under (hand below), behind (hand behind back)." },
       { time: "10 min", step: "Games", details: "Play This or That?, Where Is It? and Which One Is a ___? on the Under the Sea game page or in the Class Game." },
       { time: "15 min", step: "Craft: Paper Plate Fish", details: "Children colour a paper plate and add paper fins, then say “The fish is in the water.” as they place it on the sea cloth." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “The turtle is next to the coral.”" }
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “The turtle is in the water.”" }
     ],
     crafts: [
       {
@@ -977,6 +977,43 @@ const TEACHER = {
       { name: "This or That?", how: "Put a toy near the children and another far away. Ask “What's this?” for the near one and “What's that?” for the far one. Children point and answer with the full sentence: “This is a crab.”" },
       { name: "Where Is It?", how: "Read a sentence with a blank: “The crab is ___ the sand.” Children choose on, in, under, behind or next to, then act out the place with their hands." },
       { name: "Which One Is a ___?", how: "Show three cards and ask “Which one is a starfish?” Children point to the right card, then say “That is a starfish.”" }
+    ]
+  },
+  days: {
+    goal: "Children can say the seven days in order, name the day before and after another day, and point to the right picture for a day.",
+    materials: [
+      "Screen or tablet with the Days of the Week flashcards",
+      "Printed Days of the Week cards (use “Print cards” on the topic page)",
+      "A calendar or a large paper strip with the seven days",
+      "Floor space for a line of children"
+    ],
+    plan: [
+      { time: "5 min", step: "Hello and what day is it?", details: "Sing hello. Ask “What day is it today?” and let children answer, then point to the day on the calendar." },
+      { time: "8 min", step: "Meet the days", details: "Go through the flashcards in order, from Monday to Sunday. Say each day, press 🔊, and have the class repeat. Clap once for each day." },
+      { time: "8 min", step: "What comes after?", details: "Say “Monday.” Children answer “Tuesday.” Then go round the room, one child for each day, passing the word on." },
+      { time: "8 min", step: "What comes before?", details: "Say “Friday.” Children answer “Thursday.” Repeat with a few other days, then let children ask each other." },
+      { time: "10 min", step: "Games", details: "Play What Comes After?, What Comes Before? and Which Picture Is It? on the Days of the Week game page or in the Class Game." },
+      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one day: “Today is Wednesday.”" }
+    ],
+    crafts: [],
+    songs: [
+      {
+        title: "The Days of the Week",
+        tune: "Twinkle, Twinkle, Little Star (traditional)",
+        how: "Sing the days in order, Monday to Sunday, to the tune of Twinkle, Twinkle. Hold up a finger for each day as you sing it, and clap on “Sunday”.",
+        search: "days of the week song twinkle twinkle kids"
+      },
+      {
+        title: "Monday's Child",
+        tune: "Traditional rhyme",
+        how: "Say the rhyme “Monday’s child is fair of face, Tuesday’s child is full of grace…” and let each child choose a day and copy the actions you make for it.",
+        search: "monday's child is fair of face nursery rhyme"
+      }
+    ],
+    games: [
+      { name: "What Comes After?", how: "Say a day, such as “Monday.” Children answer with the day that comes next, “Tuesday.” Give the answer as a full sentence: “Tuesday comes after Monday.”" },
+      { name: "What Comes Before?", how: "Say a day, such as “Friday.” Children answer with the day before it, “Thursday.” Start with the days children find easiest, then move to harder ones." },
+      { name: "Which Picture Is It?", how: "Show three day pictures and say “Which picture is Tuesday?” Children point to the right card, then say “That is Tuesday.”" }
     ]
   }
 };

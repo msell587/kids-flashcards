@@ -1,7 +1,7 @@
 // Offline support: saves every page, script and style on the device the first time the app is opened.
 // Each flashcard picture is saved the first time it is shown, so the first visit stays small.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v118";
+const VERSION = "v141";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
