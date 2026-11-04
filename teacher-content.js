@@ -1,4 +1,4 @@
-// Teacher guides for each topic: goal, 1-hour lesson plan, crafts, songs and games (for ages 3–5).
+// Teacher guides for each topic: goal, 1-hour lesson plan, crafts, songs and games (for ages 3–6).
 // Keys match the topic keys in topics.js. Edit freely; the teacher page builds itself from this file.
 // Songs: "search" is what gets typed into YouTube's search, so links never go out of date.
 // "words" holds original lyrics written for this app, sung to a traditional tune.
@@ -215,7 +215,7 @@ const TEACHER = {
   house: {
     goal: "Children can name the rooms and parts of a house, and say what we do in each room.",
     materials: [
-      "Screen or tablet with the My House flashcards",
+      "Screen or tablet with the Parts of the House flashcards",
       "Printed house cards",
       "Craft supplies: see “Lift-the-Flap House” below"
     ],
@@ -536,7 +536,7 @@ const TEACHER = {
   garden: {
     goal: "Children can name 12 things found in a garden, and say what a plant needs: water and sun.",
     materials: [
-      "Screen or tablet with the My Little Garden flashcards",
+      "Screen or tablet with the My Garden flashcards",
       "Printed garden cards",
       "A real flower or leaf, and a few seeds (beans or sunflower seeds)",
       "Small cups, soil and a watering can for the planting activity",
@@ -796,7 +796,7 @@ const TEACHER = {
   transport: {
     goal: "Children can name a car, a bus and a train, say “this” and “that” for near and far things, make a word plural (car, cars), and use “its” and “they're” in simple sentences.",
     materials: [
-      "Screen or tablet with the On the Move flashcards",
+      "Screen or tablet with the Modes of Transportation flashcards",
       "Printed transport cards (from the Print page)",
       "A toy car, bus or train, to hold up and move",
       "Two chairs or spots on the floor: one near and one far",
@@ -845,8 +845,8 @@ const TEACHER = {
   toys: {
     goal: "Children can name 7 toys and 6 sports, say what a person is doing (“He is swimming”), say whether a ball is in the picture, and choose my, your, his, her, its, our or their.",
     materials: [
-      "Screen or tablet with the Toy Makers flashcards",
-      "Printed Toy Makers cards (from the Print page)",
+      "Screen or tablet with the Toys and Sports flashcards",
+      "Printed Toys and Sports cards (from the Print page)",
       "A ball, and a toy car or teddy bear to hold up",
       "Floor space for children to stand or sit in response to a card"
     ],
@@ -890,8 +890,8 @@ const TEACHER = {
   community: {
     goal: "Children can name 12 community helpers, say “He is a doctor” or “She is a teacher”, say what each helper does, and say what a helper is doing right now (“He is putting out a fire”).",
     materials: [
-      "Screen or tablet with the Community Helpers flashcards",
-      "Printed Community Helpers cards (from the Print page)",
+      "Screen or tablet with the Professions flashcards",
+      "Printed Professions cards (from the Print page)",
       "Community Helpers colouring sheet (from the printables page)",
       "Props to show: a stethoscope, a book, a toy hose or a letter",
       "Floor space for children to stand up and sit down"
@@ -936,8 +936,8 @@ const TEACHER = {
   undersea: {
     goal: "Children can name 10 sea animals, point to the one that is “this” (near) or “that” (far), and say where an animal is: “The crab is on the sand.”",
     materials: [
-      "Screen or tablet with the Under the Sea flashcards",
-      "Printed Under the Sea cards (from the Print page)",
+      "Screen or tablet with the Sea Creatures flashcards",
+      "Printed Sea Creatures cards (from the Print page)",
       "A toy fish or crab, to hold up and place",
       "A blue sheet or cloth, for the sea",
       "A small box or cup, to place things in, on, under and behind"

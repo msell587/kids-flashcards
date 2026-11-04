@@ -27,7 +27,7 @@ function showChooser() {
   document.querySelector(".topic-picker").hidden = true;
   main.innerHTML = `
     <h1>Teacher's Corner</h1>
-    <p class="lead">Lesson plans, crafts, songs and games for each flashcard topic. For ages 3–5.</p>
+    <p class="lead">Lesson plans, crafts, songs and games for each flashcard topic. For ages 3–6.</p>
     <section>
       <h2>Quick start</h2>
       <p class="quick-start">Show the flashcards, play the Class game, then finish with a colouring sheet from the Print page.</p>
@@ -93,7 +93,7 @@ function showGuide() {
     <dl class="glance">
       <div><dt>Lesson</dt><dd>${totalMinutes(guide.plan)} min</dd></div>
       <div><dt>Words</dt><dd>${topic.cards.length}</dd></div>
-      <div><dt>Ages</dt><dd>3–5</dd></div>
+      <div><dt>Ages</dt><dd>3–6</dd></div>
       <div><dt>Crafts</dt><dd>${guide.crafts.length}</dd></div>
     </dl>
     <div class="glance-tools no-print"><button class="btn btn-light" id="print-guide">Print this guide</button></div>
