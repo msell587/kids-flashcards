@@ -3,8 +3,6 @@ const topicKey = new URLSearchParams(location.search).get("topic");
 const topic = TOPICS[topicKey];
 const guide = TEACHER[topicKey];
 const main = document.getElementById("guide");
-// Topics with no colouring scene: their colouring link would open the Animals sheet instead
-const NO_COLOURING = ["feelings", "opposites", "transport", "community", "toys", "undersea", "days"];
 
 function escapeHtml(text) {
   return String(text)
@@ -16,25 +14,6 @@ function escapeHtml(text) {
 }
 
 // Topic picker in the top bar: choosing a topic opens its guide
-// Printable sheets that belong to one topic, listed in its Print group
-const TOPIC_SHEETS = {
-  shapes: [{ label: "Tracing shapes", href: "printables/worksheets/tracing-shapes.pdf" }],
-  explorers: [{ label: "Insects and bugs colouring", href: "printables/worksheets/animal-explorers-colouring.pdf" }],
-  feelings: [
-    { label: "Feelings colouring page", href: "printables/worksheets/feelings-colouring.pdf" },
-    { label: "Feelings colouring page: boxes", href: "printables/worksheets/feelings-colouring-boxes.pdf" }
-  ],
-  transport: [{ label: "On the Move colouring", href: "images/coloring-sheets/on-the-move.pdf" }],
-  toys: [{ label: "I Spy Toys", href: "images/coloring-sheets/toy-i-spy.pdf" }],
-  undersea: [{ label: "Under the Sea colouring", href: "images/coloring-sheets/under-the-sea.pdf" }],
-  days: [{ label: "Days of the Week caterpillar craft", href: "images/days/days-craft.pdf" }],
-  opposites: [{ label: "Opposites colouring", href: "images/coloring-sheets/opposites.pdf" }],
-  community: [
-    { label: "Community Helpers colouring", href: "images/coloring-sheets/community-helpers.pdf" },
-    { label: "I Spy Community Helpers", href: "images/coloring-sheets/ispy-community-helpers.pdf" }
-  ]
-};
-
 const topicSelect = document.getElementById("topic-select");
 topicSelect.innerHTML = `<option value="">All topics</option>` + Object.keys(TOPICS).map(key =>
   `<option value="${key}"${key === topicKey ? " selected" : ""}>${escapeHtml(TOPICS[key].title)}</option>`
@@ -51,11 +30,7 @@ function showChooser() {
     <p class="lead">Lesson plans, crafts, songs and games for each flashcard topic. For ages 3–5.</p>
     <section>
       <h2>Quick start</h2>
-      <ol class="steps">
-        <li><strong>Show the flashcards</strong> on the board, and let the class say each word.</li>
-        <li><strong>Play the Class Game</strong> with two teams. The first team to say the word gets a point.</li>
-        <li><strong>Finish with a colouring sheet</strong> for everyone to take home or work on at their table.</li>
-      </ol>
+      <p class="quick-start">Show the flashcards, play the Class game, then finish with a colouring sheet from the Print page.</p>
     </section>
     <section>
       <h2>Pick a topic</h2>
@@ -71,34 +46,14 @@ function showChooser() {
                 <a class="action-main" href="teacher.html?topic=${key}">Lesson plan</a>
                 <a href="${encodeURI(TOPICS[key].page)}">Flashcards</a>
                 <a href="classroom-game.html?topic=${key}">Class game</a>
-                <details class="more-tools">
-                  <summary>More</summary>
-                  <div class="more-links">
-                    ${key === "weather" ? `<div class="more-group"><h4>Chart</h4><a href="weather-chart.html">Weather chart</a></div>` : ""}
-                    <div class="more-group"><h4>Print</h4>
-                      ${NO_COLOURING.includes(key) ? "" : `<a href="colouring.html?topic=${key}&sheet=1">Colouring sheet</a>`}
-                      <a href="worksheet.html?topic=${key}">Worksheets</a>
-                      <a href="print.html?topic=${key}">Print cards</a>
-                      ${(TOPIC_SHEETS[key] || []).map(sheet => `<a href="${sheet.href}" target="_blank" rel="noopener">${sheet.label}</a>`).join("")}
-                    </div>
-                  </div>
-                </details>
+                ${key === "weather" ? `<a href="weather-chart.html">Weather chart</a>` : ""}
               </nav>
             </div>
           </article>`).join("")}
       </div>
     </section>
-    <section>
-      <h2>Getting the most natural voice</h2>
-      <p>The voice comes from your device, so it sounds different on each computer or tablet. The app picks the most natural one it can find, and you can change it with the <strong>Voice</strong> button on any flashcard page. Voices marked ★ sound the most natural.</p>
-      <ul>
-        <li><strong>Mac:</strong> System Settings → Accessibility → Spoken Content → System Voice → Manage Voices. Download a “Premium” or “Enhanced” English voice (for example Serena, Daniel or Ava), then reopen the browser.</li>
-        <li><strong>iPhone or iPad:</strong> Settings → Accessibility → Spoken Content → Voices → English. Download an “Enhanced” or “Premium” voice.</li>
-        <li><strong>Windows:</strong> open the flashcards in Microsoft Edge, which includes very natural “Online (Natural)” voices.</li>
-        <li><strong>Chromebook or Android:</strong> use Chrome, which includes “Google UK English” and “Google US English” voices.</li>
-      </ul>
-    </section>
-    ${backupSectionHtml()}`;
+    <p class="hint-line">Voice sounds different on each device. <a href="voice-help.html">Voice help</a> shows how to get the most natural one.</p>
+    ${saveSectionHtml("")}`;
   setUpBackup();
 }
 
@@ -133,34 +88,21 @@ function showGuide() {
       ${song.search ? `<p class="no-print">Find the tune by searching for “${escapeHtml(song.search)}”.</p>` : ""}
     </div>`).join("");
 
-  const games = guide.games.map(game => `
-    <div class="item">
-      <h3>${escapeHtml(game.name)}</h3>
-      <p>${escapeHtml(game.how)}</p>
-    </div>`).join("");
-
   main.innerHTML = `
     <h1>${escapeHtml(topic.title)} · Teacher's Guide</h1>
-    <p class="lead">For ages 3–5 · 1-hour lesson · ${topic.cards.length} words</p>
+    <dl class="glance">
+      <div><dt>Lesson</dt><dd>${totalMinutes(guide.plan)} min</dd></div>
+      <div><dt>Words</dt><dd>${topic.cards.length}</dd></div>
+      <div><dt>Ages</dt><dd>3–5</dd></div>
+      <div><dt>Crafts</dt><dd>${guide.crafts.length}</dd></div>
+    </dl>
+    <div class="glance-tools no-print"><button class="btn btn-light" id="print-guide">Print this guide</button></div>
     <div class="actions">
       <div class="action-group" role="group" aria-labelledby="in-class-label">
         <h2 id="in-class-label">In class</h2>
         <div>
           <a class="btn" href="${encodeURI(topic.page)}">Open flashcards</a>
           <a class="btn" href="classroom-game.html?topic=${topicKey}">Class game</a>
-        </div>
-      </div>
-      <div class="action-group" role="group" aria-labelledby="print-label">
-        <h2 id="print-label">Print</h2>
-        <div>
-          <a class="btn secondary" href="print.html?topic=${topicKey}">Flashcards</a>
-          <a class="btn secondary" href="worksheet.html?topic=${topicKey}">Worksheets</a>
-          ${topicKey === "seasons"
-            ? ["spring", "summer", "autumn", "winter"].map(season =>
-                `<a class="btn secondary" href="colouring.html?topic=seasons&sheet=1&season=${season}">${season[0].toUpperCase() + season.slice(1)} colouring</a>`
-              ).join("")
-            : NO_COLOURING.includes(topicKey) ? "" : `<a class="btn secondary" href="colouring.html?topic=${topicKey}&sheet=1">Colouring sheet</a>`}
-          ${(TOPIC_SHEETS[topicKey] || []).map(sheet => `<a class="btn secondary" href="${sheet.href}" target="_blank" rel="noopener">${sheet.label}</a>`).join("")}
         </div>
       </div>
     </div>
@@ -186,11 +128,6 @@ function showGuide() {
       ${songs}
     </section>` : ""}
 
-    <section>
-      <h2>Games</h2>
-      ${games}
-    </section>
-
     ${guide.photoCredits ? `
       <section>
         <h2>Photo credits</h2>
@@ -198,17 +135,18 @@ function showGuide() {
         <p>${guide.photoCredits.map(c => `<a href="${escapeHtml(c.url)}" target="_blank" rel="noopener">${escapeHtml(c.word)}</a>`).join(" · ")}</p>
       </section>` : ""}
 
-    <section>
-      <h2>My notes</h2>
-      <p class="hint no-print">Your own ideas for this topic. They save automatically on this device and browser only.</p>
-      <textarea id="notes" aria-label="My notes for ${escapeHtml(topic.title)}" placeholder="e.g. Class loved Animal Moves. Next time add a zebra card."></textarea>
-      <p id="saved" class="no-print" aria-live="polite"></p>
-    </section>
-    ${backupSectionHtml()}`;
+    ${saveSectionHtml(`
+      <details open>
+        <summary>My notes</summary>
+        <p class="hint">Your own ideas for this topic. They save automatically on this device and browser only.</p>
+        <textarea id="notes" aria-label="My notes for ${escapeHtml(topic.title)}" placeholder="e.g. Class loved Animal Moves. Next time add a zebra card."></textarea>
+        <p id="saved" aria-live="polite"></p>
+      </details>`)}`;
 
   renderPlanSection();
   setUpNotes();
   setUpBackup();
+  document.getElementById("print-guide").addEventListener("click", () => window.print());
 }
 
 /* ---------- Lesson plans: the ready-made plan plus any the teacher edits or creates ---------- */
@@ -471,10 +409,13 @@ function setUpPlanEditor() {
 
 /* ---------- Backup and sharing: plans and notes for every topic, as a file ---------- */
 
-function backupSectionHtml() {
+function saveSectionHtml(notesHtml) {
   return `
-    <section class="no-print">
-      <h2>Back up and share</h2>
+    <section class="no-print save-section">
+      <h2>Save your work</h2>
+      ${notesHtml}
+      <details>
+        <summary>Back up and share</summary>
       <p class="hint">Your plans and notes for all topics are saved only in this browser. Download a backup file to keep them safe, or send it to another teacher so they can load your plans.</p>
       <div class="plan-tools">
         <button class="btn" id="download-backup">Download my plans and notes</button>
@@ -483,6 +424,7 @@ function backupSectionHtml() {
         </label>
       </div>
       <p id="backup-status" class="hint" aria-live="polite"></p>
+      </details>
     </section>`;
 }
 
@@ -642,19 +584,6 @@ function setUpNotes() {
     if (timer !== null) save();
   });
 }
-
-// A More menu closes when you click or tap anywhere else, or press Escape
-function closeMoreMenus(except) {
-  document.querySelectorAll(".more-tools[open]").forEach(menu => {
-    if (menu !== except) menu.open = false;
-  });
-}
-document.addEventListener("click", event => {
-  closeMoreMenus(event.target.closest(".more-tools"));
-});
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeMoreMenus(null);
-});
 
 // Start: show the chosen topic's guide, or the topic list if none was picked
 if (!topic || !guide) {

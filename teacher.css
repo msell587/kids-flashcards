@@ -20,7 +20,7 @@ h3 {
 }
 
 h1 {
-  font-size: 38px;
+  font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.5px;
   margin: 16px 0 4px 0;
@@ -108,7 +108,7 @@ h3 {
   font-size: 17px;
   font-weight: 800;
   padding: 10px 20px;
-  box-shadow: 0 2px 6px rgba(36, 90, 131, 0.12);
+  box-shadow: none;
   color: white;
   background-color: var(--word);
   border-color: var(--word);
@@ -141,7 +141,8 @@ section:nth-of-type(n+5) { animation-delay: 0.24s; }
   padding: 16px 22px;
   background-color: var(--surface);
   border-radius: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
+  border: 1px solid var(--line);
 }
 
 .action-group h2 {
@@ -169,7 +170,8 @@ section:nth-of-type(n+5) { animation-delay: 0.24s; }
 section {
   background-color: var(--surface);
   border-radius: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
+  border: 1px solid var(--line);
   padding: 22px 26px;
   animation: rise-in 0.3s ease-out backwards;
   margin-bottom: 18px;
@@ -473,7 +475,8 @@ input[type="text"]:focus-visible {
   padding: 14px;
   background-color: var(--surface);
   border-radius: 20px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
+  border: 1px solid var(--line);
   border-left: 10px solid var(--tile-color, var(--soft-blue));
 }
 
@@ -507,8 +510,7 @@ input[type="text"]:focus-visible {
 }
 
 /* One filled button per topic, the rest quiet outlined links */
-.topic-actions a,
-.more-tools summary {
+.topic-actions a {
   display: inline-block;
   padding: 6px 12px;
   border: 1px solid #cfdde8;
@@ -528,8 +530,7 @@ input[type="text"]:focus-visible {
   color: #fff;
 }
 
-.topic-actions a:hover,
-.more-tools summary:hover {
+.topic-actions a:hover {
   background-color: #eef5fa;
 }
 
@@ -537,68 +538,9 @@ input[type="text"]:focus-visible {
   background-color: var(--word);
 }
 
-.topic-actions a:focus-visible,
-.more-tools summary:focus-visible {
+.topic-actions a:focus-visible {
   outline: 3px solid var(--word);
   outline-offset: 3px;
-}
-
-.more-tools {
-  position: relative;
-}
-
-.more-tools summary {
-  list-style: none;
-}
-
-.more-tools summary::-webkit-details-marker {
-  display: none;
-}
-
-.more-links {
-  position: absolute;
-  z-index: 2;
-  top: calc(100% + 6px);
-  left: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 16px 22px;
-  padding: 12px 14px;
-  max-width: min(92vw, 480px);
-  min-width: 0;
-  background-color: #fff;
-  border: 1px solid #cfdde8;
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-}
-
-.more-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  min-width: 140px;
-}
-
-.more-group h4 {
-  margin: 0 0 2px 0;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.more-links a {
-  color: var(--word-dark);
-  font-size: 15px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.more-links a:hover {
-  text-decoration: underline;
 }
 
 @media (max-width: 500px) {
@@ -660,7 +602,7 @@ input[type="text"]:focus-visible {
 .topic-choice:hover {
   transform: translateY(-2px);
   border-color: var(--word);
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 .topic-choice:focus-visible {
@@ -764,4 +706,75 @@ input[type="text"]:focus-visible {
     animation: none;
     break-inside: avoid;
   }
+}
+
+/* At a glance: time, words, materials and crafts under the title */
+.glance {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 0 0 16px 0;
+}
+
+.glance div {
+  padding: 10px 14px;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.glance dt {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.glance dd {
+  margin: 2px 0 0 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--word);
+}
+
+.glance-tools {
+  display: flex;
+  justify-content: flex-end;
+  margin: -4px 0 12px 0;
+}
+
+/* Quick start: one short paragraph */
+.quick-start {
+  margin: 0;
+  font-size: 17px;
+}
+
+/* Save your work: notes and backup, closed until needed */
+.save-section details {
+  margin: 0 0 12px 0;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background-color: var(--background);
+}
+
+.save-section summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--word);
+}
+
+.save-section details[open] summary {
+  margin-bottom: 10px;
+}
+
+.save-section .hint {
+  margin-top: 0;
+}
+
+.voice-page ol,
+.voice-page ul {
+  padding-left: 22px;
 }

@@ -1,13 +1,13 @@
 // Offline support: saves every page, script and style on the device the first time the app is opened.
 // Each flashcard picture is saved the first time it is shown, so the first visit stays small.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v164";
+const VERSION = "v165";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
 
 const APP_FILES = [
-  "./", "index.html", "teacher.html", "game.html", "season-game.html", "autumn-guess.html", "summer-guess.html", "spring-guess.html",  "winter-guess.html", "season-quiz.html","weather-sort.html","weather-quiz.html","weather-memory.html","weather-chart.html","picture-guess.html","classroom-game.html", "colouring.html", "print.html", "worksheet.html",
+  "./", "index.html", "teacher.html", "voice-help.html", "game.html", "season-game.html", "autumn-guess.html", "summer-guess.html", "spring-guess.html",  "winter-guess.html", "season-quiz.html","weather-sort.html","weather-quiz.html","weather-memory.html","weather-chart.html","picture-guess.html","classroom-game.html", "colouring.html", "print.html", "worksheet.html",
   "theme.css", "style.css", "game.css", "teacher.css",
   "topics.js", "flashcards.js", "animals.js", "effects.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "colouring-scenes.js", "pwa.js", "save-print.js", "bigscreen.js", "guess-print.js", "guess-pdf.js",
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/apple-touch-icon.png"
