@@ -76,7 +76,7 @@ const TOPICS = {
     ]
   },
   house: {
-    title: "My House",
+    title: "Parts of the House",
     page: "house.html",
     cards: [
       { word: "house", es: "casa", picture: "images/house/house.jpg" },
@@ -194,7 +194,7 @@ const TOPICS = {
     ]
   },
   garden: {
-    title: "My Little Garden",
+    title: "My Garden",
     page: "garden.html",
     // A card can also have video and crop: tapping the picture plays that part of the video (x, y, width, height in video pixels)
     cards: [
@@ -236,7 +236,7 @@ const TOPICS = {
     ]
   },
   transport: {
-    title: "On the Move",
+    title: "Modes of Transportation",
     page: "transport.html",
     // Vehicles for the grammar lessons: singular and plural, this and that, its and they're (see the teacher guide)
     // "plural" is the plural word; "size" (small, medium, big), "speed" (slow, fast) and "wheels" are used by the On the Move games
@@ -255,7 +255,7 @@ const TOPICS = {
     ]
   },
   community: {
-    title: "Community Helpers",
+    title: "Professions",
     page: "community.html",
     // "is" is "He/She is a ...", "doing" is the present continuous, "does" answers "What does a ... do?"
     cards: [
@@ -274,7 +274,7 @@ const TOPICS = {
     ]
   },
   toys: {
-    title: "Toy Makers",
+    title: "Toys and Sports",
     page: "toys.html",
     // Toys take a possessive sentence ("I have a kite. It is ___ kite." -> my).
     // Sports take a "ball" flag (true when a ball is in the picture) and a "doing" sentence for the present continuous.
@@ -295,7 +295,7 @@ const TOPICS = {
     ]
   },
   undersea: {
-    title: "Under the Sea",
+    title: "Sea Creatures",
     page: "undersea.html",
     // "sentence" has a blank for the place word; "answer" is the right one (in, on, under, behind, next to)
     cards: [
