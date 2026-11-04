@@ -91,6 +91,11 @@ body {
   100% { transform: translate(20px, -36vh) scale(1.05); }
 }
 
+/* Moving between pages cross-fades instead of flashing blank (browsers that support it) */
+@view-transition {
+  navigation: auto;
+}
+
 @media print {
   .bubbles {
     display: none;

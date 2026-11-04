@@ -14,79 +14,164 @@
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="game.css">
   <style>
-    /* Printable worksheets: sheets are grouped by topic; each sheet is a card with a download link and a print link */
-    .sheet-group {
-      width: min(94vw, 900px);
-      margin: 24px auto 0 auto;
+    /* Print corner: pick a topic, then a printable, the same way as the class games */
+    .print-setup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(94vw, 520px);
+      margin: 8px auto 0 auto;
     }
-    .sheet-group h2.group-title {
+    .print-setup h1 {
       margin: 0;
-      font-size: 26px;
+    }
+    .print-setup > p {
+      margin: 8px 0 0 0;
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .choice {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      margin-top: 14px;
+      font-size: 14px;
       font-weight: 800;
-      color: var(--word-dark);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
       text-align: left;
+      box-sizing: border-box;
     }
-    .sheet-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin: 12px 0 0 0;
+    .choice select {
+      width: 100%;
+      padding: 14px 52px 14px 22px;
+      border: 3px solid var(--word);
+      border-radius: 999px;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10'%3E%3Cpath d='M1 1l7 7 7-7' stroke='%232f6f9f' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 22px center;
+      -webkit-appearance: none;
+      appearance: none;
+      box-shadow: var(--shadow);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--word-dark);
+      cursor: pointer;
     }
+    .choice select:focus-visible {
+      outline: 4px solid var(--word);
+      outline-offset: 3px;
+    }
+    .choice select:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    /* The chosen printable, shown as a card */
     .sheet-card {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 18px;
-      border-radius: 22px;
+      gap: 12px;
+      width: 100%;
+      margin-top: 20px;
+      padding: 22px;
+      box-sizing: border-box;
+      border-radius: 28px;
       background-color: var(--surface);
       color: var(--word-dark);
-      box-shadow: var(--shadow);
-      text-align: left;
+      box-shadow: var(--shadow-lift);
+      text-align: center;
     }
-    .sheet-card h3 {
+    .sheet-card[hidden] {
+      display: none;
+    }
+    .sheet-card .sheet-topic {
       margin: 0;
-      font-size: 22px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sheet-card h2 {
+      margin: 0;
+      font-size: 28px;
       font-weight: 800;
     }
-    .sheet-card p {
+    .sheet-card p.sheet-note {
       margin: 0;
-      font-size: 16px;
+      font-size: 17px;
+      color: var(--muted);
     }
     .sheet-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: auto;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 6px;
     }
     .sheet-actions a {
-      padding: 10px 18px;
+      padding: 12px 22px;
       border-radius: 999px;
       background-color: var(--word);
       color: #fff;
       font-family: var(--font);
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       text-decoration: none;
+      box-shadow: var(--shadow);
     }
     .sheet-actions a.secondary {
       background-color: #fff;
       color: var(--word);
-      border: 2px solid var(--word);
+      border: 3px solid var(--word);
+    }
+    .sheet-actions a:hover {
+      box-shadow: var(--shadow-lift);
+    }
+    .empty-note {
+      margin: 18px 0 0 0;
+      font-size: 17px;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <main>
-    <h1>Printable Worksheets</h1>
-    <p>Download a sheet, or open it to print straight away. Sheets are grouped by topic.</p>
-    <div id="sheets"></div>
+    <div class="print-setup">
+      <div class="big-emoji">🖨️</div>
+      <h1>Printables</h1>
+      <p>Choose a topic, then choose a sheet to download or print.</p>
+
+      <label class="choice">Topic
+        <select id="topic-select"></select>
+      </label>
+      <label class="choice">Printable
+        <select id="sheet-select" disabled></select>
+      </label>
+
+      <section class="sheet-card" id="sheet-card" hidden>
+        <p class="sheet-topic" id="sheet-topic"></p>
+        <h2 id="sheet-title"></h2>
+        <p class="sheet-note" id="sheet-note"></p>
+        <nav class="sheet-actions" id="sheet-actions"></nav>
+      </section>
+    </div>
     <nav class="links">
+      <a class="link-btn" id="back-btn" href="index.html">Back</a>
       <a class="link-btn" href="index.html">Home</a>
     </nav>
   </main>
   <script>
-    // Every printable sheet, listed once. "file" is in printables/worksheets/.
+    // Every printable sheet, grouped by topic. "file" is in printables/worksheets/.
     const SHEET_GROUPS = [
       { title: "Feelings", sheets: [
         { title: "Basic Emotions", file: "basic-emotions.pdf", note: "Learn and match the basic feelings, 1 page." },
@@ -96,7 +181,7 @@
         { title: "Feelings Colouring Page", file: "feelings-colouring.pdf", note: "Six cartoon faces on one A4 page: happy, sad, angry, scared, surprised and sleepy." },
         { title: "Feelings Colouring Page: Boxes", file: "feelings-colouring-boxes.pdf", note: "Twelve cartoon faces in boxes, with big expressions, on one A4 page." }
       ] },
-      { title: "Animal Explorers", sheets: [
+      { title: "Insects and Bugs", sheets: [
         { title: "Insects and Bugs Colouring", file: "animal-explorers-colouring.pdf", note: "Eleven cartoon insects and bugs on one A4 page." }
       ] },
       { title: "Shapes and maths", sheets: [
@@ -147,6 +232,9 @@
       { title: "Community Helpers I Spy", sheets: [
         { title: "I Spy Community Helpers", path: "images/coloring-sheets/ispy-community-helpers.pdf", note: "Find and count 320 helpers on one A4 page." }
       ] },
+      { title: "Under the Sea", sheets: [
+        { title: "Under the Sea colouring", path: "images/coloring-sheets/under-the-sea.pdf", note: "Sea animals to colour on one A4 page." }
+      ] },
       { title: "Toy Makers I Spy", sheets: [
         { title: "I Spy Toys", path: "images/coloring-sheets/toy-i-spy.pdf", note: "Find and count 96 toys on one A4 page." }
       ] },
@@ -156,26 +244,59 @@
       ] }
     ];
 
-    const container = document.getElementById("sheets");
-    container.innerHTML = SHEET_GROUPS.map(group => `
-      <section class="sheet-group">
-        <h2 class="group-title">${group.title}</h2>
-        <div class="sheet-list">
-          ${group.sheets.map(sheet => {
-            const file = sheet.path || "printables/worksheets/" + sheet.file;
-            const viewer = "pdf-view.html?file=" + encodeURIComponent(file) + "&name=" + encodeURIComponent(sheet.title + ".pdf");
-            return `
-          <article class="sheet-card">
-            <h3>${sheet.title}</h3>
-            ${sheet.note ? `<p>${sheet.note}</p>` : ""}
-            <nav class="sheet-actions">
-              <a href="${viewer}">Download PDF</a>
-              <a class="secondary" href="${encodeURI(file)}" target="_blank" rel="noopener">Open to print</a>
-            </nav>
-          </article>`;
-          }).join("")}
-        </div>
-      </section>`).join("");
+    const topicSelect = document.getElementById("topic-select");
+    const sheetSelect = document.getElementById("sheet-select");
+    const sheetCard = document.getElementById("sheet-card");
+
+    // Topic dropdown first; nothing is shown until a topic is picked
+    topicSelect.innerHTML = '<option value="">Choose a topic…</option>' +
+      SHEET_GROUPS.map((group, i) => `<option value="${i}">${group.title}</option>`).join("");
+
+    function fillSheets(groupIndex) {
+      sheetCard.hidden = true;
+      if (groupIndex === "") {
+        sheetSelect.disabled = true;
+        sheetSelect.innerHTML = "";
+        return;
+      }
+      const group = SHEET_GROUPS[groupIndex];
+      sheetSelect.innerHTML = '<option value="">Choose a printable…</option>' +
+        group.sheets.map((sheet, i) => `<option value="${i}">${sheet.title}</option>`).join("");
+      sheetSelect.disabled = false;
+    }
+
+    function showSheet(groupIndex, sheetIndex) {
+      const group = SHEET_GROUPS[groupIndex];
+      const sheet = group.sheets[sheetIndex];
+      const file = sheet.path || "printables/worksheets/" + sheet.file;
+      const viewer = "pdf-view.html?file=" + encodeURIComponent(file) + "&name=" + encodeURIComponent(sheet.title + ".pdf");
+      document.getElementById("sheet-topic").textContent = group.title;
+      document.getElementById("sheet-title").textContent = sheet.title;
+      document.getElementById("sheet-note").textContent = sheet.note || "";
+      document.getElementById("sheet-note").hidden = !sheet.note;
+      // Open shows the sheet on screen (it can be downloaded from there); Print opens the PDF ready to print
+      document.getElementById("sheet-actions").innerHTML =
+        `<a href="${viewer}">Open</a>` +
+        `<a class="secondary" href="${encodeURI(file)}" target="_blank" rel="noopener">Print</a>`;
+      sheetCard.hidden = false;
+    }
+
+    // Back returns to the page the teacher came from; Home is the fallback when there is no earlier page
+    document.getElementById("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
+
+    topicSelect.addEventListener("change", () => fillSheets(topicSelect.value));
+    sheetSelect.addEventListener("change", () => {
+      if (sheetSelect.value === "") {
+        sheetCard.hidden = true;
+      } else {
+        showSheet(topicSelect.value, sheetSelect.value);
+      }
+    });
   </script>
 </body>
 </html>

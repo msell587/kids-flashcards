@@ -216,8 +216,9 @@
     function say(text) {
       if (Voice.supported) Voice.speak(text);
     }
-    // "I want an apple." / "I don't want a banana." (a, an and the plural are kept simple)
+    // "I want an apple." / "I don't want a banana." / "I want apples." (plural words get no article)
     function article(word) {
+      if (/s$/i.test(word)) return word;
       return /^[aeiou]/i.test(word) ? "an " + word : "a " + word;
     }
 

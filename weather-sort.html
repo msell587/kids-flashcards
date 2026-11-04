@@ -111,6 +111,19 @@
       .bin.wrong { animation: none; }
       .pic.placed { transition: none; }
     }
+    /* Shuffle on or off before the game starts */
+    .shuffle-btn {
+      margin-top: 12px;
+      padding: 10px 22px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -121,6 +134,8 @@
       <h1>Weather Sort</h1>
       <p>Tap a picture, then tap its weather.</p>
       <button class="big-btn" id="start-btn">Start</button>
+      <br>
+      <button class="shuffle-btn" id="shuffle-btn" type="button" aria-pressed="true">Shuffle: on</button>
     </div>
 
     <div id="play" hidden>
@@ -194,8 +209,17 @@
       return copy;
     }
 
+    // Shuffle is on by default; when it is off the pictures come in the order of the topic
+    const shuffleButton = document.getElementById("shuffle-btn");
+    shuffleButton.addEventListener("click", () => {
+      const on = shuffleButton.getAttribute("aria-pressed") !== "true";
+      shuffleButton.setAttribute("aria-pressed", on);
+      shuffleButton.textContent = on ? "Shuffle: on" : "Shuffle: off";
+    });
+
     function startGame() {
-      queue = shuffled(cards);
+      const shuffle = shuffleButton.getAttribute("aria-pressed") === "true";
+      queue = shuffle ? shuffled(cards) : [...cards];
       index = 0;
       firstTry = 0;
       show("play");

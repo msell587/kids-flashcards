@@ -26,6 +26,8 @@ const TOPIC_SHEETS = {
   ],
   transport: [{ label: "On the Move colouring", href: "images/coloring-sheets/on-the-move.pdf" }],
   toys: [{ label: "I Spy Toys", href: "images/coloring-sheets/toy-i-spy.pdf" }],
+  undersea: [{ label: "Under the Sea colouring", href: "images/coloring-sheets/under-the-sea.pdf" }],
+  days: [{ label: "Days of the Week caterpillar craft", href: "images/days/days-craft.pdf" }],
   opposites: [{ label: "Opposites colouring", href: "images/coloring-sheets/opposites.pdf" }],
   community: [
     { label: "Community Helpers colouring", href: "images/coloring-sheets/community-helpers.pdf" },

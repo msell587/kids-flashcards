@@ -250,7 +250,7 @@
         preview.appendChild(img);
       });
       document.getElementById("cover-contents").textContent =
-        topic.cards.length + " cards: " + topic.cards.map(card => card.word).join(", ");
+        topic.cards.length + (topic.cards.length === 1 ? " card: " : " cards: ") + topic.cards.map(card => card.word).join(", ");
       const name = controls.name.value.trim();
       document.getElementById("cover-terms").textContent =
         "© " + new Date().getFullYear() + (name ? " " + name : "") +

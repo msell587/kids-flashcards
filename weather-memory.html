@@ -109,6 +109,19 @@
     body.big-screen .mem-stats {
       font-size: 26px;
     }
+    /* Shuffle on or off before the game starts */
+    .shuffle-btn {
+      margin-top: 12px;
+      padding: 10px 22px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -119,6 +132,8 @@
       <h1>Weather Memory</h1>
       <p>Tap two tiles. A picture and its word make a pair.</p>
       <button class="big-btn" id="start-btn" type="button">Let's start!</button>
+      <br>
+      <button class="shuffle-btn" id="shuffle-btn" type="button" aria-pressed="true">Shuffle: on</button>
     </div>
     <div id="play" hidden>
       <p class="mem-stats" id="stats" aria-live="polite"></p>
@@ -133,6 +148,8 @@
       <p class="score-stars" id="stars"></p>
       <p id="end-message"></p>
       <button class="big-btn" id="again-btn" type="button">Play again</button>
+      <br>
+      <button class="shuffle-btn" id="shuffle-again-btn" type="button">Shuffle and play again</button>
     </div>
     <nav class="links">
       <a class="link-btn" id="back-btn" href="teacher.html?topic=weather">Back</a>
@@ -167,12 +184,24 @@
         $(panel).hidden = panel !== id;
       }
     }
-    function startGame() {
-      // One picture tile and one word tile for each weather card, shuffled together
-      tiles = shuffled(CARDS.flatMap((card, pairId) => [
+    // Shuffle is on by default; when it is off the tiles keep the order of the topic
+    const shuffleButton = $("shuffle-btn");
+    shuffleButton.addEventListener("click", () => {
+      const on = shuffleButton.getAttribute("aria-pressed") !== "true";
+      shuffleButton.setAttribute("aria-pressed", on);
+      shuffleButton.textContent = on ? "Shuffle: on" : "Shuffle: off";
+    });
+
+    function shuffleOn() {
+      return shuffleButton.getAttribute("aria-pressed") === "true";
+    }
+    function startGame(shuffle) {
+      // One picture tile and one word tile for each weather card
+      const pairs = CARDS.flatMap((card, pairId) => [
         { pairId, kind: "picture", card, photo: gamePicture(card), state: "closed" },
         { pairId, kind: "word", card, state: "closed" }
-      ]));
+      ]);
+      tiles = shuffle ? shuffled(pairs) : pairs;
       open = [];
       moves = 0;
       matchedCount = 0;
@@ -247,8 +276,10 @@
         history.back();
       }
     });
-    $("start-btn").addEventListener("click", startGame);
-    $("again-btn").addEventListener("click", startGame);
+    $("start-btn").addEventListener("click", () => startGame(shuffleOn()));
+    $("again-btn").addEventListener("click", () => startGame(shuffleOn()));
+    // Always mixes the pictures, even when Shuffle is off on the start screen
+    $("shuffle-again-btn").addEventListener("click", () => startGame(true));
     $("board").addEventListener("click", flip);
   </script>
   <script src="bigscreen.js"></script>
