@@ -233,6 +233,36 @@
         animation: none;
       }
     }
+    /* Teacher's section: the lesson, print and class game pages, above the topics */
+    .hub {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      width: min(100%, 860px);
+      margin-bottom: 28px;
+    }
+    .hub-btn {
+      padding: 14px 26px;
+      border-radius: 999px;
+      background-color: var(--word);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+    .hub-btn:hover {
+      box-shadow: var(--shadow-lift);
+    }
+    .section-title {
+      width: min(100%, 860px);
+      margin: 0 0 14px 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: left;
+    }
     /* Phones: two tiles per row */
     @media (max-width: 500px) {
       body {
@@ -269,7 +299,7 @@
   <header class="brand">
     <img class="logo" src="icons/icon.svg" alt="">
     <h1 id="wordmark">Let's Learn!</h1>
-    <p class="tagline">English flashcards for little learners</p>
+    <p class="tagline">English flashcards, games and printables for your class</p>
   </header>
   <script>
     // Split the title into letters so each one animates in on its own
@@ -280,6 +310,12 @@
       `<span class="letter" aria-hidden="true" style="animation-delay:${i * 0.09}s">${letter === " " ? "&nbsp;" : letter}</span>`
     ).join("");
   </script>
+  <nav class="hub" aria-label="For teachers">
+    <a class="hub-btn" href="teacher.html">Plan a lesson</a>
+    <a class="hub-btn" href="printables.html">Print</a>
+    <a class="hub-btn" href="classroom-game.html">Class games</a>
+  </nav>
+  <h2 class="section-title">Topics</h2>
   <div class="topics">
     <a class="tile" href="animals.html" data-topic="animals">
       <img src="images/animals/elephant.jpg" alt="">
@@ -327,7 +363,7 @@
     </a>
     <a class="tile" href="explorers.html" data-topic="explorers">
       <img src="images/garden/butterfly.jpg" alt="">
-      <span>Animal Explorers</span>
+      <span>Insects and Bugs</span>
     </a>
     <a class="tile" href="transport.html" data-topic="transport">
       <img src="images/city/bus.jpg" alt="">
@@ -355,8 +391,6 @@
       <b class="ribbon">Special</b>
     </a>
   </div>
-  <button class="grownup" id="grownup" type="button">For grown-ups</button>
-  <p class="grownup-hint">Press and hold to open</p>
   <p class="grownup-hint"><a href="privacy.html">Privacy</a> · <a href="printables.html">Printable sheets</a></p>
   <button class="clear-stars" id="clear-stars" hidden>↺ Clear stars</button>
 
@@ -375,30 +409,6 @@
         tile.insertAdjacentHTML("beforeend", '<span class="star" aria-label="Finished">⭐</span>');
       }
     });
-
-    // The grown-ups' area opens only after a press-and-hold of two seconds,
-    // so a small child tapping the home screen does not land in it by accident
-    const grownUp = document.getElementById("grownup");
-    let holdTimer = null;
-    function startHold(event) {
-      if (event.type === "keydown") {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        if (event.repeat) return;
-        event.preventDefault();
-      }
-      grownUp.classList.add("holding");
-      holdTimer = setTimeout(() => { location.href = "teacher.html"; }, 2000);
-    }
-    function cancelHold() {
-      clearTimeout(holdTimer);
-      grownUp.classList.remove("holding");
-    }
-    grownUp.addEventListener("pointerdown", startHold);
-    grownUp.addEventListener("keydown", startHold);
-    ["pointerup", "pointerleave", "pointercancel", "keyup", "blur"].forEach(name =>
-      grownUp.addEventListener(name, cancelHold));
-    grownUp.addEventListener("click", event => event.preventDefault());
-    grownUp.addEventListener("contextmenu", event => event.preventDefault());
 
     const clearButton = document.getElementById("clear-stars");
     clearButton.hidden = finishedTopics.length === 0;

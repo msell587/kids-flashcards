@@ -15,7 +15,7 @@ celebration.hidden = true;
 celebration.innerHTML =
   '<div class="celebration-emoji">🎉</div>' +
   "<h2>Well done!</h2>" +
-  "<p>You finished all " + cards.length + " cards!</p>" +
+  '<p class="finished-count"></p>' +
   '<p class="star-earned">⭐ You earned a star!</p>' +
   '<button onclick="nextCard()">Start again</button>';
 card.appendChild(celebration);
@@ -117,6 +117,7 @@ function revealWord() {
 function showCelebration() {
   finished = true;
   card.classList.add("finished");
+  celebration.querySelector(".finished-count").textContent = "You finished all " + deck.length + (deck.length === 1 ? " card!" : " cards!");
   celebration.hidden = false;
   document.getElementById("counter").textContent = "All done!";
   celebration.querySelector("button").focus();

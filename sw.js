@@ -1,7 +1,7 @@
 // Offline support: saves every page, script and style on the device the first time the app is opened.
 // Each flashcard picture is saved the first time it is shown, so the first visit stays small.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v141";
+const VERSION = "v164";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
@@ -49,18 +49,27 @@ function save(request, response) {
   return response;
 }
 
-// Pages, scripts and styles: fresh from the internet when online (so updates show straight away),
-// the saved copy when offline. Pictures and fonts: saved copy first, because they rarely change.
+// Pages, scripts and styles: the saved copy is shown straight away (so a page never waits on the network
+// and no page appears before its styles), and the internet copy is checked in the background and saved
+// for next time. A new VERSION re-saves everything on install, so changes still reach devices.
+// Pictures and fonts: saved copy first, because they rarely change.
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
   const fresh = request.mode === "navigate" || ["script", "style", "manifest"].includes(request.destination);
   if (fresh) {
     event.respondWith(
-      // "no-cache" asks the server whether there's a newer copy instead of trusting the browser's short-term cache
-      fetch(request.mode === "navigate" ? request.url : request, { cache: "no-cache" })
-        .then(response => save(request, response))
-        .catch(() => caches.match(request, { ignoreSearch: true }))
+      caches.open(CACHE).then(async cache => {
+        const saved = await cache.match(request, { ignoreSearch: true });
+        // "no-cache" asks the server whether there's a newer copy instead of trusting the browser's short-term cache
+        const update = fetch(request.mode === "navigate" ? request.url : request, { cache: "no-cache" })
+          .then(response => save(request, response));
+        if (saved) {
+          update.catch(() => {});
+          return saved;
+        }
+        return update.catch(() => caches.match(request, { ignoreSearch: true }));
+      })
     );
   } else {
     event.respondWith(

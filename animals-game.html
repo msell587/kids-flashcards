@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animals Game</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Animals game: farm, pets or wild, and which animal says it */
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 520px;
+      box-sizing: border-box;
+      margin: 16px auto 0 auto;
+    }
+    .menu button,
+    .options button {
+      padding: 14px 10px;
+      border: 0;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .prompt {
+      margin: 8px 0 0 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .score {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .pics {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .pic-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+      border: 4px solid transparent;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .pic-btn img {
+      width: min(300px, 70vw);
+      height: auto;
+      border-radius: 14px;
+    }
+    .pic-btn.right { border-color: #2e9e44; }
+    .pic-btn.wrong { opacity: 0.45; }
+    .pic-btn:disabled { cursor: default; }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .options button {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 19px;
+    }
+    .options button.right {
+      background: #e6f6ea;
+      border: 4px solid #2e9e44;
+    }
+    .options button.wrong { opacity: 0.45; }
+    .options button:disabled { cursor: default; }
+    .explain {
+      min-height: 48px;
+      margin: 12px auto 0 auto;
+      font-size: 20px;
+      color: var(--word-dark);
+      text-align: center;
+      max-width: 90vw;
+    }
+    .next {
+      display: block;
+      margin: 12px auto 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🐾</div>
+      <h1>Animals Game</h1>
+      <p>Choose a game.</p>
+      <div class="menu">
+        <button type="button" data-game="group">Farm, Pets or Wild?</button>
+        <button type="button" data-game="sound">Which one says ___?</button>
+      </div>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <p class="prompt" id="prompt"></p>
+      <div class="pics" id="pics"></div>
+      <div class="options" id="options"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="animals.html">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="game-common.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const cards = TOPICS.animals.cards;
+    // The sound each animal makes. Each sound is different, so only one animal can match it.
+    const SOUNDS = {
+      dog: "woof", cat: "meow", cow: "moo", pig: "oink", sheep: "baa", goat: "meh",
+      hen: "cluck", duck: "quack", goose: "honk", turkey: "gobble", parrot: "squawk",
+      budgie: "tweet", horse: "neigh", donkey: "hee-haw", elephant: "trumpet",
+      lion: "roar", bear: "growl", wolf: "howl", owl: "hoot", mouse: "squeak",
+      snake: "hiss", monkey: "ooh ooh"
+    };
+    const PLACE = { farm: "on a farm", pets: "as a pet", wild: "in the wild" };
+    const GROUP_NAME = { farm: "Farm", pets: "Pets", wild: "Wild" };
+    const soundCards = cards.filter(c => SOUNDS[c.word]);
+
+    let game = "";
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+    }
+
+    // Each question is about one animal
+    function makeQuestion(card) {
+      if (game === "group") {
+        return {
+          prompt: "Where does the " + card.word + " live?",
+          picture: card.picture,
+          options: ["farm", "pets", "wild"].map(g => GROUP_NAME[g]),
+          answer: GROUP_NAME[card.group],
+          explain: "Yes! The " + card.word + " lives " + PLACE[card.group] + ".",
+          say: "Where does the " + card.word + " live?"
+        };
+      }
+      // Sound: the child picks the animal that makes the sound
+      const others = shuffled(soundCards.filter(c => c !== card && SOUNDS[c.word] !== SOUNDS[card.word])).slice(0, 2);
+      return {
+        prompt: "Which one says “" + SOUNDS[card.word] + "”?",
+        pics: shuffled([card, ...others]),
+        answer: card.word,
+        explain: "Yes! The " + card.word + " says " + SOUNDS[card.word] + ".",
+        say: "Which one says " + SOUNDS[card.word] + "?"
+      };
+    }
+
+    function showQuestion() {
+      answered = false;
+      const q = makeQuestion(queue[index]);
+      queue[index].q = q;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("prompt").textContent = q.prompt;
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      if (game === "sound") {
+        $("pics").innerHTML = q.pics.map(c =>
+          `<button type="button" class="pic-btn" data-answer="${c.word}"><img src="${c.picture}" alt=""></button>`
+        ).join("");
+        $("options").innerHTML = "";
+      } else {
+        $("pics").innerHTML = `<div class="pic-btn"><img src="${q.picture}" alt=""></div>`;
+        $("options").innerHTML = q.options.map(o => `<button type="button" data-answer="${o}">${o}</button>`).join("");
+      }
+      say(q.say);
+    }
+
+    function checkAnswer(element) {
+      if (answered) return;
+      const q = queue[index].q;
+      if (element.dataset.answer === q.answer) {
+        answered = true;
+        right++;
+        element.classList.add("right");
+        $("explain").textContent = q.explain;
+        say(q.explain);
+        finishTurn();
+      } else {
+        element.classList.add("wrong");
+        element.disabled = true;
+        $("explain").textContent = "Not quite. Try another one.";
+        say("Not quite. Try another one.");
+      }
+    }
+    function finishTurn() {
+      for (const b of document.querySelectorAll("#pics button, #options button")) b.disabled = true;
+      $("next-btn").hidden = false;
+      $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+    }
+    function nextQuestion() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showQuestion();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You got " + right + " of " + queue.length + " right.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame(name) {
+      game = name;
+      const pool = name === "sound" ? soundCards : cards;
+      // Up to 8 questions, each animal once
+      queue = shuffled(pool).slice(0, 8);
+      index = 0;
+      right = 0;
+      show("play");
+      showQuestion();
+    }
+
+    for (const button of document.querySelectorAll("[data-game]")) {
+      button.addEventListener("click", () => startGame(button.dataset.game));
+    }
+    for (const area of ["pics", "options"]) {
+      $(area).addEventListener("click", event => {
+        const button = event.target.closest("button[data-answer]");
+        if (button && !button.disabled) checkAnswer(button);
+      });
+    }
+    $("next-btn").addEventListener("click", nextQuestion);
+    $("again-btn").addEventListener("click", () => show("setup"));
+    backToPrevious($("back-btn"));
+    // A link such as animals-game.html?game=sound starts that game straight away
+    const requested = new URLSearchParams(location.search).get("game");
+    if (["group", "sound"].includes(requested)) startGame(requested);
+  </script>
+</body>
+</html>

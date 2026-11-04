@@ -209,6 +209,48 @@
       color: var(--word-dark);
       text-align: left;
     }
+    .setup-form[hidden] {
+      display: none;
+    }
+    .topic-choice {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      max-width: 360px;
+      margin: 14px auto 0 auto;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      box-sizing: border-box;
+    }
+    .topic-choice select {
+      width: 100%;
+      padding: 14px 52px 14px 22px;
+      border: 3px solid var(--word);
+      border-radius: 999px;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10'%3E%3Cpath d='M1 1l7 7 7-7' stroke='%232f6f9f' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 22px center;
+      -webkit-appearance: none;
+      appearance: none;
+      box-shadow: var(--shadow);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--word-dark);
+      cursor: pointer;
+    }
+    .topic-choice select:focus-visible {
+      outline: 4px solid var(--word);
+      outline-offset: 3px;
+    }
     .setup-form input {
       padding: 10px 12px;
       border: 3px solid var(--word);
@@ -225,11 +267,13 @@
       <div class="setup-emoji">🏆</div>
       <h1 id="game-title">Class Game</h1>
       <p>Two teams. Show a picture, the class says the word, and the first team to say it gets a point.</p>
-      <div class="more-games" id="more-games" hidden>
-        <h2>Pick a game</h2>
-        <div class="more-games-list" id="more-games-list"></div>
-      </div>
-      <form class="setup-form" id="setup-form">
+      <label class="topic-choice">Topic
+        <select id="topic-select"></select>
+      </label>
+      <label class="topic-choice">Game
+        <select id="game-select"></select>
+      </label>
+      <form class="setup-form" id="setup-form" hidden>
         <h2 class="team-title">Team Challenge</h2>
         <label>Team 1 name <input id="team-a" value="Team Sun" maxlength="20"></label>
         <label>Team 2 name <input id="team-b" value="Team Star" maxlength="20"></label>
@@ -258,6 +302,7 @@
       <div class="class-controls">
         <button type="button" id="show-btn">Show and say the word</button>
         <button type="button" id="nobody-btn">Nobody this time</button>
+        <button type="button" id="next-btn">Next</button>
       </div>
     </div>
 
@@ -277,8 +322,8 @@
   <script src="voice.js"></script>
   <script>
     const params = new URLSearchParams(location.search);
-    const topicKey = TOPICS[params.get("topic")] ? params.get("topic") : "animals";
-    const topic = TOPICS[topicKey];
+    let topicKey = TOPICS[params.get("topic")] ? params.get("topic") : "animals";
+    let topic = TOPICS[topicKey];
     const canSpeak = Voice.supported;
 
     // Other games for each topic, shown under the Class Game setup
@@ -310,6 +355,52 @@
         { name: "Who is ___ing?", href: "community-game.html?game=doing" },
         { name: "What does a ___ do?", href: "community-game.html?game=does" }
       ],
+      animals: [
+        { name: "Farm, Pets or Wild?", href: "animals-game.html?game=group" },
+        { name: "Which one says ___?", href: "animals-game.html?game=sound" },
+        { name: "Find the ___", href: "topic-game.html?topic=animals&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=animals&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=animals&game=spanish" }
+      ],
+      colors: [
+        { name: "Find the ___", href: "topic-game.html?topic=colors&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=colors&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=colors&game=spanish" }
+      ],
+      shapes: [
+        { name: "Find the ___", href: "topic-game.html?topic=shapes&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=shapes&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=shapes&game=spanish" }
+      ],
+      house: [
+        { name: "Find the ___", href: "topic-game.html?topic=house&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=house&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=house&game=spanish" }
+      ],
+      opposites: [
+        { name: "Find the ___", href: "topic-game.html?topic=opposites&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=opposites&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=opposites&game=spanish" }
+      ],
+      city: [
+        { name: "Find the ___", href: "topic-game.html?topic=city&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=city&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=city&game=spanish" }
+      ],
+      christmas: [
+        { name: "Find the ___", href: "topic-game.html?topic=christmas&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=christmas&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=christmas&game=spanish" }
+      ],
+      feelings: [
+        { name: "Find the ___", href: "topic-game.html?topic=feelings&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=feelings&game=what" },
+        { name: "In Spanish?", href: "topic-game.html?topic=feelings&game=spanish" }
+      ],
+      madrid: [
+        { name: "Find the ___", href: "topic-game.html?topic=madrid&game=which" },
+        { name: "What Is This?", href: "topic-game.html?topic=madrid&game=what" }
+      ],
       days: [
         { name: "What Comes After?", href: "days-game.html?game=after" },
         { name: "What Comes Before?", href: "days-game.html?game=before" },
@@ -336,18 +427,48 @@
         { name: "Is It ___ Today?", href: "weather-sentence-game.html?game=yesno" }
       ]
     };
-    const otherGames = TOPIC_GAMES[topicKey] || [];
-    if (otherGames.length) {
-      // Each game gets its own colour, so the games are easy to tell apart
-      const GAME_COLOURS = ["#2f6f9f", "#2a9d8f", "#c4553a", "#7b5ea7", "#3d7a3a", "#b5651d"];
-      document.getElementById("more-games-list").innerHTML = otherGames.map((game, i) =>
-        `<a class="game-btn" style="background-color: ${GAME_COLOURS[i % GAME_COLOURS.length]}" href="${game.href}">${game.name}</a>`
-      ).join("");
-      document.getElementById("more-games").hidden = false;
+    const gameSelect = document.getElementById("game-select");
+    const topicSelect = document.getElementById("topic-select");
+    const setupForm = document.getElementById("setup-form");
+
+    // Fill the game dropdown for the chosen topic. It starts on "Choose a game…",
+    // so nothing runs until the teacher picks one.
+    function fillGames() {
+      const gameOptions = [
+        { value: "", label: "Choose a game…" },
+        { value: "team", label: "🏆 Team Challenge" },
+        ...(TOPIC_GAMES[topicKey] || []).map(game => ({ value: game.href, label: game.name }))
+      ];
+      gameSelect.innerHTML = gameOptions.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+      setupForm.hidden = true;
     }
 
-    document.title = topic.title + " · Class Game";
-    document.getElementById("game-title").textContent = topic.title + " Class Game";
+    // Change the topic on this page, without reloading it
+    function setTopic(key) {
+      topicKey = key;
+      topic = TOPICS[key];
+      topicSelect.value = key;
+      document.title = topic.title + " · Class Game";
+      document.getElementById("game-title").textContent = topic.title + " Class Game";
+      history.replaceState(null, "", "?topic=" + key);
+      fillGames();
+    }
+
+    // Team Challenge runs here; the other games open their own page
+    gameSelect.addEventListener("change", () => {
+      if (gameSelect.value === "team") {
+        setupForm.hidden = false;
+      } else if (gameSelect.value) {
+        location.href = gameSelect.value;
+      }
+    });
+
+    // Pick any topic from the list; the page then shows that topic's games and cards
+    topicSelect.innerHTML = Object.keys(TOPICS).map(key =>
+      `<option value="${key}">${TOPICS[key].title}</option>`
+    ).join("");
+    topicSelect.addEventListener("change", () => setTopic(topicSelect.value));
+    setTopic(topicKey);
 
     const $ = id => document.getElementById(id);
     let names = ["", ""];
@@ -355,6 +476,7 @@
     let queue = [];
     let index = 0;
     let busy = false;
+    let pending = null; // the timer that moves on by itself after a point or "Nobody"
 
     function say(text) {
       if (canSpeak) Voice.speak(text);
@@ -422,7 +544,7 @@
       const word = queue[index].word;
       $("word").textContent = word;
       say(names[team] + " said it first! " + word);
-      setTimeout(nextCard, 1500);
+      pending = setTimeout(nextCard, 1500);
     }
 
     function nextCard() {
@@ -455,7 +577,13 @@
       if (busy) return;
       busy = true;
       $("word").textContent = queue[index].word;
-      setTimeout(nextCard, 800);
+      pending = setTimeout(nextCard, 800);
+    });
+    // Next moves on at once, without waiting for the automatic move after a point
+    $("next-btn").addEventListener("click", () => {
+      clearTimeout(pending);
+      pending = null;
+      nextCard();
     });
   </script>
   <script src="pwa.js"></script>

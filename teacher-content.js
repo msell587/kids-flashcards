@@ -746,8 +746,8 @@ const TEACHER = {
   explorers: {
     goal: "Children can name 5 insects and minibeasts, say how each one moves, and use the words fast, slow, big and small to compare them.",
     materials: [
-      "Screen or tablet with the Animal Explorers flashcards",
-      "Printed Animal Explorers cards (use “Print cards” on the topic page)",
+      "Screen or tablet with the Insects and Bugs flashcards",
+      "Printed Insects and Bugs cards (use “Print cards” on the topic page)",
       "A magnifying glass",
       "A picture or real leaf with a snail or worm on it (optional, return them outside afterwards)",
       "Craft supplies: see “Paper Plate Ladybird” below"
@@ -995,7 +995,20 @@ const TEACHER = {
       { time: "10 min", step: "Games", details: "Play What Comes After?, What Comes Before? and Which Picture Is It? on the Days of the Week game page or in the Class Game." },
       { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one day: “Today is Wednesday.”" }
     ],
-    crafts: [],
+    crafts: [
+      {
+        name: "Days of the Week Caterpillar",
+        time: "20 min",
+        supplies: ["The caterpillar craft sheet (printed)", "Scissors", "Glue sticks", "Crayons"],
+        steps: [
+          "Children cut out the day words along the dotted lines.",
+          "They read each day with you, then put the words in order, Monday to Sunday, along the caterpillar’s body.",
+          "Glue the days in order, then colour the caterpillar.",
+          "Children say the days in order: “Monday, Tuesday, Wednesday…”"
+        ],
+        tip: "Cut the words out before class, so children can start arranging them straight away."
+      }
+    ],
     songs: [
       {
         title: "The Days of the Week",
