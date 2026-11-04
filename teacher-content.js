@@ -8,7 +8,7 @@ const TEACHER = {
     goal: "Children can recognise and say the 11 animal names, and copy each animal's movement or sound.",
     materials: [
       "Screen or tablet with the Animals flashcards",
-      "Printed animal cards (use “Print flashcards” above)",
+      "Printed animal cards (from the Print page)",
       "A cloth bag and a sheet of paper to cover the screen",
       "Craft supplies: see “Paper Plate Lion” below",
       "An animal picture book"
@@ -283,7 +283,7 @@ const TEACHER = {
     goal: "Children can name the 4 seasons and say one thing that happens in each.",
     materials: [
       "Screen or tablet with the Seasons flashcards",
-      "Printed season cards (use “Print flashcards” above)",
+      "Printed season cards (from the Print page)",
       "Dress-up clothes if you have them (hat, scarf, sunglasses)",
       "Craft supplies: see “Four Seasons Tree” below"
     ],
@@ -330,7 +330,7 @@ const TEACHER = {
     goal: "Children can name the 8 weather words (sunny, rainy, cloudy, snowy, windy, stormy, hot, cold) and say what the weather is like today.",
     materials: [
       "Screen or tablet with the Weather flashcards",
-      "Printed weather cards (use “Print flashcards” above)",
+      "Printed weather cards (from the Print page)",
       "Dress-up clothes if you have them (hat, scarf, sunglasses)",
       "Craft supplies: see “Weather Wheel” below"
     ],
@@ -603,7 +603,7 @@ const TEACHER = {
     goal: "Children can name 10 feelings, show each one with their face, and say when they might feel it.",
     materials: [
       "Screen or tablet with the Feelings flashcards",
-      "Printed feelings cards (use “Print cards” on the topic page)",
+      "Printed feelings cards (from the Print page)",
       "A small mirror for each pair of children (or one for the class)",
       "Feelings colouring sheets (see the Printable Worksheets page)",
       "Craft supplies: see “Paper Plate Face” below"
@@ -650,7 +650,7 @@ const TEACHER = {
     goal: "Children can say the opposite of each word in the 10 pairs, and point to the one that matches.",
     materials: [
       "Screen or tablet with the Opposites pairs",
-      "Printed opposites cards (use “Print cards” on the topic page)",
+      "Printed opposites cards (from the Print page)",
       "A big ball and a small ball, or a big cup and a small cup",
       "A torch, for light and dark",
       "A cardboard box, for in and out",
@@ -699,7 +699,7 @@ const TEACHER = {
     goal: "Children can name 5 places in Madrid, point to each one on a picture, and say which one they like best.",
     materials: [
       "Screen or tablet with the Madrid flashcards",
-      "Printed Madrid cards (use “Print cards” on the topic page)",
+      "Printed Madrid cards (from the Print page)",
       "A map of Spain, or a globe, to show where Madrid is",
       "A picture of a bus or a metro train, if you have one",
       "Craft supplies: see “Madrid Postcard” below"
@@ -747,7 +747,7 @@ const TEACHER = {
     goal: "Children can name 5 insects and minibeasts, say how each one moves, and use the words fast, slow, big and small to compare them.",
     materials: [
       "Screen or tablet with the Insects and Bugs flashcards",
-      "Printed Insects and Bugs cards (use “Print cards” on the topic page)",
+      "Printed Insects and Bugs cards (from the Print page)",
       "A magnifying glass",
       "A picture or real leaf with a snail or worm on it (optional, return them outside afterwards)",
       "Craft supplies: see “Paper Plate Ladybird” below"
@@ -797,7 +797,7 @@ const TEACHER = {
     goal: "Children can name a car, a bus and a train, say “this” and “that” for near and far things, make a word plural (car, cars), and use “its” and “they're” in simple sentences.",
     materials: [
       "Screen or tablet with the On the Move flashcards",
-      "Printed transport cards (use “Print cards” on the topic page)",
+      "Printed transport cards (from the Print page)",
       "A toy car, bus or train, to hold up and move",
       "Two chairs or spots on the floor: one near and one far",
       "Craft supplies: see “Paper Plate Bus” below"
@@ -846,7 +846,7 @@ const TEACHER = {
     goal: "Children can name 7 toys and 6 sports, say what a person is doing (“He is swimming”), say whether a ball is in the picture, and choose my, your, his, her, its, our or their.",
     materials: [
       "Screen or tablet with the Toy Makers flashcards",
-      "Printed Toy Makers cards (use “Print cards” on the topic page)",
+      "Printed Toy Makers cards (from the Print page)",
       "A ball, and a toy car or teddy bear to hold up",
       "Floor space for children to stand or sit in response to a card"
     ],
@@ -891,7 +891,7 @@ const TEACHER = {
     goal: "Children can name 12 community helpers, say “He is a doctor” or “She is a teacher”, say what each helper does, and say what a helper is doing right now (“He is putting out a fire”).",
     materials: [
       "Screen or tablet with the Community Helpers flashcards",
-      "Printed Community Helpers cards (use “Print cards” on the topic page)",
+      "Printed Community Helpers cards (from the Print page)",
       "Community Helpers colouring sheet (from the printables page)",
       "Props to show: a stethoscope, a book, a toy hose or a letter",
       "Floor space for children to stand up and sit down"
@@ -937,7 +937,7 @@ const TEACHER = {
     goal: "Children can name 10 sea animals, point to the one that is “this” (near) or “that” (far), and say where an animal is: “The crab is on the sand.”",
     materials: [
       "Screen or tablet with the Under the Sea flashcards",
-      "Printed Under the Sea cards (use “Print cards” on the topic page)",
+      "Printed Under the Sea cards (from the Print page)",
       "A toy fish or crab, to hold up and place",
       "A blue sheet or cloth, for the sea",
       "A small box or cup, to place things in, on, under and behind"
@@ -983,7 +983,7 @@ const TEACHER = {
     goal: "Children can say the seven days in order, name the day before and after another day, and point to the right picture for a day.",
     materials: [
       "Screen or tablet with the Days of the Week flashcards",
-      "Printed Days of the Week cards (use “Print cards” on the topic page)",
+      "Printed Days of the Week cards (from the Print page)",
       "A calendar or a large paper strip with the seven days",
       "Floor space for a line of children"
     ],
