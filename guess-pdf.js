@@ -131,12 +131,12 @@
     Object.keys(SIZES).map(key =>
       `<label><input type="radio" name="pdf-size" value="${key}"${key === "medium" ? " checked" : ""}> ${SIZES[key].label}</label>`).join("") +
     '</fieldset>' +
+    '<div class="pdf-preview" id="pdf-preview" aria-label="How the first page will look"></div>' +
     '<fieldset><legend>Pictures</legend>' +
     '<div class="pdf-pick-tools"><button type="button" data-pdf-all>Select all</button><button type="button" data-pdf-none>Clear</button></div>' +
     '<div class="pdf-pick-list" id="pdf-list"></div>' +
     '</fieldset>' +
     '<p class="pdf-count" id="pdf-count" aria-live="polite"></p>' +
-    '<div class="pdf-preview" id="pdf-preview" aria-label="How the first page will look"></div>' +
     '<style>' +
     '.pdf-preview { margin: 10px auto; text-align: center; }' +
     '.pdf-page { width: min(100%, 240px); aspect-ratio: 595 / 842; margin: 0 auto; background: #fff; border: 1px solid #999;' +
@@ -144,6 +144,8 @@
     '.pdf-cell { border: 1px solid #bbb; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; }' +
     '.pdf-cell img { max-width: 100%; max-height: 100%; object-fit: contain; }' +
     '.pdf-preview p { font-size: 14px; margin: 6px 0 0; }' +
+    '.pdf-pick-list { max-height: 38vh; overflow-y: auto; }' +
+    '.pdf-pick-list img { width: 64px; height: auto; border-radius: 6px; vertical-align: middle; }' +
     '</style>' +
     '<div class="pdf-actions"><button type="button" data-pdf-cancel>Cancel</button>' +
     '<button type="button" class="primary" id="pdf-make">Download PDF</button></div>';
