@@ -5,102 +5,102 @@ const TOPICS = {
     title: "Animals",
     page: "animals.html",
     cards: [
-      { word: "elephant", es: "elefante", picture: "images/animals/elephant.jpg", group: "wild" },
-      { word: "pig", es: "cerdo", picture: "images/animals/pig.jpg", group: "farm" },
-      { word: "giraffe", es: "jirafa", picture: "images/animals/giraffe.jpg", group: "wild" },
-      { word: "mouse", es: "ratón", picture: "images/animals/mouse.jpg", group: "wild" },
-      { word: "dog", es: "perro", picture: "images/animals/dog.jpg", group: "pets" },
-      { word: "cat", es: "gato", picture: "images/animals/cat.jpg", group: "pets" },
-      { word: "rabbit", es: "conejo", picture: "images/animals/rabbit.jpg", group: "pets" },
-      { word: "horse", es: "caballo", picture: "images/animals/horse.jpg", group: "farm" },
-      { word: "lion", es: "león", picture: "images/animals/lion.jpg", group: "wild" },
-      { word: "cow", es: "vaca", picture: "images/animals/cow.jpg", group: "farm" },
-      { word: "sheep", es: "oveja", picture: "images/animals/sheep.jpg", group: "farm" },
-      { word: "hen", es: "gallina", picture: "images/animals/hen.jpg", group: "farm" },
-      { word: "parrot", es: "loro", picture: "images/animals/parrot.jpg", group: "pets" },
-      { word: "guinea pig", es: "conejillo de indias", picture: "images/animals/guineapig.jpg", group: "pets" },
-      { word: "tortoise", es: "tortuga", picture: "images/animals/tortoise.jpg", group: "pets" },
-      { word: "hamster", es: "hámster", picture: "images/animals/hamster.jpg", group: "pets" },
-      { word: "budgie", es: "periquito", picture: "images/animals/budgie.jpg", group: "pets" },
-      { word: "goldfish", es: "pez dorado", picture: "images/animals/goldfish.jpg", group: "pets" },
-      { word: "duck", es: "pato", picture: "images/animals/duck.jpg", group: "farm" },
-      { word: "pony", es: "poni", picture: "images/animals/pony.jpg", group: "farm" },
-      { word: "turkey", es: "pavo", picture: "images/animals/turkey.jpg", group: "farm" },
-      { word: "donkey", es: "burro", picture: "images/animals/donkey.jpg", group: "farm" },
-      { word: "goose", es: "ganso", picture: "images/animals/goose.jpg", group: "farm" },
-      { word: "llama", es: "llama", picture: "images/animals/llama.jpg", group: "farm" },
-      { word: "goat", es: "cabra", picture: "images/animals/goat.jpg", group: "farm" },
-      { word: "zebra", es: "cebra", picture: "images/animals/zebra.jpg", group: "wild" },
-      { word: "kangaroo", es: "canguro", picture: "images/animals/kangaroo.jpg", group: "wild" },
-      { word: "tiger", es: "tigre", picture: "images/animals/tiger.jpg", group: "wild" },
-      { word: "panda", es: "panda", picture: "images/animals/panda.jpg", group: "wild" },
-      { word: "owl", es: "búho", picture: "images/animals/owl.jpg", group: "wild" },
-      { word: "wolf", es: "lobo", picture: "images/animals/wolf.jpg", group: "wild" },
-      { word: "penguin", es: "pingüino", picture: "images/animals/penguin.jpg", group: "wild" },
-      { word: "monkey", es: "mono", picture: "images/animals/monkey.jpg", group: "wild" },
-      { word: "fox", es: "zorro", picture: "images/animals/fox.jpg", group: "wild" },
-      { word: "snake", es: "serpiente", picture: "images/animals/snake.jpg", group: "wild" },
-      { word: "bear", es: "oso", picture: "images/animals/bear.jpg", group: "wild" }
+      { word: "elephant", es: "elefante", picture: "images/animals/elephant.webp", group: "wild" },
+      { word: "pig", es: "cerdo", picture: "images/animals/pig.webp", group: "farm" },
+      { word: "giraffe", es: "jirafa", picture: "images/animals/giraffe.webp", group: "wild" },
+      { word: "mouse", es: "ratón", picture: "images/animals/mouse.webp", group: "wild" },
+      { word: "dog", es: "perro", picture: "images/animals/dog.webp", group: "pets" },
+      { word: "cat", es: "gato", picture: "images/animals/cat.webp", group: "pets" },
+      { word: "rabbit", es: "conejo", picture: "images/animals/rabbit.webp", group: "pets" },
+      { word: "horse", es: "caballo", picture: "images/animals/horse.webp", group: "farm" },
+      { word: "lion", es: "león", picture: "images/animals/lion.webp", group: "wild" },
+      { word: "cow", es: "vaca", picture: "images/animals/cow.webp", group: "farm" },
+      { word: "sheep", es: "oveja", picture: "images/animals/sheep.webp", group: "farm" },
+      { word: "hen", es: "gallina", picture: "images/animals/hen.webp", group: "farm" },
+      { word: "parrot", es: "loro", picture: "images/animals/parrot.webp", group: "pets" },
+      { word: "guinea pig", es: "conejillo de indias", picture: "images/animals/guineapig.webp", group: "pets" },
+      { word: "tortoise", es: "tortuga", picture: "images/animals/tortoise.webp", group: "pets" },
+      { word: "hamster", es: "hámster", picture: "images/animals/hamster.webp", group: "pets" },
+      { word: "budgie", es: "periquito", picture: "images/animals/budgie.webp", group: "pets" },
+      { word: "goldfish", es: "pez dorado", picture: "images/animals/goldfish.webp", group: "pets" },
+      { word: "duck", es: "pato", picture: "images/animals/duck.webp", group: "farm" },
+      { word: "pony", es: "poni", picture: "images/animals/pony.webp", group: "farm" },
+      { word: "turkey", es: "pavo", picture: "images/animals/turkey.webp", group: "farm" },
+      { word: "donkey", es: "burro", picture: "images/animals/donkey.webp", group: "farm" },
+      { word: "goose", es: "ganso", picture: "images/animals/goose.webp", group: "farm" },
+      { word: "llama", es: "llama", picture: "images/animals/llama.webp", group: "farm" },
+      { word: "goat", es: "cabra", picture: "images/animals/goat.webp", group: "farm" },
+      { word: "zebra", es: "cebra", picture: "images/animals/zebra.webp", group: "wild" },
+      { word: "kangaroo", es: "canguro", picture: "images/animals/kangaroo.webp", group: "wild" },
+      { word: "tiger", es: "tigre", picture: "images/animals/tiger.webp", group: "wild" },
+      { word: "panda", es: "panda", picture: "images/animals/panda.webp", group: "wild" },
+      { word: "owl", es: "búho", picture: "images/animals/owl.webp", group: "wild" },
+      { word: "wolf", es: "lobo", picture: "images/animals/wolf.webp", group: "wild" },
+      { word: "penguin", es: "pingüino", picture: "images/animals/penguin.webp", group: "wild" },
+      { word: "monkey", es: "mono", picture: "images/animals/monkey.webp", group: "wild" },
+      { word: "fox", es: "zorro", picture: "images/animals/fox.webp", group: "wild" },
+      { word: "snake", es: "serpiente", picture: "images/animals/snake.webp", group: "wild" },
+      { word: "bear", es: "oso", picture: "images/animals/bear.webp", group: "wild" }
     ]
   },
   colors: {
     title: "Colours",
     page: "colors.html",
     cards: [
-      { word: "red", es: "rojo", picture: "images/colors/red.jpg", drawing: "images/colors/drawn/red.svg" },
-      { word: "blue", es: "azul", picture: "images/colors/blue.jpg", drawing: "images/colors/drawn/blue.svg" },
-      { word: "green", es: "verde", picture: "images/colors/green.jpg", drawing: "images/colors/drawn/green.svg" },
-      { word: "yellow", es: "amarillo", picture: "images/colors/yellow.jpg", drawing: "images/colors/drawn/yellow.svg" },
-      { word: "orange", es: "naranja", picture: "images/colors/orange.jpg", drawing: "images/colors/drawn/orange.svg" },
-      { word: "purple", es: "morado", picture: "images/colors/purple.jpg", drawing: "images/colors/drawn/purple.svg" },
-      { word: "pink", es: "rosa", picture: "images/colors/pink.jpg", drawing: "images/colors/drawn/pink.svg" },
-      { word: "brown", es: "marrón", picture: "images/colors/brown.jpg", drawing: "images/colors/drawn/brown.svg" },
-      { word: "black", es: "negro", picture: "images/colors/black.jpg", drawing: "images/colors/drawn/black.svg" },
-      { word: "white", es: "blanco", picture: "images/colors/white.jpg", drawing: "images/colors/drawn/white.svg" },
-      { word: "grey", es: "gris", picture: "images/colors/grey.jpg" },
-      { word: "turquoise", es: "turquesa", picture: "images/colors/turquoise.jpg" }
+      { word: "red", es: "rojo", picture: "images/colors/red.webp", drawing: "images/colors/drawn/red.svg" },
+      { word: "blue", es: "azul", picture: "images/colors/blue.webp", drawing: "images/colors/drawn/blue.svg" },
+      { word: "green", es: "verde", picture: "images/colors/green.webp", drawing: "images/colors/drawn/green.svg" },
+      { word: "yellow", es: "amarillo", picture: "images/colors/yellow.webp", drawing: "images/colors/drawn/yellow.svg" },
+      { word: "orange", es: "naranja", picture: "images/colors/orange.webp", drawing: "images/colors/drawn/orange.svg" },
+      { word: "purple", es: "morado", picture: "images/colors/purple.webp", drawing: "images/colors/drawn/purple.svg" },
+      { word: "pink", es: "rosa", picture: "images/colors/pink.webp", drawing: "images/colors/drawn/pink.svg" },
+      { word: "brown", es: "marrón", picture: "images/colors/brown.webp", drawing: "images/colors/drawn/brown.svg" },
+      { word: "black", es: "negro", picture: "images/colors/black.webp", drawing: "images/colors/drawn/black.svg" },
+      { word: "white", es: "blanco", picture: "images/colors/white.webp", drawing: "images/colors/drawn/white.svg" },
+      { word: "grey", es: "gris", picture: "images/colors/grey.webp" },
+      { word: "turquoise", es: "turquesa", picture: "images/colors/turquoise.webp" }
     ]
   },
   shapes: {
     title: "Shapes",
     page: "shapes.html",
     cards: [
-      { word: "circle", es: "círculo", picture: "images/shapes/circle.jpg", drawing: "images/shapes/drawn/circle.svg" },
-      { word: "square", es: "cuadrado", picture: "images/shapes/square.jpg", drawing: "images/shapes/drawn/square.svg" },
-      { word: "triangle", es: "triángulo", picture: "images/shapes/triangle.jpg", drawing: "images/shapes/drawn/triangle.svg" },
-      { word: "star", es: "estrella", picture: "images/shapes/star.jpg", drawing: "images/shapes/drawn/star.svg" },
-      { word: "heart", es: "corazón", picture: "images/shapes/heart.jpg", drawing: "images/shapes/drawn/heart.svg" },
-      { word: "diamond", es: "rombo", picture: "images/shapes/diamond.jpg", drawing: "images/shapes/drawn/diamond.svg" },
-      { word: "rectangle", es: "rectángulo", picture: "images/shapes/rectangle.jpg", drawing: "images/shapes/drawn/rectangle.svg" },
-      { word: "oval", es: "óvalo", picture: "images/shapes/oval.jpg", drawing: "images/shapes/drawn/oval.svg" }
+      { word: "circle", es: "círculo", picture: "images/shapes/circle.webp", drawing: "images/shapes/drawn/circle.svg" },
+      { word: "square", es: "cuadrado", picture: "images/shapes/square.webp", drawing: "images/shapes/drawn/square.svg" },
+      { word: "triangle", es: "triángulo", picture: "images/shapes/triangle.webp", drawing: "images/shapes/drawn/triangle.svg" },
+      { word: "star", es: "estrella", picture: "images/shapes/star.webp", drawing: "images/shapes/drawn/star.svg" },
+      { word: "heart", es: "corazón", picture: "images/shapes/heart.webp", drawing: "images/shapes/drawn/heart.svg" },
+      { word: "diamond", es: "rombo", picture: "images/shapes/diamond.webp", drawing: "images/shapes/drawn/diamond.svg" },
+      { word: "rectangle", es: "rectángulo", picture: "images/shapes/rectangle.webp", drawing: "images/shapes/drawn/rectangle.svg" },
+      { word: "oval", es: "óvalo", picture: "images/shapes/oval.webp", drawing: "images/shapes/drawn/oval.svg" }
     ]
   },
   house: {
     title: "Parts of the House",
     page: "house.html",
     cards: [
-      { word: "house", es: "casa", picture: "images/house/house.jpg" },
-      { word: "living room", es: "salón", picture: "images/house/livingroom.jpg" },
-      { word: "dining room", es: "comedor", picture: "images/house/diningroom.jpg" },
-      { word: "bedroom", es: "dormitorio", picture: "images/house/bedroom.jpg" },
-      { word: "bathroom", es: "baño", picture: "images/house/bathroom.jpg" },
-      { word: "kitchen", es: "cocina", picture: "images/house/kitchen.jpg" },
-      { word: "door", es: "puerta", picture: "images/house/door.jpg" },
-      { word: "floor", es: "suelo", picture: "images/house/floor.jpg" },
-      { word: "window", es: "ventana", picture: "images/house/window.jpg" },
-      { word: "garden", es: "jardín", picture: "images/house/garden.jpg" },
-      { word: "wall", es: "pared", picture: "images/house/wall.jpg" },
-      { word: "terrace", es: "terraza", picture: "images/house/terrace.jpg" }
+      { word: "house", es: "casa", picture: "images/house/house.webp" },
+      { word: "living room", es: "salón", picture: "images/house/livingroom.webp" },
+      { word: "dining room", es: "comedor", picture: "images/house/diningroom.webp" },
+      { word: "bedroom", es: "dormitorio", picture: "images/house/bedroom.webp" },
+      { word: "bathroom", es: "baño", picture: "images/house/bathroom.webp" },
+      { word: "kitchen", es: "cocina", picture: "images/house/kitchen.webp" },
+      { word: "door", es: "puerta", picture: "images/house/door.webp" },
+      { word: "floor", es: "suelo", picture: "images/house/floor.webp" },
+      { word: "window", es: "ventana", picture: "images/house/window.webp" },
+      { word: "garden", es: "jardín", picture: "images/house/garden.webp" },
+      { word: "wall", es: "pared", picture: "images/house/wall.webp" },
+      { word: "terrace", es: "terraza", picture: "images/house/terrace.webp" }
     ]
   },
   seasons: {
     title: "Seasons",
     page: "seasons.html",
     cards: [
-      { word: "summer", es: "verano", picture: "images/seasons and weather/summer.jpg" },
-      { word: "winter", es: "invierno", picture: "images/seasons and weather/winter.jpg" },
-      { word: "spring", es: "primavera", picture: "images/seasons and weather/spring.jpg" },
-      { word: "autumn", es: "otoño", picture: "images/seasons and weather/autumn.jpg" }
+      { word: "summer", es: "verano", picture: "images/seasons and weather/summer.webp" },
+      { word: "winter", es: "invierno", picture: "images/seasons and weather/winter.webp" },
+      { word: "spring", es: "primavera", picture: "images/seasons and weather/spring.webp" },
+      { word: "autumn", es: "otoño", picture: "images/seasons and weather/autumn.webp" }
     ]
   },
   weather: {
@@ -108,14 +108,14 @@ const TOPICS = {
     page: "weather.html",
     cards: [
       // picture: the flashcard photo. picture2: a second photo of the same weather, used in the games
-      { word: "sunny", es: "soleado", picture: "images/seasons and weather/sunny.jpg", picture2: "images/seasons and weather/sunny-2.jpg" },
-      { word: "rainy", es: "lluvioso", picture: "images/seasons and weather/rainy.jpg", picture2: "images/seasons and weather/rainy-2.jpg" },
-      { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.jpg", picture2: "images/seasons and weather/cloudy-2.jpg" },
-      { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.jpg", picture2: "images/seasons and weather/snowy-2.jpg" },
-      { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.jpg", picture2: "images/seasons and weather/windy-2.jpg" },
-      { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.jpg", picture2: "images/seasons and weather/stormy-2.jpg" },
-      { word: "hot", es: "caliente", picture: "images/seasons and weather/hot.jpg", picture2: "images/seasons and weather/hot-2.jpg" },
-      { word: "cold", es: "frío", picture: "images/seasons and weather/cold.jpg", picture2: "images/seasons and weather/cold-2.jpg" }
+      { word: "sunny", es: "soleado", picture: "images/seasons and weather/sunny.webp", picture2: "images/seasons and weather/sunny-2.webp" },
+      { word: "rainy", es: "lluvioso", picture: "images/seasons and weather/rainy.webp", picture2: "images/seasons and weather/rainy-2.webp" },
+      { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.webp", picture2: "images/seasons and weather/cloudy-2.webp" },
+      { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.webp", picture2: "images/seasons and weather/snowy-2.webp" },
+      { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.webp", picture2: "images/seasons and weather/windy-2.webp" },
+      { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.webp", picture2: "images/seasons and weather/stormy-2.webp" },
+      { word: "hot", es: "caliente", picture: "images/seasons and weather/hot.webp", picture2: "images/seasons and weather/hot-2.webp" },
+      { word: "cold", es: "frío", picture: "images/seasons and weather/cold.webp", picture2: "images/seasons and weather/cold-2.webp" }
     ]
   },
   opposites: {
@@ -135,62 +135,62 @@ const TOPICS = {
       ["in", "out"]
     ],
     cards: [
-      { word: "wet", es: "mojado", picture: "images/seasons and weather/wet.jpg" },
-      { word: "dry", es: "seco", picture: "images/seasons and weather/dry.jpg" },
-      { word: "hot", es: "caliente", picture: "images/opposites/hot.jpg" },
-      { word: "cold", es: "frío", picture: "images/opposites/cold.jpg" },
-      { word: "happy", es: "feliz", picture: "images/feelings/happy.jpg" },
-      { word: "sad", es: "triste", picture: "images/feelings/sad.jpg" },
-      { word: "big", es: "grande", picture: "images/opposites/big.jpg" },
-      { word: "small", es: "pequeño", picture: "images/opposites/small.jpg" },
-      { word: "up", es: "arriba", picture: "images/opposites/up.jpg" },
-      { word: "down", es: "abajo", picture: "images/opposites/down.jpg" },
-      { word: "open", es: "abierto", picture: "images/opposites/open.jpg" },
-      { word: "closed", es: "cerrado", picture: "images/opposites/closed.jpg" },
-      { word: "fast", es: "rápido", picture: "images/opposites/fast.jpg" },
-      { word: "slow", es: "lento", picture: "images/opposites/slow.jpg" },
-      { word: "full", es: "lleno", picture: "images/opposites/full.jpg" },
-      { word: "empty", es: "vacío", picture: "images/opposites/empty.jpg" },
-      { word: "light", es: "claro", picture: "images/opposites/light.jpg" },
-      { word: "dark", es: "oscuro", picture: "images/opposites/dark.jpg" },
-      { word: "in", es: "dentro", picture: "images/opposites/in.jpg" },
-      { word: "out", es: "fuera", picture: "images/opposites/out.jpg" }
+      { word: "wet", es: "mojado", picture: "images/seasons and weather/wet.webp" },
+      { word: "dry", es: "seco", picture: "images/seasons and weather/dry.webp" },
+      { word: "hot", es: "caliente", picture: "images/opposites/hot.webp" },
+      { word: "cold", es: "frío", picture: "images/opposites/cold.webp" },
+      { word: "happy", es: "feliz", picture: "images/feelings/happy.webp" },
+      { word: "sad", es: "triste", picture: "images/feelings/sad.webp" },
+      { word: "big", es: "grande", picture: "images/opposites/big.webp" },
+      { word: "small", es: "pequeño", picture: "images/opposites/small.webp" },
+      { word: "up", es: "arriba", picture: "images/opposites/up.webp" },
+      { word: "down", es: "abajo", picture: "images/opposites/down.webp" },
+      { word: "open", es: "abierto", picture: "images/opposites/open.webp" },
+      { word: "closed", es: "cerrado", picture: "images/opposites/closed.webp" },
+      { word: "fast", es: "rápido", picture: "images/opposites/fast.webp" },
+      { word: "slow", es: "lento", picture: "images/opposites/slow.webp" },
+      { word: "full", es: "lleno", picture: "images/opposites/full.webp" },
+      { word: "empty", es: "vacío", picture: "images/opposites/empty.webp" },
+      { word: "light", es: "claro", picture: "images/opposites/light.webp" },
+      { word: "dark", es: "oscuro", picture: "images/opposites/dark.webp" },
+      { word: "in", es: "dentro", picture: "images/opposites/in.webp" },
+      { word: "out", es: "fuera", picture: "images/opposites/out.webp" }
     ]
   },
   city: {
     title: "City",
     page: "city.html",
     cards: [
-      { word: "city", es: "ciudad", picture: "images/city/city.jpg" },
-      { word: "street", es: "calle", picture: "images/city/street.jpg" },
-      { word: "park", es: "parque", picture: "images/city/park.jpg" },
-      { word: "playground", es: "parque infantil", picture: "images/city/playground.jpg" },
-      { word: "shop", es: "tienda", picture: "images/city/shop.jpg" },
-      { word: "school", es: "colegio", picture: "images/city/school.jpg" },
-      { word: "hospital", es: "hospital", picture: "images/city/hospital.jpg" },
-      { word: "bus", es: "autobús", picture: "images/city/bus.jpg" },
-      { word: "car", es: "coche", picture: "images/city/car.jpg" },
-      { word: "traffic light", es: "semáforo", picture: "images/city/traffic-light.jpg" },
-      { word: "bridge", es: "puente", picture: "images/city/bridge.jpg" },
-      { word: "train", es: "tren", picture: "images/city/train.jpg" }
+      { word: "city", es: "ciudad", picture: "images/city/city.webp" },
+      { word: "street", es: "calle", picture: "images/city/street.webp" },
+      { word: "park", es: "parque", picture: "images/city/park.webp" },
+      { word: "playground", es: "parque infantil", picture: "images/city/playground.webp" },
+      { word: "shop", es: "tienda", picture: "images/city/shop.webp" },
+      { word: "school", es: "colegio", picture: "images/city/school.webp" },
+      { word: "hospital", es: "hospital", picture: "images/city/hospital.webp" },
+      { word: "bus", es: "autobús", picture: "images/city/bus.webp" },
+      { word: "car", es: "coche", picture: "images/city/car.webp" },
+      { word: "traffic light", es: "semáforo", picture: "images/city/traffic-light.webp" },
+      { word: "bridge", es: "puente", picture: "images/city/bridge.webp" },
+      { word: "train", es: "tren", picture: "images/city/train.webp" }
     ]
   },
   christmas: {
     title: "Christmas",
     page: "christmas.html",
     cards: [
-      { word: "Santa", es: "Papá Noel", picture: "images/christmas/santa.jpg" },
-      { word: "Christmas tree", es: "árbol de Navidad", picture: "images/christmas/christmas-tree.jpg" },
-      { word: "star", es: "estrella", picture: "images/christmas/star.jpg" },
-      { word: "present", es: "regalo", picture: "images/christmas/present.jpg" },
-      { word: "bell", es: "campana", picture: "images/christmas/bell.jpg" },
-      { word: "snowman", es: "muñeco de nieve", picture: "images/christmas/snowman.jpg" },
-      { word: "reindeer", es: "reno", picture: "images/christmas/reindeer.jpg" },
-      { word: "candle", es: "vela", picture: "images/christmas/candle.jpg" },
-      { word: "stocking", es: "calcetín", picture: "images/christmas/stocking.jpg" },
-      { word: "gingerbread man", es: "hombre de jengibre", picture: "images/christmas/gingerbread-man.jpg" },
-      { word: "snowflake", es: "copo de nieve", picture: "images/christmas/snowflake.jpg" },
-      { word: "candy cane", es: "bastón de caramelo", picture: "images/christmas/candy-cane.jpg" }
+      { word: "Santa", es: "Papá Noel", picture: "images/christmas/santa.webp" },
+      { word: "Christmas tree", es: "árbol de Navidad", picture: "images/christmas/christmas-tree.webp" },
+      { word: "star", es: "estrella", picture: "images/christmas/star.webp" },
+      { word: "present", es: "regalo", picture: "images/christmas/present.webp" },
+      { word: "bell", es: "campana", picture: "images/christmas/bell.webp" },
+      { word: "snowman", es: "muñeco de nieve", picture: "images/christmas/snowman.webp" },
+      { word: "reindeer", es: "reno", picture: "images/christmas/reindeer.webp" },
+      { word: "candle", es: "vela", picture: "images/christmas/candle.webp" },
+      { word: "stocking", es: "calcetín", picture: "images/christmas/stocking.webp" },
+      { word: "gingerbread man", es: "hombre de jengibre", picture: "images/christmas/gingerbread-man.webp" },
+      { word: "snowflake", es: "copo de nieve", picture: "images/christmas/snowflake.webp" },
+      { word: "candy cane", es: "bastón de caramelo", picture: "images/christmas/candy-cane.webp" }
     ]
   },
   garden: {
@@ -198,22 +198,22 @@ const TOPICS = {
     page: "garden.html",
     // A card can also have video and crop: tapping the picture plays that part of the video (x, y, width, height in video pixels)
     cards: [
-      { word: "flower", es: "flor", picture: "images/garden/flower.jpg" },
-      { word: "tree", es: "árbol", picture: "images/garden/tree.jpg" },
-      { word: "leaf", es: "hoja", picture: "images/garden/leaf.jpg" },
-      { word: "seed", es: "semilla", picture: "images/garden/seed.jpg" },
-      { word: "grass", es: "hierba", picture: "images/garden/grass.jpg" },
-      { word: "watering can", es: "regadera", picture: "images/garden/watering-can.jpg" },
-      { word: "spade", es: "pala", picture: "images/garden/spade.jpg" },
-      { word: "apples", es: "manzanas", food: true, picture: "images/garden/apple.jpg" },
-      { word: "bananas", es: "plátanos", food: true, picture: "images/garden/banana.jpg" },
-      { word: "grapes", es: "uvas", food: true, picture: "images/garden/grapes.jpg" },
-      { word: "oranges", es: "naranjas", food: true, picture: "images/garden/orange.jpg" },
-      { word: "strawberries", es: "fresas", food: true, picture: "images/garden/strawberry.jpg" },
-      { word: "carrot", es: "zanahoria", food: true, picture: "images/garden/carrot.jpg" },
-      { word: "tomato", es: "tomate", food: true, picture: "images/garden/tomato.jpg" },
-      { word: "cucumber", es: "pepino", food: true, picture: "images/garden/cucumber.jpg" },
-      { word: "potato", es: "patata", food: true, picture: "images/garden/potato.jpg" }
+      { word: "flower", es: "flor", picture: "images/garden/flower.webp" },
+      { word: "tree", es: "árbol", picture: "images/garden/tree.webp" },
+      { word: "leaf", es: "hoja", picture: "images/garden/leaf.webp" },
+      { word: "seed", es: "semilla", picture: "images/garden/seed.webp" },
+      { word: "grass", es: "hierba", picture: "images/garden/grass.webp" },
+      { word: "watering can", es: "regadera", picture: "images/garden/watering-can.webp" },
+      { word: "spade", es: "pala", picture: "images/garden/spade.webp" },
+      { word: "apples", es: "manzanas", food: true, picture: "images/garden/apple.webp" },
+      { word: "bananas", es: "plátanos", food: true, picture: "images/garden/banana.webp" },
+      { word: "grapes", es: "uvas", food: true, picture: "images/garden/grapes.webp" },
+      { word: "oranges", es: "naranjas", food: true, picture: "images/garden/orange.webp" },
+      { word: "strawberries", es: "fresas", food: true, picture: "images/garden/strawberry.webp" },
+      { word: "carrot", es: "zanahoria", food: true, picture: "images/garden/carrot.webp" },
+      { word: "tomato", es: "tomate", food: true, picture: "images/garden/tomato.webp" },
+      { word: "cucumber", es: "pepino", food: true, picture: "images/garden/cucumber.webp" },
+      { word: "potato", es: "patata", food: true, picture: "images/garden/potato.webp" }
     ]
   },
   explorers: {
@@ -222,17 +222,17 @@ const TOPICS = {
     // Insects and bugs (minibeasts). "insect" is true for insects: six legs and three body parts.
     // "moves" are the action words that fit the creature (see the What Can It Do? game).
     cards: [
-      { word: "butterfly", es: "mariposa", insect: true, moves: ["fly"], picture: "images/garden/butterfly.jpg" },
-      { word: "bee", es: "abeja", insect: true, moves: ["fly", "buzz"], picture: "images/garden/bee.jpg" },
-      { word: "ladybird", es: "mariquita", insect: true, moves: ["walk", "crawl", "fly"], picture: "images/garden/ladybird.jpg" },
-      { word: "ant", es: "hormiga", insect: true, moves: ["walk", "crawl"], picture: "images/explorers/ant.jpg" },
-      { word: "dragonfly", es: "libélula", insect: true, moves: ["fly"], picture: "images/explorers/dragonfly.jpg" },
-      { word: "grasshopper", es: "saltamontes", insect: true, moves: ["jump", "climb"], picture: "images/explorers/grasshopper.jpg" },
-      { word: "beetle", es: "escarabajo", insect: true, moves: ["walk", "crawl"], picture: "images/explorers/beetle.jpg" },
-      { word: "caterpillar", es: "oruga", insect: true, moves: ["crawl", "climb"], picture: "images/explorers/caterpillar.jpg" },
-      { word: "snail", es: "caracol", insect: false, moves: ["slide", "crawl"], picture: "images/garden/snail.jpg" },
-      { word: "worm", es: "gusano", insect: false, moves: ["wriggle"], picture: "images/garden/worm.jpg" },
-      { word: "spider", es: "araña", insect: false, moves: ["climb", "walk"], picture: "images/explorers/spider.jpg" }
+      { word: "butterfly", es: "mariposa", insect: true, moves: ["fly"], picture: "images/garden/butterfly.webp" },
+      { word: "bee", es: "abeja", insect: true, moves: ["fly", "buzz"], picture: "images/garden/bee.webp" },
+      { word: "ladybird", es: "mariquita", insect: true, moves: ["walk", "crawl", "fly"], picture: "images/garden/ladybird.webp" },
+      { word: "ant", es: "hormiga", insect: true, moves: ["walk", "crawl"], picture: "images/explorers/ant.webp" },
+      { word: "dragonfly", es: "libélula", insect: true, moves: ["fly"], picture: "images/explorers/dragonfly.webp" },
+      { word: "grasshopper", es: "saltamontes", insect: true, moves: ["jump", "climb"], picture: "images/explorers/grasshopper.webp" },
+      { word: "beetle", es: "escarabajo", insect: true, moves: ["walk", "crawl"], picture: "images/explorers/beetle.webp" },
+      { word: "caterpillar", es: "oruga", insect: true, moves: ["crawl", "climb"], picture: "images/explorers/caterpillar.webp" },
+      { word: "snail", es: "caracol", insect: false, moves: ["slide", "crawl"], picture: "images/garden/snail.webp" },
+      { word: "worm", es: "gusano", insect: false, moves: ["wriggle"], picture: "images/garden/worm.webp" },
+      { word: "spider", es: "araña", insect: false, moves: ["climb", "walk"], picture: "images/explorers/spider.webp" }
     ]
   },
   transport: {
@@ -241,17 +241,17 @@ const TOPICS = {
     // Vehicles for the grammar lessons: singular and plural, this and that, its and they're (see the teacher guide)
     // "plural" is the plural word; "size" (small, medium, big), "speed" (slow, fast) and "wheels" are used by the On the Move games
     cards: [
-      { word: "car", es: "coche", plural: "cars", size: "medium", speed: "fast", wheels: true, picture: "images/city/car.jpg" },
-      { word: "bus", es: "autobús", plural: "buses", size: "big", wheels: true, picture: "images/city/bus.jpg" },
-      { word: "train", es: "tren", plural: "trains", size: "big", speed: "fast", wheels: true, picture: "images/city/train.jpg" },
-      { word: "taxi", es: "taxi", plural: "taxis", size: "medium", speed: "fast", wheels: true, picture: "images/transport/taxi.jpg" },
-      { word: "truck", es: "camión", plural: "trucks", size: "big", speed: "slow", wheels: true, picture: "images/transport/truck.jpg" },
-      { word: "aeroplane", es: "avión", plural: "aeroplanes", size: "big", speed: "fast", wheels: false, picture: "images/transport/aeroplane.jpg" },
-      { word: "helicopter", es: "helicóptero", plural: "helicopters", size: "medium", speed: "fast", wheels: false, picture: "images/transport/helicopter.jpg" },
-      { word: "boat", es: "barco", plural: "boats", size: "medium", speed: "slow", wheels: false, picture: "images/transport/boat.jpg" },
-      { word: "motorcycle", es: "moto", plural: "motorcycles", size: "small", speed: "fast", wheels: true, picture: "images/transport/motorcycle.jpg" },
-      { word: "bicycle", es: "bicicleta", plural: "bicycles", size: "small", speed: "slow", wheels: true, picture: "images/transport/bicycle.jpg" },
-      { word: "scooter", es: "patinete", plural: "scooters", size: "small", speed: "slow", wheels: true, picture: "images/transport/scooter.jpg" }
+      { word: "car", es: "coche", plural: "cars", size: "medium", speed: "fast", wheels: true, picture: "images/city/car.webp" },
+      { word: "bus", es: "autobús", plural: "buses", size: "big", wheels: true, picture: "images/city/bus.webp" },
+      { word: "train", es: "tren", plural: "trains", size: "big", speed: "fast", wheels: true, picture: "images/city/train.webp" },
+      { word: "taxi", es: "taxi", plural: "taxis", size: "medium", speed: "fast", wheels: true, picture: "images/transport/taxi.webp" },
+      { word: "truck", es: "camión", plural: "trucks", size: "big", speed: "slow", wheels: true, picture: "images/transport/truck.webp" },
+      { word: "aeroplane", es: "avión", plural: "aeroplanes", size: "big", speed: "fast", wheels: false, picture: "images/transport/aeroplane.webp" },
+      { word: "helicopter", es: "helicóptero", plural: "helicopters", size: "medium", speed: "fast", wheels: false, picture: "images/transport/helicopter.webp" },
+      { word: "boat", es: "barco", plural: "boats", size: "medium", speed: "slow", wheels: false, picture: "images/transport/boat.webp" },
+      { word: "motorcycle", es: "moto", plural: "motorcycles", size: "small", speed: "fast", wheels: true, picture: "images/transport/motorcycle.webp" },
+      { word: "bicycle", es: "bicicleta", plural: "bicycles", size: "small", speed: "slow", wheels: true, picture: "images/transport/bicycle.webp" },
+      { word: "scooter", es: "patinete", plural: "scooters", size: "small", speed: "slow", wheels: true, picture: "images/transport/scooter.webp" }
     ]
   },
   community: {
@@ -259,18 +259,18 @@ const TOPICS = {
     page: "community.html",
     // "is" is "He/She is a ...", "doing" is the present continuous, "does" answers "What does a ... do?"
     cards: [
-      { word: "doctor", es: "médica", picture: "images/community-helpers/doctor.jpg", is: "She is a doctor.", doing: "She is helping sick people.", does: "A doctor helps sick people." },
-      { word: "teacher", es: "profesor", picture: "images/community-helpers/teacher.jpg", is: "He is a teacher.", doing: "He is teaching children.", does: "A teacher teaches children." },
-      { word: "firefighter", es: "bombero", picture: "images/community-helpers/firefighter.jpg", is: "He is a firefighter.", doing: "He is putting out a fire.", does: "A firefighter puts out fires." },
-      { word: "police officer", es: "policía", picture: "images/community-helpers/police-officer.jpg", is: "He is a police officer.", doing: "He is keeping people safe.", does: "A police officer keeps people safe." },
-      { word: "nurse", es: "enfermero", picture: "images/community-helpers/nurse.jpg", is: "He is a nurse.", doing: "He is looking after patients.", does: "A nurse looks after patients." },
-      { word: "farmer", es: "granjero", picture: "images/community-helpers/farmer.jpg", is: "He is a farmer.", doing: "He is growing food.", does: "A farmer grows food." },
-      { word: "cook", es: "cocinera", picture: "images/community-helpers/cook.jpg", is: "She is a cook.", doing: "She is cooking dinner.", does: "A cook makes meals." },
-      { word: "postal worker", es: "cartera", picture: "images/community-helpers/postal-worker.jpg", is: "She is a postal worker.", doing: "She is delivering letters.", does: "A postal worker delivers letters." },
-      { word: "builder", es: "albañil", picture: "images/community-helpers/builder.jpg", is: "He is a builder.", doing: "He is building a house.", does: "A builder builds houses." },
-      { word: "dentist", es: "dentista", picture: "images/community-helpers/dentist.jpg", is: "She is a dentist.", doing: "She is looking after teeth.", does: "A dentist looks after teeth." },
-      { word: "vet", es: "veterinario", picture: "images/community-helpers/vet.jpg", is: "He is a vet.", doing: "He is looking after animals.", does: "A vet looks after animals." },
-      { word: "bus driver", es: "conductora", picture: "images/community-helpers/bus-driver.jpg", is: "She is a bus driver.", doing: "She is driving a bus.", does: "A bus driver drives the bus." }
+      { word: "doctor", es: "médica", picture: "images/community-helpers/doctor.webp", is: "She is a doctor.", doing: "She is helping sick people.", does: "A doctor helps sick people." },
+      { word: "teacher", es: "profesor", picture: "images/community-helpers/teacher.webp", is: "He is a teacher.", doing: "He is teaching children.", does: "A teacher teaches children." },
+      { word: "firefighter", es: "bombero", picture: "images/community-helpers/firefighter.webp", is: "He is a firefighter.", doing: "He is putting out a fire.", does: "A firefighter puts out fires." },
+      { word: "police officer", es: "policía", picture: "images/community-helpers/police-officer.webp", is: "He is a police officer.", doing: "He is keeping people safe.", does: "A police officer keeps people safe." },
+      { word: "nurse", es: "enfermero", picture: "images/community-helpers/nurse.webp", is: "He is a nurse.", doing: "He is looking after patients.", does: "A nurse looks after patients." },
+      { word: "farmer", es: "granjero", picture: "images/community-helpers/farmer.webp", is: "He is a farmer.", doing: "He is growing food.", does: "A farmer grows food." },
+      { word: "cook", es: "cocinera", picture: "images/community-helpers/cook.webp", is: "She is a cook.", doing: "She is cooking dinner.", does: "A cook makes meals." },
+      { word: "postal worker", es: "cartera", picture: "images/community-helpers/postal-worker.webp", is: "She is a postal worker.", doing: "She is delivering letters.", does: "A postal worker delivers letters." },
+      { word: "builder", es: "albañil", picture: "images/community-helpers/builder.webp", is: "He is a builder.", doing: "He is building a house.", does: "A builder builds houses." },
+      { word: "dentist", es: "dentista", picture: "images/community-helpers/dentist.webp", is: "She is a dentist.", doing: "She is looking after teeth.", does: "A dentist looks after teeth." },
+      { word: "vet", es: "veterinario", picture: "images/community-helpers/vet.webp", is: "He is a vet.", doing: "He is looking after animals.", does: "A vet looks after animals." },
+      { word: "bus driver", es: "conductora", picture: "images/community-helpers/bus-driver.webp", is: "She is a bus driver.", doing: "She is driving a bus.", does: "A bus driver drives the bus." }
     ]
   },
   toys: {
@@ -279,19 +279,19 @@ const TOPICS = {
     // Toys take a possessive sentence ("I have a kite. It is ___ kite." -> my).
     // Sports take a "ball" flag (true when a ball is in the picture) and a "doing" sentence for the present continuous.
     cards: [
-      { word: "kite", es: "cometa", picture: "images/toys/kite.jpg", owner: "I have a kite. It is ___ kite.", possessive: "my" },
-      { word: "toy car", es: "coche de juguete", picture: "images/toys/toy-car.jpg", owner: "You have a toy car. It is ___ toy car.", possessive: "your" },
-      { word: "teddy bear", es: "oso de peluche", picture: "images/toys/teddy-bear.jpg", owner: "He has a teddy bear. It is ___ teddy bear.", possessive: "his" },
-      { word: "doll", es: "muñeca", picture: "images/toys/doll.jpg", owner: "She has a doll. It is ___ doll.", possessive: "her" },
-      { word: "toy train", es: "tren de juguete", picture: "images/toys/train.jpg", owner: "The toy train has a bell. ___ bell is loud.", possessive: "its" },
-      { word: "robot", es: "robot", picture: "images/toys/robot.jpg", owner: "We have a robot. It is ___ robot.", possessive: "our" },
-      { word: "drum", es: "tambor", picture: "images/toys/drum.jpg", owner: "They have a drum. It is ___ drum.", possessive: "their" },
-      { word: "football", es: "fútbol", picture: "images/sports/football.jpg", ball: true, pronoun: "he", doing: "He is playing football." },
-      { word: "basketball", es: "baloncesto", picture: "images/sports/basketball.jpg", ball: true, pronoun: "she", doing: "She is playing basketball." },
-      { word: "tennis", es: "tenis", picture: "images/sports/tennis.jpg", ball: true, pronoun: "he", doing: "He is playing tennis." },
-      { word: "swimming", es: "nadar", picture: "images/sports/swimming.jpg", ball: false, pronoun: "he", doing: "He is swimming." },
-      { word: "cycling", es: "ir en bicicleta", picture: "images/sports/cycling.jpg", ball: false, pronoun: "they", doing: "They are cycling." },
-      { word: "running", es: "correr", picture: "images/sports/running.jpg", ball: false, pronoun: "they", doing: "They are running." }
+      { word: "kite", es: "cometa", picture: "images/toys/kite.webp", owner: "I have a kite. It is ___ kite.", possessive: "my" },
+      { word: "toy car", es: "coche de juguete", picture: "images/toys/toy-car.webp", owner: "You have a toy car. It is ___ toy car.", possessive: "your" },
+      { word: "teddy bear", es: "oso de peluche", picture: "images/toys/teddy-bear.webp", owner: "He has a teddy bear. It is ___ teddy bear.", possessive: "his" },
+      { word: "doll", es: "muñeca", picture: "images/toys/doll.webp", owner: "She has a doll. It is ___ doll.", possessive: "her" },
+      { word: "toy train", es: "tren de juguete", picture: "images/toys/train.webp", owner: "The toy train has a bell. ___ bell is loud.", possessive: "its" },
+      { word: "robot", es: "robot", picture: "images/toys/robot.webp", owner: "We have a robot. It is ___ robot.", possessive: "our" },
+      { word: "drum", es: "tambor", picture: "images/toys/drum.webp", owner: "They have a drum. It is ___ drum.", possessive: "their" },
+      { word: "football", es: "fútbol", picture: "images/sports/football.webp", ball: true, pronoun: "he", doing: "He is playing football." },
+      { word: "basketball", es: "baloncesto", picture: "images/sports/basketball.webp", ball: true, pronoun: "she", doing: "She is playing basketball." },
+      { word: "tennis", es: "tenis", picture: "images/sports/tennis.webp", ball: true, pronoun: "he", doing: "He is playing tennis." },
+      { word: "swimming", es: "nadar", picture: "images/sports/swimming.webp", ball: false, pronoun: "he", doing: "He is swimming." },
+      { word: "cycling", es: "ir en bicicleta", picture: "images/sports/cycling.webp", ball: false, pronoun: "they", doing: "They are cycling." },
+      { word: "running", es: "correr", picture: "images/sports/running.webp", ball: false, pronoun: "they", doing: "They are running." }
     ]
   },
   undersea: {
@@ -299,16 +299,16 @@ const TOPICS = {
     page: "undersea.html",
     // "sentence" has a blank for the place word; "answer" is the right one (in, on, under, behind, next to)
     cards: [
-      { word: "fish", es: "pez", picture: "images/undersea/fish.jpg", sentence: "The fish is ___ the water.", answer: "in" },
-      { word: "shark", es: "tiburón", picture: "images/undersea/shark.jpg", sentence: "The shark is ___ the water.", answer: "in" },
-      { word: "octopus", es: "pulpo", picture: "images/undersea/octopus.jpg", sentence: "The octopus is ___ the rock.", answer: "on" },
-      { word: "crab", es: "cangrejo", picture: "images/undersea/crab.jpg", sentence: "The crab is ___ the sand.", answer: "on" },
-      { word: "dolphin", es: "delfín", picture: "images/undersea/dolphin.jpg", sentence: "The dolphin is ___ the water.", answer: "in" },
-      { word: "whale", es: "ballena", picture: "images/undersea/whale.jpg", sentence: "The whale is ___ the water.", answer: "in" },
-      { word: "starfish", es: "estrella de mar", picture: "images/undersea/starfish.jpg", sentence: "The starfish is ___ the waves.", answer: "next to" },
-      { word: "turtle", es: "tortuga", picture: "images/undersea/turtle.jpg", sentence: "The turtle is ___ the water.", answer: "in" },
-      { word: "seahorse", es: "caballito de mar", picture: "images/undersea/seahorse.jpg", sentence: "The seahorse is ___ the water.", answer: "in" },
-      { word: "jellyfish", es: "medusa", picture: "images/undersea/jellyfish.jpg", sentence: "The jellyfish is ___ the sea.", answer: "in" }
+      { word: "fish", es: "pez", picture: "images/undersea/fish.webp", sentence: "The fish is ___ the water.", answer: "in" },
+      { word: "shark", es: "tiburón", picture: "images/undersea/shark.webp", sentence: "The shark is ___ the water.", answer: "in" },
+      { word: "octopus", es: "pulpo", picture: "images/undersea/octopus.webp", sentence: "The octopus is ___ the rock.", answer: "on" },
+      { word: "crab", es: "cangrejo", picture: "images/undersea/crab.webp", sentence: "The crab is ___ the sand.", answer: "on" },
+      { word: "dolphin", es: "delfín", picture: "images/undersea/dolphin.webp", sentence: "The dolphin is ___ the water.", answer: "in" },
+      { word: "whale", es: "ballena", picture: "images/undersea/whale.webp", sentence: "The whale is ___ the water.", answer: "in" },
+      { word: "starfish", es: "estrella de mar", picture: "images/undersea/starfish.webp", sentence: "The starfish is ___ the waves.", answer: "next to" },
+      { word: "turtle", es: "tortuga", picture: "images/undersea/turtle.webp", sentence: "The turtle is ___ the water.", answer: "in" },
+      { word: "seahorse", es: "caballito de mar", picture: "images/undersea/seahorse.webp", sentence: "The seahorse is ___ the water.", answer: "in" },
+      { word: "jellyfish", es: "medusa", picture: "images/undersea/jellyfish.webp", sentence: "The jellyfish is ___ the sea.", answer: "in" }
     ]
   },
   days: {
@@ -316,40 +316,40 @@ const TOPICS = {
     page: "days.html",
     // "prev" and "next" are the days before and after, for the "What day comes after ___?" game
     cards: [
-      { word: "Monday", es: "lunes", picture: "images/days/monday.jpg", prev: "Sunday", next: "Tuesday" },
-      { word: "Tuesday", es: "martes", picture: "images/days/tuesday.jpg", prev: "Monday", next: "Wednesday" },
-      { word: "Wednesday", es: "miércoles", picture: "images/days/wednesday.jpg", prev: "Tuesday", next: "Thursday" },
-      { word: "Thursday", es: "jueves", picture: "images/days/thursday.jpg", prev: "Wednesday", next: "Friday" },
-      { word: "Friday", es: "viernes", picture: "images/days/friday.jpg", prev: "Thursday", next: "Saturday" },
-      { word: "Saturday", es: "sábado", picture: "images/days/saturday.jpg", prev: "Friday", next: "Sunday" },
-      { word: "Sunday", es: "domingo", picture: "images/days/sunday.jpg", prev: "Saturday", next: "Monday" }
+      { word: "Monday", es: "lunes", picture: "images/days/monday.webp", prev: "Sunday", next: "Tuesday" },
+      { word: "Tuesday", es: "martes", picture: "images/days/tuesday.webp", prev: "Monday", next: "Wednesday" },
+      { word: "Wednesday", es: "miércoles", picture: "images/days/wednesday.webp", prev: "Tuesday", next: "Thursday" },
+      { word: "Thursday", es: "jueves", picture: "images/days/thursday.webp", prev: "Wednesday", next: "Friday" },
+      { word: "Friday", es: "viernes", picture: "images/days/friday.webp", prev: "Thursday", next: "Saturday" },
+      { word: "Saturday", es: "sábado", picture: "images/days/saturday.webp", prev: "Friday", next: "Sunday" },
+      { word: "Sunday", es: "domingo", picture: "images/days/sunday.webp", prev: "Saturday", next: "Monday" }
     ]
   },
   feelings: {
     title: "Feelings",
     page: "feelings.html",
     cards: [
-      { word: "happy", es: "feliz", picture: "images/feelings/happy.jpg" },
-      { word: "sad", es: "triste", picture: "images/feelings/sad.jpg" },
-      { word: "angry", es: "enfadado", picture: "images/feelings/angry.jpg" },
-      { word: "scared", es: "asustado", picture: "images/feelings/scared.jpg" },
-      { word: "surprised", es: "sorprendido", picture: "images/feelings/surprised.jpg" },
-      { word: "sleepy", es: "con sueño", picture: "images/feelings/sleepy.jpg" },
-      { word: "worried", es: "preocupado", picture: "images/feelings/worried.jpg" },
-      { word: "excited", es: "emocionado", picture: "images/feelings/excited.jpg" },
-      { word: "calm", es: "tranquilo", picture: "images/feelings/calm.jpg" },
-      { word: "silly", es: "gracioso", picture: "images/feelings/silly.jpg" }
+      { word: "happy", es: "feliz", picture: "images/feelings/happy.webp" },
+      { word: "sad", es: "triste", picture: "images/feelings/sad.webp" },
+      { word: "angry", es: "enfadado", picture: "images/feelings/angry.webp" },
+      { word: "scared", es: "asustado", picture: "images/feelings/scared.webp" },
+      { word: "surprised", es: "sorprendido", picture: "images/feelings/surprised.webp" },
+      { word: "sleepy", es: "con sueño", picture: "images/feelings/sleepy.webp" },
+      { word: "worried", es: "preocupado", picture: "images/feelings/worried.webp" },
+      { word: "excited", es: "emocionado", picture: "images/feelings/excited.webp" },
+      { word: "calm", es: "tranquilo", picture: "images/feelings/calm.webp" },
+      { word: "silly", es: "gracioso", picture: "images/feelings/silly.webp" }
     ]
   },
   madrid: {
     title: "Madrid",
     page: "madrid.html",
     cards: [
-      { word: "Madrid", es: "Madrid", picture: "images/madrid/madrid.jpg" },
-      { word: "Puerta del Sol", es: "Puerta del Sol", picture: "images/madrid/sol.jpg" },
-      { word: "Cibeles", es: "Cibeles", picture: "images/madrid/cibeles.jpg" },
-      { word: "Retiro Park", es: "Parque del Retiro", picture: "images/madrid/retiro.jpg" },
-      { word: "Bernabéu", es: "Bernabéu", picture: "images/madrid/bernabeu.jpg" }
+      { word: "Madrid", es: "Madrid", picture: "images/madrid/madrid.webp" },
+      { word: "Puerta del Sol", es: "Puerta del Sol", picture: "images/madrid/sol.webp" },
+      { word: "Cibeles", es: "Cibeles", picture: "images/madrid/cibeles.webp" },
+      { word: "Retiro Park", es: "Parque del Retiro", picture: "images/madrid/retiro.webp" },
+      { word: "Bernabéu", es: "Bernabéu", picture: "images/madrid/bernabeu.webp" }
     ]
   }
 };

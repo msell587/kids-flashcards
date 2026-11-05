@@ -143,6 +143,23 @@
   const count = dialog.querySelector("#pdf-count");
   const make = dialog.querySelector("#pdf-make");
 
+  // The PDF needs JPEG bytes, so each picture (saved as WebP) is redrawn on a canvas and encoded as JPEG
+  async function jpegBytes(url, word) {
+    const image = new Image();
+    image.src = url;
+    try {
+      await image.decode();
+    } catch (error) {
+      throw new Error("Missing picture: " + word);
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+    canvas.getContext("2d").drawImage(image, 0, 0);
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/jpeg", 0.92));
+    return new Uint8Array(await blob.arrayBuffer());
+  }
+
   function checkedBoxes() {
     return [...list.querySelectorAll("input[type=checkbox]:checked")];
   }
@@ -159,7 +176,7 @@
     current = { folder: button.dataset.folder, name: button.dataset.name };
     list.innerHTML = ITEMS.map((item, n) =>
       `<label class="pdf-pick"><input type="checkbox" data-n="${n}" checked>` +
-      `<img src="${encodeURI(current.folder + item.word + ".jpg")}" alt="">` +
+      `<img src="${encodeURI(current.folder + item.word + ".webp")}" alt="">` +
       `<span>${item.word}</span></label>`).join("");
     updateCount();
     dialog.showModal();
@@ -184,11 +201,10 @@
     make.disabled = true;
     make.textContent = "Making PDF…";
     try {
-      const pictures = await Promise.all(chosen.map(async item => {
-        const response = await fetch(encodeURI(current.folder + item.word + ".jpg"));
-        if (!response.ok) throw new Error("Missing picture: " + item.word);
-        return { word: item.word, bytes: new Uint8Array(await response.arrayBuffer()) };
-      }));
+      const pictures = await Promise.all(chosen.map(async item => ({
+        word: item.word,
+        bytes: await jpegBytes(encodeURI(current.folder + item.word + ".webp"), item.word),
+      })));
       const title = current.name + " pictures";
       saveBlob(makePdf(title, pictures, SIZES[sizeKey]), title + " (" + sizeKey + ").pdf");
       dialog.close();

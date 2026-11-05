@@ -176,7 +176,7 @@
   <script src="voice.js"></script>
   <script>
     // Each item: the English word, the Spanish word, an emoji shown until a photo is added
-    // at images/winter-guess/<english word>.jpg
+    // at images/winter-guess/<english word>.webp
     const ITEMS = [
       { word: "snowman", es: "muñeco de nieve", emoji: "⛄" },
       { word: "snowflake", es: "copo de nieve", emoji: "❄️" },
@@ -255,7 +255,7 @@
       };
       $("pic").hidden = false;
       $("emoji").hidden = true;
-      $("pic").src = "images/winter-guess/" + item.word + ".jpg";
+      $("pic").src = "images/winter-guess/" + item.word + ".webp";
       $("pic").alt = "Picture to guess";
       $("emoji").textContent = item.emoji;
       $("word").textContent = "";
