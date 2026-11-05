@@ -36,10 +36,15 @@
   }
 
   // Lay the chosen pictures out on A4 pages and write the PDF file
-  function makePdf(title, pictures, size) {
-    const perPage = size.cols * size.rows;
-    const cellW = (PAGE_W - 2 * MARGIN - (size.cols - 1) * GAP) / size.cols;
-    const cellH = (PAGE_H - 2 * MARGIN - TITLE_H - (size.rows - 1) * GAP) / size.rows;
+  function makePdf(title, pictures, size, landscape) {
+    const PW = landscape ? PAGE_H : PAGE_W;
+    const PH = landscape ? PAGE_W : PAGE_H;
+    // Crosswise pages use the grid turned sideways, so a 2 x 3 grid becomes 3 x 2 across the wide page
+    const cols = landscape ? size.rows : size.cols;
+    const rows = landscape ? size.cols : size.rows;
+    const perPage = cols * rows;
+    const cellW = (PW - 2 * MARGIN - (cols - 1) * GAP) / cols;
+    const cellH = (PH - 2 * MARGIN - TITLE_H - (rows - 1) * GAP) / rows;
     const captionH = size.font + 10;
     const objects = [];
     const add = parts => { objects.push(parts); return objects.length; };
@@ -53,26 +58,27 @@
     for (let start = 0; start < pictures.length; start += perPage) {
       const group = pictures.slice(start, start + perPage);
       const xobjects = [];
-      const ops = [`BT /F2 18 Tf ${MARGIN} ${PAGE_H - MARGIN - 18} Td (${escapePdf(title)}) Tj ET`];
+      const ops = [`BT /F2 18 Tf ${MARGIN} ${PH - MARGIN - 18} Td (${escapePdf(title)}) Tj ET`];
       group.forEach((picture, n) => {
         const { w, h } = jpegSize(picture.bytes);
         const imageId = add([`<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${picture.bytes.length} >>\nstream\n`, picture.bytes, "\nendstream"]);
         const name = "Im" + (n + 1);
         xobjects.push(`/${name} ${imageId} 0 R`);
 
-        const col = n % size.cols;
-        const row = Math.floor(n / size.cols);
+        const col = n % cols;
+        const row = Math.floor(n / cols);
         const x0 = MARGIN + col * (cellW + GAP);
-        const cellTop = PAGE_H - MARGIN - TITLE_H - row * (cellH + GAP);
+        const cellTop = PH - MARGIN - TITLE_H - row * (cellH + GAP);
         const boxH = cellH - captionH;
         // Every picture has the same frame on the page, so all cells line up; the picture keeps its shape inside it
-        ops.push(`0.8 G 0.6 w ${x0.toFixed(2)} ${(cellTop - boxH).toFixed(2)} ${cellW.toFixed(2)} ${boxH.toFixed(2)} re S`);
-        const scale = Math.min(cellW / w, boxH / h);
+        const pad = 6; // keeps the picture inside the frame line
+        const scale = Math.min((cellW - 2 * pad) / w, (boxH - 2 * pad) / h);
         const dw = w * scale;
         const dh = h * scale;
         const dx = x0 + (cellW - dw) / 2;
         const dy = cellTop - dh;
         ops.push(`q ${dw.toFixed(2)} 0 0 ${dh.toFixed(2)} ${dx.toFixed(2)} ${dy.toFixed(2)} cm /${name} Do Q`);
+        ops.push(`0.8 G 0.6 w ${x0.toFixed(2)} ${(cellTop - boxH).toFixed(2)} ${cellW.toFixed(2)} ${boxH.toFixed(2)} re S`);
         const textW = picture.word.length * 0.5 * size.font;
         const tx = x0 + Math.max(0, (cellW - textW) / 2);
         const ty = cellTop - boxH - size.font;
@@ -80,7 +86,7 @@
       });
       const content = ops.join("\n");
       const contentId = add([`<< /Length ${content.length} >>\nstream\n${content}\nendstream`]);
-      pageIds.push(add([`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${PAGE_W} ${PAGE_H}] /Contents ${contentId} 0 R ` +
+      pageIds.push(add([`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${PW} ${PH}] /Contents ${contentId} 0 R ` +
         `/Resources << /Font << /F1 ${fontId} 0 R /F2 ${boldId} 0 R >> /XObject << ${xobjects.join(" ")} >> >> >>`]));
     }
     objects[pagesId - 1] = [`<< /Type /Pages /Kids [${pageIds.map(id => id + " 0 R").join(" ")}] /Count ${pageIds.length} >>`];
@@ -133,6 +139,10 @@
       `<label><input type="radio" name="pdf-size" value="${key}"${key === "medium" ? " checked" : ""}> ${SIZES[key].label}</label>`).join("") +
     '</fieldset>' +
     '<div class="pdf-preview" id="pdf-preview" aria-label="How the first page will look"></div>' +
+    '<fieldset><legend>Page direction</legend>' +
+    '<label><input type="radio" name="pdf-orient" value="portrait" checked> Upright (tall page)</label>' +
+    '<label><input type="radio" name="pdf-orient" value="landscape"> Crosswise (wide page)</label>' +
+    '</fieldset>' +
     '<fieldset><legend>Pictures</legend>' +
     '<div class="pdf-pick-tools"><button type="button" data-pdf-all>Select all</button><button type="button" data-pdf-none>Clear</button></div>' +
     '<div class="pdf-pick-list" id="pdf-list"></div>' +
@@ -198,14 +208,17 @@
     const preview = dialog.querySelector("#pdf-preview");
     const size = SIZES[dialog.querySelector("input[name=pdf-size]:checked").value];
     const chosen = checkedBoxes().map(box => items[Number(box.dataset.n)]);
+    const landscape = dialog.querySelector("input[name=pdf-orient]:checked").value === "landscape";
+    const cols = landscape ? size.rows : size.cols;
+    const rows = landscape ? size.cols : size.rows;
     const perPage = size.cols * size.rows;
     const pages = Math.max(1, Math.ceil(chosen.length / perPage));
     const cells = Array.from({ length: perPage }, (_, i) => chosen[i]
       ? `<div class="pdf-cell"><img src="${encodeURI(pictureUrl(chosen[i]))}" alt=""></div>`
       : `<div class="pdf-cell"></div>`).join("");
     preview.innerHTML =
-      `<div class="pdf-page" style="grid-template-columns: repeat(${size.cols}, 1fr); grid-template-rows: repeat(${size.rows}, 1fr);">${cells}</div>` +
-      `<p>Page 1 of ${pages} (A4, ${perPage} per page)</p>`;
+      `<div class="pdf-page" style="aspect-ratio: ${landscape ? "842 / 595" : "595 / 842"}; width: ${landscape ? "min(100%, 320px)" : "min(100%, 240px)"}; grid-template-columns: repeat(${cols}, 1fr); grid-template-rows: repeat(${rows}, 1fr);">${cells}</div>` +
+      `<p>Page 1 of ${pages} (A4 ${landscape ? "crosswise" : "upright"}, ${perPage} per page)</p>`;
   }
 
   function updateCount() {
@@ -267,7 +280,8 @@
         bytes: await jpegBytes(encodeURI(pictureUrl(item)), item.word),
       })));
       const title = current.name + " pictures";
-      saveBlob(makePdf(title, pictures, SIZES[sizeKey]), title + " (" + sizeKey + ").pdf");
+      const landscape = dialog.querySelector("input[name=pdf-orient]:checked").value === "landscape";
+      saveBlob(makePdf(title, pictures, SIZES[sizeKey], landscape), title + " (" + sizeKey + (landscape ? ", crosswise" : "") + ").pdf");
       dialog.close();
     } catch (error) {
       count.textContent = "Sorry, the PDF could not be made. " + error.message;
