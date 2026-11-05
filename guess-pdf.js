@@ -4,6 +4,7 @@
 (function () {
   const SIZES = {
     big: { label: "Big: 1 per page", cols: 1, rows: 1, font: 22 },
+    four: { label: "Four: 4 per page", cols: 2, rows: 2, font: 18 },
     medium: { label: "Medium: 6 per page", cols: 2, rows: 3, font: 16 },
     small: { label: "Small: 12 per page", cols: 3, rows: 4, font: 12 }
   };
@@ -144,8 +145,20 @@
     '.pdf-cell { border: 1px solid #bbb; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; }' +
     '.pdf-cell img { max-width: 100%; max-height: 100%; object-fit: contain; }' +
     '.pdf-preview p { font-size: 14px; margin: 6px 0 0; }' +
-    '.pdf-pick-list { max-height: 38vh; overflow-y: auto; }' +
-    '.pdf-pick-list img { width: 64px; height: auto; border-radius: 6px; vertical-align: middle; }' +
+    '.pdf-dialog { max-width: 520px; width: calc(100% - 24px); border: none; border-radius: 20px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.25); }' +
+    '.pdf-dialog h2 { margin: 0 0 10px; font-size: 22px; }' +
+    '.pdf-dialog fieldset { border: 1px solid #d8dee6; border-radius: 12px; margin: 0 0 12px; padding: 8px 12px 12px; }' +
+    '.pdf-dialog legend { font-weight: 700; padding: 0 6px; }' +
+    '.pdf-dialog fieldset > label { display: block; padding: 4px 0; font-size: 15px; }' +
+    '.pdf-pick-tools { display: flex; gap: 8px; margin: 4px 0 10px; }' +
+    '.pdf-pick-tools button { padding: 6px 12px; font-size: 14px; box-shadow: none; }' +
+    '.pdf-pick-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; max-height: 36vh; overflow-y: auto; padding: 2px; }' +
+    '.pdf-pick { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px; border: 1px solid #d8dee6; border-radius: 10px; font-size: 13px; text-align: center; }' +
+    '.pdf-pick input { margin: 0; }' +
+    '.pdf-pick img { width: 100%; height: 64px; object-fit: contain; border-radius: 6px; background: #f6f7f9; }' +
+    '.pdf-count { font-size: 14px; margin: 8px 0 0; }' +
+    '.pdf-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }' +
+    '.pdf-actions button { padding: 8px 16px; font-size: 15px; box-shadow: none; }' +
     '</style>' +
     '<div class="pdf-actions"><button type="button" data-pdf-cancel>Cancel</button>' +
     '<button type="button" class="primary" id="pdf-make">Download PDF</button></div>';
