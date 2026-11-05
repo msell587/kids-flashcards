@@ -329,16 +329,16 @@ const TOPICS = {
     title: "Feelings",
     page: "feelings.html",
     cards: [
-      { word: "happy", es: "feliz", picture: "images/feelings/happy.webp" },
-      { word: "sad", es: "triste", picture: "images/feelings/sad.webp" },
-      { word: "angry", es: "enfadado", picture: "images/feelings/angry.webp" },
-      { word: "scared", es: "asustado", picture: "images/feelings/scared.webp" },
-      { word: "surprised", es: "sorprendido", picture: "images/feelings/surprised.webp" },
-      { word: "sleepy", es: "con sueño", picture: "images/feelings/sleepy.webp" },
-      { word: "worried", es: "preocupado", picture: "images/feelings/worried.webp" },
-      { word: "excited", es: "emocionado", picture: "images/feelings/excited.webp" },
-      { word: "calm", es: "tranquilo", picture: "images/feelings/calm.webp" },
-      { word: "silly", es: "gracioso", picture: "images/feelings/silly.webp" }
+      { word: "happy", es: "feliz", picture: "images/feelings/happy.webp", animal: "dog" },
+      { word: "sad", es: "triste", picture: "images/feelings/sad.webp", animal: "dog" },
+      { word: "angry", es: "enfadado", picture: "images/feelings/angry.webp", animal: "cat" },
+      { word: "scared", es: "asustado", picture: "images/feelings/scared.webp", animal: "rabbit" },
+      { word: "surprised", es: "sorprendido", picture: "images/feelings/surprised.webp", animal: "owl" },
+      { word: "sleepy", es: "con sueño", picture: "images/feelings/sleepy.webp", animal: "cat" },
+      { word: "worried", es: "preocupado", picture: "images/feelings/worried.webp", animal: "dog" },
+      { word: "excited", es: "emocionado", picture: "images/feelings/excited.webp", animal: "dog" },
+      { word: "calm", es: "tranquilo", picture: "images/feelings/calm.webp", animal: "cat" },
+      { word: "silly", es: "gracioso", picture: "images/feelings/silly.webp", animal: "sheep" }
     ]
   },
   madrid: {
