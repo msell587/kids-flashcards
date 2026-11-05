@@ -147,9 +147,12 @@
   // The PDF needs JPEG bytes, so each picture (saved as WebP) is redrawn on a canvas and encoded as JPEG
   async function jpegBytes(url, word) {
     const image = new Image();
-    image.src = url;
     try {
-      await image.decode();
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = reject;
+        image.src = url;
+      });
     } catch (error) {
       throw new Error("Missing picture: " + word);
     }
