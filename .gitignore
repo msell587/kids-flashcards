@@ -3,3 +3,5 @@ images-originals/
 90-day-plan.md
 freelance-kit.md
 income-tracker.md
+node_modules/
+dist/
