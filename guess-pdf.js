@@ -76,7 +76,7 @@
         const dw = w * scale;
         const dh = h * scale;
         const dx = x0 + (cellW - dw) / 2;
-        const dy = cellTop - dh;
+        const dy = cellTop - boxH + (boxH - dh) / 2; // centred vertically in the frame
         ops.push(`q ${dw.toFixed(2)} 0 0 ${dh.toFixed(2)} ${dx.toFixed(2)} ${dy.toFixed(2)} cm /${name} Do Q`);
         ops.push(`0.8 G 0.6 w ${x0.toFixed(2)} ${(cellTop - boxH).toFixed(2)} ${cellW.toFixed(2)} ${boxH.toFixed(2)} re S`);
         const textW = picture.word.length * 0.5 * size.font;
