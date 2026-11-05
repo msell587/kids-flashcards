@@ -29,6 +29,8 @@ function copyStaticFiles() {
 
 export default defineConfig({
   plugins: [copyStaticFiles()],
+  // Relative asset paths, so the site works under any address (for example a GitHub Pages project path)
+  base: "./",
   build: {
     rollupOptions: {
       input: Object.fromEntries(
