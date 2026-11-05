@@ -152,8 +152,9 @@
     '.pdf-preview { margin: 10px auto; text-align: center; }' +
     '.pdf-page { width: min(100%, 240px); aspect-ratio: 595 / 842; margin: 0 auto; background: #fff; border: 1px solid #999;' +
     '  box-shadow: 0 2px 8px rgba(0,0,0,0.15); padding: 8px; box-sizing: border-box; display: grid; gap: 6px; }' +
-    '.pdf-cell { border: 1px solid #bbb; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; }' +
-    '.pdf-cell img { max-width: 100%; max-height: 100%; object-fit: contain; }' +
+    '.pdf-cell { border: 1px solid #bbb; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; min-height: 0; padding: 2px; }' +
+    '.pdf-cell img { flex: 1; min-height: 0; max-width: 100%; object-fit: contain; }' +
+    '.pdf-cell span { color: #222; line-height: 1.1; margin-top: 2px; text-align: center; }' +
     '.pdf-preview p { font-size: 14px; margin: 6px 0 0; }' +
     '.pdf-dialog { max-width: 520px; width: calc(100% - 24px); border: none; border-radius: 20px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.25); }' +
     '.pdf-dialog h2 { margin: 0 0 10px; font-size: 22px; }' +
@@ -213,8 +214,10 @@
     const rows = landscape ? size.cols : size.rows;
     const perPage = size.cols * size.rows;
     const pages = Math.max(1, Math.ceil(chosen.length / perPage));
+    // Captions are scaled down from the PDF's own font size, so they sit in the same place as in the file
+    const captionPx = Math.max(7, Math.round(size.font * 0.4));
     const cells = Array.from({ length: perPage }, (_, i) => chosen[i]
-      ? `<div class="pdf-cell"><img src="${encodeURI(pictureUrl(chosen[i]))}" alt=""></div>`
+      ? `<div class="pdf-cell"><img src="${encodeURI(pictureUrl(chosen[i]))}" alt=""><span style="font-size: ${captionPx}px">${chosen[i].word}</span></div>`
       : `<div class="pdf-cell"></div>`).join("");
     preview.innerHTML =
       `<div class="pdf-page" style="aspect-ratio: ${landscape ? "842 / 595" : "595 / 842"}; width: ${landscape ? "min(100%, 320px)" : "min(100%, 240px)"}; grid-template-columns: repeat(${cols}, 1fr); grid-template-rows: repeat(${rows}, 1fr);">${cells}</div>` +
