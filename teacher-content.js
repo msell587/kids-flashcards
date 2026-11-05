@@ -1,11 +1,11 @@
-// Teacher guides for each topic: goal, 1-hour lesson plan, crafts, songs and games (for ages 3–6).
+// Teacher guides for each topic: goal, 30-minute lesson plan, crafts, songs and games (for ages 3–6).
 // Keys match the topic keys in topics.js. Edit freely; the teacher page builds itself from this file.
 // Songs: "search" is what gets typed into YouTube's search, so links never go out of date.
 // "words" holds original lyrics written for this app, sung to a traditional tune.
 
 const TEACHER = {
   animals: {
-    goal: "Children can recognise and say the 11 animal names, and copy each animal's movement or sound.",
+    goal: "Children can recognise and say the 36 animal names on the flashcards, and copy each animal's movement or sound.",
     materials: [
       "Screen or tablet with the Animals flashcards",
       "Printed animal cards (from the Print page)",
@@ -14,14 +14,11 @@ const TEACHER = {
       "An animal picture book"
     ],
     plan: [
-      { time: "5 min", step: "Hello and mystery animal", details: "Sing your hello song. Hide one printed card in a bag and give clues (“It's big. It's grey. It has a long nose!”) until someone guesses." },
+      { time: "3 min", step: "Hello and mystery animal", details: "Sing your hello song. Hide one printed card in a bag and give clues (“It's big. It's grey. It has a long nose!”) until someone guesses." },
       { time: "8 min", step: "Meet the animals", details: "Go through the flashcards on screen. Say each word, press 🔊, and have the class repeat it twice. Add an action for each one (stomp like an elephant, hop like a rabbit)." },
       { time: "5 min", step: "Song: I'm an Elephant", details: "Sing it with actions. Let children pick the next animal card for each new verse." },
       { time: "10 min", step: "Games", details: "Play Animal Moves, then Big or Small with the printed cards." },
-      { time: "5 min", step: "Movement break", details: "Stand up and sing Old MacDonald, acting out the dog, cat, horse and sheep." },
-      { time: "15 min", step: "Craft: Paper Plate Lion", details: "Follow the craft steps below. While children work, ask “What does a lion say?” and “Is a lion big or small?”" },
-      { time: "7 min", step: "Show and tell, then story", details: "Each child holds up their lion and roars: “This is my lion!” Then read a short animal picture book, pausing to let children name the animals." },
-      { time: "5 min", step: "Review and goodbye", details: "Play a quick Slow Reveal, then click through the flashcards together all the way to the 🎉 screen and cheer!" }
+      { time: "4 min", step: "Review and goodbye", details: "Play a quick Slow Reveal, then click through the flashcards together all the way to the 🎉 screen and cheer!" },
     ],
     crafts: [
       {
@@ -82,14 +79,11 @@ const TEACHER = {
       "Craft supplies: see “Rainbow Collage” and “Colour Mixing Magic” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and colour check", details: "Sing hello, then ask each child: “What colour is your shirt?” Help with the word if needed." },
+      { time: "3 min", step: "Hello and colour check", details: "Sing hello, then ask each child: “What colour is your shirt?” Help with the word if needed." },
       { time: "8 min", step: "Meet the colours", details: "Go through the flashcards. Say each colour, press 🔊, and have the class repeat. Children point to something in the room of that colour." },
       { time: "5 min", step: "Song: If You're Wearing Red Today", details: "Children stand up (or touch their nose, or jump) when their colour is called." },
       { time: "10 min", step: "Games", details: "Play Colour Hunt, then Colour Simon Says." },
-      { time: "5 min", step: "Movement break", details: "Play Pass the Colour with music. Whoever holds the card when the music stops says the colour." },
-      { time: "15 min", step: "Craft: Rainbow Collage", details: "Follow the craft steps below. Name each colour as children stick it on." },
-      { time: "7 min", step: "Science moment: Colour Mixing Magic", details: "Make the mixing bags from the Crafts section. Children squish and shout the new colour." },
-      { time: "5 min", step: "Review and goodbye", details: "A quick round of Colour Sorting, then click through the flashcards together to the 🎉 screen." }
+      { time: "4 min", step: "Review and goodbye", details: "A quick round of Colour Sorting, then click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -155,14 +149,11 @@ const TEACHER = {
       "Craft supplies: see “Shape Pictures” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and shape surprise", details: "Sing hello. Hold up a ball, a book and a cracker and ask: “What shape is this?”" },
+      { time: "3 min", step: "Hello and shape surprise", details: "Sing hello. Hold up a ball, a book and a cracker and ask: “What shape is this?”" },
       { time: "8 min", step: "Meet the shapes", details: "Go through the flashcards. Say each shape, press 🔊, have the class repeat, and draw it in the air together with one finger." },
       { time: "5 min", step: "Song: This Is a Circle", details: "Sing a verse for circle, square and triangle, drawing each shape in the air." },
       { time: "10 min", step: "Games", details: "Play Shape Hunt around the room, then Body Shapes." },
-      { time: "5 min", step: "Movement break", details: "Sing Twinkle Twinkle Little Star. Stretch up tall into a star shape on the last line." },
-      { time: "15 min", step: "Craft: Shape Pictures", details: "Follow the craft steps below. Ask “Which shape is the roof?” and “How many circles?”" },
-      { time: "7 min", step: "Share and Feely Bag", details: "Each child names one shape in their picture. Then play Feely Bag." },
-      { time: "5 min", step: "Review and goodbye", details: "Draw in the Air with elbows and noses, then click through the flashcards together to the 🎉 screen." }
+      { time: "4 min", step: "Review and goodbye", details: "Draw in the Air with elbows and noses, then click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -220,14 +211,11 @@ const TEACHER = {
       "Craft supplies: see “Lift-the-Flap House” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and knock, knock", details: "Sing hello. Then say the “Knock, Knock, Open the Door” rhyme with actions." },
+      { time: "3 min", step: "Hello and knock, knock", details: "Sing hello. Then say the “Knock, Knock, Open the Door” rhyme with actions." },
       { time: "8 min", step: "Meet the house", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Touch the real door, floor, window and wall in your classroom." },
       { time: "5 min", step: "Song: This Is the Way We…", details: "Show each room's card and mime the action: brush teeth in the bathroom, sleep in the bedroom, cook in the kitchen." },
       { time: "10 min", step: "Games", details: "Play Where Do You…?, then What's Missing? with the printed cards." },
-      { time: "5 min", step: "Movement break", details: "Go on a pretend House Tour together (see Games)." },
-      { time: "15 min", step: "Craft: Lift-the-Flap House", details: "Follow the craft steps below. Ask “Who lives in your house?” and “Which room is this?”" },
-      { time: "7 min", step: "Visit each other's houses", details: "Children knock on a friend's paper door and open the flap: “Who lives here?” The owner answers: “This is my bedroom!”" },
-      { time: "5 min", step: "Review and goodbye", details: "Play a quick Point and Touch, then click through the flashcards together to the 🎉 screen." }
+      { time: "4 min", step: "Review and goodbye", details: "Play a quick Point and Touch, then click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -288,13 +276,11 @@ const TEACHER = {
       "Craft supplies: see “Four Seasons Tree” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello", details: "Sing hello, then ask “Which season is it now?” and listen to the answers." },
-      { time: "8 min", step: "Meet the seasons", details: "Go through the flashcards: summer, winter, spring, autumn. Say each word, press 🔊, have the class repeat, and add an action (sunglasses for summer, a shiver for winter, a jump for spring, a rake for autumn)." },
+      { time: "3 min", step: "Hello", details: "Sing hello, then ask “Which season is it now?” and listen to the answers." },
+      { time: "7 min", step: "Meet the seasons", details: "Go through the flashcards: summer, winter, spring, autumn. Say each word, press 🔊, have the class repeat, and add an action (sunglasses for summer, a shiver for winter, a jump for spring, a rake for autumn)." },
       { time: "10 min", step: "Games", details: "Play Four Corners with the season cards, then Autumn Guess on the screen: tap the picture for clues, then show the word." },
-      { time: "5 min", step: "Movement break", details: "Play Dress for the Season: put on a coat in winter, sunglasses in summer." },
-      { time: "15 min", step: "Craft: Four Seasons Tree", details: "Follow the craft steps below. Name each season as children decorate its branch." },
-      { time: "7 min", step: "Season Guess", details: "Say something a season is like (“Snow falls!”, “Flowers grow!”). Children hold up the matching season card." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen." }
+      { time: "6 min", step: "Season Guess", details: "Say something a season is like (“Snow falls!”, “Flowers grow!”). Children hold up the matching season card." },
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -335,14 +321,12 @@ const TEACHER = {
       "Craft supplies: see “Weather Wheel” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and weather check", details: "Sing hello, then sing “What's the Weather?” and look out of the window together." },
-      { time: "8 min", step: "Meet the weather", details: "Go through the flashcards: sunny, rainy, cloudy, snowy, windy, stormy, hot, cold. Say each word, press 🔊, have the class repeat, and add an action (big arms for sunny, tapping fingers for rainy, a shiver for snowy, a sway for windy, fanning for hot, hugging yourself for cold)." },
-      { time: "5 min", step: "Song: Rain, Rain, Go Away", details: "Tap fingers like rain, then throw arms up for the sun." },
-      { time: "10 min", step: "Games", details: "Play Act the Weather, then Weather Reporter. Older or more confident children can also try Weather Sort, Weather Quiz and Weather Memory from the Class Game page." },
-      { time: "5 min", step: "Movement break", details: "Play Dress for the Weather, using real clothes if you have them." },
-      { time: "15 min", step: "Craft: Weather Wheel", details: "Follow the craft steps below. Name each weather as children colour their section." },
-      { time: "7 min", step: "Weather Reporter", details: "Children take turns being the reporter, holding up the right card: “Today it's sunny!” Others point to the matching picture on their wheel." },
-      { time: "5 min", step: "Review and goodbye", details: "Sing “What's the Weather?” once more, then click through the flashcards together to the 🎉 screen." }
+      { time: "3 min", step: "Hello and weather check", details: "Sing hello, then sing “What's the Weather?” and look out of the window together." },
+      { time: "7 min", step: "Meet the weather", details: "Go through the flashcards: sunny, rainy, cloudy, snowy, windy, stormy, hot, cold. Say each word, press 🔊, have the class repeat, and add an action (big arms for sunny, tapping fingers for rainy, a shiver for snowy, a sway for windy, fanning for hot, hugging yourself for cold)." },
+      { time: "4 min", step: "Song: Rain, Rain, Go Away", details: "Tap fingers like rain, then throw arms up for the sun." },
+      { time: "6 min", step: "Games", details: "Play Act the Weather, then Weather Reporter. Older or more confident children can also try Weather Sort, Weather Quiz and Weather Memory from the Class Game page." },
+      { time: "6 min", step: "Weather Reporter", details: "Children take turns being the reporter, holding up the right card: “Today it's sunny!” Others point to the matching picture on their wheel." },
+      { time: "4 min", step: "Review and goodbye", details: "Sing “What's the Weather?” once more, then click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -389,14 +373,11 @@ const TEACHER = {
       "A long strip of paper for a road (for sharing time)"
     ],
     plan: [
-      { time: "5 min", step: "Hello and bus ride", details: "Sing hello. Line up chairs like a bus. You're the driver: “Everyone on the bus! Let's go to the city!” Steer and beep together." },
+      { time: "3 min", step: "Hello and bus ride", details: "Sing hello. Line up chairs like a bus. You're the driver: “Everyone on the bus! Let's go to the city!” Steer and beep together." },
       { time: "8 min", step: "Meet the city", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: steer for car, stop with a hand up for traffic light, wave for bus, tiptoe for bridge." },
       { time: "5 min", step: "Song: Red Means Stop", details: "Sing it with the traffic light card. Freeze on “stop” and march on “go”." },
       { time: "10 min", step: "Games", details: "Play Traffic Light, then Where Am I?" },
-      { time: "5 min", step: "Movement break", details: "Play Bus Stops (see Games), riding the bus around the room to each place." },
-      { time: "15 min", step: "Craft: Paper Traffic Light", details: "Follow the craft steps below. Ask “What does red mean?” and “What colour means go?”" },
-      { time: "7 min", step: "Our city road", details: "Lay a long paper road on the floor and place the printed cards along it. Each child drives a toy car (or their finger) along the road, naming each place they pass: “Here's the park!”" },
-      { time: "5 min", step: "Review and goodbye", details: "One last round of Traffic Light using the children's crafts, then click through the flashcards together to the 🎉 screen." }
+      { time: "4 min", step: "Review and goodbye", details: "One last round of Traffic Light with the printed cards, then click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -469,14 +450,12 @@ const TEACHER = {
       "Christmas music to play and pause"
     ],
     plan: [
-      { time: "5 min", step: "Hello and mystery present", details: "Sing hello. Shake the wrapped box: “What's in the present?” Open it slowly and pull out one printed card. Everyone says the word." },
-      { time: "8 min", step: "Meet the Christmas words", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: ring a bell, shiver for snowflake, “ho ho ho” for Santa, hands up like branches for Christmas tree." },
-      { time: "5 min", step: "Song: Jingle Bells", details: "Sing or listen. Children shake pretend bells (or the real bell) every time they hear “jingle”." },
-      { time: "10 min", step: "Games", details: "Play What's in the Stocking?, then Ring the Bell." },
-      { time: "5 min", step: "Movement break", details: "Sing I'm a Little Snowman with actions, then Freeze like a Snowman to the music." },
-      { time: "15 min", step: "Craft: Paper Plate Santa", details: "Follow the craft steps below. Ask “What colour is Santa's hat?” and “Is the beard white or red?”" },
-      { time: "7 min", step: "Present swap", details: "Children sit in a circle and pass the wrapped box. Each child gives it to the next one: “Here's a present for you!” “Thank you! Merry Christmas!”" },
-      { time: "5 min", step: "Review and goodbye", details: "Quick round of What's Missing?, then click through the flashcards together to the 🎉 screen and say “Merry Christmas!”" }
+      { time: "3 min", step: "Hello and mystery present", details: "Sing hello. Shake the wrapped box: “What's in the present?” Open it slowly and pull out one printed card. Everyone says the word." },
+      { time: "7 min", step: "Meet the Christmas words", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: ring a bell, shiver for snowflake, “ho ho ho” for Santa, hands up like branches for Christmas tree." },
+      { time: "4 min", step: "Song: Jingle Bells", details: "Sing or listen. Children shake pretend bells (or the real bell) every time they hear “jingle”." },
+      { time: "6 min", step: "Games", details: "Play What's in the Stocking?, then Ring the Bell." },
+      { time: "6 min", step: "Present swap", details: "Children sit in a circle and pass the wrapped box. Each child gives it to the next one: “Here's a present for you!” “Thank you! Merry Christmas!”" },
+      { time: "4 min", step: "Review and goodbye", details: "Quick round of What's Missing?, then click through the flashcards together to the 🎉 screen and say “Merry Christmas!”" },
     ],
     crafts: [
       {
@@ -543,14 +522,11 @@ const TEACHER = {
       "Craft supplies: see “Paper Plate Flower” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and mystery bag", details: "Sing hello. Pull a real leaf, flower or seed out of a bag: “What is it? It's a leaf!” Let children touch and smell it." },
+      { time: "3 min", step: "Hello and mystery bag", details: "Sing hello. Pull a real leaf, flower or seed out of a bag: “What is it? It's a leaf!” Let children touch and smell it." },
       { time: "8 min", step: "Meet the garden", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Add actions: digging for spade, pouring for watering can, and reaching up for tree." },
       { time: "5 min", step: "Song: This Is the Way We Water the Flowers", details: "Sing it with actions: digging, planting a seed, watering and growing tall." },
       { time: "10 min", step: "Games", details: "Play Grow, Little Seed!, then Garden Tools." },
-      { time: "5 min", step: "Movement break", details: "Play Garden Moves: call out a card and children move like it (dig, water, grow tall, sway like a leaf). Freeze when you say “Rain!”" },
-      { time: "15 min", step: "Craft: Paper Plate Flower", details: "Follow the craft steps below. Ask “What colour is your flower?” and “What does a flower need?” (water, sun)." },
-      { time: "7 min", step: "Plant a seed", details: "Each child puts soil in a cup, pushes in a seed and gives it a little water with the watering can. Say together: “Grow, grow, grow!” Put the cups by a sunny window." },
-      { time: "5 min", step: "Review and goodbye", details: "Quick round of Garden Tools, then click through the flashcards together to the 🎉 screen." }
+      { time: "4 min", step: "Review and goodbye", details: "Quick round of Garden Tools, then click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -609,14 +585,11 @@ const TEACHER = {
       "Craft supplies: see “Paper Plate Face” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and mirror faces", details: "Sing hello. Children look in a mirror and show how they feel today: “I feel happy!” Let them swap and say what they see." },
+      { time: "3 min", step: "Hello and mirror faces", details: "Sing hello. Children look in a mirror and show how they feel today: “I feel happy!” Let them swap and say what they see." },
       { time: "8 min", step: "Meet the feelings", details: "Go through the flashcards. Say each word, press 🔊, and have the class copy the face together. Ask “When do you feel this way?” and take one or two answers." },
       { time: "5 min", step: "Song: If You're Happy and You Know It", details: "Sing with actions for each feeling: clap for happy, stomp for angry, rub the eyes for sleepy." },
       { time: "10 min", step: "Games", details: "Play Feelings Freeze, then Guess the Feeling." },
-      { time: "5 min", step: "Movement break", details: "Feeling Walk: stomp like angry, tiptoe like scared, wiggle like silly, then freeze with a calm face." },
-      { time: "15 min", step: "Craft: Paper Plate Face", details: "Follow the craft steps below. Ask “What face are you making?” and “What would make you feel that way?”" },
-      { time: "7 min", step: "Colour the feelings", details: "Give out the feelings colouring sheet. Children colour one face and say which feeling it shows." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together all the way to the 🎉 screen. Each child shows their favourite feeling face." }
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together all the way to the 🎉 screen. Each child shows their favourite feeling face." },
     ],
     crafts: [
       {
@@ -657,14 +630,12 @@ const TEACHER = {
       "Craft supplies: see “Big and Small Paper Balls” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and big and small", details: "Sing hello. Stand up big with arms wide, then small, crouched down. Ask “Am I big or small?”" },
-      { time: "8 min", step: "Meet the pairs", details: "Show each pair on the screen. Press 🔊 Say the pair, so children hear “hot is the opposite of cold”, then have them repeat it and point to each picture." },
-      { time: "5 min", step: "Song: Up and Down", details: "Sing with actions: arms up for up, bend down for down. Then try fast and slow, moving quickly, then slowly." },
-      { time: "10 min", step: "Games", details: "Play Say the Opposite, then Find the Pair." },
-      { time: "5 min", step: "Movement break", details: "Hop up and down, then move fast and then slow. Call out “In!” and children go into a circle, “Out!” and they step out." },
-      { time: "15 min", step: "Craft: Big and Small Paper Balls", details: "Follow the craft steps below. Ask “Which one is big? Which one is small?”" },
-      { time: "7 min", step: "Light and dark", details: "Turn off the lights for ten seconds, then switch them on. Ask “Is it light or dark?” Use the torch to show light." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the pairs together to the 🎉 screen. Each child says one pair." }
+      { time: "3 min", step: "Hello and big and small", details: "Sing hello. Stand up big with arms wide, then small, crouched down. Ask “Am I big or small?”" },
+      { time: "7 min", step: "Meet the pairs", details: "Show each pair on the screen. Press 🔊 Say the pair, so children hear “hot is the opposite of cold”, then have them repeat it and point to each picture." },
+      { time: "4 min", step: "Song: Up and Down", details: "Sing with actions: arms up for up, bend down for down. Then try fast and slow, moving quickly, then slowly." },
+      { time: "6 min", step: "Games", details: "Play Say the Opposite, then Find the Pair." },
+      { time: "6 min", step: "Light and dark", details: "Turn off the lights for ten seconds, then switch them on. Ask “Is it light or dark?” Use the torch to show light." },
+      { time: "4 min", step: "Review and goodbye", details: "Click through the pairs together to the 🎉 screen. Each child says one pair." },
     ],
     crafts: [
       {
@@ -705,14 +676,11 @@ const TEACHER = {
       "Craft supplies: see “Madrid Postcard” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and where are we?", details: "Sing hello. Show the map of Spain and point to Madrid in the middle. Say “This is where we are going today!”" },
+      { time: "3 min", step: "Hello and where are we?", details: "Sing hello. Show the map of Spain and point to Madrid in the middle. Say “This is where we are going today!”" },
       { time: "8 min", step: "Meet Madrid", details: "Go through the flashcards. Say each name, press 🔊, and have the class repeat it. Point to the picture and ask “What can you see?”" },
       { time: "5 min", step: "Song: Madrid, Madrid", details: "Sing to a traditional tune, pointing to each card as you name it." },
       { time: "10 min", step: "Games", details: "Play Where Am I?, then Walk to the Park." },
-      { time: "5 min", step: "Movement break", details: "Walk around the room like a visitor, stopping at each card to say its name and do a big stretch for the tall buildings." },
-      { time: "15 min", step: "Craft: Madrid Postcard", details: "Follow the craft steps below. Ask “Which place would you like to visit?”" },
-      { time: "7 min", step: "Show and tell", details: "Each child holds up their postcard and says the name of their place: “This is Retiro Park!”" },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen." }
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen." },
     ],
     crafts: [
       {
@@ -753,14 +721,11 @@ const TEACHER = {
       "Craft supplies: see “Paper Plate Ladybird” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and what can you see?", details: "Sing hello. Pass round the magnifying glass and ask “What can you see? Is it big or small?”" },
+      { time: "3 min", step: "Hello and what can you see?", details: "Sing hello. Pass round the magnifying glass and ask “What can you see? Is it big or small?”" },
       { time: "8 min", step: "Meet the explorers", details: "Go through the flashcards. Say each word, press 🔊, and have the class copy how it moves: flutter the fingers for butterfly, buzz for bee, walk the fingers for ladybird, slide a flat hand for snail, wriggle for worm." },
       { time: "5 min", step: "Song: Fast Bee, Slow Snail", details: "Sing to a traditional tune, moving fast for the bee and slowly for the snail." },
       { time: "10 min", step: "Games", details: "Play Move Like a Minibeast, then Fly, Crawl, Slide or Wriggle?" },
-      { time: "5 min", step: "Movement break", details: "Call out “fast” or “slow”. Children move quickly like a bee, or slowly like a snail. Freeze when you say “Stop!”" },
-      { time: "15 min", step: "Craft: Paper Plate Ladybird", details: "Follow the craft steps below. Ask “How does a ladybird move? Does it fly or walk?”" },
-      { time: "7 min", step: "Sort the movers", details: "Children sort the printed cards into four piles: fly, crawl, slide and wriggle. Check each group together." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child shows one way a minibeast moves." }
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child shows one way a minibeast moves." },
     ],
     crafts: [
       {
@@ -803,16 +768,12 @@ const TEACHER = {
       "Craft supplies: see “Paper Plate Bus” below"
     ],
     plan: [
-      { time: "5 min", step: "Hello and what's this?", details: "Sing hello. Hold up the toy car: “What's this? It's a car!” Children repeat." },
-      { time: "8 min", step: "Meet the vehicles", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What colour is the bus?” and “Is the train fast or slow?”" },
-      { time: "5 min", step: "Song: The Wheels on the Bus", details: "Sing with actions: wheels going round, wipers swishing, the horn beeping." },
-      { time: "8 min", step: "This and that", details: "Put the car near the children and the train far away. “This is a car. That is a train.” Children point and repeat. Then ask “What's this? What's that?”" },
-      { time: "5 min", step: "One car, two cars", details: "Show one toy car, then two. “One car. Two cars.” Add -s for cars and trains, and -es for buses: “One bus, two buses.”" },
-      { time: "5 min", step: "Its or they're?", details: "Show a picture of the bus and say: “The bus is big. Its wheels are round.” Then the trains: “The trains are fast. They're fast!” Explain that “its” is for one thing that belongs to it, and “they're” means “they are.”" },
-      { time: "10 min", step: "Games", details: "Play What's This or That?, then Singular or Plural?" },
-      { time: "5 min", step: "Movement break", details: "Drive like a car, a bus or a train around the room. Call out “fast” or “slow” and change speed." },
-      { time: "15 min", step: "Craft: Paper Plate Bus", details: "Follow the craft steps below. Ask “What is this?” and “What are these?” as children hold up their buses." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence with “this” or “that”." }
+      { time: "3 min", step: "Hello and what's this?", details: "Sing hello. Hold up the toy car: “What's this? It's a car!” Children repeat." },
+      { time: "7 min", step: "Meet the vehicles", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What colour is the bus?” and “Is the train fast or slow?”" },
+      { time: "4 min", step: "Song: The Wheels on the Bus", details: "Sing with actions: wheels going round, wipers swishing, the horn beeping." },
+      { time: "6 min", step: "This and that", details: "Put the car near the children and the train far away. “This is a car. That is a train.” Children point and repeat. Then ask “What's this? What's that?”" },
+      { time: "6 min", step: "Games", details: "Play What's This or That?, then Singular or Plural?" },
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence with “this” or “that”." },
     ],
     crafts: [
       {
@@ -851,13 +812,11 @@ const TEACHER = {
       "Floor space for children to stand or sit in response to a card"
     ],
     plan: [
-      { time: "5 min", step: "Hello and what's this?", details: "Sing hello. Hold up a toy: “What's this? It's a kite!” Children repeat." },
-      { time: "8 min", step: "Meet the toys and sports", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. For sports, ask “What are they doing?”" },
-      { time: "8 min", step: "Ball or no ball?", details: "Hold up a sports card. Children stand up if there is a ball and sit down if there is not." },
-      { time: "8 min", step: "What is he or she doing?", details: "Show a sports card and say “He is swimming.” Children act it out, then repeat the sentence. Keep “is” and the -ing word together." },
-      { time: "8 min", step: "Whose is it?", details: "Hold up a toy and read “I have a kite. It is ___ kite.” Children choose my, your, his, her, its, our or their, and say the full sentence." },
+      { time: "3 min", step: "Hello and what's this?", details: "Sing hello. Hold up a toy: “What's this? It's a kite!” Children repeat." },
+      { time: "7 min", step: "Meet the toys and sports", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. For sports, ask “What are they doing?”" },
+      { time: "6 min", step: "Ball or no ball?", details: "Hold up a sports card. Children stand up if there is a ball and sit down if there is not." },
       { time: "10 min", step: "Games", details: "Play Ball or No Ball, What Is He Doing?, then Whose Is It? on the Toy Makers game page or in the Class Game." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “He is playing tennis” or “It is my kite.”" }
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “He is playing tennis” or “It is my kite.”" },
     ],
     crafts: [
       {
@@ -897,13 +856,11 @@ const TEACHER = {
       "Floor space for children to stand up and sit down"
     ],
     plan: [
-      { time: "5 min", step: "Hello and who is this?", details: "Sing hello. Hold up a prop: “Who is this? She is a doctor!” Children repeat the sentence." },
-      { time: "8 min", step: "Meet the helpers", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What does a doctor do?” and let children answer, “A doctor helps sick people.”" },
-      { time: "5 min", step: "He is or she is?", details: "Show a helper card and say “He is a teacher.” or “She is a teacher.” Children clap for “he” and stamp for “she”." },
-      { time: "8 min", step: "What are they doing?", details: "Show a card and say the action: “She is cooking dinner.” Children act it out, then say the sentence with “is” and the -ing word together." },
+      { time: "3 min", step: "Hello and who is this?", details: "Sing hello. Hold up a prop: “Who is this? She is a doctor!” Children repeat the sentence." },
+      { time: "7 min", step: "Meet the helpers", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What does a doctor do?” and let children answer, “A doctor helps sick people.”" },
+      { time: "6 min", step: "He is or she is?", details: "Show a helper card and say “He is a teacher.” or “She is a teacher.” Children clap for “he” and stamp for “she”." },
       { time: "10 min", step: "Games", details: "Play Who Is a ___?, Who Is ___ing? and What Does a ___ Do? on the Community Helpers game page or in the Class Game." },
-      { time: "15 min", step: "Craft: Helper Badge", details: "Children make a badge for their favourite helper, then say “I want to be a ___” or “I am a ___.”" },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “He is a farmer. A farmer grows food.”" }
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “He is a farmer. A farmer grows food.”" },
     ],
     crafts: [
       {
@@ -943,13 +900,11 @@ const TEACHER = {
       "A small box or cup, to place things in, on, under and behind"
     ],
     plan: [
-      { time: "5 min", step: "Hello and what's this?", details: "Sing hello. Hold up the toy fish: “What's this? It's a fish!” Children repeat." },
-      { time: "8 min", step: "Meet the sea animals", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What colour is the crab?” and “Is the whale big or small?”" },
+      { time: "3 min", step: "Hello and what's this?", details: "Sing hello. Hold up the toy fish: “What's this? It's a fish!” Children repeat." },
+      { time: "7 min", step: "Meet the sea animals", details: "Go through the flashcards. Say each word, press 🔊, and have the class repeat. Ask “What colour is the crab?” and “Is the whale big or small?”" },
       { time: "6 min", step: "This and that", details: "Put the toy crab near the children and the toy fish far away. “This is a crab. That is a fish.” Children point and repeat. Then ask “What's this? What's that?”" },
-      { time: "8 min", step: "Where is it?", details: "Place the toy crab on the blue cloth, then under the box, then behind the cup. Say “The crab is on the sand. The crab is under the box.” Children repeat each place word with their hands: on (flat hand on top), under (hand below), behind (hand behind back)." },
       { time: "10 min", step: "Games", details: "Play This or That?, Where Is It? and Which One Is a ___? on the Under the Sea game page or in the Class Game." },
-      { time: "15 min", step: "Craft: Paper Plate Fish", details: "Children colour a paper plate and add paper fins, then say “The fish is in the water.” as they place it on the sea cloth." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “The turtle is in the water.”" }
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one sentence: “The turtle is in the water.”" },
     ],
     crafts: [
       {
@@ -988,12 +943,11 @@ const TEACHER = {
       "Floor space for a line of children"
     ],
     plan: [
-      { time: "5 min", step: "Hello and what day is it?", details: "Sing hello. Ask “What day is it today?” and let children answer, then point to the day on the calendar." },
-      { time: "8 min", step: "Meet the days", details: "Go through the flashcards in order, from Monday to Sunday. Say each day, press 🔊, and have the class repeat. Clap once for each day." },
-      { time: "8 min", step: "What comes after?", details: "Say “Monday.” Children answer “Tuesday.” Then go round the room, one child for each day, passing the word on." },
-      { time: "8 min", step: "What comes before?", details: "Say “Friday.” Children answer “Thursday.” Repeat with a few other days, then let children ask each other." },
+      { time: "3 min", step: "Hello and what day is it?", details: "Sing hello. Ask “What day is it today?” and let children answer, then point to the day on the calendar." },
+      { time: "7 min", step: "Meet the days", details: "Go through the flashcards in order, from Monday to Sunday. Say each day, press 🔊, and have the class repeat. Clap once for each day." },
+      { time: "6 min", step: "What comes after?", details: "Say “Monday.” Children answer “Tuesday.” Then go round the room, one child for each day, passing the word on." },
       { time: "10 min", step: "Games", details: "Play What Comes After?, What Comes Before? and Which Picture Is It? on the Days of the Week game page or in the Class Game." },
-      { time: "5 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one day: “Today is Wednesday.”" }
+      { time: "4 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says one day: “Today is Wednesday.”" },
     ],
     crafts: [
       {

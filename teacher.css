@@ -778,3 +778,26 @@ input[type="text"]:focus-visible {
 .voice-page ul {
   padding-left: 22px;
 }
+
+/* How-to block at the top of Teacher's Corner */
+.howto {
+  max-width: 760px;
+  margin: 16px auto 8px auto;
+  padding: 14px 20px;
+  background-color: var(--surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-size: 17px;
+}
+.howto summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--word-dark);
+  font-size: 19px;
+}
+.howto ol {
+  margin: 10px 0 0 0;
+  padding-left: 22px;
+  line-height: 1.5;
+}
