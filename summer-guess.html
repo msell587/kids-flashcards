@@ -185,7 +185,7 @@
   <script src="voice.js"></script>
   <script>
     // Each item: the English word, the Spanish word, an emoji shown until a photo is added
-    // at images/summer-guess/<english word>.jpg
+    // at images/summer-guess/<english word>.webp
     const ITEMS = [
       { word: "ice cream", es: "helado", emoji: "🍦" },
       { word: "sunglasses", es: "gafas de sol", emoji: "🕶️" },
@@ -265,7 +265,7 @@
       };
       $("pic").hidden = false;
       $("emoji").hidden = true;
-      $("pic").src = "images/summer-guess/" + item.word + ".jpg";
+      $("pic").src = "images/summer-guess/" + item.word + ".webp";
       $("pic").alt = "Picture to guess";
       $("emoji").innerHTML = item.emoji;
       $("word").textContent = "";

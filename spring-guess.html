@@ -176,7 +176,7 @@
   <script src="voice.js"></script>
   <script>
     // Each item: the English word, the Spanish word, an emoji shown until a photo is added
-    // at images/spring-guess/<english word>.jpg
+    // at images/spring-guess/<english word>.webp
     const ITEMS = [
       { word: "tulip", es: "tulipán", emoji: "🌷" },
       { word: "daffodil", es: "narciso", emoji: "🌼" },
@@ -255,7 +255,7 @@
       };
       $("pic").hidden = false;
       $("emoji").hidden = true;
-      $("pic").src = "images/spring-guess/" + item.word + ".jpg";
+      $("pic").src = "images/spring-guess/" + item.word + ".webp";
       $("pic").alt = "Picture to guess";
       $("emoji").textContent = item.emoji;
       $("word").textContent = "";

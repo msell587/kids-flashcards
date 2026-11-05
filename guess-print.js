@@ -11,7 +11,7 @@
     button.addEventListener("click", () => {
       const folder = button.dataset.folder;
       sheet.innerHTML = ITEMS.map(item =>
-        `<figure><img src="${encodeURI(folder + item.word + ".jpg")}" alt="${item.word}"><figcaption>${item.word}</figcaption></figure>`
+        `<figure><img src="${encodeURI(folder + item.word + ".webp")}" alt="${item.word}"><figcaption>${item.word}</figcaption></figure>`
       ).join("");
       document.body.classList.add("printing-pictures");
       printWhenLoaded();
