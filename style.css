@@ -573,10 +573,10 @@ body.show-speaker .card.hidden-word .speak {
   z-index: 2;
 }
 
-/* Photo topics (My Little Garden): the photo fills the whole picture area instead of floating inside it */
+/* Photo topics (My Little Garden): the photo fills the picture area without cropping, so nothing is cut off */
 body.photos .card img {
   padding: 0;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 24px;
 }
 
