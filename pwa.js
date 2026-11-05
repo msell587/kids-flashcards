@@ -1,5 +1,14 @@
 // Lets the app be installed and used offline (works once it's served from a web address, not from a file)
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  // When an update takes over a page that was already using the app, reload once so the new
+  // scripts and sentences show straight away (otherwise an old copy can stay on screen)
+  const hadController = !!navigator.serviceWorker.controller;
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!hadController || reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
   navigator.serviceWorker.register("sw.js").catch(() => {
     // Offline mode isn't available here; the app still works online
   });

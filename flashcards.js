@@ -17,8 +17,21 @@ celebration.innerHTML =
   "<h2>Well done!</h2>" +
   '<p class="finished-count"></p>' +
   '<p class="star-earned">⭐ You earned a star!</p>' +
-  '<button onclick="nextCard()">Start again</button>';
+  '<button onclick="nextCard()">Start again</button>' +
+  '<a class="next-topic" id="next-topic" hidden></a>';
 card.appendChild(celebration);
+
+// On the finished screen, offer the next topic in the list (wraps round to the first)
+function showNextTopic() {
+  const link = document.getElementById("next-topic");
+  const keys = Object.keys(TOPICS);
+  const index = keys.indexOf(topicKey);
+  if (index < 0 || keys.length < 2) return;
+  const next = TOPICS[keys[(index + 1) % keys.length]];
+  link.href = next.page;
+  link.textContent = "Next topic: " + next.title + " →";
+  link.hidden = false;
+}
 
 // In "Hide words" mode this button sits where the word goes until it's tapped
 const revealButton = document.createElement("button");
@@ -35,6 +48,11 @@ const spanishEl = document.createElement("p");
 spanishEl.className = "spanish-word";
 wordEl.after(spanishEl);
 
+// A short example sentence under the Spanish word, hidden with the word in "Hide words" mode
+const exampleEl = document.createElement("p");
+exampleEl.className = "example-sentence";
+spanishEl.after(exampleEl);
+
 // Extra tools under the cards: the game, plus an Options button that opens the rest, grouped
 const tools = document.createElement("div");
 tools.className = "tools";
@@ -47,6 +65,8 @@ tools.innerHTML =
       '<h2 id="practise-label">Practise</h2>' +
       '<div><button class="tool" id="shuffle-btn">Shuffle</button>' +
       '<button class="tool" id="guess-btn">Hide words</button>' +
+      '<button class="tool" id="spanish-btn" aria-pressed="false">Hide Spanish</button>' +
+      '<button class="tool" id="sentence-btn" aria-pressed="false">Hide sentences</button>' +
       '<a class="tool" id="game-link" href="game.html?topic=' + topicKey + '">Listening game</a>' +
       (topicKey === "colors" ? '<a class="tool" id="colour-link" href="colouring.html?topic=colors">Colouring</a>' : '') +
       '</div>' +
@@ -59,6 +79,61 @@ tools.innerHTML =
     '</div>' +
   '</div>';
 document.querySelector(".nav-buttons").after(tools);
+
+// Spanish under each word can be switched off; the choice is remembered on this device
+const spanishButton = document.getElementById("spanish-btn");
+let showSpanish = true;
+try {
+  showSpanish = localStorage.getItem("show-spanish") !== "no";
+} catch (error) {
+  // Default: show Spanish
+}
+function applySpanish() {
+  spanishEl.hidden = !showSpanish;
+  spanishButton.textContent = showSpanish ? "Hide Spanish" : "Show Spanish";
+  spanishButton.setAttribute("aria-pressed", String(!showSpanish));
+  spanishButton.classList.toggle("on", !showSpanish);
+}
+spanishButton.addEventListener("click", () => {
+  showSpanish = !showSpanish;
+  try {
+    localStorage.setItem("show-spanish", showSpanish ? "yes" : "no");
+  } catch (error) {
+    // Choice only lasts until the page is closed
+  }
+  applySpanish();
+});
+applySpanish();
+
+// Example sentences can be switched off too; the choice is remembered on this device
+const sentenceButton = document.getElementById("sentence-btn");
+let showSentences = true;
+try {
+  showSentences = localStorage.getItem("show-sentences") !== "no";
+} catch (error) {
+  // Default: show sentences
+}
+function applySentences() {
+  sentenceButton.textContent = showSentences ? "Hide sentences" : "Show sentences";
+  sentenceButton.setAttribute("aria-pressed", String(!showSentences));
+  sentenceButton.classList.toggle("on", !showSentences);
+  showCardSentence();
+}
+sentenceButton.addEventListener("click", () => {
+  showSentences = !showSentences;
+  try {
+    localStorage.setItem("show-sentences", showSentences ? "yes" : "no");
+  } catch (error) {
+    // Choice only lasts until the page is closed
+  }
+  applySentences();
+});
+function showCardSentence() {
+  const example = deck[current] ? deck[current].example : "";
+  exampleEl.textContent = example || "";
+  exampleEl.hidden = !showSentences || !example;
+}
+applySentences();
 
 const optionsButton = document.getElementById("options-btn");
 const optionsPanel = document.getElementById("options-panel");
@@ -90,6 +165,7 @@ function showCard(direction) {
   const word = deck[current].word;
   wordEl.textContent = word;
   spanishEl.textContent = deck[current].es || "";
+  showCardSentence();
   document.getElementById("picture").src = deck[current].picture;
   document.getElementById("picture").alt = guessMode ? "Guess the picture" : word;
   document.getElementById("counter").textContent = (current + 1) + " / " + deck.length;
@@ -119,6 +195,7 @@ function showCelebration() {
   card.classList.add("finished");
   celebration.querySelector(".finished-count").textContent = "You finished all " + deck.length + (deck.length === 1 ? " card!" : " cards!");
   celebration.hidden = false;
+  showNextTopic();
   document.getElementById("counter").textContent = "All done!";
   celebration.querySelector("button").focus();
   earnStar();

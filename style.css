@@ -259,6 +259,23 @@ button.secondary {
   display: none;
 }
 
+/* The example sentence, shown under the Spanish word */
+.example-sentence {
+  margin: 8px 0 0 0;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--text);
+  text-align: center;
+}
+
+.example-sentence[hidden] {
+  display: none;
+}
+
+.card.hidden-word .example-sentence {
+  display: none;
+}
+
 /* The Spanish word, shown under the English word */
 .spanish-word {
   margin: 4px 0 0 0;
@@ -367,7 +384,10 @@ button:focus-visible,
 /* End-of-deck celebration */
 .card.finished img,
 .card.finished h1,
-.card.finished .speak {
+.card.finished .speak,
+.card.finished .spanish-word,
+.card.finished .example-sentence,
+.card.finished .reveal {
   display: none;
 }
 
@@ -401,6 +421,18 @@ button:focus-visible,
 
 .celebration button {
   background-color: var(--border);
+}
+
+.celebration .next-topic {
+  margin-top: 14px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--word);
+  text-decoration: underline;
+}
+
+.celebration .next-topic[hidden] {
+  display: none;
 }
 
 @keyframes pop-in {
