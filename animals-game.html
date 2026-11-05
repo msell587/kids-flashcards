@@ -110,6 +110,7 @@
 <body>
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <main>
+    <p class="big-screen-toggle"><button type="button" data-big-screen>Big screen</button></p>
     <div class="panel" id="setup">
       <div class="big-emoji">🐾</div>
       <h1>Animals Game</h1>
@@ -273,5 +274,6 @@
     const requested = new URLSearchParams(location.search).get("game");
     if (["group", "sound"].includes(requested)) startGame(requested);
   </script>
+  <script src="bigscreen.js"></script>
 </body>
 </html>

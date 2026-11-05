@@ -117,6 +117,7 @@
 <body>
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <main>
+    <p class="big-screen-toggle"><button type="button" data-big-screen>Big screen</button></p>
     <div class="panel" id="start">
       <div class="big-emoji">🍂</div>
       <h1>Season Sort</h1>
@@ -338,6 +339,7 @@
     document.getElementById("start-btn").addEventListener("click", startGame);
     document.getElementById("again-btn").addEventListener("click", startGame);
   </script>
+  <script src="bigscreen.js"></script>
   <script src="pwa.js"></script>
 </body>
 </html>
