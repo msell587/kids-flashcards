@@ -64,6 +64,8 @@
         const x0 = MARGIN + col * (cellW + GAP);
         const cellTop = PAGE_H - MARGIN - TITLE_H - row * (cellH + GAP);
         const boxH = cellH - captionH;
+        // Every picture has the same frame on the page, so all cells line up; the picture keeps its shape inside it
+        ops.push(`0.8 G 0.6 w ${x0.toFixed(2)} ${(cellTop - boxH).toFixed(2)} ${cellW.toFixed(2)} ${boxH.toFixed(2)} re S`);
         const scale = Math.min(cellW / w, boxH / h);
         const dw = w * scale;
         const dh = h * scale;
