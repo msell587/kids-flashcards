@@ -64,6 +64,7 @@ tools.innerHTML =
     '<div class="option-group" role="group" aria-labelledby="practise-label">' +
       '<h2 id="practise-label">Practise</h2>' +
       '<div><button class="tool" id="shuffle-btn">Shuffle</button>' +
+      '<button class="tool" id="pdf-btn">Download PDF</button>' +
       '<button class="tool" id="guess-btn">Hide words</button>' +
       '<button class="tool" id="spanish-btn" aria-pressed="false">Hide Spanish</button>' +
       '<button class="tool" id="sentence-btn" aria-pressed="false">Hide sentences</button>' +
@@ -389,3 +390,21 @@ card.addEventListener("touchend", (event) => {
 });
 
 showCard(0);
+
+// Download PDF: the picture chooser (guess-pdf.js) is loaded the first time it is needed
+const pdfButton = document.getElementById("pdf-btn");
+pdfButton.addEventListener("click", () => {
+  const openChooser = () => window.openPdfChooser(
+    TOPICS[topicKey].title,
+    cards.filter(c => c.picture).map(c => ({ word: c.word, src: c.picture }))
+  );
+  if (window.openPdfChooser) {
+    openChooser();
+    return;
+  }
+  const script = document.createElement("script");
+  script.src = "guess-pdf.js";
+  script.onload = openChooser;
+  script.onerror = () => { pdfButton.textContent = "PDF not available"; };
+  document.body.appendChild(script);
+});

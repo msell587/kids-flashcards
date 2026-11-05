@@ -139,6 +139,7 @@
   document.body.appendChild(dialog);
 
   let current = { folder: "", name: "" };
+  let items = [];
   const list = dialog.querySelector("#pdf-list");
   const count = dialog.querySelector("#pdf-count");
   const make = dialog.querySelector("#pdf-make");
@@ -172,18 +173,33 @@
     make.disabled = picked === 0;
   }
 
-  function openChooser(button) {
-    current = { folder: button.dataset.folder, name: button.dataset.name };
-    list.innerHTML = ITEMS.map((item, n) =>
+  // Each picture is { word, src }; guess games give only the word and use the folder + word + ".webp"
+  function pictureUrl(item) {
+    return item.src || current.folder + item.word + ".webp";
+  }
+
+  // opts: { name, folder, items } where items is a list of { word, src? }
+  function openChooser(opts) {
+    current = { folder: opts.folder || "", name: opts.name };
+    items = opts.items;
+    list.innerHTML = items.map((item, n) =>
       `<label class="pdf-pick"><input type="checkbox" data-n="${n}" checked>` +
-      `<img src="${encodeURI(current.folder + item.word + ".webp")}" alt="">` +
+      `<img src="${encodeURI(pictureUrl(item))}" alt="">` +
       `<span>${item.word}</span></label>`).join("");
     updateCount();
     dialog.showModal();
   }
 
+  // Guess-game pages: a button with data-pdf-choose, data-folder and data-name, using the page's ITEMS list
   document.querySelectorAll("[data-pdf-choose]").forEach(button =>
-    button.addEventListener("click", () => openChooser(button)));
+    button.addEventListener("click", () => openChooser({
+      name: button.dataset.name,
+      folder: button.dataset.folder,
+      items: typeof ITEMS !== "undefined" ? ITEMS : [],
+    })));
+
+  // Other pages (such as the topic flashcards) call this with their own name and pictures
+  window.openPdfChooser = (name, items) => openChooser({ name, folder: "", items });
   dialog.addEventListener("change", updateCount);
   dialog.querySelector("[data-pdf-all]").addEventListener("click", () => {
     list.querySelectorAll("input[type=checkbox]").forEach(box => box.checked = true);
@@ -197,13 +213,13 @@
 
   make.addEventListener("click", async () => {
     const sizeKey = dialog.querySelector("input[name=pdf-size]:checked").value;
-    const chosen = checkedBoxes().map(box => ITEMS[Number(box.dataset.n)]);
+    const chosen = checkedBoxes().map(box => items[Number(box.dataset.n)]);
     make.disabled = true;
     make.textContent = "Making PDF…";
     try {
       const pictures = await Promise.all(chosen.map(async item => ({
         word: item.word,
-        bytes: await jpegBytes(encodeURI(current.folder + item.word + ".webp"), item.word),
+        bytes: await jpegBytes(encodeURI(pictureUrl(item)), item.word),
       })));
       const title = current.name + " pictures";
       saveBlob(makePdf(title, pictures, SIZES[sizeKey]), title + " (" + sizeKey + ").pdf");
