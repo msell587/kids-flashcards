@@ -466,3 +466,19 @@ body.big-screen .sheet-page img {
   justify-content: flex-end;
   gap: 10px;
 }
+
+/* Big screen button on game pages: kept outside the parts that the big screen hides, so it can be used to exit */
+.big-screen-toggle {
+  text-align: center;
+  margin: 8px 0;
+}
+.big-screen-toggle button {
+  padding: 6px 12px;
+  font-size: 14px;
+  box-shadow: none;
+}
+/* The "Well done" panel keeps a readable width on the big screen */
+body.big-screen .panel {
+  width: min(92vw, 720px);
+  max-width: none;
+}
