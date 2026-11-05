@@ -136,6 +136,15 @@
     '<div class="pdf-pick-list" id="pdf-list"></div>' +
     '</fieldset>' +
     '<p class="pdf-count" id="pdf-count" aria-live="polite"></p>' +
+    '<div class="pdf-preview" id="pdf-preview" aria-label="How the first page will look"></div>' +
+    '<style>' +
+    '.pdf-preview { margin: 10px auto; text-align: center; }' +
+    '.pdf-page { width: min(100%, 240px); aspect-ratio: 595 / 842; margin: 0 auto; background: #fff; border: 1px solid #999;' +
+    '  box-shadow: 0 2px 8px rgba(0,0,0,0.15); padding: 8px; box-sizing: border-box; display: grid; gap: 6px; }' +
+    '.pdf-cell { border: 1px solid #bbb; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; }' +
+    '.pdf-cell img { max-width: 100%; max-height: 100%; object-fit: contain; }' +
+    '.pdf-preview p { font-size: 14px; margin: 6px 0 0; }' +
+    '</style>' +
     '<div class="pdf-actions"><button type="button" data-pdf-cancel>Cancel</button>' +
     '<button type="button" class="primary" id="pdf-make">Download PDF</button></div>';
   document.body.appendChild(dialog);
@@ -169,6 +178,21 @@
   function checkedBoxes() {
     return [...list.querySelectorAll("input[type=checkbox]:checked")];
   }
+  // Shows the first A4 page with the chosen layout, so the size and grid can be seen before downloading
+  function renderPreview() {
+    const preview = dialog.querySelector("#pdf-preview");
+    const size = SIZES[dialog.querySelector("input[name=pdf-size]:checked").value];
+    const chosen = checkedBoxes().map(box => items[Number(box.dataset.n)]);
+    const perPage = size.cols * size.rows;
+    const pages = Math.max(1, Math.ceil(chosen.length / perPage));
+    const cells = Array.from({ length: perPage }, (_, i) => chosen[i]
+      ? `<div class="pdf-cell"><img src="${encodeURI(pictureUrl(chosen[i]))}" alt=""></div>`
+      : `<div class="pdf-cell"></div>`).join("");
+    preview.innerHTML =
+      `<div class="pdf-page" style="grid-template-columns: repeat(${size.cols}, 1fr); grid-template-rows: repeat(${size.rows}, 1fr);">${cells}</div>` +
+      `<p>Page 1 of ${pages} (A4, ${perPage} per page)</p>`;
+  }
+
   function updateCount() {
     const picked = checkedBoxes().length;
     const size = SIZES[dialog.querySelector("input[name=pdf-size]:checked").value];
@@ -176,6 +200,7 @@
     count.textContent = picked === 0 ? "Choose at least one picture." :
       picked + (picked === 1 ? " picture" : " pictures") + ", on " + pages + (pages === 1 ? " page" : " pages");
     make.disabled = picked === 0;
+    renderPreview();
   }
 
   // Each picture is { word, src }; guess games give only the word and use the folder + word + ".webp"
