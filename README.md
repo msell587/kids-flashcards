@@ -6,7 +6,7 @@ A bilingual (English and Spanish) set of flashcards, listening games, printable 
 
 ## Live demo
 
-_To be added after the first deployment._
+[https://lets-learn-flashcards.netlify.app](https://lets-learn-flashcards.netlify.app)
 
 ## Features
 
