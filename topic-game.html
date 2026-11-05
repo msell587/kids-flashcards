@@ -214,9 +214,9 @@
     let right = 0;
     let answered = false;
 
-    // Feelings pictures all show the same dog, so the question asks how it feels
+    // Feelings pictures show different animals, so the question names the one in the picture
     if (topicKey === "feelings") {
-      document.querySelector('[data-game="what"]').textContent = "How does the dog feel?";
+      document.querySelector('[data-game="what"]').textContent = "How does it feel?";
     }
 
     // Hide the Spanish game when most words are the same in Spanish (such as place names)
@@ -257,13 +257,13 @@
         };
       }
       if (game === "what") {
-        const question = topicKey === "feelings" ? "How does the dog feel?" : "What is this?";
+        const question = topicKey === "feelings" ? "How does the " + card.animal + " feel?" : "What is this?";
         return {
           prompt: question,
           picture: photoOf(card),
           options: shuffled([card.word, ...pool.slice(0, 2).map(c => c.word)]),
           answer: card.word,
-          explain: topicKey === "feelings" ? "Yes! The dog feels " + card.word + "." : "Yes! It is " + card.word + ".",
+          explain: topicKey === "feelings" ? "Yes! The " + card.animal + " feels " + card.word + "." : "Yes! It is " + card.word + ".",
           say: question
         };
       }
