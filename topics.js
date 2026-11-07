@@ -259,18 +259,18 @@ const TOPICS = {
     page: "community.html",
     // "is" is "He/She is a ...", "doing" is the present continuous, "does" answers "What does a ... do?"
     cards: [
-      { word: "doctor", es: "médica", picture: "images/community-helpers/doctor.webp", is: "She is a doctor.", doing: "She is helping sick people.", does: "A doctor helps sick people." },
-      { word: "teacher", es: "profesor", picture: "images/community-helpers/teacher.webp", is: "He is a teacher.", doing: "He is teaching children.", does: "A teacher teaches children." },
-      { word: "firefighter", es: "bombero", picture: "images/community-helpers/firefighter.webp", is: "He is a firefighter.", doing: "He is putting out a fire.", does: "A firefighter puts out fires." },
+      { word: "doctor", es: "médico/a", picture: "images/community-helpers/doctor.webp", is: "She is a doctor.", doing: "She is helping sick people.", does: "A doctor helps sick people." },
+      { word: "teacher", es: "profesor/a", picture: "images/community-helpers/teacher.webp", is: "He is a teacher.", doing: "He is teaching children.", does: "A teacher teaches children." },
+      { word: "firefighter", es: "bombero/a", picture: "images/community-helpers/firefighter.webp", is: "He is a firefighter.", doing: "He is putting out a fire.", does: "A firefighter puts out fires." },
       { word: "police officer", es: "policía", picture: "images/community-helpers/police-officer.webp", is: "He is a police officer.", doing: "He is keeping people safe.", does: "A police officer keeps people safe." },
-      { word: "nurse", es: "enfermero", picture: "images/community-helpers/nurse.webp", is: "He is a nurse.", doing: "He is looking after patients.", does: "A nurse looks after patients." },
-      { word: "farmer", es: "granjero", picture: "images/community-helpers/farmer.webp", is: "He is a farmer.", doing: "He is growing food.", does: "A farmer grows food." },
-      { word: "cook", es: "cocinera", picture: "images/community-helpers/cook.webp", is: "She is a cook.", doing: "She is cooking dinner.", does: "A cook makes meals." },
-      { word: "postal worker", es: "cartera", picture: "images/community-helpers/postal-worker.webp", is: "She is a postal worker.", doing: "She is delivering letters.", does: "A postal worker delivers letters." },
-      { word: "builder", es: "albañil", picture: "images/community-helpers/builder.webp", is: "He is a builder.", doing: "He is building a house.", does: "A builder builds houses." },
+      { word: "nurse", es: "enfermero/a", picture: "images/community-helpers/nurse.webp", is: "He is a nurse.", doing: "He is looking after patients.", does: "A nurse looks after patients." },
+      { word: "farmer", es: "granjero/a", picture: "images/community-helpers/farmer.webp", is: "He is a farmer.", doing: "He is growing food.", does: "A farmer grows food." },
+      { word: "cook", es: "cocinero/a", picture: "images/community-helpers/cook.webp", is: "She is a cook.", doing: "She is cooking dinner.", does: "A cook makes meals." },
+      { word: "postal worker", es: "cartero/a", picture: "images/community-helpers/postal-worker.webp", is: "She is a postal worker.", doing: "She is delivering letters.", does: "A postal worker delivers letters." },
+      { word: "builder", es: "albañil/a", picture: "images/community-helpers/builder.webp", is: "He is a builder.", doing: "He is building a house.", does: "A builder builds houses." },
       { word: "dentist", es: "dentista", picture: "images/community-helpers/dentist.webp", is: "She is a dentist.", doing: "She is looking after teeth.", does: "A dentist looks after teeth." },
-      { word: "vet", es: "veterinario", picture: "images/community-helpers/vet.webp", is: "He is a vet.", doing: "He is looking after animals.", does: "A vet looks after animals." },
-      { word: "bus driver", es: "conductora", picture: "images/community-helpers/bus-driver.webp", is: "She is a bus driver.", doing: "She is driving a bus.", does: "A bus driver drives the bus." }
+      { word: "vet", es: "veterinario/a", picture: "images/community-helpers/vet.webp", is: "He is a vet.", doing: "He is looking after animals.", does: "A vet looks after animals." },
+      { word: "bus driver", es: "conductor/a", picture: "images/community-helpers/bus-driver.webp", is: "She is a bus driver.", doing: "She is driving a bus.", does: "A bus driver drives the bus." }
     ]
   },
   toys: {
@@ -378,7 +378,7 @@ const EXAMPLES = {
     "mouse": "The mouse is small and brown.",
     "dog": "The dog is sitting on the grass.",
     "cat": "The cat is sitting on the wall.",
-    "rabbit": "The rabbit is sitting in the grass.",
+    "rabbit": "The rabbit is sitting on the grass.",
     "horse": "The horse is standing by the fence.",
     "lion": "The lion has a big mane.",
     "cow": "The cow is black and white.",
@@ -387,7 +387,7 @@ const EXAMPLES = {
     "parrot": "The parrot has bright yellow and blue feathers.",
     "guinea pig": "The guinea pig is brown and white.",
     "tortoise": "The tortoise has a hard shell.",
-    "hamster": "The hamster is sitting in a hand.",
+    "hamster": "The hamster is sitting in a child's hand.",
     "budgie": "The budgie is green and yellow.",
     "goldfish": "The goldfish is orange and swims.",
     "duck": "The duck has a green head.",
@@ -395,7 +395,7 @@ const EXAMPLES = {
     "turkey": "The turkey has a big fan of feathers.",
     "donkey": "The donkey has long ears.",
     "goose": "The goose is white and has a long neck.",
-    "llama": "The llamas are standing in the mountains.",
+    "llama": "The llama is standing in the mountains.",
     "goat": "The goat is white and has floppy ears.",
     "zebra": "The zebra has black and white stripes.",
     "kangaroo": "The kangaroo carries its baby in a pouch.",
@@ -458,7 +458,7 @@ const EXAMPLES = {
     "rainy": "It is rainy, and there are puddles.",
     "cloudy": "The sky is grey and cloudy.",
     "snowy": "It is snowy, and the trees are white.",
-    "windy": "It is windy, and the trees and grass blow.",
+    "windy": "It is windy, and the trees and grass are blowing.",
     "stormy": "It is stormy, with dark clouds and lightning.",
     "hot": "The drink is hot, so we wait before we sip.",
     "cold": "It is cold, and the snow sparkles."
@@ -568,8 +568,8 @@ const EXAMPLES = {
     "postal worker": "The postal worker holds a letter.",
     "builder": "The builder wears an orange vest and a helmet.",
     "dentist": "The dentist uses a small tool.",
-    "vet": "The vet is with a dog.",
-    "bus driver": "The bus driver sits at the wheel."
+    "vet": "The vet is helping a dog.",
+    "bus driver": "The bus driver sits at the steering wheel."
   },
   "toys": {
     "kite": "The kite flies in the blue sky.",
