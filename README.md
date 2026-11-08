@@ -6,13 +6,15 @@ A bilingual (English and Spanish) set of flashcards, listening games, printable 
 
 ## Live demo
 
-[https://lets-learn-flashcards.netlify.app](https://lets-learn-flashcards.netlify.app)
+[https://msell587.github.io/kids-flashcards/](https://msell587.github.io/kids-flashcards/)
+
+The site is built and published to GitHub Pages by a GitHub Actions workflow on every push to `main`.
 
 ## Features
 
 - Flashcards for each topic, with English and Spanish words and example sentences
 - Listening and picture games
-- Printable colouring sheets and worksheets
+- Printable worksheets, and colouring sheets for teachers behind an access code
 - Teacher's corner with lesson plans, songs, games and crafts
 - Installable web app that works offline after the first visit
 - Options to hide Spanish, hide words or hide sentences, remembered on the device
@@ -24,6 +26,14 @@ The app does not collect information about children. It has no accounts and no s
 ## Image sources and licences
 
 All pictures were made with AI image tools (Midjourney or Canva), according to the author. None is a stock photo or a photo of a real child. The sources and the licence checks are listed in [PHOTO-SOURCES.md](PHOTO-SOURCES.md). The licence checks are not complete yet.
+
+## Colouring sheets for teachers
+
+The colouring-sheet PDFs are not in this repository and are not part of the public site. They are kept in a private Google Drive folder. When a teacher opens a colouring sheet, `pdf-view.html` asks for an access code and sends it to a Google Apps Script web app (`apps-script/Code.gs`), which checks the code and sends the PDF back only if it is valid.
+
+- `sheet-access.js` holds the rule for which files are gated, and the web app address.
+- The build (`vite.config.js`) leaves gated files out of `dist/`, and `.gitignore` keeps them out of git.
+- The teacher codes and the Drive folder ID are stored as script properties in Apps Script, never in this repository.
 
 ## Getting started
 
@@ -47,12 +57,14 @@ npm run preview   # serve the built site to check it
 | `sw.js`, `pwa.js`, `manifest.webmanifest` | Offline support and install settings |
 | `images/`, `icons/`, `printables/` | Pictures and printable files |
 | `vite.config.js` | Build settings: every HTML page is built, and static files are copied across |
+| `sheet-access.js`, `apps-script/Code.gs` | The teacher access code gate for colouring sheets |
+| `tests/` | Unit tests (Vitest) and browser smoke tests (Playwright) |
 
 ## Planned work
 
 - Consolidate the topic pages into one template generated from the data
 - Move inline scripts into modules
-- Add TypeScript, tests (Vitest and Playwright), linting and continuous integration
+- Add TypeScript and linting
 - Optimise images and check accessibility
 
 ## Licence

@@ -1,9 +1,9 @@
 // Coloring sheets are gated: teachers enter an access code and the sheet is fetched from the
-// sheet Worker (worker/index.js). The rule below is shared by the build (vite.config.js),
-// the Worker and the pages, so a gated file is never copied into the public site.
+// Google Apps Script web app (apps-script/Code.gs). The rule below is shared by the build
+// (vite.config.js) and the page, so a gated file is never copied into the public site.
 
-// After you deploy the Worker, paste its address here (no slash at the end).
-export const SHEET_WORKER_URL = "https://sheet-gate.letslearn-teachers.workers.dev";
+// After you deploy the Apps Script, paste its web app address here.
+export const SHEET_WORKER_URL = "https://script.google.com/macros/s/AKfycbyhTI-ofvGY3NEtTY5NaUvGbxjQrNpFbtmX78_MMmkbGzh6h2RNvfX9DqDe_epxmZC7xQ/exec";
 
 // Coloring sheets: every PDF in images/coloring-sheets/, and the colouring worksheets in printables/worksheets/
 export function isGatedSheet(path) {
@@ -14,20 +14,24 @@ export function isGatedSheet(path) {
 }
 
 export function sheetWorkerIsSetUp(workerUrl = SHEET_WORKER_URL) {
-  return !workerUrl.includes("YOUR-SUBDOMAIN");
+  return !workerUrl.includes("PASTE_DEPLOYMENT_ID");
 }
 
-// Asks the Worker for a gated sheet. Throws an Error with .status (403 = wrong code).
+// Asks the script for a gated sheet. Throws an Error with .status (403 = wrong code).
+// Apps Script always answers 200, so a wrong code is recognised from the reply itself.
 export async function fetchSheet(path, code, workerUrl = SHEET_WORKER_URL) {
-  const response = await fetch(workerUrl + "/sheet", {
+  // text/plain keeps the request "simple", so the browser does not need a CORS preflight
+  const response = await fetch(workerUrl, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "content-type": "text/plain" },
     body: JSON.stringify({ path, code }),
   });
-  if (!response.ok) {
-    const error = new Error("Sheet request failed: " + response.status);
-    error.status = response.status;
+  const data = response.ok ? await response.json().catch(() => null) : null;
+  if (!data || !data.base64) {
+    const error = new Error("Sheet request failed");
+    error.status = data && data.error === "wrong code" ? 403 : response.status;
     throw error;
   }
-  return response.blob();
+  const bytes = Uint8Array.from(atob(data.base64), char => char.charCodeAt(0));
+  return new Blob([bytes], { type: "application/pdf" });
 }
