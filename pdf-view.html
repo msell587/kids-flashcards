@@ -121,6 +121,7 @@
       <button type="submit">Show sheet</button>
       <p class="error" id="gate-error" role="alert"></p>
     </form>
+    <p id="gate-checking" hidden>Checking the code…</p>
     <p id="gate-off" hidden>Coloring sheets are not set up yet. Please try again later.</p>
   </section>
   <iframe class="viewer" id="viewer" title="Printable sheet"></iframe>
@@ -143,17 +144,26 @@
     const gateForm = document.getElementById("gate-form");
     const gateCode = document.getElementById("gate-code");
     const gateError = document.getElementById("gate-error");
+    const gateChecking = document.getElementById("gate-checking");
     const STORED_CODE = "sheetAccessCode";
 
-    // Browser storage is only a convenience so teachers do not retype the code on every sheet
+    // The code is remembered only for this visit (until the tab is closed), so a teacher does not
+    // retype it for every sheet, but the next visit asks again.
+    try { localStorage.removeItem(STORED_CODE); } catch { /* older versions kept it for good: clear that copy */ }
     function readStoredCode() {
-      try { return localStorage.getItem(STORED_CODE) || ""; } catch { return ""; }
+      try { return sessionStorage.getItem(STORED_CODE) || ""; } catch { return ""; }
     }
     function storeCode(code) {
-      try { localStorage.setItem(STORED_CODE, code); } catch { /* storage blocked: just ask again next time */ }
+      try { sessionStorage.setItem(STORED_CODE, code); } catch { /* storage blocked: just ask again next time */ }
     }
     function forgetCode() {
-      try { localStorage.removeItem(STORED_CODE); } catch { /* nothing to clear */ }
+      try { sessionStorage.removeItem(STORED_CODE); } catch { /* nothing to clear */ }
+    }
+
+    // While a code is being checked, show "Checking the code…" instead of the code box
+    function showChecking(checking) {
+      gateForm.hidden = checking;
+      gateChecking.hidden = !checking;
     }
 
     function showSheet(src) {
@@ -168,6 +178,7 @@
 
     async function tryCode(code, fromStorage) {
       gateError.textContent = "";
+      showChecking(true);
       try {
         const blob = await fetchSheet(file, code);
         storeCode(code);
@@ -179,6 +190,8 @@
           ? "That code is not right. Please check it and try again."
           : "The sheet could not be loaded. Please try again later.";
         gate.hidden = false;
+      } finally {
+        showChecking(false);
       }
     }
 
@@ -198,7 +211,8 @@
         } else {
           gateForm.addEventListener("submit", event => {
             event.preventDefault();
-            tryCode(gateCode.value.trim(), false);
+            const code = gateCode.value.trim();
+            if (code) tryCode(code, false);
           });
           const saved = readStoredCode();
           if (saved) tryCode(saved, true);
