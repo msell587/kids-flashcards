@@ -7,3 +7,7 @@ node_modules/
 dist/
 test-results/
 playwright-report/
+
+# Wrangler local state (Cloudflare Worker)
+.wrangler/
+worker/.wrangler/
