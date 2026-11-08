@@ -1,27 +1,15 @@
-// Checks which files count as gated coloring sheets, and that the sheet Worker only
-// returns a sheet to a request with a valid teacher code.
-import { describe, expect, it } from "vitest";
-import worker from "../worker/index.js";
-import { isGatedSheet } from "../sheet-access.js";
+// Checks which files count as gated coloring sheets, and how the page reads the Apps Script's replies.
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { fetchSheet, isGatedSheet, sheetWorkerIsSetUp } from "../sheet-access.js";
 
-const ORIGIN = "https://msell587.github.io";
+const URL_UNDER_TEST = "https://script.google.com/macros/s/TEST/exec";
 
-function fakeEnv(objects = { "images/coloring-sheets/spring.pdf": "PDF-SPRING" }) {
-  return {
-    TEACHER_CODES: "teacher-code-one,teacher-code-two",
-    ALLOWED_ORIGINS: `${ORIGIN},http://localhost:5173`,
-    SHEETS: {
-      get: async key => (key in objects ? { body: objects[key] } : null),
-    },
-  };
-}
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
-function post(body, { origin = ORIGIN } = {}) {
-  return new Request("https://sheet-gate.example.workers.dev/sheet", {
-    method: "POST",
-    headers: { "content-type": "application/json", origin },
-    body: typeof body === "string" ? body : JSON.stringify(body),
-  });
+function replyWith(body, status = 200) {
+  vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify(body), { status })));
 }
 
 describe("isGatedSheet", () => {
@@ -44,75 +32,41 @@ describe("isGatedSheet", () => {
   });
 });
 
-describe("sheet Worker", () => {
-  it("returns the sheet when the teacher code is valid", async () => {
-    const response = await worker.fetch(
-      post({ path: "images/coloring-sheets/spring.pdf", code: "teacher-code-two" }),
-      fakeEnv()
-    );
-    expect(response.status).toBe(200);
-    expect(response.headers.get("content-type")).toBe("application/pdf");
-    expect(response.headers.get("cache-control")).toBe("private, no-store");
-    expect(response.headers.get("access-control-allow-origin")).toBe(ORIGIN);
-    expect(await response.text()).toBe("PDF-SPRING");
+describe("fetchSheet", () => {
+  it("returns the sheet as a PDF when the script sends it", async () => {
+    replyWith({ base64: Buffer.from("%PDF-test").toString("base64") });
+    const blob = await fetchSheet("images/coloring-sheets/spring.pdf", "teacher-code", URL_UNDER_TEST);
+    expect(blob.type).toBe("application/pdf");
+    expect(Buffer.from(await blob.arrayBuffer()).toString()).toBe("%PDF-test");
   });
 
-  it("refuses a wrong or missing code", async () => {
-    const wrong = await worker.fetch(
-      post({ path: "images/coloring-sheets/spring.pdf", code: "guess" }),
-      fakeEnv()
-    );
-    const missing = await worker.fetch(
-      post({ path: "images/coloring-sheets/spring.pdf" }),
-      fakeEnv()
-    );
-    expect(wrong.status).toBe(403);
-    expect(missing.status).toBe(403);
+  it("reports a wrong code as status 403", async () => {
+    replyWith({ error: "wrong code" });
+    const error = await fetchSheet("images/coloring-sheets/spring.pdf", "guess", URL_UNDER_TEST)
+      .catch(e => e);
+    expect(error.status).toBe(403);
   });
 
-  it("does not serve public files or paths outside the gate", async () => {
-    const response = await worker.fetch(
-      post({ path: "printables/worksheets/tracing-shapes.pdf", code: "teacher-code-one" }),
-      fakeEnv()
-    );
-    expect(response.status).toBe(404);
+  it("reports other failures with their own status", async () => {
+    replyWith({ error: "not found" }, 500);
+    const error = await fetchSheet("images/coloring-sheets/spring.pdf", "teacher-code", URL_UNDER_TEST)
+      .catch(e => e);
+    expect(error.status).toBe(500);
   });
 
-  it("returns 404 for a gated sheet that is not in the bucket", async () => {
-    const response = await worker.fetch(
-      post({ path: "images/coloring-sheets/winter.pdf", code: "teacher-code-one" }),
-      fakeEnv()
-    );
-    expect(response.status).toBe(404);
+  it("sends the request as a simple text/plain POST", async () => {
+    replyWith({ error: "not found" });
+    await fetchSheet("images/coloring-sheets/spring.pdf", "teacher-code", URL_UNDER_TEST).catch(() => {});
+    const [url, options] = fetch.mock.calls[0];
+    expect(url).toBe(URL_UNDER_TEST);
+    expect(options.method).toBe("POST");
+    expect(options.headers["content-type"]).toBe("text/plain");
   });
+});
 
-  it("rejects requests that are not valid JSON or not POST /sheet", async () => {
-    const badJson = await worker.fetch(post("{not json"), fakeEnv());
-    const getRequest = await worker.fetch(
-      new Request("https://sheet-gate.example.workers.dev/sheet"),
-      fakeEnv()
-    );
-    expect(badJson.status).toBe(400);
-    expect(getRequest.status).toBe(404);
-  });
-
-  it("answers the browser's preflight only for allowed sites", async () => {
-    const allowed = await worker.fetch(
-      new Request("https://sheet-gate.example.workers.dev/sheet", {
-        method: "OPTIONS",
-        headers: { origin: ORIGIN },
-      }),
-      fakeEnv()
-    );
-    const other = await worker.fetch(
-      new Request("https://sheet-gate.example.workers.dev/sheet", {
-        method: "OPTIONS",
-        headers: { origin: "https://elsewhere.example" },
-      }),
-      fakeEnv()
-    );
-    expect(allowed.status).toBe(204);
-    expect(allowed.headers.get("access-control-allow-origin")).toBe(ORIGIN);
-    expect(other.headers.get("access-control-allow-origin")).toBeNull();
+describe("sheetWorkerIsSetUp", () => {
+  it("is false until the placeholder address is replaced", () => {
+    expect(sheetWorkerIsSetUp("https://script.google.com/macros/s/PASTE_DEPLOYMENT_ID/exec")).toBe(false);
+    expect(sheetWorkerIsSetUp(URL_UNDER_TEST)).toBe(true);
   });
 });

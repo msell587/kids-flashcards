@@ -11,3 +11,14 @@ playwright-report/
 # Wrangler local state (Cloudflare Worker)
 .wrangler/
 worker/.wrangler/
+
+# Private notes and local tool output
+PORTFOLIO-CHECKLIST.md
+grammar-agent-runs/
+
+# Coloring sheets live in a private Google Drive folder and are sent by the
+# Apps Script (apps-script/Code.gs) only after a teacher enters a code.
+# Keep local copies here for uploading to Drive, but never commit them.
+images/coloring-sheets/*.pdf
+printables/worksheets/*colour*.pdf
+printables/worksheets/*color*.pdf

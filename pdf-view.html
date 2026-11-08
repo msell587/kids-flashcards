@@ -173,7 +173,8 @@
         storeCode(code);
         showSheet(URL.createObjectURL(blob));
       } catch (error) {
-        if (fromStorage) forgetCode();
+        // Forget a saved code only when it is wrong, not when the network or the script has a hiccup
+        if (fromStorage && error.status === 403) forgetCode();
         gateError.textContent = error.status === 403
           ? "That code is not right. Please check it and try again."
           : "The sheet could not be loaded. Please try again later.";
@@ -187,7 +188,7 @@
         // Ordinary printables are public
         showSheet(encodeURI(file));
       } else {
-        // Coloring sheets are only sent by the sheet Worker after a teacher enters a valid code
+        // Coloring sheets are only sent by the Google Apps Script after a teacher enters a valid code
         viewer.hidden = true;
         downloadBtn.hidden = true;
         gate.hidden = false;
