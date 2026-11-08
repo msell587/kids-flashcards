@@ -65,6 +65,45 @@
       text-align: center;
       font-size: 18px;
     }
+    .gate {
+      margin: 24px auto;
+      padding: 20px;
+      max-width: 420px;
+      width: calc(100% - 32px);
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      font-size: 18px;
+    }
+    .gate p {
+      margin: 0 0 12px;
+    }
+    .gate input {
+      font: inherit;
+      font-size: 18px;
+      padding: 10px 14px;
+      border: 2px solid var(--word);
+      border-radius: 12px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+    .gate button {
+      font: inherit;
+      font-size: 18px;
+      font-weight: 800;
+      padding: 10px 22px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--word);
+      color: #fff;
+      cursor: pointer;
+    }
+    .gate .error {
+      color: #b00020;
+      min-height: 1.2em;
+    }
   </style>
 </head>
 <body>
@@ -75,27 +114,99 @@
       <a class="primary" id="download-btn" href="#" download>Download PDF</a>
     </nav>
   </header>
+  <section class="gate" id="gate" hidden>
+    <form id="gate-form">
+      <p>Coloring sheets are for teachers. Enter your access code to see this sheet.</p>
+      <input id="gate-code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Teacher access code">
+      <button type="submit">Show sheet</button>
+      <p class="error" id="gate-error" role="alert"></p>
+    </form>
+    <p id="gate-off" hidden>Coloring sheets are not set up yet. Please try again later.</p>
+  </section>
   <iframe class="viewer" id="viewer" title="Printable sheet"></iframe>
   <p class="fallback" id="fallback" hidden>
     This browser can't show the sheet here. <a id="open-link" href="#" target="_blank" rel="noopener">Open the sheet</a>
   </p>
-  <script>
+  <script type="module">
+    import { isGatedSheet, fetchSheet, sheetWorkerIsSetUp } from "./sheet-access.js";
+
     const params = new URLSearchParams(location.search);
     const file = params.get("file") || "";
     const name = params.get("name") || "Printable sheet.pdf";
     // Only the project's own PDFs can be shown, so the page cannot be used to open other sites
     const allowed = /^(printables|images)\/[^:]*\.pdf$/i.test(file) && !file.includes("..");
 
+    const viewer = document.getElementById("viewer");
+    const downloadBtn = document.getElementById("download-btn");
+    const openLink = document.getElementById("open-link");
+    const gate = document.getElementById("gate");
+    const gateForm = document.getElementById("gate-form");
+    const gateCode = document.getElementById("gate-code");
+    const gateError = document.getElementById("gate-error");
+    const STORED_CODE = "sheetAccessCode";
+
+    // Browser storage is only a convenience so teachers do not retype the code on every sheet
+    function readStoredCode() {
+      try { return localStorage.getItem(STORED_CODE) || ""; } catch { return ""; }
+    }
+    function storeCode(code) {
+      try { localStorage.setItem(STORED_CODE, code); } catch { /* storage blocked: just ask again next time */ }
+    }
+    function forgetCode() {
+      try { localStorage.removeItem(STORED_CODE); } catch { /* nothing to clear */ }
+    }
+
+    function showSheet(src) {
+      viewer.src = src;
+      downloadBtn.href = src;
+      downloadBtn.setAttribute("download", name);
+      downloadBtn.hidden = false;
+      openLink.href = src;
+      viewer.hidden = false;
+      gate.hidden = true;
+    }
+
+    async function tryCode(code, fromStorage) {
+      gateError.textContent = "";
+      try {
+        const blob = await fetchSheet(file, code);
+        storeCode(code);
+        showSheet(URL.createObjectURL(blob));
+      } catch (error) {
+        if (fromStorage) forgetCode();
+        gateError.textContent = error.status === 403
+          ? "That code is not right. Please check it and try again."
+          : "The sheet could not be loaded. Please try again later.";
+        gate.hidden = false;
+      }
+    }
+
     if (allowed) {
       document.getElementById("title").textContent = name.replace(/\.pdf$/i, "");
-      document.getElementById("viewer").src = encodeURI(file);
-      document.getElementById("download-btn").href = encodeURI(file);
-      document.getElementById("download-btn").setAttribute("download", name);
-      document.getElementById("open-link").href = encodeURI(file);
+      if (!isGatedSheet(file)) {
+        // Ordinary printables are public
+        showSheet(encodeURI(file));
+      } else {
+        // Coloring sheets are only sent by the sheet Worker after a teacher enters a valid code
+        viewer.hidden = true;
+        downloadBtn.hidden = true;
+        gate.hidden = false;
+        if (!sheetWorkerIsSetUp()) {
+          gateForm.hidden = true;
+          document.getElementById("gate-off").hidden = false;
+        } else {
+          gateForm.addEventListener("submit", event => {
+            event.preventDefault();
+            tryCode(gateCode.value.trim(), false);
+          });
+          const saved = readStoredCode();
+          if (saved) tryCode(saved, true);
+        }
+      }
     } else {
       document.getElementById("title").textContent = "Sheet not found";
-      document.getElementById("viewer").remove();
-      document.getElementById("download-btn").remove();
+      viewer.remove();
+      downloadBtn.remove();
       document.getElementById("fallback").hidden = false;
     }
     document.getElementById("back-btn").addEventListener("click", event => {

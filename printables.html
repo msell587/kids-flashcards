@@ -170,6 +170,10 @@
       <a class="link-btn" href="index.html">Home</a>
     </nav>
   </main>
+  <script type="module">
+    import { isGatedSheet } from "./sheet-access.js";
+    window.isGatedSheet = isGatedSheet;
+  </script>
   <script>
     // Every printable sheet, grouped by topic. "file" is in printables/worksheets/.
     const SHEET_GROUPS = [
@@ -273,10 +277,12 @@
       document.getElementById("sheet-title").textContent = sheet.title;
       document.getElementById("sheet-note").textContent = sheet.note || "";
       document.getElementById("sheet-note").hidden = !sheet.note;
-      // Open shows the sheet on screen (it can be downloaded from there); Print opens the PDF ready to print
+      // Open shows the sheet on screen (it can be downloaded from there); Print opens the PDF ready to print.
+      // Coloring sheets are gated, so their Print link also goes through the viewer, which asks for the teacher code.
+      const printHref = window.isGatedSheet && window.isGatedSheet(file) ? viewer : encodeURI(file);
       document.getElementById("sheet-actions").innerHTML =
         `<a href="${viewer}">Open</a>` +
-        `<a class="secondary" href="${encodeURI(file)}" target="_blank" rel="noopener">Print</a>`;
+        `<a class="secondary" href="${printHref}" target="_blank" rel="noopener">Print</a>`;
       sheetCard.hidden = false;
     }
 
