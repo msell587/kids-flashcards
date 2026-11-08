@@ -114,4 +114,6 @@ All pictures were made with AI image tools (Midjourney or Canva), according to t
 
 ## Licence
 
-_To be decided by the author._
+Copyright © 2026 msell587. All rights reserved.
+
+The code, content and pictures are shared here so the project can be viewed as part of a portfolio. They may not be copied, changed, reused or redistributed without written permission. See [LICENSE](LICENSE).
