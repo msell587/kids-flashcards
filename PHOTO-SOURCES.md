@@ -19,6 +19,7 @@ Before the school sees the app, check these:
 | images/garden | 24 | Midjourney or Canva | no | | |
 | images/house | 12 | Midjourney or Canva | no | | |
 | images/madrid | 5 | Midjourney or Canva | no | | |
+| images/weather-feelings | 4 | Drawn as SVG by Claude Code (2026-11-09), no outside source | no (drawn cartoon child, not a real person) | Not needed: made for this app | |
 | images/opposites | 14 | Midjourney | yes (AI-made children, check each) | | |
 | images/opposites/in.webp | 1 | Unsplash, by Hersh Chauhan: https://unsplash.com/photos/brown-bird-inside-brown-birds-nest-9nOsbDqmU9E | no (bird, no people) | Unsplash licence: check current terms | |
 | images/feelings/sleepy.webp | 1 | Unsplash, "Silver tabby kitten on floor", photographer Loan (Unsplash handle @l_oan): https://unsplash.com/photos/silver-tabby-kitten-on-floor-7AIDE8PrvA0 | no (animal, no people) | Unsplash licence: check current terms | |

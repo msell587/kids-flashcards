@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Feelings Game</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Weather feelings: I am hot, warm, cool, cold */
+    .pic-btn.near img { width: 240px; height: 190px; }
+    .pic-btn.far img { width: 110px; height: 88px; }
+    .pic-btn.far span { font-size: 15px; font-weight: 800; }
+    .place { font-size: 26px; font-weight: 800; color: var(--word-dark); text-align: center; margin: 6px 0 0 0; }
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 520px;
+      box-sizing: border-box;
+      margin: 16px auto 0 auto;
+    }
+    .menu button,
+    .options button {
+      padding: 14px 10px;
+      border: 0;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .prompt {
+      margin: 8px 0 0 0;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .pics {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .pic-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+      border: 4px solid transparent;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .pic-btn img {
+      width: 150px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+    .pic-btn.right {
+      border-color: #2e9e44;
+    }
+    .pic-btn.wrong {
+      opacity: 0.45;
+    }
+    .pic-btn:disabled {
+      cursor: default;
+    }
+    /* The answer choices sit in one horizontal row (wrapping onto a second row only if they don't fit) */
+    .options {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .options button {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 19px;
+    }
+    .options button.right {
+      background: #e6f6ea;
+      border: 4px solid #2e9e44;
+    }
+    .options button.wrong {
+      opacity: 0.45;
+    }
+    .options button:disabled {
+      cursor: default;
+    }
+    .explain {
+      min-height: 48px;
+      margin: 12px auto 0 auto;
+      font-size: 20px;
+      color: var(--word-dark);
+      text-align: center;
+      max-width: 90vw;
+    }
+    .score {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .next {
+      display: block;
+      margin: 12px auto 0 auto;
+    }
+    .big-screen-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .big-screen-row button {
+      padding: 9px 26px;
+      border: 2px solid var(--word);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--word);
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    body.big-screen .pic-btn img {
+      width: 260px;
+      height: 200px;
+    }
+    body.big-screen .prompt {
+      font-size: clamp(40px, 4.6vw, 60px);
+    }
+    body.big-screen .options button {
+      font-size: clamp(28px, 3.4vw, 42px);
+    }
+    /* Bigger pictures in the game: they grow with the screen, up to a limit */
+    .pic-btn img { width: min(320px, 80vw); height: auto; }
+    .pic-btn.big img { width: min(400px, 86vw); height: auto; }
+    .pic-btn.near img { width: min(400px, 86vw); height: auto; }
+    .pic-btn.far img { width: min(240px, 52vw); height: auto; }
+    /* Big screen: the pictures fill the projector, and grow with it */
+    body.big-screen .pic-btn img { width: min(560px, 88vw); height: auto; }
+    body.big-screen .pic-btn.big img { width: min(640px, 92vw); height: auto; }
+    body.big-screen .pic-btn.near img { width: min(640px, 92vw); height: auto; }
+    body.big-screen .pic-btn.far img { width: min(380px, 60vw); height: auto; }
+    /* The picture choices show their word underneath once the turn is over */
+    .pic-btn span {
+      margin-top: 6px;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--word-dark);
+    }
+    .pic-btn span:empty { display: none; }
+    .pics.choices .pic-btn img { width: min(200px, 40vw); height: auto; }
+    body.big-screen .pics.choices .pic-btn img { width: min(340px, 30vw); height: auto; }
+    .es { color: var(--muted); font-weight: 700; }
+    /* When do I wear it? The weather choices are small pictures in the answer row */
+    .options button.pic-btn { padding: 8px; border-radius: 22px; }
+    .options .pic-btn img { width: min(160px, 27vw); height: auto; }
+    body.big-screen .options .pic-btn img { width: min(300px, 26vw); height: auto; }
+    /* The four faces sit two by two */
+    .pics.faces { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; }
+    .pics.faces .pic-btn img { width: min(220px, 40vw); height: auto; }
+    body.big-screen .pics.faces .pic-btn img { width: min(330px, 30vw); height: auto; }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <div class="panel" id="setup">
+      <div class="big-emoji">🥵🥶</div>
+      <h1>Weather Feelings</h1>
+      <p>I am hot, warm, cool or cold. Choose a game.</p>
+      <div class="menu">
+        <button type="button" data-game="feel">How do I feel?</button>
+        <button type="button" data-game="find">Brr… I am cold! Find me.</button>
+        <button type="button" data-game="weather">It is snowy. I am ___.</button>
+      </div>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <p class="prompt" id="prompt"></p>
+      <div class="pics" id="pics"></div>
+      <div class="options" id="options"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <div class="big-screen-row" id="big-row" hidden>
+      <button type="button" data-big-screen>Big screen</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="weather.html">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="topics.js"></script>
+  <script src="voice.js"></script>
+  <script src="bigscreen.js"></script>
+  <script src="game-common.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+
+    // How I feel: a face picture, the Spanish, and things I say when I feel it.
+    // "near" is the feeling closest to it, never offered as a wrong answer next to a weather photo.
+    const FEELINGS = [
+      { word: "hot", es: "tengo calor", picture: "images/weather-feelings/hot.svg", near: "warm",
+        phrases: ["Phew! I am hot.", "I am hot. I want some water.", "The sun is strong. I am hot."] },
+      { word: "warm", es: "estoy calentito", picture: "images/weather-feelings/warm.svg", near: "hot",
+        phrases: ["Mmm… I am warm.", "I am warm and cosy.", "My hot chocolate makes me warm."] },
+      { word: "cool", es: "estoy fresquito", picture: "images/weather-feelings/cool.svg", near: "cold",
+        phrases: ["Ahh… I am cool.", "The wind is nice. I am cool.", "I sit in the shade. I am cool."] },
+      { word: "cold", es: "tengo frío", picture: "images/weather-feelings/cold.svg", near: "cool",
+        phrases: ["Brr… I am cold.", "I am cold. I need my coat.", "I am cold. I am shivering."] }
+    ];
+    const WORDS = FEELINGS.map(f => f.word);
+    const byWord = word => FEELINGS.find(f => f.word === word);
+
+    // Weather photos, and how they make me feel
+    const SCENES = [
+      { picture: "images/seasons and weather/sunny.webp", phrase: "It is sunny. I am ___.", answer: "hot" },
+      { picture: "images/summer-guess/beach.webp", phrase: "I am at the beach. I am ___.", answer: "hot" },
+      { picture: "images/winter-guess/hot chocolate.webp", phrase: "I drink hot chocolate. I am ___.", answer: "warm" },
+      { picture: "images/seasons and weather/spring.webp", phrase: "It is spring. The sun is nice. I am ___.", answer: "warm" },
+      { picture: "images/seasons and weather/autumn.webp", phrase: "It is autumn. I am ___.", answer: "cool" },
+      { picture: "images/seasons and weather/windy.webp", phrase: "It is windy. I am ___.", answer: "cool" },
+      { picture: "images/seasons and weather/snowy.webp", phrase: "Brr… It is snowy. I am ___.", answer: "cold" },
+      { picture: "images/seasons and weather/winter.webp", phrase: "It is winter. I am ___.", answer: "cold" }
+    ];
+
+    let game = "";
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) {
+        $(panel).hidden = panel !== id;
+      }
+      $("big-row").hidden = id !== "play";
+    }
+    // The voice reads "Brr…" as a sound, not as letters
+    function speak(text) {
+      say(text.replace(/Brr…/g, "Brrrr!").replace(/…/g, "!").replace("___", "blank"));
+    }
+
+    function makeQuestion(item) {
+      if (game === "feel") {
+        // A face: how do I feel?
+        const f = item.feeling;
+        return {
+          prompt: "How do I feel?",
+          picture: f.picture,
+          options: shuffled(WORDS),
+          answer: f.word,
+          explain: "Yes! " + item.phrase,
+          spanish: f.es,
+          wrongText: "Not quite. Look at the face again.",
+          say: "How do I feel?"
+        };
+      }
+      if (game === "find") {
+        // Hear a sentence, find the face
+        const f = item.feeling;
+        return {
+          prompt: item.phrase,
+          choices: shuffled(FEELINGS),
+          answer: f.word,
+          explain: "Yes! I am " + f.word + ".",
+          spanish: f.es,
+          wrongText: "Not quite. Try again.",
+          say: item.phrase
+        };
+      }
+      // A weather photo: how does it make me feel? The closest feeling is left out of the choices.
+      const s = item.scene;
+      const wrong = WORDS.filter(w => w !== s.answer && w !== byWord(s.answer).near);
+      return {
+        prompt: s.phrase,
+        picture: s.picture,
+        options: shuffled([s.answer, ...wrong]),
+        answer: s.answer,
+        explain: "Yes! " + s.phrase.replace("___", s.answer),
+        spanish: byWord(s.answer).es,
+        wrongText: "Not quite. Look at the weather again.",
+        say: s.phrase
+      };
+    }
+
+    function showQuestion() {
+      answered = false;
+      const q = makeQuestion(queue[index]);
+      queue[index].q = q;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("prompt").textContent = q.prompt;
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      $("options").innerHTML = "";
+      if (q.choices) {
+        $("pics").className = "pics faces";
+        $("pics").innerHTML = q.choices.map(f =>
+          `<button type="button" class="pic-btn" data-answer="${f.word}"><img src="${f.picture}" alt=""><span></span></button>`
+        ).join("");
+      } else {
+        $("pics").className = "pics";
+        $("pics").innerHTML = `<div class="pic-btn big"><img src="${q.picture}" alt=""></div>`;
+        $("options").innerHTML = q.options.map(o => `<button type="button" data-answer="${o}">${o}</button>`).join("");
+      }
+      speak(q.say);
+    }
+
+    function checkAnswer(element) {
+      if (answered) return;
+      const q = queue[index].q;
+      if (element.dataset.answer === q.answer) {
+        answered = true;
+        right++;
+        element.classList.add("right");
+        // In the face game, the word appears under the right face
+        const label = element.querySelector("span:empty");
+        if (label) label.textContent = q.answer;
+        $("explain").innerHTML = "";
+        $("explain").append(q.explain);
+        const es = document.createElement("span");
+        es.className = "es";
+        es.textContent = " (" + q.spanish + ")";
+        $("explain").append(es);
+        speak(q.explain);
+        finishTurn();
+      } else {
+        element.classList.add("wrong");
+        element.disabled = true;
+        $("explain").textContent = q.wrongText;
+        speak(q.wrongText);
+      }
+    }
+    function finishTurn() {
+      for (const b of document.querySelectorAll("#play button[data-answer]")) b.disabled = true;
+      $("next-btn").hidden = false;
+      $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+    }
+    function nextQuestion() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showQuestion();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You got " + right + " of " + queue.length + " right.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame(name) {
+      game = name;
+      if (name === "weather") {
+        queue = shuffled(SCENES).map(scene => ({ scene }));
+      } else {
+        // Each feeling twice, with two different sentences
+        queue = shuffled(FEELINGS.flatMap(feeling =>
+          shuffled(feeling.phrases).slice(0, 2).map(phrase => ({ feeling, phrase }))
+        ));
+      }
+      index = 0;
+      right = 0;
+      show("play");
+      showQuestion();
+    }
+
+    for (const button of document.querySelectorAll("[data-game]")) {
+      button.addEventListener("click", () => startGame(button.dataset.game));
+    }
+    // A link such as weather-feelings-game.html?game=find starts that game straight away
+    const requested = new URLSearchParams(location.search).get("game");
+    if (["feel", "find", "weather"].includes(requested)) {
+      startGame(requested);
+    }
+    $("play").addEventListener("click", event => {
+      const button = event.target.closest("button[data-answer]");
+      if (button && !button.disabled) checkAnswer(button);
+    });
+    $("next-btn").addEventListener("click", nextQuestion);
+    $("again-btn").addEventListener("click", () => show("setup"));
+    backToPrevious($("back-btn"));
+  </script>
+</body>
+</html>
