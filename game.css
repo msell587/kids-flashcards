@@ -482,3 +482,9 @@ body.big-screen .panel {
   width: min(92vw, 720px);
   max-width: none;
 }
+
+/* Game pages give their Next button display: block, which beats the hidden attribute.
+   Keep Next hidden until the child has answered. */
+.next[hidden] {
+  display: none;
+}
