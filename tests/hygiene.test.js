@@ -1,5 +1,6 @@
 // Page hygiene: rules every page must follow, so a new page cannot quietly miss them.
 import { readdirSync, readFileSync } from "node:fs";
+import vm from "node:vm";
 import { describe, expect, it } from "vitest";
 import { CONTENT_SECURITY_POLICY, addSecurityPolicy } from "../build/csp.js";
 import { SHEET_WORKER_URL } from "../sheet-access.js";
@@ -37,11 +38,14 @@ describe("every page", () => {
 
 describe("offline support", () => {
   const sw = read("sw.js");
+  // Topic pages are saved automatically from topics.js (see topicPages() in sw.js), so a new topic needs no edit there
+  const TOPICS = vm.runInNewContext(read("topics.js") + "\n;TOPICS", {});
+  const topicPages = new Set(Object.values(TOPICS).map(topic => topic.page));
   const scripts = readdirSync(".").filter(file =>
     file.endsWith(".js") && !/^(sw|vite\.config|vitest\.config|playwright\.config)\.js$/.test(file));
 
   it.each(pages)("%s is saved for offline use", page => {
-    expect(sw).toContain(`"${page}"`);
+    expect(topicPages.has(page) || sw.includes(`"${page}"`)).toBe(true);
   });
 
   it.each(scripts)("%s is saved for offline use", script => {
