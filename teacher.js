@@ -166,7 +166,8 @@ function loadPlanStore() {
   }
   try {
     const saved = JSON.parse(raw);
-    if (saved && Array.isArray(saved.plans)) return saved;
+    // Plans that are damaged are left out, so one bad entry cannot stop the page from drawing
+    if (saved && Array.isArray(saved.plans)) return { ...saved, plans: saved.plans.filter(isValidPlan) };
   } catch (error) {
     // Saved plans were damaged; start fresh rather than breaking the page
   }
@@ -469,6 +470,11 @@ function setUpBackup() {
     const file = event.target.files[0];
     event.target.value = ""; // let the same file be picked again later
     if (!file) return;
+    // A real backup is a few kilobytes; refuse anything huge rather than loading it into memory
+    if (file.size > 1024 * 1024) {
+      status.textContent = "That file is too big to be a backup from this app.";
+      return;
+    }
 
     let backup;
     try {

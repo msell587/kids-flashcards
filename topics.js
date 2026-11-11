@@ -18,7 +18,7 @@ const TOPICS = {
       { word: "sheep", es: "oveja", picture: "images/animals/sheep.webp", group: "farm" },
       { word: "hen", es: "gallina", picture: "images/animals/hen.webp", group: "farm" },
       { word: "parrot", es: "loro", picture: "images/animals/parrot.webp", group: "pets" },
-      { word: "guinea pig", es: "conejillo de indias", picture: "images/animals/guineapig.webp", group: "pets" },
+      { word: "guinea pig", es: "conejillo de Indias", picture: "images/animals/guineapig.webp", group: "pets" },
       { word: "tortoise", es: "tortuga", picture: "images/animals/tortoise.webp", group: "pets" },
       { word: "hamster", es: "hámster", picture: "images/animals/hamster.webp", group: "pets" },
       { word: "budgie", es: "periquito", picture: "images/animals/budgie.webp", group: "pets" },
@@ -236,7 +236,7 @@ const TOPICS = {
     ]
   },
   transport: {
-    title: "Modes of Transportation",
+    title: "Modes of Transport",
     page: "transport.html",
     // Vehicles for the grammar lessons: singular and plural, this and that, its and they're (see the teacher guide)
     // "plural" is the plural word; "size" (small, medium, big), "speed" (slow, fast) and "wheels" are used by the On the Move games
@@ -267,7 +267,7 @@ const TOPICS = {
       { word: "farmer", es: "granjero/a", picture: "images/community-helpers/farmer.webp", is: "He is a farmer.", doing: "He is growing food.", does: "A farmer grows food." },
       { word: "cook", es: "cocinero/a", picture: "images/community-helpers/cook.webp", is: "She is a cook.", doing: "She is cooking dinner.", does: "A cook makes meals." },
       { word: "postal worker", es: "cartero/a", picture: "images/community-helpers/postal-worker.webp", is: "She is a postal worker.", doing: "She is delivering letters.", does: "A postal worker delivers letters." },
-      { word: "builder", es: "albañil/a", picture: "images/community-helpers/builder.webp", is: "He is a builder.", doing: "He is building a house.", does: "A builder builds houses." },
+      { word: "builder", es: "albañil", picture: "images/community-helpers/builder.webp", is: "He is a builder.", doing: "He is building a house.", does: "A builder builds houses." },
       { word: "dentist", es: "dentista", picture: "images/community-helpers/dentist.webp", is: "She is a dentist.", doing: "She is looking after teeth.", does: "A dentist looks after teeth." },
       { word: "vet", es: "veterinario/a", picture: "images/community-helpers/vet.webp", is: "He is a vet.", doing: "He is looking after animals.", does: "A vet looks after animals." },
       { word: "bus driver", es: "conductor/a", picture: "images/community-helpers/bus-driver.webp", is: "She is a bus driver.", doing: "She is driving a bus.", does: "A bus driver drives the bus." }

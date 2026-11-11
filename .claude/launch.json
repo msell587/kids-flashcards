@@ -9,6 +9,18 @@
         "from http.server import SimpleHTTPRequestHandler as H, ThreadingHTTPServer as S\nend = H.end_headers\ndef no_cache(self):\n    self.send_header('Cache-Control', 'no-cache')\n    end(self)\nH.end_headers = no_cache\nS(('', 8124), H).serve_forever()"
       ],
       "port": 8124
+    },
+    {
+      "name": "flashcards-built",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "node_modules/vite/bin/vite.js",
+        "preview",
+        "--port",
+        "4173",
+        "--strictPort"
+      ],
+      "port": 4173
     }
   ]
 }

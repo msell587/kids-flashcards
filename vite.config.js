@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import { readdirSync, cpSync, copyFileSync, existsSync } from "node:fs";
 import { resolve, sep } from "node:path";
 import { isGatedSheet } from "./sheet-access.js";
+import { addSecurityPolicy } from "./build/csp.js";
 
 // Every HTML page in the project root becomes an entry point of the build
 const pages = readdirSync(".").filter((file) => file.endsWith(".html"));
@@ -36,8 +37,17 @@ function copyStaticFiles() {
   };
 }
 
+// The security policy is added when the site is built, so the development server stays easy to debug
+function securityPolicy() {
+  return {
+    name: "security-policy",
+    apply: "build",
+    transformIndexHtml: { order: "pre", handler: addSecurityPolicy },
+  };
+}
+
 export default defineConfig({
-  plugins: [copyStaticFiles()],
+  plugins: [copyStaticFiles(), securityPolicy()],
   // Relative asset paths, so the site works under any address (for example a GitHub Pages project path)
   base: "./",
   build: {

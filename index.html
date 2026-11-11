@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="guard.js"></script>
   <title>Let's Learn! Flashcards</title>
+  <meta name="description" content="English and Spanish flashcards, games and printables for teachers of children aged 3 to 6. Free, no sign-up, works offline.">
   <meta name="theme-color" content="#2f6f9f">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -252,8 +254,29 @@
       text-decoration: none;
       box-shadow: var(--shadow);
     }
+    .hub-btn {
+      transition: transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-med), background-color var(--dur-med);
+    }
     .hub-btn:hover {
       box-shadow: var(--shadow-lift);
+      background-color: var(--word-dark);
+      transform: translateY(-3px);
+    }
+    .hub-btn:active {
+      transform: translateY(1px);
+    }
+    .hub-btn:focus-visible,
+    .grownup-hint a:focus-visible {
+      outline: 4px solid var(--border);
+      outline-offset: 4px;
+    }
+    /* Pictures and headings arrive as they scroll into view (index.html's script switches this on) */
+    .reveal-ready .tile:not(.seen),
+    .reveal-ready .section-title:not(.seen) {
+      animation-play-state: paused;
+    }
+    .reveal-ready .tile:not(.seen) img {
+      animation-play-state: paused;
     }
     .topics + .section-title {
       margin-top: 28px;
@@ -350,69 +373,69 @@
       <span>Sea Creatures</span>
     </a>
     <a class="tile" href="garden.html" data-topic="garden">
-      <img src="images/garden/carrot.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/garden/carrot.webp" alt="">
       <span>My Garden</span>
     </a>
     <a class="tile" href="seasons.html" data-topic="seasons">
-      <img src="images/seasons and weather/autumn.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/seasons and weather/autumn.webp" alt="">
       <span>Seasons</span>
     </a>
     <a class="tile" href="weather.html" data-topic="weather">
-      <img src="images/seasons and weather/sunny.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/seasons and weather/sunny.webp" alt="">
       <span>Weather</span>
     </a>
   </div>
   <h2 class="section-title">People and places</h2>
   <div class="topics">
     <a class="tile" href="feelings.html" data-topic="feelings">
-      <img src="images/feelings/happy.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/feelings/happy.webp" alt="">
       <span>Feelings</span>
     </a>
     <a class="tile" href="house.html" data-topic="house">
-      <img src="images/house/house.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/house/house.webp" alt="">
       <span>Parts of the House</span>
     </a>
     <a class="tile" href="toys.html" data-topic="toys">
-      <img src="images/toys/kite.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/toys/kite.webp" alt="">
       <span>Toys and Sports</span>
     </a>
     <a class="tile" href="community.html" data-topic="community">
-      <img src="images/community-helpers/doctor.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/community-helpers/doctor.webp" alt="">
       <span>Professions</span>
     </a>
     <a class="tile" href="city.html" data-topic="city">
-      <img src="images/city/city.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/city/city.webp" alt="">
       <span>City</span>
     </a>
     <a class="tile" href="transport.html" data-topic="transport">
-      <img src="images/city/bus.webp" alt="">
-      <span>Modes of Transportation</span>
+      <img loading="lazy" decoding="async" src="images/city/bus.webp" alt="">
+      <span>Modes of Transport</span>
     </a>
   </div>
   <h2 class="section-title">Learn and celebrate</h2>
   <div class="topics">
     <a class="tile" href="colors.html" data-topic="colors">
-      <img src="images/colors/red.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/colors/red.webp" alt="">
       <span>Colours</span>
     </a>
     <a class="tile" href="shapes.html" data-topic="shapes">
-      <img src="images/shapes/circle.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/shapes/circle.webp" alt="">
       <span>Shapes</span>
     </a>
     <a class="tile" href="opposites.html" data-topic="opposites">
-      <img src="images/seasons and weather/wet.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/seasons and weather/wet.webp" alt="">
       <span>Opposites</span>
     </a>
     <a class="tile" href="days.html" data-topic="days">
-      <img src="images/days/monday.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/days/monday.webp" alt="">
       <span>Days of the Week</span>
     </a>
     <a class="tile" href="christmas.html" data-topic="christmas">
-      <img src="images/christmas/santa.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/christmas/santa.webp" alt="">
       <span>Christmas</span>
     </a>
     <a class="tile special" href="madrid.html" data-topic="madrid">
-      <img src="images/madrid/madrid.webp" alt="">
+      <img loading="lazy" decoding="async" src="images/madrid/madrid.webp" alt="">
       <span>Madrid</span>
       <b class="ribbon">Special</b>
     </a>
@@ -428,17 +451,14 @@
 
   <script>
     // Show a ⭐ on each topic the child has finished (saved by flashcards.js)
-    let finishedTopics = [];
-    try {
-      finishedTopics = JSON.parse(localStorage.getItem("finished-topics") || "[]");
-    } catch (error) {
-      // No stars in this browser
-    }
-    if (!Array.isArray(finishedTopics)) finishedTopics = [];
-    document.querySelectorAll(".tile").forEach((tile, index) => {
-      tile.style.setProperty("--i", index);
+    const finishedTopics = Guard.store.getJSON("finished-topics", [], list => Array.isArray(list) && list.every(key => typeof key === "string"));
+    // The delay counts within each group, so a tile far down the page does not wait for the ones above it
+    document.querySelectorAll(".topics").forEach(group => {
+      group.querySelectorAll(".tile").forEach((tile, index) => tile.style.setProperty("--i", index));
+    });
+    document.querySelectorAll(".tile").forEach(tile => {
       if (finishedTopics.includes(tile.dataset.topic)) {
-        tile.insertAdjacentHTML("beforeend", '<span class="star" aria-label="Finished">⭐</span>');
+        tile.insertAdjacentHTML("beforeend", '<span class="star" role="img" aria-label="Finished">⭐</span>');
       }
     });
 
@@ -447,13 +467,25 @@
       heading.style.setProperty("--s", index);
     });
 
+    // Scroll reveal: start each animation when its tile or heading comes into view
+    const revealItems = document.querySelectorAll(".tile, .section-title");
+    if ("IntersectionObserver" in window) {
+      document.documentElement.classList.add("reveal-ready");
+      const watcher = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("seen");
+          watcher.unobserve(entry.target);
+        });
+      }, { threshold: 0.1 });
+      revealItems.forEach(item => watcher.observe(item));
+    }
+
     const clearButton = document.getElementById("clear-stars");
     clearButton.hidden = finishedTopics.length === 0;
     clearButton.addEventListener("click", () => {
       if (!confirm("Clear all the stars on this device? (Useful for a new class.)")) return;
-      try {
-        localStorage.removeItem("finished-topics");
-      } catch (error) {}
+      Guard.store.remove("finished-topics");
       document.querySelectorAll(".star").forEach(star => star.remove());
       clearButton.hidden = true;
     });

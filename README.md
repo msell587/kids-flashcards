@@ -48,7 +48,9 @@ Teachers of 3 to 6 year olds need material they can put on a classroom screen in
 | Offline | A service worker (`sw.js`) saves pages on the first visit. It shows the saved copy at once and fetches updates in the background |
 | Voice | The browser's Web Speech API, choosing the most natural English voice on the device |
 | Hosting | GitHub Pages, published by GitHub Actions on every push to `main` |
-| Tests | [Vitest](https://vitest.dev/) checks the content and the access code logic; [Playwright](https://playwright.dev/) runs browser smoke tests. Both run on every push |
+| Safety layer | `guard.js` loads first on every page: friendly error handling, safe storage, rate limits and tap throttling (see [below](#guard-protection-from-bugs-and-spam)) |
+| Security headers | A Content Security Policy is added to every page at build time, and the PDF libraries load with integrity hashes |
+| Tests | [Vitest](https://vitest.dev/) runs 400+ checks: content, page hygiene, the offline file list, the access code logic and the Guard layer. [Playwright](https://playwright.dev/) opens every page in a browser and checks for errors, and tests the code gate and the keyboard. Both run on every push |
 
 ### Colouring sheets behind a teacher code
 
@@ -67,6 +69,21 @@ pdf-view.html  ── path + code ──▶   checks the code against   ──�
 - The code is remembered only until the tab is closed, so a teacher types it once per visit, not once per sheet.
 
 **Trade-off:** this is one shared code, not a login per teacher. It keeps the sheets away from casual visitors and search engines at no hosting cost. It is not meant to protect secret data.
+
+### Guard: protection from bugs and spam
+
+`guard.js` is one small script with no dependencies. Every page loads it before anything else.
+
+| Problem | What Guard does |
+|---|---|
+| A future bug throws an error | A calm message with a Reload button appears instead of a frozen page. Each message shows once, at most three per page, and nothing is sent anywhere |
+| Saved settings are missing, blocked or damaged | All reads and writes go through one wrapper that catches errors, checks the value and falls back to a default |
+| A held key or a double tap | Repeats are ignored, so a card is never skipped and the finish screen never fires by accident |
+| Someone guesses the teacher code | The browser allows 5 wrong tries, then pauses for 30 seconds, doubling each time. The Apps Script slows every wrong answer down and, after 40 wrong codes in 10 minutes, refuses all codes until the window ends |
+| The Apps Script is slow or sends something strange | The request times out after 30 seconds. The reply must be valid base64 that starts with `%PDF-`, and is size-limited |
+| Something tries to load code or call a server that is not listed | The Content Security Policy blocks it |
+
+Limits to be honest about: the browser lock can be cleared by anyone who clears site data, so the Apps Script limit is the real one. Apps Script cannot see a visitor's address, so that limit is shared by everyone, and someone could lock the sheets for ten minutes (but not guess a code). The policy still allows inline scripts until the pages are moved into modules.
 
 ## Privacy
 
@@ -94,6 +111,8 @@ The colouring sheets need the Apps Script set up (see the comments at the top of
 | `*.html` | The home page, one page per topic, the games, the printables and the Teacher's Corner |
 | `topics.js`, `teacher-content.js` | Content: topics, words, sentences and lesson plans |
 | `flashcards.js`, `game-common.js`, `voice.js`, `bigscreen.js` | Shared behaviour for flashcards, games, speech and big screen mode |
+| `guard.js` | The safety layer: error messages, safe storage, rate limits |
+| `build/csp.js` | The Content Security Policy added at build time |
 | `sheet-access.js`, `pdf-view.html`, `apps-script/Code.gs` | The colouring sheet access code gate |
 | `sw.js`, `pwa.js`, `manifest.webmanifest` | Offline support and install settings |
 | `theme.css`, `style.css`, `game.css`, `teacher.css` | Styles |
@@ -105,12 +124,13 @@ The colouring sheets need the Apps Script set up (see the comments at the top of
 
 - The topic pages are near copies of each other. The next step is one template page generated from `topics.js`.
 - Several pages keep their script inside the HTML. These will move into modules.
-- TypeScript, linting, image optimisation and an accessibility audit are still to do.
+- TypeScript, linting, image optimisation and a full accessibility audit are still to do.
+- Fonts come from Google Fonts, which shows each visitor's IP address to Google (the privacy page says so). Hosting the font files on the site would remove this.
 - Colouring sheets take a few seconds to open, because Apps Script starts up on demand.
 
 ## Image sources
 
-All pictures were made with AI image tools (Midjourney or Canva), according to the author. None is a stock photo or a photo of a real child. Sources and licence checks are listed in [PHOTO-SOURCES.md](PHOTO-SOURCES.md); the licence checks are not complete yet.
+Most pictures were made with AI image tools (Midjourney or Canva), according to the author. A few are Unsplash photos of animals, food and objects, and the City teacher guide links to its Pexels photos. None is a photo of a real child. Sources and licence checks are listed in [PHOTO-SOURCES.md](PHOTO-SOURCES.md); the licence checks are not complete yet.
 
 ## Licence
 
