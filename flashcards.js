@@ -46,6 +46,7 @@ wordEl.after(revealButton);
 // The Spanish word under the English one, hidden with it in "Hide words" mode
 const spanishEl = document.createElement("p");
 spanishEl.className = "spanish-word";
+spanishEl.lang = "es"; // so a screen reader says the word with a Spanish voice
 wordEl.after(spanishEl);
 
 // A short example sentence under the Spanish word, hidden with the word in "Hide words" mode
@@ -83,12 +84,7 @@ document.querySelector(".nav-buttons").after(tools);
 
 // Spanish under each word can be switched off; the choice is remembered on this device
 const spanishButton = document.getElementById("spanish-btn");
-let showSpanish = true;
-try {
-  showSpanish = localStorage.getItem("show-spanish") !== "no";
-} catch (error) {
-  // Default: show Spanish
-}
+let showSpanish = Guard.store.getString("show-spanish", "yes") !== "no";
 function applySpanish() {
   spanishEl.hidden = !showSpanish;
   spanishButton.textContent = showSpanish ? "Hide Spanish" : "Show Spanish";
@@ -97,23 +93,14 @@ function applySpanish() {
 }
 spanishButton.addEventListener("click", () => {
   showSpanish = !showSpanish;
-  try {
-    localStorage.setItem("show-spanish", showSpanish ? "yes" : "no");
-  } catch (error) {
-    // Choice only lasts until the page is closed
-  }
+  Guard.store.setString("show-spanish", showSpanish ? "yes" : "no"); // lasts only for this visit if storage is blocked
   applySpanish();
 });
 applySpanish();
 
 // Example sentences can be switched off too; the choice is remembered on this device
 const sentenceButton = document.getElementById("sentence-btn");
-let showSentences = true;
-try {
-  showSentences = localStorage.getItem("show-sentences") !== "no";
-} catch (error) {
-  // Default: show sentences
-}
+let showSentences = Guard.store.getString("show-sentences", "yes") !== "no";
 function applySentences() {
   sentenceButton.textContent = showSentences ? "Hide sentences" : "Show sentences";
   sentenceButton.setAttribute("aria-pressed", String(!showSentences));
@@ -122,11 +109,7 @@ function applySentences() {
 }
 sentenceButton.addEventListener("click", () => {
   showSentences = !showSentences;
-  try {
-    localStorage.setItem("show-sentences", showSentences ? "yes" : "no");
-  } catch (error) {
-    // Choice only lasts until the page is closed
-  }
+  Guard.store.setString("show-sentences", showSentences ? "yes" : "no");
   applySentences();
 });
 function showCardSentence() {
@@ -140,7 +123,7 @@ const optionsButton = document.getElementById("options-btn");
 const optionsPanel = document.getElementById("options-panel");
 function setOptionsOpen(open) {
   optionsPanel.hidden = !open;
-  optionsButton.setAttribute("aria-expanded", open);
+  optionsButton.setAttribute("aria-expanded", String(open));
   optionsButton.classList.toggle("on", open);
   if (open) optionsPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
@@ -161,14 +144,46 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+// The picture fades in once it has loaded, so the old picture never shows next to the new word
+const pictureEl = document.getElementById("picture");
+let pictureWarned = false;
+pictureEl.addEventListener("load", () => pictureEl.classList.remove("loading", "failed"));
+pictureEl.addEventListener("error", () => {
+  pictureEl.classList.remove("loading");
+  pictureEl.classList.add("failed");
+  if (!pictureWarned) {
+    pictureWarned = true;
+    Guard.toast("A picture could not be loaded. Check the connection and try again.", { ms: 6000 });
+  }
+});
+
+// A thin bar under the card shows how far through the deck the child is
+const progress = document.createElement("div");
+progress.className = "progress";
+progress.setAttribute("role", "progressbar");
+progress.setAttribute("aria-label", "Progress through the cards");
+progress.setAttribute("aria-valuemin", "0");
+progress.innerHTML = "<span></span>";
+card.after(progress);
+function showProgress(done) {
+  progress.setAttribute("aria-valuemax", String(deck.length));
+  progress.setAttribute("aria-valuenow", String(done));
+  progress.firstElementChild.style.width = (deck.length ? (done / deck.length) * 100 : 0) + "%";
+}
+
 // direction: 1 for Next, -1 for Back, 0 for no animation
 function showCard(direction) {
   const word = deck[current].word;
   wordEl.textContent = word;
   spanishEl.textContent = deck[current].es || "";
   showCardSentence();
-  document.getElementById("picture").src = deck[current].picture;
-  document.getElementById("picture").alt = guessMode ? "Guess the picture" : word;
+  if (pictureEl.getAttribute("src") !== deck[current].picture) {
+    pictureEl.classList.add("loading");
+    pictureEl.src = deck[current].picture;
+  }
+  if (pictureEl.complete) pictureEl.classList.remove("loading");
+  pictureEl.alt = guessMode ? "Guess the picture" : word;
+  showProgress(current + 1);
   document.getElementById("counter").textContent = (current + 1) + " / " + deck.length;
   card.classList.toggle("hidden-word", guessMode);
 
@@ -198,6 +213,7 @@ function showCelebration() {
   celebration.hidden = false;
   showNextTopic();
   document.getElementById("counter").textContent = "All done!";
+  showProgress(deck.length);
   celebration.querySelector("button").focus();
   earnStar();
   launchConfetti();
@@ -210,7 +226,18 @@ function hideCelebration() {
   celebration.hidden = true;
 }
 
+// Two taps in quick succession (or a held key) count as one, so a card is never skipped by accident
+const STEP_GAP_MS = 180;
+let lastStep = -Infinity;
+function stepAllowed() {
+  const now = performance.now();
+  if (now - lastStep < STEP_GAP_MS) return false;
+  lastStep = now;
+  return true;
+}
+
 function nextCard() {
+  if (!stepAllowed()) return;
   if (finished) {
     hideCelebration();
     current = 0;
@@ -224,6 +251,7 @@ function nextCard() {
 }
 
 function prevCard() {
+  if (!stepAllowed()) return;
   if (finished) {
     hideCelebration(); // go back to the last card
   } else {
@@ -233,6 +261,7 @@ function prevCard() {
 }
 
 let speakingTurn = 0;
+let speakTimer = null;
 function speakWord() {
   const speakButton = card.querySelector(".speak");
   // Starting a new word interrupts the old one, which reports "finished"; ignore that
@@ -247,25 +276,22 @@ function speakWord() {
   card.classList.add("speaking");
   speakButton.classList.add("speaking");
   Voice.speak(deck[current].word, { onEnd: stop });
-  setTimeout(stop, 3000); // in case the device never says it has finished
+  clearTimeout(speakTimer);
+  speakTimer = setTimeout(stop, 3000); // in case the device never says it has finished
 }
 
 // Remember finished topics so the home page can show a star on their tile
 function earnStar() {
-  try {
-    let done = JSON.parse(localStorage.getItem("finished-topics") || "[]");
-    if (!Array.isArray(done)) done = [];
-    if (!done.includes(topicKey)) {
-      done.push(topicKey);
-      localStorage.setItem("finished-topics", JSON.stringify(done));
-    }
-  } catch (error) {
-    // Stars just won't be remembered in this browser
+  const done = Guard.store.getJSON("finished-topics", [], list => Array.isArray(list) && list.every(key => typeof key === "string"));
+  if (!done.includes(topicKey)) {
+    done.push(topicKey);
+    Guard.store.setJSON("finished-topics", done);
   }
 }
 
 function launchConfetti() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (document.querySelectorAll(".confetti").length > 40) return; // never pile up more than one burst
   const shapes = ["🎉", "⭐", "🌟", "🎈"];
   for (let i = 0; i < 30; i++) {
     const piece = document.createElement("span");
@@ -314,23 +340,15 @@ document.getElementById("voice-btn").addEventListener("click", () => Voice.openP
 const speakerButton = document.getElementById("speaker-btn");
 function setSpeakerButton(on) {
   document.body.classList.toggle("show-speaker", on);
-  speakerButton.setAttribute("aria-pressed", on);
+  speakerButton.setAttribute("aria-pressed", String(on));
   speakerButton.classList.toggle("on", on);
   speakerButton.textContent = on ? "Speaker button: on" : "Speaker button";
 }
-try {
-  setSpeakerButton(localStorage.getItem("show-speaker") === "1");
-} catch (error) {
-  setSpeakerButton(false);
-}
+setSpeakerButton(Guard.store.getString("show-speaker", "0") === "1");
 speakerButton.addEventListener("click", () => {
   const on = !document.body.classList.contains("show-speaker");
   setSpeakerButton(on);
-  try {
-    localStorage.setItem("show-speaker", on ? "1" : "0");
-  } catch (error) {
-    // The choice just won't be remembered in this browser
-  }
+  Guard.store.setString("show-speaker", on ? "1" : "0");
 });
 
 const bigButton = document.getElementById("big-btn");
@@ -364,6 +382,8 @@ document.addEventListener("keydown", (event) => {
   // Leave the keys alone while choosing in the Voice picker or another form field
   const inForm = event.target instanceof Element && event.target.closest("dialog, input, select, textarea");
   if (inForm || document.querySelector("dialog[open]")) return;
+  // A held key repeats: ignore the repeats, or the whole deck flies past and the finish screen fires
+  if (event.repeat) return;
   if (event.key === "ArrowRight") nextCard();
   if (event.key === "ArrowLeft") prevCard();
   const onControl = event.target instanceof Element && event.target.closest("button, a");

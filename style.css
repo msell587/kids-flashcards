@@ -14,6 +14,7 @@ body {
 
 .card {
   position: relative;
+  transition: box-shadow var(--dur-med) var(--ease-out);
   background-color: var(--surface);
   border-radius: 36px;
   box-shadow: var(--shadow-lift);
@@ -735,3 +736,79 @@ body.photos .card img {
 @keyframes move-slide { 0%, 100% { transform: none; } 50% { transform: translateX(22px); } }
 @keyframes move-tip { 0%, 100% { transform: rotate(0); } 25%, 75% { transform: rotate(-22deg); } }
 @keyframes move-dig { 0%, 100% { transform: none; } 25% { transform: translateY(14px) rotate(4deg); } 50% { transform: translateY(-10px) rotate(-6deg); } 75% { transform: translateY(8px) rotate(2deg); } }
+
+
+/* ---------- Polish ---------- */
+
+/* Progress bar under the card (made in flashcards.js) */
+.progress {
+  width: min(90vw, 460px);
+  height: 8px;
+  margin-top: 16px;
+  border-radius: 999px;
+  background-color: var(--line);
+  overflow: hidden;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--word), var(--border));
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+body.classroom .progress {
+  width: min(94vw, 1000px);
+  height: 12px;
+}
+
+/* The picture fades in when it has loaded; a picture that cannot load shows its words instead of a broken icon */
+.card #picture {
+  transition: opacity var(--dur-med) ease-out;
+}
+
+.card #picture.loading {
+  opacity: 0;
+}
+
+.card #picture.failed {
+  opacity: 0.25;
+}
+
+/* The slide-in only runs once the picture is ready */
+.card.slide-next img.loading,
+.card.slide-back img.loading {
+  animation: none;
+}
+
+/* Buttons spring back a little after they are pressed */
+button,
+.home,
+.tool {
+  transition: transform var(--dur-fast) var(--ease-spring), filter var(--dur-med), box-shadow var(--dur-fast), background-color var(--dur-med), color var(--dur-med);
+}
+
+.tool:hover {
+  background-color: var(--soft-blue);
+}
+
+.tool.on:hover {
+  background-color: var(--word-dark);
+}
+
+/* The finish screen: the star pops in after the heading */
+.celebration-emoji {
+  animation: pop-in 0.5s var(--ease-spring) 0.1s backwards, float 3s ease-in-out 0.8s infinite;
+}
+
+.star-earned {
+  animation: pop-in 0.5s var(--ease-spring) 0.45s backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress span {
+    transition: none;
+  }
+}

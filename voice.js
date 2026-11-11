@@ -27,20 +27,13 @@ const Voice = (() => {
       v.lang.replace("_", "-").toLowerCase().startsWith("en") && !NOVELTY.includes(baseName(v)));
   }
 
+  // Saved settings are checked before use, so a damaged value can never break speech
   function settings() {
-    try {
-      return JSON.parse(localStorage.getItem("voice-settings")) || {};
-    } catch (error) {
-      return {};
-    }
+    return Guard.store.getJSON("voice-settings", {}, value => value && typeof value === "object" && !Array.isArray(value));
   }
 
   function saveSettings(newSettings) {
-    try {
-      localStorage.setItem("voice-settings", JSON.stringify(newSettings));
-    } catch (error) {
-      // Settings just won't be remembered in this browser
-    }
+    Guard.store.setJSON("voice-settings", newSettings); // not remembered if storage is blocked
   }
 
   // Higher score = more natural; British English first, as the app has always used

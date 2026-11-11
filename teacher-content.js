@@ -761,7 +761,7 @@ const TEACHER = {
   transport: {
     goal: "Children can name a car, a bus and a train, say “this” and “that” for near and far things, make a word plural (car, cars), and use “its” and “they're” in simple sentences.",
     materials: [
-      "Screen or tablet with the Modes of Transportation flashcards",
+      "Screen or tablet with the Modes of Transport flashcards",
       "Printed transport cards (from the Print page)",
       "A toy car, bus or train, to hold up and move",
       "Two chairs or spots on the floor: one near and one far",

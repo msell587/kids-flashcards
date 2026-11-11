@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>View PDF</title>
+  <meta name="description" content="View and download a printable sheet from Let's Learn! Colouring sheets need a teacher access code.">
+  <script src="guard.js"></script>
   <meta name="theme-color" content="#2f6f9f">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,6 +102,15 @@
       color: #fff;
       cursor: pointer;
     }
+    .gate button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+    .gate input:focus-visible,
+    .gate button:focus-visible {
+      outline: 3px solid var(--border);
+      outline-offset: 2px;
+    }
     .gate .error {
       color: #b00020;
       min-height: 1.2em;
@@ -116,13 +127,13 @@
   </header>
   <section class="gate" id="gate" hidden>
     <form id="gate-form">
-      <p>Coloring sheets are for teachers. Enter your access code to see this sheet.</p>
-      <input id="gate-code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Teacher access code">
-      <button type="submit">Show sheet</button>
+      <p>Colouring sheets are for teachers. Enter your access code to see this sheet.</p>
+      <input id="gate-code" type="text" maxlength="64" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Teacher access code">
+      <button type="submit" id="gate-submit">Show sheet</button>
       <p class="error" id="gate-error" role="alert"></p>
     </form>
     <p id="gate-checking" hidden>Checking the code…</p>
-    <p id="gate-off" hidden>Coloring sheets are not set up yet. Please try again later.</p>
+    <p id="gate-off" hidden>Colouring sheets are not set up yet. Please try again later.</p>
   </section>
   <iframe class="viewer" id="viewer" title="Printable sheet"></iframe>
   <p class="fallback" id="fallback" hidden>
@@ -145,6 +156,7 @@
     const gateCode = document.getElementById("gate-code");
     const gateError = document.getElementById("gate-error");
     const gateChecking = document.getElementById("gate-checking");
+    const gateSubmit = document.getElementById("gate-submit");
     const STORED_CODE = "sheetAccessCode";
 
     // The code is remembered only for this visit (until the tab is closed), so a teacher does not
@@ -176,22 +188,76 @@
       gate.hidden = true;
     }
 
+    // Wrong guesses are limited in the browser (5 per minute, then a pause that doubles each time).
+    // The Apps Script has its own limit, which is the one that really protects the sheets.
+    const limiter = Guard.createLimiter("sheet-code", Guard.store, { max: 5, windowMs: 60000, lockMs: 30000 });
+    let countdown = null;
+    let busy = false;
+
+    function waitText(ms) {
+      const seconds = Math.ceil(ms / 1000);
+      return seconds >= 90
+        ? "Too many tries. Please wait about " + Math.ceil(seconds / 60) + " minutes and try again."
+        : "Too many tries. Please wait " + seconds + " seconds and try again.";
+    }
+
+    // Shows the pause, counting down, and switches the button back on when it ends
+    function showLock(getMs) {
+      clearInterval(countdown);
+      const update = () => {
+        const ms = getMs();
+        if (ms <= 0) {
+          clearInterval(countdown);
+          gateSubmit.disabled = false;
+          gateError.textContent = "";
+          return;
+        }
+        gateSubmit.disabled = true;
+        gateError.textContent = waitText(ms);
+      };
+      update();
+      countdown = setInterval(update, 1000);
+    }
+
     async function tryCode(code, fromStorage) {
+      if (busy) return;
+      if (limiter.waitMs() > 0) {
+        gate.hidden = false;
+        showLock(() => limiter.waitMs());
+        return;
+      }
+      busy = true;
       gateError.textContent = "";
       showChecking(true);
       try {
         const blob = await fetchSheet(file, code);
+        limiter.succeed();
         storeCode(code);
         showSheet(URL.createObjectURL(blob));
       } catch (error) {
         // Forget a saved code only when it is wrong, not when the network or the script has a hiccup
         if (fromStorage && error.status === 403) forgetCode();
-        gateError.textContent = error.status === 403
-          ? "That code is not right. Please check it and try again."
-          : "The sheet could not be loaded. Please try again later.";
         gate.hidden = false;
+        if (error.status === 403) {
+          const pause = limiter.fail();
+          if (pause > 0) {
+            const until = Date.now() + pause;
+            showLock(() => until - Date.now());
+          } else {
+            gateError.textContent = "That code is not right. Please check it and try again.";
+          }
+        } else if (error.status === 429) {
+          const until = Date.now() + (error.retryAfterMs || 600000);
+          showLock(() => until - Date.now());
+        } else if (error.code === "timeout") {
+          gateError.textContent = "The sheet is taking too long to load. Please try again in a moment.";
+        } else {
+          gateError.textContent = "The sheet could not be loaded. Please try again later.";
+        }
       } finally {
+        busy = false;
         showChecking(false);
+        if (!gateForm.hidden && !gateSubmit.disabled) gateCode.focus();
       }
     }
 
@@ -212,10 +278,12 @@
           gateForm.addEventListener("submit", event => {
             event.preventDefault();
             const code = gateCode.value.trim();
-            if (code) tryCode(code, false);
+            if (code && !gateSubmit.disabled) tryCode(code, false);
           });
+          if (limiter.waitMs() > 0) showLock(() => limiter.waitMs());
           const saved = readStoredCode();
           if (saved) tryCode(saved, true);
+          else gateCode.focus();
         }
       }
     } else {

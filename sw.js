@@ -1,15 +1,94 @@
 // Offline support: saves every page, script and style on the device the first time the app is opened.
 // Each flashcard picture is saved the first time it is shown, so the first visit stays small.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v223";
+const VERSION = "v224";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
 
+// Every page, script and style the app needs. tests/hygiene.test.js fails if a page or script is missing here.
 const APP_FILES = [
-  "./", "index.html", "teacher.html", "voice-help.html", "game.html", "season-game.html", "autumn-guess.html", "summer-guess.html", "spring-guess.html",  "winter-guess.html", "season-quiz.html","weather-sort.html","weather-quiz.html","weather-memory.html","weather-chart.html","clothes-game.html","weather-feelings-game.html","picture-guess.html","classroom-game.html", "colouring.html", "print.html", "worksheet.html",
-  "theme.css", "style.css", "game.css", "teacher.css",
-  "topics.js", "flashcards.js", "animals.js", "effects.js", "voice.js", "game.js", "teacher.js", "teacher-content.js", "colouring-scenes.js", "pwa.js", "save-print.js", "bigscreen.js", "guess-print.js", "guess-pdf.js",
+  "./",
+  // Pages
+  "animals-game.html",
+  "animals.html",
+  "autumn-guess.html",
+  "christmas.html",
+  "city.html",
+  "classroom-game.html",
+  "clothes-game.html",
+  "colors.html",
+  "colouring.html",
+  "community-game.html",
+  "community.html",
+  "days-game.html",
+  "days.html",
+  "explorers.html",
+  "feelings.html",
+  "food-game.html",
+  "game.html",
+  "garden.html",
+  "hot-cold-game.html",
+  "house.html",
+  "index.html",
+  "insect-or-bug.html",
+  "madrid.html",
+  "on-the-move-games.html",
+  "opposites.html",
+  "pdf-view.html",
+  "picture-guess.html",
+  "print.html",
+  "printables.html",
+  "privacy.html",
+  "school.html",
+  "season-game.html",
+  "season-quiz.html",
+  "seasons.html",
+  "shapes.html",
+  "spring-guess.html",
+  "summer-guess.html",
+  "teacher.html",
+  "topic-game.html",
+  "toys-game.html",
+  "toys.html",
+  "transport.html",
+  "undersea-game.html",
+  "undersea.html",
+  "voice-help.html",
+  "weather-chart.html",
+  "weather-feelings-game.html",
+  "weather-memory.html",
+  "weather-quiz.html",
+  "weather-sentence-game.html",
+  "weather-sort.html",
+  "weather.html",
+  "what-can-it-do.html",
+  "winter-guess.html",
+  "worksheet.html",
+  // Styles
+  "theme.css",
+  "style.css",
+  "game.css",
+  "teacher.css",
+  // Scripts
+  "animals.js",
+  "bigscreen.js",
+  "colouring-scenes.js",
+  "effects.js",
+  "flashcards.js",
+  "game-common.js",
+  "game.js",
+  "guard.js",
+  "guess-pdf.js",
+  "guess-print.js",
+  "pwa.js",
+  "save-print.js",
+  "sheet-access.js",
+  "teacher-content.js",
+  "teacher.js",
+  "topics.js",
+  "voice.js",
+  // Install settings and icons
   "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/apple-touch-icon.png"
 ];
 
