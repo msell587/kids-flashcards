@@ -1,5 +1,12 @@
 import { readdirSync } from "node:fs";
 import { expect, test } from "@playwright/test";
+import { readFileSync } from "node:fs";
+import vm from "node:vm";
+
+// Card counts come from topics.js, so adding a card or a topic does not break these tests
+const TOPICS = vm.runInNewContext(readFileSync("topics.js", "utf8") + "\n;TOPICS", {});
+const total = key => TOPICS[key].cards.length;
+const firstWord = key => TOPICS[key].cards[0].word;
 
 const pages = readdirSync(".").filter(file => file.endsWith(".html"));
 
@@ -46,14 +53,14 @@ test("holding the right arrow key does not skip through the whole deck", async (
   await page.keyboard.down("ArrowRight");
   for (let i = 0; i < 12; i++) await page.keyboard.down("ArrowRight"); // a held key sends repeats
   await page.keyboard.up("ArrowRight");
-  await expect(page.locator("#counter")).toHaveText("2 / 12");
+  await expect(page.locator("#counter")).toHaveText(`2 / ${total("city")}`);
 });
 
 test("two quick taps on Next move one card, not two", async ({ page }) => {
   await page.goto("/city.html");
   const next = page.getByRole("button", { name: "Next" });
   await next.dblclick();
-  await expect(page.locator("#counter")).toHaveText("2 / 12");
+  await expect(page.locator("#counter")).toHaveText(`2 / ${total("city")}`);
 });
 
 test("the progress bar follows the card", async ({ page }) => {
@@ -75,7 +82,7 @@ test("a damaged saved setting does not break a page", async ({ page }) => {
   await page.goto("/index.html");
   await expect(page.locator(".tile").first()).toBeVisible();
   await page.goto("/city.html");
-  await expect(page.locator("#word")).toHaveText("city");
+  await expect(page.locator("#word")).toHaveText(firstWord("city"));
   expect(problems).toEqual([]);
 });
 
