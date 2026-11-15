@@ -14,6 +14,13 @@
   --radius: 28px;
   --font: "Nunito", ui-rounded, "Trebuchet MS", Arial, sans-serif;
 
+  /* Motion: one set of speeds and curves, so every page moves the same way */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-med: 250ms;
+  --dur-slow: 450ms;
+
   /* One soft colour per topic, used behind its picture on the home page */
   --animals: #fff1d6;
   --colors: #ffe3e0;
@@ -133,4 +140,66 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------- Polish shared by every page ---------- */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Quick taps on a touch screen: no 300 ms wait, no double-tap zoom, no grey flash */
+a,
+button,
+summary,
+label,
+select {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background-color: var(--soft-blue);
+  color: var(--word-dark);
+}
+
+/* A clear ring for keyboard users on anything that does not have its own (:where keeps this easy to override) */
+:where(a, button, summary, select, input, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--word);
+  outline-offset: 3px;
+}
+
+:where(button):disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* Pictures cannot be dragged out of the page by accident while tapping */
+img {
+  -webkit-user-drag: none;
+}
+
+/* Moving between pages: a quick cross-fade with a tiny lift */
+::view-transition-old(root) {
+  animation: var(--dur-fast) ease-in both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: var(--dur-med) var(--ease-out) both rise-in-soft;
+}
+
+@keyframes fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes rise-in-soft {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
 }
