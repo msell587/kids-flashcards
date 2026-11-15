@@ -60,6 +60,10 @@ function showChooser() {
 function showGuide() {
   document.title = topic.title + " · Teacher's Guide";
 
+  // Every game for this topic (topic-games.js) and whether it has a colouring picture (colouring-scenes.js)
+  const games = (typeof TOPIC_GAMES !== "undefined" && TOPIC_GAMES[topicKey]) || [];
+  const hasColouringScene = typeof SCENES !== "undefined" && Boolean(SCENES[topicKey]);
+
   const words = topic.cards.map(card =>
     `<li><img src="${encodeURI(card.picture)}" alt="">${escapeHtml(card.word)}</li>`).join("");
 
@@ -101,8 +105,25 @@ function showGuide() {
       <div class="action-group" role="group" aria-labelledby="in-class-label">
         <h2 id="in-class-label">In class</h2>
         <div>
+          <button type="button" class="btn btn-go" id="run-lesson">▶ Run the lesson</button>
           <a class="btn" href="${encodeURI(topic.page)}">Open flashcards</a>
+          <a class="btn" href="game.html?topic=${topicKey}">Listening game</a>
           <a class="btn" href="classroom-game.html?topic=${topicKey}">Class game</a>
+        </div>
+      </div>
+      ${games.length ? `
+      <div class="action-group" role="group" aria-labelledby="games-label">
+        <h2 id="games-label">More games for ${escapeHtml(topic.title)}</h2>
+        <div class="game-chips">
+          ${games.map(game => `<a class="chip" href="${escapeHtml(game.href)}">${escapeHtml(game.name)}</a>`).join("")}
+        </div>
+      </div>` : ""}
+      <div class="action-group" role="group" aria-labelledby="print-label">
+        <h2 id="print-label">Print</h2>
+        <div>
+          <a class="btn secondary" href="print.html?topic=${topicKey}">Cards to cut out</a>
+          ${hasColouringScene ? `<a class="btn secondary" href="colouring.html?topic=${topicKey}&amp;sheet=1">Colouring sheet</a>` : ""}
+          <a class="btn secondary" href="printables.html">Worksheets</a>
         </div>
       </div>
     </div>
@@ -147,7 +168,158 @@ function showGuide() {
   setUpNotes();
   setUpBackup();
   document.getElementById("print-guide").addEventListener("click", () => window.print());
+  document.getElementById("run-lesson").addEventListener("click", startLesson);
 }
+
+/* ---------- Run the lesson: a timer bar that walks through the plan step by step ---------- */
+
+let lesson = null;      // the running LessonTimer, or null
+let lessonBar = null;   // the bar at the bottom of the page
+let chimeContext = null;
+const CHIME_KEY = "lesson-chime";
+
+function chimeOn() {
+  return Guard.store.getString(CHIME_KEY, "on") !== "off";
+}
+
+// A short three-note chime made in the browser, so no sound file is needed. Silent if audio is not allowed.
+function chime() {
+  if (!chimeOn()) return;
+  try {
+    const Context = window.AudioContext || window.webkitAudioContext;
+    if (!Context) return;
+    chimeContext = chimeContext || new Context();
+    if (chimeContext.state === "suspended") chimeContext.resume();
+    const start = chimeContext.currentTime;
+    [523.25, 659.25, 783.99].forEach((frequency, i) => {
+      const at = start + i * 0.16;
+      const note = chimeContext.createOscillator();
+      const volume = chimeContext.createGain();
+      note.type = "sine";
+      note.frequency.value = frequency;
+      volume.gain.setValueAtTime(0.0001, at);
+      volume.gain.exponentialRampToValueAtTime(0.18, at + 0.03);
+      volume.gain.exponentialRampToValueAtTime(0.0001, at + 0.7);
+      note.connect(volume).connect(chimeContext.destination);
+      note.start(at);
+      note.stop(at + 0.75);
+    });
+  } catch (error) {
+    // No sound on this device; the bar still shows the change
+  }
+}
+
+function buildLessonBar() {
+  if (lessonBar) return lessonBar;
+  lessonBar = document.createElement("div");
+  lessonBar.className = "lesson-bar no-print";
+  lessonBar.id = "lesson-bar";
+  lessonBar.setAttribute("role", "region");
+  lessonBar.setAttribute("aria-label", "Lesson timer");
+  lessonBar.innerHTML = `
+    <div class="lesson-progress" aria-hidden="true"><span id="lesson-fill"></span></div>
+    <div class="lesson-row">
+      <div class="lesson-info">
+        <span class="lesson-step" id="lesson-step"></span>
+        <strong class="lesson-title" id="lesson-title" aria-live="polite"></strong>
+      </div>
+      <div class="lesson-time" id="lesson-time" aria-live="off">0:00</div>
+      <div class="lesson-buttons">
+        <button type="button" class="btn btn-light" id="lesson-back" aria-label="Back one step">◀</button>
+        <button type="button" class="btn btn-light" id="lesson-pause">Pause</button>
+        <button type="button" class="btn" id="lesson-next">Next step ▶</button>
+        <button type="button" class="btn btn-light" id="lesson-chime" aria-pressed="${chimeOn()}" title="Chime when a step ends">${chimeOn() ? "🔔" : "🔕"}</button>
+        <button type="button" class="btn btn-light" id="lesson-stop" aria-label="Stop the lesson">✕</button>
+      </div>
+    </div>`;
+  document.body.appendChild(lessonBar);
+
+  lessonBar.querySelector("#lesson-back").addEventListener("click", () => lesson && lesson.back());
+  lessonBar.querySelector("#lesson-next").addEventListener("click", () => lesson && lesson.next());
+  lessonBar.querySelector("#lesson-pause").addEventListener("click", () => {
+    if (!lesson) return;
+    if (lesson.state().paused) lesson.resume();
+    else lesson.pause();
+  });
+  lessonBar.querySelector("#lesson-chime").addEventListener("click", (event) => {
+    const on = !chimeOn();
+    Guard.store.setString(CHIME_KEY, on ? "on" : "off");
+    event.currentTarget.textContent = on ? "🔔" : "🔕";
+    event.currentTarget.setAttribute("aria-pressed", String(on));
+    if (on) chime();
+  });
+  lessonBar.querySelector("#lesson-stop").addEventListener("click", stopLesson);
+  return lessonBar;
+}
+
+function showLessonState(state) {
+  const bar = buildLessonBar();
+  const finished = !state.running;
+  bar.querySelector("#lesson-step").textContent = finished ? "" : `Step ${state.index + 1} of ${state.total}`;
+  bar.querySelector("#lesson-title").textContent = finished ? "Lesson finished! 🎉" : state.title;
+  bar.querySelector("#lesson-time").textContent = LessonTimer.formatTime(state.remaining);
+  bar.querySelector("#lesson-fill").style.width = state.seconds ? (100 - (state.remaining / state.seconds) * 100) + "%" : "0%";
+  bar.querySelector("#lesson-pause").textContent = state.paused ? "Resume" : "Pause";
+  bar.querySelector("#lesson-pause").hidden = finished;
+  bar.querySelector("#lesson-next").hidden = finished;
+  bar.querySelector("#lesson-back").hidden = finished || state.index === 0;
+  bar.querySelector("#lesson-stop").textContent = finished ? "Close" : "✕";
+  bar.querySelector("#lesson-stop").setAttribute("aria-label", finished ? "Close the lesson timer" : "Stop the lesson");
+  bar.classList.toggle("paused", state.paused);
+  bar.classList.toggle("ending", state.running && !state.paused && state.remaining <= 30);
+  bar.classList.toggle("finished", finished);
+  // Mark the step in the plan list too, so the teacher can read the details
+  document.querySelectorAll(".plan li").forEach((item, i) => item.classList.toggle("now", state.running && i === state.index));
+}
+
+function startLesson() {
+  if (editing) return;
+  const plan = currentPlan();
+  if (!plan.steps.length) return;
+  if (lesson) lesson.stop();
+  chimeContext = null;
+  if (chimeOn()) {
+    // Audio can only start from a tap or click, so warm it up here and keep it for the chimes
+    try {
+      const Context = window.AudioContext || window.webkitAudioContext;
+      if (Context) chimeContext = new Context();
+    } catch (error) {
+      chimeContext = null;
+    }
+  }
+  lesson = LessonTimer.create(plan.steps, {
+    onChange: showLessonState,
+    onStepEnd: () => {
+      chime();
+      const bar = buildLessonBar();
+      bar.classList.remove("flash");
+      void bar.offsetWidth;
+      bar.classList.add("flash");
+    },
+    onFinish: () => chime()
+  });
+  buildLessonBar().hidden = false;
+  document.body.classList.add("lesson-running");
+  lesson.start();
+  document.getElementById("plan-section").scrollIntoView({ block: "start", behavior: "smooth" });
+}
+
+function stopLesson() {
+  if (lesson) lesson.stop();
+  lesson = null;
+  if (lessonBar) lessonBar.hidden = true;
+  document.body.classList.remove("lesson-running");
+  document.querySelectorAll(".plan li.now").forEach(item => item.classList.remove("now"));
+}
+
+/* ---------- The "How to use" box: open the first time, closed after that ---------- */
+
+(function rememberHowTo() {
+  const howto = document.querySelector(".howto");
+  if (!howto) return;
+  howto.open = Guard.store.getString("teacher-howto", "") !== "seen";
+  Guard.store.setString("teacher-howto", "seen");
+})();
 
 /* ---------- Lesson plans: the ready-made plan plus any the teacher edits or creates ---------- */
 
@@ -241,6 +413,7 @@ function renderPlanSection() {
       <h3>You'll need</h3>
       <ul>${plan.materials.map(m => `<li>${escapeHtml(m)}</li>`).join("")}</ul>` : ""}
     <div class="plan-tools no-print">
+      <button class="btn btn-go" id="run-plan">▶ Run this plan</button>
       <button class="btn" id="edit-plan">Edit this plan</button>
       <button class="btn btn-light" id="copy-plan">Copy as new plan</button>
       <button class="btn btn-light" id="new-plan">New blank plan</button>
@@ -252,13 +425,17 @@ function renderPlanSection() {
   const picker = document.getElementById("plan-picker");
   if (picker) {
     picker.addEventListener("change", () => {
+      stopLesson();
       planStore.selected = picker.value;
       savePlanStore();
       renderPlanSection();
     });
   }
 
+  document.getElementById("run-plan").addEventListener("click", startLesson);
+
   document.getElementById("edit-plan").addEventListener("click", () => {
+    stopLesson(); // the steps are about to change, so the timer would be out of step
     editing = copyOf(plan);
     renderPlanSection();
   });

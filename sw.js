@@ -1,7 +1,7 @@
 // Offline support: saves every page, script and style on the device the first time the app is opened.
 // Each flashcard picture is saved the first time it is shown, so the first visit stays small.
 // Change VERSION when you change or remove pictures, so devices fetch them again.
-const VERSION = "v224";
+const VERSION = "v225";
 const CACHE = "lets-learn-" + VERSION;
 
 importScripts("topics.js");
@@ -81,11 +81,13 @@ const APP_FILES = [
   "guard.js",
   "guess-pdf.js",
   "guess-print.js",
+  "lesson-timer.js",
   "pwa.js",
   "save-print.js",
   "sheet-access.js",
   "teacher-content.js",
   "teacher.js",
+  "topic-games.js",
   "topics.js",
   "voice.js",
   // Install settings and icons

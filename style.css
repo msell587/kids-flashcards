@@ -343,25 +343,57 @@ button:focus-visible,
   outline-offset: 3px;
 }
 
-/* Card change animation: the picture and word slide in from the side you're moving towards */
-.card.slide-next img,
-.card.slide-next h1 {
-  animation: slide-in-next 0.3s ease-out;
+/* Card change: the whole card swings in from the side you're moving towards, like a card being dealt */
+.card.slide-next {
+  animation: swing-in-next 0.42s var(--ease-out);
 }
 
-.card.slide-back img,
-.card.slide-back h1 {
-  animation: slide-in-back 0.3s ease-out;
+.card.slide-back {
+  animation: swing-in-back 0.42s var(--ease-out);
 }
 
-@keyframes slide-in-next {
-  from { opacity: 0; transform: translateX(24px); }
-  to { opacity: 1; transform: none; }
+@keyframes swing-in-next {
+  from { opacity: 0.2; transform: perspective(1400px) translateX(56px) rotateY(-22deg) scale(0.96); }
+  to { opacity: 1; transform: perspective(1400px) translateX(0) rotateY(0) scale(1); }
 }
 
-@keyframes slide-in-back {
-  from { opacity: 0; transform: translateX(-24px); }
-  to { opacity: 1; transform: none; }
+@keyframes swing-in-back {
+  from { opacity: 0.2; transform: perspective(1400px) translateX(-56px) rotateY(22deg) scale(0.96); }
+  to { opacity: 1; transform: perspective(1400px) translateX(0) rotateY(0) scale(1); }
+}
+
+/* "Hide words": the card turns over to show the word. It swings to its edge, the word appears, it swings back. */
+.card.flip-out {
+  animation: flip-to-edge 0.18s ease-in forwards;
+  will-change: transform;
+}
+
+.card.flip-in {
+  animation: flip-from-edge 0.32s var(--ease-out);
+  will-change: transform;
+}
+
+@keyframes flip-to-edge {
+  from { transform: perspective(1400px) rotateY(0); }
+  to { transform: perspective(1400px) rotateY(90deg); }
+}
+
+@keyframes flip-from-edge {
+  from { transform: perspective(1400px) rotateY(-90deg); }
+  60% { transform: perspective(1400px) rotateY(6deg); }
+  to { transform: perspective(1400px) rotateY(0); }
+}
+
+/* The hidden-word side of the card looks like a card back: a soft pattern and a "turn me over" button */
+.card.hidden-word {
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(circle at 12px 12px, var(--soft-blue) 3px, transparent 3.5px);
+  background-size: 28px 28px;
+}
+
+.card.hidden-word .reveal::after {
+  content: " ↻";
 }
 
 /* While the word is being spoken */
@@ -374,10 +406,10 @@ button:focus-visible,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card.slide-next img,
-  .card.slide-next h1,
-  .card.slide-back img,
-  .card.slide-back h1 {
+  .card.slide-next,
+  .card.slide-back,
+  .card.flip-out,
+  .card.flip-in {
     animation: none;
   }
 }
@@ -775,12 +807,6 @@ body.classroom .progress {
 
 .card #picture.failed {
   opacity: 0.25;
-}
-
-/* The slide-in only runs once the picture is ready */
-.card.slide-next img.loading,
-.card.slide-back img.loading {
-  animation: none;
 }
 
 /* Buttons spring back a little after they are pressed */
