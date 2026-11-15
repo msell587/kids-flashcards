@@ -1,12 +1,16 @@
 // Shared flashcard behavior. Each topic page defines `cards` (from topics.js) before loading this file.
+let activeCards = cards; // the cards in play: all of them, or one group (the Animals page filters by farm, pets, wild)
 let deck = cards.slice(); // the order the cards are shown in; changes when shuffled
 let current = 0;
 let finished = false;
 let guessMode = false; // "Hide words": show the picture first, word on tap
+let flipping = false; // true while the card is turning over to show the word
+let flipTurn = 0; // counts flips and card changes, so a flip that was interrupted never finishes on the wrong card
 
 const card = document.querySelector(".card");
 const wordEl = document.getElementById("word");
 const topicKey = Object.keys(TOPICS).find(key => TOPICS[key].cards === cards);
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // The "well done" screen shown after the last card
 const celebration = document.createElement("div");
@@ -187,6 +191,9 @@ function showCard(direction) {
   document.getElementById("counter").textContent = (current + 1) + " / " + deck.length;
   card.classList.toggle("hidden-word", guessMode);
 
+  card.classList.remove("flip-out", "flip-in");
+  flipping = false;
+  flipTurn++;
   if (direction) {
     card.classList.remove("slide-next", "slide-back");
     void card.offsetWidth; // restart the animation even if it's the same class
@@ -199,12 +206,44 @@ function showCard(direction) {
   }
 }
 
+// In "Hide words" mode the card turns over like a real flashcard: it swings away to its edge,
+// the word appears, and it swings back. With "reduce motion" on, the word simply appears.
 function revealWord() {
-  if (!card.classList.contains("hidden-word")) return;
-  card.classList.remove("hidden-word");
-  document.getElementById("picture").alt = deck[current].word;
-  speakWord();
+  if (!card.classList.contains("hidden-word") || flipping) return;
+  const show = () => {
+    card.classList.remove("hidden-word");
+    pictureEl.alt = deck[current].word;
+    speakWord();
+  };
+  if (reduceMotion.matches) {
+    show();
+    return;
+  }
+  flipping = true;
+  const turn = ++flipTurn;
+  card.classList.remove("slide-next", "slide-back", "flip-in");
+  card.classList.add("flip-out");
+  let done = false;
+  const finishFlip = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(safety);
+    card.removeEventListener("animationend", onEdge);
+    if (turn !== flipTurn) return; // Next or Back was pressed mid-flip: that card has already moved on
+    card.classList.remove("flip-out");
+    flipping = false;
+    show();
+    card.classList.add("flip-in");
+  };
+  const onEdge = (event) => {
+    if (event.target === card && event.animationName === "flip-out") finishFlip();
+  };
+  card.addEventListener("animationend", onEdge);
+  const safety = setTimeout(finishFlip, 400); // in case the browser never reports the animation ending
 }
+card.addEventListener("animationend", (event) => {
+  if (event.target === card && event.animationName === "flip-in") card.classList.remove("flip-in");
+});
 
 function showCelebration() {
   finished = true;
@@ -271,7 +310,7 @@ function speakWord() {
     card.classList.remove("speaking");
     speakButton.classList.remove("speaking");
   };
-  // Clear the slide-in so it doesn't replay when the wiggle stops
+  // Clear the slide-in so it doesn't replay when the wiggle stops (the flip-in is left to finish)
   card.classList.remove("slide-next", "slide-back");
   card.classList.add("speaking");
   speakButton.classList.add("speaking");
@@ -290,7 +329,7 @@ function earnStar() {
 }
 
 function launchConfetti() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (reduceMotion.matches) return;
   if (document.querySelectorAll(".confetti").length > 40) return; // never pile up more than one burst
   const shapes = ["🎉", "⭐", "🌟", "🎈"];
   for (let i = 0; i < 30; i++) {
@@ -314,12 +353,19 @@ shuffleButton.addEventListener("click", () => {
   applyDeck();
 });
 
-// Rebuilds the deck from all the words, shuffled or in order
+// Rebuilds the deck from the cards in play, shuffled or in order
 function applyDeck() {
-  deck = shuffleButton.classList.contains("on") ? shuffled(cards) : cards.slice();
+  deck = shuffleButton.classList.contains("on") ? shuffled(activeCards) : activeCards.slice();
   if (finished) hideCelebration();
   current = 0;
   showCard(1);
+}
+
+// Pages with sub-topics (Animals: farm, pets, wild) call this to change the cards in play.
+// Shuffle and Hide words carry on working on the new set.
+function setActiveCards(list) {
+  activeCards = list.length ? list : cards;
+  applyDeck();
 }
 
 const guessButton = document.getElementById("guess-btn");

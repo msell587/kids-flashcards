@@ -57,10 +57,8 @@
       button.addEventListener("click", () => {
         const group = button.dataset.group;
         document.querySelectorAll(".group-bar button").forEach(b => b.classList.toggle("on", b === button));
-        deck = group === "all" ? cards.slice() : cards.filter(c => c.group === group);
-        current = 0;
-        hideCelebration();
-        showCard(0);
+        // flashcards.js rebuilds the deck from this set, so Shuffle keeps working on the chosen group
+        setActiveCards(group === "all" ? cards : cards.filter(c => c.group === group));
       });
     });
   </script>
