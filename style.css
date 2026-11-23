@@ -177,7 +177,7 @@ button {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
-  text-align: left;
+  text-align: center;
 }
 
 .option-group div {
@@ -190,7 +190,7 @@ button {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
 }
 

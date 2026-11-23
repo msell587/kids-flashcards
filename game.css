@@ -51,6 +51,13 @@ button,
 }
 
 button:focus-visible,
+/* Buttons that look like the links (Big screen), so every item in the row lines up */
+button.link-btn {
+  font-family: var(--font);
+  line-height: inherit;
+  cursor: pointer;
+}
+
 .link-btn:focus-visible {
   outline: 3px solid var(--border);
   outline-offset: 3px;
@@ -188,6 +195,15 @@ button:focus-visible,
 
 /* Phones: stack the three pictures */
 @media (max-width: 500px) {
+  /* Back, Home and Big screen: smaller on phones, so the row sits in the middle with space at both sides */
+  .links {
+    gap: 8px;
+  }
+  .link-btn {
+    padding: 8px 14px;
+    font-size: 16px;
+  }
+
   main {
     padding: 12px 16px;
   }
@@ -228,8 +244,8 @@ button:focus-visible,
 /* Big screen: the picture fills the screen for a TV or projector; the teacher's buttons stay */
 body.big-screen .topbar,
 body.big-screen .bubbles,
-body.big-screen .links,
-body.big-screen .hint {
+body.big-screen .hint,
+body.big-screen .links .link-btn:not([data-big-screen]) {
   display: none;
 }
 /* Stack everything in the middle of the screen, top to bottom */
@@ -473,9 +489,16 @@ body.big-screen .sheet-page img {
   margin: 8px 0;
 }
 .big-screen-toggle button {
-  padding: 6px 12px;
-  font-size: 14px;
-  box-shadow: none;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--surface);
+  color: var(--word);
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  cursor: pointer;
 }
 /* The "Well done" panel keeps a readable width on the big screen */
 body.big-screen .panel {

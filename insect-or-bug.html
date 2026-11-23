@@ -39,20 +39,28 @@
       color: var(--word-dark);
       text-align: center;
     }
+    /* The two choices sit in the middle of the picture's width, on any screen size */
+    /* Centred by its own width: the row is only as wide as its two buttons, and auto margins put it in the middle */
     .choices {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      margin-top: 14px;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 14px auto 0 auto;
+      box-sizing: border-box;
     }
     .choices button {
-      padding: 14px 28px;
+      flex: 0 0 auto;
+      padding: 10px 22px;
+      font-size: 19px;
       border: 0;
       border-radius: 999px;
       background: var(--surface);
       color: var(--word-dark);
       font-family: var(--font);
-      font-size: 22px;
       font-weight: 800;
       box-shadow: var(--shadow);
       cursor: pointer;
@@ -111,8 +119,8 @@
       font-size: clamp(40px, 5vw, 64px);
     }
     body.big-screen .choices button {
-      font-size: clamp(30px, 3.6vw, 48px);
-      padding: 18px 36px;
+      font-size: clamp(26px, 3vw, 40px);
+      padding: 14px 30px;
     }
     body.big-screen .explain {
       font-size: clamp(24px, 2.6vw, 34px);
@@ -122,6 +130,7 @@
 <body>
   <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <main>
+    <p class="big-screen-toggle"><button type="button" data-big-screen>Big screen</button></p>
     <div class="panel" id="setup">
       <div class="big-emoji">🐞</div>
       <h1>Insect or Bug?</h1>
@@ -144,9 +153,6 @@
       <h1>Well done!</h1>
       <p id="end-message"></p>
       <button class="big-btn" id="again-btn" type="button">Play again</button>
-    </div>
-    <div class="big-screen-row">
-      <button type="button" data-big-screen>Big screen</button>
     </div>
     <nav class="links">
       <a class="link-btn" id="back-btn" href="explorers.html">Back</a>
