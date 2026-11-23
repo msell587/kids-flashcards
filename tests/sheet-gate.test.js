@@ -70,3 +70,96 @@ describe("sheetWorkerIsSetUp", () => {
     expect(sheetWorkerIsSetUp(URL_UNDER_TEST)).toBe(true);
   });
 });
+
+describe("fetchSheet guards", () => {
+  const PDF = Buffer.from("%PDF-1.4 test").toString("base64");
+
+  it("never sends a code that is empty or too long", async () => {
+    replyWith({ base64: PDF });
+    for (const code of ["", "x".repeat(65), 42, null]) {
+      const error = await fetchSheet("images/coloring-sheets/spring.pdf", code, URL_UNDER_TEST).catch(e => e);
+      expect(error.status).toBe(403);
+    }
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("never asks for a file that is not a gated sheet", async () => {
+    replyWith({ base64: PDF });
+    const error = await fetchSheet("topics.js", "code", URL_UNDER_TEST).catch(e => e);
+    expect(error.status).toBe(400);
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("reports the script's rate limit as 429 with the wait time", async () => {
+    replyWith({ error: "too many attempts", retryAfter: 120 });
+    const error = await fetchSheet("images/coloring-sheets/spring.pdf", "code", URL_UNDER_TEST).catch(e => e);
+    expect(error.status).toBe(429);
+    expect(error.retryAfterMs).toBe(120000);
+  });
+
+  it("rejects a reply that is not a PDF", async () => {
+    replyWith({ base64: Buffer.from("<html>not a pdf</html>").toString("base64") });
+    const error = await fetchSheet("images/coloring-sheets/spring.pdf", "code", URL_UNDER_TEST).catch(e => e);
+    expect(error.status).toBe(502);
+  });
+
+  it("rejects text that is not base64", async () => {
+    replyWith({ base64: "<script>alert(1)</script>" });
+    const error = await fetchSheet("images/coloring-sheets/spring.pdf", "code", URL_UNDER_TEST).catch(e => e);
+    expect(error.status).toBe(502);
+  });
+
+  it("gives up with status 0 when the script never answers", async () => {
+    vi.stubGlobal("fetch", vi.fn((url, init) => new Promise((resolve, reject) => {
+      init.signal.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError")));
+    })));
+    const error = await fetchSheet("images/coloring-sheets/spring.pdf", "code", URL_UNDER_TEST, { timeoutMs: 20 }).catch(e => e);
+    expect(error.status).toBe(0);
+    expect(error.code).toBe("timeout");
+  });
+
+  it("reports no network as status 0", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => { throw new TypeError("Failed to fetch"); }));
+    const error = await fetchSheet("images/coloring-sheets/spring.pdf", "code", URL_UNDER_TEST).catch(e => e);
+    expect(error.status).toBe(0);
+    expect(error.code).toBe("network");
+  });
+});
+
+describe("the Apps Script and the page agree", () => {
+  // Code.gs cannot import sheet-access.js, so its copy of the rule is checked against the original here
+  it("gate the same files", async () => {
+    const { readFileSync } = await import("node:fs");
+    const source = readFileSync(new URL("../apps-script/Code.gs", import.meta.url), "utf8");
+    const body = source.match(/function isGatedSheet\(path\) \{[\s\S]*?\n\}/)[0];
+    const scriptVersion = new Function(body + "\nreturn isGatedSheet;")();
+    const samples = [
+      "images/coloring-sheets/spring.pdf", "images/coloring-sheets/my house.pdf", "images/coloring-sheets/a/b.pdf",
+      "images/coloring-sheets/../../topics.js", "images/coloring-sheets/spring.webp",
+      "printables/worksheets/simple-colouring.pdf", "printables/worksheets/color-me.pdf",
+      "printables/worksheets/tracing-shapes.pdf", "printables/weather-chart.pdf", "topics.js", "",
+    ];
+    for (const path of samples) expect(scriptVersion(path), path).toBe(isGatedSheet(path));
+  });
+
+  it("refuses oversized requests and limits wrong codes", async () => {
+    const { readFileSync } = await import("node:fs");
+    const source = readFileSync(new URL("../apps-script/Code.gs", import.meta.url), "utf8");
+    expect(source).toMatch(/MAX_BODY_LENGTH/);
+    expect(source).toMatch(/MAX_WRONG_CODES/);
+    expect(source).toMatch(/safeEqual\(codes\[i\], code\)/);
+  });
+});
+
+describe("the Apps Script's code comparison", () => {
+  it("matches only identical codes", async () => {
+    const { readFileSync } = await import("node:fs");
+    const source = readFileSync(new URL("../apps-script/Code.gs", import.meta.url), "utf8");
+    const safeEqual = new Function(source.match(/function safeEqual\(a, b\) \{[\s\S]*?\n\}/)[0] + "\nreturn safeEqual;")();
+    expect(safeEqual("teacher-2026", "teacher-2026")).toBe(true);
+    expect(safeEqual("teacher-2026", "teacher-2025")).toBe(false);
+    expect(safeEqual("teacher", "teacher-2026")).toBe(false);
+    expect(safeEqual("", "x")).toBe(false);
+    expect(safeEqual("", "")).toBe(true);
+  });
+});

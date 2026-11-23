@@ -133,10 +133,17 @@ button.link-btn {
   box-shadow: var(--shadow-lift);
 }
 
+/* The right picture spins round once and pops forward, like a winning card */
 .choice.right {
   border-color: #2e9e44;
   box-shadow: 0 0 0 6px rgba(46, 158, 68, 0.3);
-  animation: bounce 0.5s ease-out;
+  animation: win-spin 0.7s var(--ease-out);
+}
+
+@keyframes win-spin {
+  0% { transform: perspective(900px) rotateY(0) scale(1); }
+  50% { transform: perspective(900px) rotateY(180deg) scale(1.1); }
+  100% { transform: perspective(900px) rotateY(360deg) scale(1.04); }
 }
 
 .choice.wrong {

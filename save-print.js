@@ -7,16 +7,26 @@ function printWhenLoaded() {
   }))).then(() => window.print());
 }
 
-// The PDF maker is loaded the first time a Download PDF button is pressed
+// The PDF maker is loaded the first time a Download PDF button is pressed.
+// "integrity" is the file's fingerprint: if the CDN ever sends different code, the browser refuses to run it.
+// (Hashes from the cdnjs API; update them together with the version number.)
 const PDF_LIBRARIES = [
-  "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+  {
+    url: "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+    integrity: "sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+  },
+  {
+    url: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+    integrity: "sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA=="
+  }
 ];
 
-function loadScript(url) {
+function loadScript({ url, integrity }) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = url;
+    script.integrity = integrity;
+    script.crossOrigin = "anonymous";
     script.onload = resolve;
     script.onerror = () => reject(new Error("Could not load " + url));
     document.head.appendChild(script);
