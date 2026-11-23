@@ -15,12 +15,19 @@
   <link rel="stylesheet" href="game.css">
   <style>
     /* Food game: I want, I don't want, and Do you like? */
+    /* Three choices in one centred row, so none is left alone on one side */
     .menu {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
-      width: min(94vw, 480px);
+      width: 100%;
+      max-width: 480px;
+      box-sizing: border-box;
       margin: 16px auto 0 auto;
+    }
+    .menu button {
+      flex: 0 1 auto;
     }
     .menu button,
     .options button {
