@@ -39,14 +39,19 @@
       color: var(--word-dark);
       text-align: center;
     }
-    .choices {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    /* #choices makes these rules win over the older grid rule in game.css, whatever the stylesheet order.
+       The three answers sit in the middle, each as wide as its text. */
+    #choices {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
-      width: min(94vw, 560px);
+      width: fit-content;
+      max-width: 94vw;
       margin: 14px auto 0 auto;
+      box-sizing: border-box;
     }
-    .choices button {
+    #choices button {
       padding: 14px 8px;
       border: 4px solid transparent;
       border-radius: 22px;
@@ -58,14 +63,14 @@
       box-shadow: var(--shadow);
       cursor: pointer;
     }
-    .choices button.right {
+    #choices button.right {
       border-color: #2e9e44;
       background: #e6f6ea;
     }
-    .choices button.wrong {
+    #choices button.wrong {
       opacity: 0.45;
     }
-    .choices button:disabled {
+    #choices button:disabled {
       cursor: default;
     }
     .explain {
@@ -110,10 +115,10 @@
     body.big-screen .question {
       font-size: clamp(36px, 4.4vw, 56px);
     }
-    body.big-screen .choices {
-      width: min(96vw, 1000px);
+    body.big-screen #choices {
+      max-width: 96vw;
     }
-    body.big-screen .choices button {
+    body.big-screen #choices button {
       font-size: clamp(28px, 3.6vw, 44px);
       padding: 18px 8px;
     }
