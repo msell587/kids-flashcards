@@ -41,7 +41,8 @@
     }
     /* The two choices sit in the middle of the picture's width, on any screen size */
     /* Centred by its own width: the row is only as wide as its two buttons, and auto margins put it in the middle */
-    .choices {
+    /* #play makes this win over the older grid rule in game.css, whatever the stylesheet order */
+    #play .choices {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -52,7 +53,7 @@
       margin: 14px auto 0 auto;
       box-sizing: border-box;
     }
-    .choices button {
+    #play .choices button {
       flex: 0 0 auto;
       padding: 10px 22px;
       font-size: 19px;
