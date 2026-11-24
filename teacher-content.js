@@ -934,6 +934,34 @@ const TEACHER = {
       { name: "Which One Is a ___?", how: "Show three cards and ask “Which one is a starfish?” Children point to the right card, then say “That is a starfish.”" }
     ]
   },
+  months: {
+    goal: "Children can say the twelve months in order, and name the month their birthday is in.",
+    materials: [
+      "Screen or tablet with the Months of the Year flashcards",
+      "A large paper strip or calendar with the twelve months",
+      "Children’s birthdays written on a list"
+    ],
+    plan: [
+      { time: "3 min", step: "Hello and what month is it?", details: "Sing hello. Ask “What month is it now?” and let children answer, then point to it on the calendar." },
+      { time: "8 min", step: "Meet the months", details: "Go through the flashcards in order, from January to December. Say each month, press 🔊, and have the class repeat." },
+      { time: "6 min", step: "Which month comes after?", details: "Say “January.” Children answer “February.” Then go round the class, one child for each month, passing the word on." },
+      { time: "10 min", step: "Games", details: "Play Which month comes next? and Birthday months with the class, using the children’s birthdays." },
+      { time: "3 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child says their birthday month: “My birthday is in June.”" }
+    ],
+    crafts: [],
+    songs: [
+      {
+        title: "The Months of the Year",
+        tune: "Traditional (Clementine song)",
+        how: "Sing the months in order to the tune of the traditional song, holding up one finger for each month as you sing it.",
+        search: "months of the year song kids"
+      }
+    ],
+    games: [
+      { name: "Which month comes next?", how: "Say a month, such as “March.” Children answer with the month that comes next, “April.” Give the answer as a full sentence: “April comes after March.”" },
+      { name: "Birthday months", how: "Show the twelve flashcards and read out each child’s birthday month. The child walks to that card and says “My birthday is in ___.”" }
+    ]
+  },
   days: {
     goal: "Children can say the seven days in order, name the day before and after another day, and point to the right picture for a day.",
     materials: [

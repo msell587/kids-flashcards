@@ -343,6 +343,24 @@ const TOPICS = {
       { word: "silly", es: "gracioso", picture: "images/feelings/silly.webp", animal: "sheep" }
     ]
   },
+  months: {
+    title: "Months of the Year",
+    page: "months.html",
+    cards: [
+      { word: "January", es: "enero", picture: "images/months/january.svg" },
+      { word: "February", es: "febrero", picture: "images/months/february.svg" },
+      { word: "March", es: "marzo", picture: "images/months/march.svg" },
+      { word: "April", es: "abril", picture: "images/months/april.svg" },
+      { word: "May", es: "mayo", picture: "images/months/may.svg" },
+      { word: "June", es: "junio", picture: "images/months/june.svg" },
+      { word: "July", es: "julio", picture: "images/months/july.svg" },
+      { word: "August", es: "agosto", picture: "images/months/august.svg" },
+      { word: "September", es: "septiembre", picture: "images/months/september.svg" },
+      { word: "October", es: "octubre", picture: "images/months/october.svg" },
+      { word: "November", es: "noviembre", picture: "images/months/november.svg" },
+      { word: "December", es: "diciembre", picture: "images/months/december.svg" }
+    ]
+  },
   madrid: {
     title: "Madrid",
     page: "madrid.html",
