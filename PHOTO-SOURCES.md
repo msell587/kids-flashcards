@@ -56,3 +56,9 @@ Before the school sees the app, check these:
 - The `images/feelings/` and `images/opposites/` faces were made with Midjourney. Keep the prompts so the set can be recreated.
 - The coloring sheets added later (`on-the-move.pdf`, `opposites.pdf`, `community-helpers.pdf`, `ispy-community-helpers.pdf`) were drawn as vector outlines in code, not made with Midjourney or Canva.
 - Once every row is filled in, add the credits to a page for teachers.
+
+## Months of the Year pictures
+
+| Folder | Files | Made with | Shows a child | Plan or licence checked | Checked by / date |
+|---|---|---|---|---|---|
+| images/months/art | 12 | Made by the author in Canva (the two sheets, cropped into one picture per month) | no | Check the Canva licence for any Canva library elements used | |
