@@ -361,6 +361,22 @@ const TOPICS = {
       { word: "December", es: "diciembre", picture: "images/months/december.svg" }
     ]
   },
+  numbers: {
+    title: "Numbers 1 to 10",
+    page: "numbers.html",
+    cards: [
+      { word: "one", es: "uno", picture: "images/numbers/one.svg" },
+      { word: "two", es: "dos", picture: "images/numbers/two.svg" },
+      { word: "three", es: "tres", picture: "images/numbers/three.svg" },
+      { word: "four", es: "cuatro", picture: "images/numbers/four.svg" },
+      { word: "five", es: "cinco", picture: "images/numbers/five.svg" },
+      { word: "six", es: "seis", picture: "images/numbers/six.svg" },
+      { word: "seven", es: "siete", picture: "images/numbers/seven.svg" },
+      { word: "eight", es: "ocho", picture: "images/numbers/eight.svg" },
+      { word: "nine", es: "nueve", picture: "images/numbers/nine.svg" },
+      { word: "ten", es: "diez", picture: "images/numbers/ten.svg" }
+    ]
+  },
   madrid: {
     title: "Madrid",
     page: "madrid.html",
@@ -652,6 +668,18 @@ const EXAMPLES = {
     "October": "Halloween is in October.",
     "November": "Autumn leaves turn orange and red in November.",
     "December": "Christmas is in December."
+  },
+  "numbers": {
+    "one": "There is one sun in the sky.",
+    "two": "I have two eyes.",
+    "three": "A tricycle has three wheels.",
+    "four": "A cat has four legs.",
+    "five": "I have five fingers on each hand.",
+    "six": "A hexagon has six sides.",
+    "seven": "There are seven days in a week.",
+    "eight": "A spider has eight legs.",
+    "nine": "There are nine planets in the drawing.",
+    "ten": "I can count to ten."
   },
   "madrid": {
     "Madrid": "Madrid is a big city in Spain.",

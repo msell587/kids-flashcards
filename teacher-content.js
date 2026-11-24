@@ -962,6 +962,34 @@ const TEACHER = {
       { name: "Birthday months", how: "Show the twelve flashcards and read out each child’s birthday month. The child walks to that card and says “My birthday is in ___.”" }
     ]
   },
+  numbers: {
+    goal: "Children can count from one to ten, say each number in English and Spanish, and match a number to the same number of things.",
+    materials: [
+      "Screen or tablet with the Numbers 1 to 10 flashcards",
+      "Small objects to count, such as bricks, buttons or counters",
+      "Printed number cards (from the Print page)"
+    ],
+    plan: [
+      { time: "3 min", step: "Hello and count the class", details: "Sing hello. Count the children in the room together, one at a time, and point to each child as you count." },
+      { time: "8 min", step: "Meet the numbers", details: "Go through the flashcards in order, from one to ten. Say each number, press 🔊, and have the class repeat. Clap once for each number." },
+      { time: "6 min", step: "Count the objects", details: "Put out one object, then two, then three, and so on. Children count out loud and point to each one." },
+      { time: "10 min", step: "Games", details: "Play Show Me That Many, and Which Number Is Missing?, using the objects and the number cards." },
+      { time: "3 min", step: "Review and goodbye", details: "Click through the flashcards together to the 🎉 screen. Each child holds up fingers for their favourite number." }
+    ],
+    crafts: [],
+    songs: [
+      {
+        title: "One, Two, Buckle My Shoe",
+        tune: "Traditional rhyme",
+        how: "Say the rhyme, and act out each number: touch your shoe for one, lift your knee for two, and so on.",
+        search: "one two buckle my shoe nursery rhyme"
+      }
+    ],
+    games: [
+      { name: "Show Me That Many", how: "Say a number, such as “four.” Children hold up four fingers, or count out four objects from a pile." },
+      { name: "Which Number Is Missing?", how: "Show three or four number cards, then hide one. Children say which number is missing." }
+    ]
+  },
   days: {
     goal: "Children can say the seven days in order, name the day before and after another day, and point to the right picture for a day.",
     materials: [
