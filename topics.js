@@ -646,7 +646,7 @@ const EXAMPLES = {
     "April": "Easter is often in April.",
     "May": "Mother’s Day is in May.",
     "June": "Father’s Day is in June.",
-    "July": "Independence Day is in July.",
+    "July": "Many families go on vacation in July.",
     "August": "Summer holidays are in August.",
     "September": "Back to school is in September.",
     "October": "Halloween is in October.",
