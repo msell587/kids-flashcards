@@ -650,7 +650,7 @@ const EXAMPLES = {
     "August": "Summer holidays are in August.",
     "September": "Back to school is in September.",
     "October": "Halloween is in October.",
-    "November": "Thanksgiving is in November.",
+    "November": "Autumn leaves turn orange and red in November.",
     "December": "Christmas is in December."
   },
   "madrid": {
