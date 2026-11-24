@@ -261,7 +261,7 @@
       $("explain").textContent = "";
       $("next-btn").hidden = true;
       if (game === "which") {
-        $("pics").innerHTML = q.pics.map(c => `<button type="button" class="pic-btn" data-answer="${c.word}"><img src="${c.picture}" alt=""></button>`).join("");
+        $("pics").innerHTML = q.pics.map(c => `<button type="button" class="pic-btn" data-answer="${c.word}"><img src="${c.photo || c.picture}" alt=""></button>`).join("");
         $("options").innerHTML = "";
       } else {
         $("pics").innerHTML = "";

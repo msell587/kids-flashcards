@@ -315,15 +315,16 @@ const TOPICS = {
   days: {
     title: "Days of the Week",
     page: "days.html",
+    // "picture" is the calendar that marks every such day; "photo" is the day's photo, used in the Which picture game.
     // "prev" and "next" are the days before and after, for the "What day comes after ___?" game
     cards: [
-      { word: "Monday", es: "lunes", picture: "images/days/monday.webp", prev: "Sunday", next: "Tuesday" },
-      { word: "Tuesday", es: "martes", picture: "images/days/tuesday.webp", prev: "Monday", next: "Wednesday" },
-      { word: "Wednesday", es: "miércoles", picture: "images/days/wednesday.webp", prev: "Tuesday", next: "Thursday" },
-      { word: "Thursday", es: "jueves", picture: "images/days/thursday.webp", prev: "Wednesday", next: "Friday" },
-      { word: "Friday", es: "viernes", picture: "images/days/friday.webp", prev: "Thursday", next: "Saturday" },
-      { word: "Saturday", es: "sábado", picture: "images/days/saturday.webp", prev: "Friday", next: "Sunday" },
-      { word: "Sunday", es: "domingo", picture: "images/days/sunday.webp", prev: "Saturday", next: "Monday" }
+      { word: "Monday", es: "lunes", picture: "images/days/calendar-monday.svg", photo: "images/days/monday.webp", prev: "Sunday", next: "Tuesday" },
+      { word: "Tuesday", es: "martes", picture: "images/days/calendar-tuesday.svg", photo: "images/days/tuesday.webp", prev: "Monday", next: "Wednesday" },
+      { word: "Wednesday", es: "miércoles", picture: "images/days/calendar-wednesday.svg", photo: "images/days/wednesday.webp", prev: "Tuesday", next: "Thursday" },
+      { word: "Thursday", es: "jueves", picture: "images/days/calendar-thursday.svg", photo: "images/days/thursday.webp", prev: "Wednesday", next: "Friday" },
+      { word: "Friday", es: "viernes", picture: "images/days/calendar-friday.svg", photo: "images/days/friday.webp", prev: "Thursday", next: "Saturday" },
+      { word: "Saturday", es: "sábado", picture: "images/days/calendar-saturday.svg", photo: "images/days/saturday.webp", prev: "Friday", next: "Sunday" },
+      { word: "Sunday", es: "domingo", picture: "images/days/calendar-sunday.svg", photo: "images/days/sunday.webp", prev: "Saturday", next: "Monday" }
     ]
   },
   feelings: {
@@ -600,13 +601,13 @@ const EXAMPLES = {
     "jellyfish": "The jellyfish is blue and glows."
   },
   "days": {
-    "Monday": "On Monday, we go to school.",
-    "Tuesday": "On Tuesday, we play with a ball at the beach.",
-    "Wednesday": "On Wednesday, we read books.",
-    "Thursday": "On Thursday, we ride our bikes.",
-    "Friday": "On Friday, we sing songs.",
-    "Saturday": "On Saturday, we have a picnic.",
-    "Sunday": "On Sunday, the sun is shining in the sky."
+    "Monday": "Every Monday is marked on this calendar.",
+    "Tuesday": "Every Tuesday is marked on this calendar.",
+    "Wednesday": "Every Wednesday is marked on this calendar.",
+    "Thursday": "Every Thursday is marked on this calendar.",
+    "Friday": "Every Friday is marked on this calendar.",
+    "Saturday": "Every Saturday is marked on this calendar.",
+    "Sunday": "Every Sunday is marked on this calendar."
   },
   "feelings": {
     "happy": "The dog is smiling. It is happy.",
