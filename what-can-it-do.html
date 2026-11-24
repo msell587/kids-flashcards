@@ -185,9 +185,10 @@
     function say(text) {
       if (Voice.supported) Voice.speak(text);
     }
-    // Three choices: one action the creature can do, and two it cannot
+    // Three choices: one action the creature can do, and two it clearly cannot
     function choicesFor(card) {
-      const wrong = shuffled(ACTIONS.filter(action => !card.moves.includes(action))).slice(0, 2);
+      // Borderline actions (card.maybe) are never offered as wrong answers
+      const wrong = shuffled(ACTIONS.filter(action => !card.moves.includes(action) && !(card.maybe || []).includes(action))).slice(0, 2);
       return shuffled([card.moves[Math.floor(Math.random() * card.moves.length)], ...wrong]);
     }
     function showCard() {
