@@ -639,6 +639,20 @@ const EXAMPLES = {
     "calm": "The cat sits quietly in the sun. It is calm.",
     "silly": "The sheep sticks out its tongue. It is silly."
   },
+  "months": {
+    "January": "New Year’s Day is in January.",
+    "February": "Valentine’s Day is in February.",
+    "March": "St Patrick’s Day is in March.",
+    "April": "Easter is often in April.",
+    "May": "Mother’s Day is in May.",
+    "June": "Father’s Day is in June.",
+    "July": "Independence Day is in July.",
+    "August": "Summer holidays are in August.",
+    "September": "Back to school is in September.",
+    "October": "Halloween is in October.",
+    "November": "Thanksgiving is in November.",
+    "December": "Christmas is in December."
+  },
   "madrid": {
     "Madrid": "Madrid is a big city in Spain.",
     "Puerta del Sol": "Many people walk in the Puerta del Sol.",

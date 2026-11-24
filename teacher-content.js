@@ -935,7 +935,7 @@ const TEACHER = {
     ]
   },
   months: {
-    goal: "Children can say the twelve months in order, and name the month their birthday is in.",
+    goal: "Children can say the twelve months in order, name a famous holiday for each month, and name the month their birthday is in.",
     materials: [
       "Screen or tablet with the Months of the Year flashcards",
       "A large paper strip or calendar with the twelve months",
