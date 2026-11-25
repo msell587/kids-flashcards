@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="guard.js"></script>
+  <title>Count the Stars</title>
+  <meta name="theme-color" content="#2f6f9f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="game.css">
+  <style>
+    /* Count the stars: look at the stars, then tap the number that matches */
+    .stars {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 18px;
+      max-width: 620px;
+      min-height: 150px;
+      margin: 18px auto 0 auto;
+      font-size: 72px;
+      line-height: 1;
+    }
+    .question {
+      margin: 6px 0 0 0;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--word-dark);
+      text-align: center;
+    }
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(5, auto);
+      justify-content: center;
+      gap: 12px;
+      margin: 18px auto 0 auto;
+    }
+    .numbers button {
+      min-width: 74px;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 22px;
+      background: var(--surface);
+      color: var(--word-dark);
+      font-family: var(--font);
+      font-size: 30px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+    .numbers button:disabled { cursor: default; }
+    .numbers button.right { background: #e6f6ea; border: 4px solid #2e9e44; }
+    .numbers button.wrong { opacity: 0.45; }
+    .explain {
+      min-height: 40px;
+      margin: 14px auto 0 auto;
+      font-size: 22px;
+      color: var(--word-dark);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main>
+    <p class="big-screen-toggle"><button type="button" data-big-screen>Big screen</button></p>
+    <div class="panel" id="setup">
+      <div class="big-emoji">⭐</div>
+      <h1>Count the Stars</h1>
+      <p>How many stars are there? Tap the matching number.</p>
+      <button class="big-btn" id="start-btn" type="button">Let's count!</button>
+    </div>
+    <div id="play" hidden>
+      <p class="score" id="progress"></p>
+      <div class="stars" id="stars" aria-live="polite"></div>
+      <p class="question">How many stars?</p>
+      <div class="numbers" id="numbers"></div>
+      <p class="explain" id="explain" aria-live="polite"></p>
+      <button class="big-btn next" id="next-btn" type="button" hidden>Next</button>
+    </div>
+    <div class="panel" id="end" hidden>
+      <div class="big-emoji">🎉</div>
+      <h1>Well done!</h1>
+      <p id="end-message"></p>
+      <button class="big-btn" id="again-btn" type="button">Play again</button>
+    </div>
+    <nav class="links">
+      <a class="link-btn" id="back-btn" href="numbers.html">Back</a>
+      <a class="link-btn" href="index.html">Home</a>
+    </nav>
+  </main>
+  <script src="voice.js"></script>
+  <script src="bigscreen.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const words = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+    let queue = [];
+    let index = 0;
+    let right = 0;
+    let answered = false;
+
+    function shuffled(list) {
+      const copy = [...list];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+    function show(id) {
+      for (const panel of ["setup", "play", "end"]) $(panel).hidden = panel !== id;
+    }
+    function say(text) {
+      if (Voice.supported) Voice.speak(text);
+    }
+    function showRound() {
+      const count = queue[index];
+      answered = false;
+      $("progress").textContent = (index + 1) + " / " + queue.length;
+      $("stars").innerHTML = "⭐".repeat(count).split("").join("");
+      $("explain").textContent = "";
+      $("next-btn").hidden = true;
+      // The number buttons 1 to 10, in order, so children always find them the same way
+      $("numbers").innerHTML = words.map((w, i) =>
+        `<button type="button" data-count="${i + 1}">${i + 1}</button>`
+      ).join("");
+      say("How many stars?");
+    }
+    function choose(event) {
+      const button = event.target.closest("button[data-count]");
+      if (!button || answered) return;
+      const count = queue[index];
+      const picked = Number(button.dataset.count);
+      if (picked === count) {
+        answered = true;
+        right++;
+        button.classList.add("right");
+        for (const other of $("numbers").querySelectorAll("button")) other.disabled = true;
+        const text = "Yes! There are " + words[count - 1] + " stars.";
+        $("explain").textContent = text;
+        say(text);
+        $("next-btn").hidden = false;
+        $("next-btn").textContent = index === queue.length - 1 ? "See my score" : "Next";
+      } else {
+        button.classList.add("wrong");
+        button.disabled = true;
+        const text = "Not quite. Count again.";
+        $("explain").textContent = text;
+        say(text);
+      }
+    }
+    function nextRound() {
+      index++;
+      if (index >= queue.length) {
+        finish();
+      } else {
+        showRound();
+      }
+    }
+    function finish() {
+      show("end");
+      $("end-message").textContent = "You counted " + right + " of " + queue.length + " right.";
+      say("You got " + right + " of " + queue.length + " right!");
+    }
+    function startGame() {
+      // Each number from one to ten comes up once, in a random order
+      queue = shuffled([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      index = 0;
+      right = 0;
+      show("play");
+      showRound();
+    }
+
+    $("start-btn").addEventListener("click", startGame);
+    $("again-btn").addEventListener("click", startGame);
+    $("numbers").addEventListener("click", choose);
+    $("next-btn").addEventListener("click", nextRound);
+    $("back-btn").addEventListener("click", event => {
+      if (history.length > 1) {
+        event.preventDefault();
+        history.back();
+      }
+    });
+  </script>
+  <script src="pwa.js"></script>
+</body>
+</html>
