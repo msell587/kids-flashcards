@@ -963,7 +963,7 @@ const TEACHER = {
     ]
   },
   numbers: {
-    goal: "Children can count from one to ten, say each number in English and Spanish, and match a number to the same number of things.",
+    goal: "Children can count from zero to ten, say each number in English and Spanish, and match a number to the same number of things.",
     materials: [
       "Screen or tablet with the Numbers 1 to 10 flashcards",
       "Small objects to count, such as bricks, buttons or counters",

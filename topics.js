@@ -362,9 +362,10 @@ const TOPICS = {
     ]
   },
   numbers: {
-    title: "Numbers 1 to 10",
+    title: "Numbers 0 to 10",
     page: "numbers.html",
     cards: [
+      { word: "zero", es: "cero", picture: "images/numbers/zero.svg" },
       { word: "one", es: "uno", picture: "images/numbers/one.svg" },
       { word: "two", es: "dos", picture: "images/numbers/two.svg" },
       { word: "three", es: "tres", picture: "images/numbers/three.svg" },
@@ -670,6 +671,7 @@ const EXAMPLES = {
     "December": "Christmas is in December."
   },
   "numbers": {
+    "zero": "Zero means there are no stars.",
     "one": "There is one sun in the sky.",
     "two": "I have two eyes.",
     "three": "A tricycle has three wheels.",
