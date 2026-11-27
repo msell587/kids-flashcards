@@ -580,11 +580,16 @@
     $("pic").addEventListener("click", showWord);
     $("point-a").addEventListener("click", () => award(0));
     $("point-b").addEventListener("click", () => award(1));
+    // Nobody this time: show the word and wait for Next, so the class can see it
     $("nobody-btn").addEventListener("click", () => {
       if (busy) return;
       busy = true;
-      $("word").textContent = queue[index].word;
-      pending = setTimeout(nextCard, 800);
+      $("point-a").disabled = true;
+      $("point-b").disabled = true;
+      $("nobody-btn").disabled = true;
+      const word = queue[index].word;
+      $("word").textContent = word;
+      say("Nobody this time. The word is " + word);
     });
     // Next moves on at once, without waiting for the automatic move after a point
     $("next-btn").addEventListener("click", () => {
