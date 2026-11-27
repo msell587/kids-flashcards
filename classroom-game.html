@@ -542,7 +542,7 @@
       say(word);
     }
 
-    // A point to one team, then the next picture
+    // A point to one team. The picture stays until Next is pressed, so the class can see the word
     function award(team) {
       if (busy) return;
       busy = true;
@@ -550,8 +550,10 @@
       drawScores();
       const word = queue[index].word;
       $("word").textContent = word;
+      $("point-a").disabled = true;
+      $("point-b").disabled = true;
+      $("nobody-btn").disabled = true;
       say(names[team] + " said it first! " + word);
-      pending = setTimeout(nextCard, 1500);
     }
 
     function nextCard() {
