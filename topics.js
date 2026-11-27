@@ -218,7 +218,7 @@ const TOPICS = {
   },
   explorers: {
     title: "Insects and Bugs",
-    page: "explorers.html",
+    page: "insects.html",
     // Insects and bugs (minibeasts). "insect" is true for insects: six legs and three body parts.
     // "moves" are the action words that fit the creature (see the What Can It Do? game).
     // "maybe" are actions some children could argue for, so they are never offered as a wrong answer.
