@@ -235,6 +235,34 @@
         animation: none;
       }
     }
+    /* How to use: a short note for new visitors, above the topic groups */
+    .how-to {
+      width: min(100%, 860px);
+      box-sizing: border-box;
+      margin: 0 0 28px 0;
+      padding: 16px 20px;
+      background-color: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    .how-to h2 {
+      margin: 0 0 6px 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--word-dark);
+    }
+    .how-to p {
+      margin: 0;
+    }
+    @media (max-width: 500px) {
+      .how-to {
+        font-size: 16px;
+        padding: 14px 16px;
+      }
+    }
     /* Teacher's section: the lesson, print and class game pages, above the topics */
     .hub {
       display: flex;
@@ -337,6 +365,10 @@
       `<span class="letter" aria-hidden="true" style="animation-delay:${i * 0.09}s">${letter === " " ? "&nbsp;" : letter}</span>`
     ).join("");
   </script>
+  <section class="how-to" aria-labelledby="how-to-title">
+    <h2 id="how-to-title">How to use this site</h2>
+    <p>Choose a topic below. Each card shows a picture and its English word. Press the speaker button to hear the word, and Next to move on. Open Options on a topic to show Spanish words or example sentences. Finish a topic to earn a star. Teachers will find lesson plans, printable sheets and class games under For teachers.</p>
+  </section>
   <h2 class="section-title">Nature and seasons</h2>
   <div class="topics">
     <a class="tile" href="animals.html" data-topic="animals">
