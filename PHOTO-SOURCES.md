@@ -1,6 +1,6 @@
 # Photo sources and licences (to complete before the school version)
 
-All pictures in the app were made with Midjourney or Canva, according to the author. None is a stock photo or a photo of a real child.
+Most pictures were made with Midjourney or Canva, according to the author. Some are Unsplash photos, listed in the rows below. A full check on 28 Nov 2026 found no photos of children in the flashcards or games; the five weather photos that showed children were removed.
 
 Before the school sees the app, check these:
 - **Midjourney:** the images must have been made on a paid plan, because the free plan does not give commercial rights. Check the plan the author used and keep a copy of its terms.
@@ -9,18 +9,18 @@ Before the school sees the app, check these:
 
 | Folder | Files | Made with | Shows a child | Plan or licence checked | Checked by / date |
 |---|---|---|---|---|---|
-| images/animals | 12 | Midjourney or Canva | to check | | |
+| images/animals | 36 | Midjourney or Canva | no (checked 28 Nov 2026) | | |
 | images/autumn-guess | 10 | Midjourney or Canva | no | | |
 | images/christmas | 12 | Midjourney or Canva | no | | |
 | images/city | 12 | Midjourney or Canva | no | | |
 | images/colors | 32 | Midjourney or Canva | no | | |
 | images/community-helpers | 12 | Midjourney (author's subscription) | no (adults only) | Midjourney paid plan; made 21 Oct to 1 Nov 2026 (author confirmed). Business terms still to check | |
-| images/feelings | 10 | Midjourney | yes (AI-made children) | Midjourney paid plan; made 21 Oct to 1 Nov 2026 (author confirmed). Business terms still to check | |
+| images/feelings | 10 | Mostly Unsplash (rows below); author to confirm the source of each file | no (checked 28 Nov 2026) | Midjourney plan does not cover the Unsplash files | |
 | images/garden | 24 | Midjourney or Canva | no | | |
 | images/house | 12 | Midjourney or Canva | no | | |
 | images/madrid | 5 | Midjourney or Canva | no | | |
 | images/weather-feelings | 4 | Drawn as SVG by Claude Code (2026-11-09), no outside source | no (drawn cartoon child, not a real person) | Not needed: made for this app | |
-| images/opposites | 14 | Midjourney | yes (AI-made children, check each) | Midjourney paid plan; made 21 Oct to 1 Nov 2026 (author confirmed). Business terms still to check | |
+| images/opposites | 14 | Mixed: Midjourney and Unsplash (rows below); author to confirm which | no (checked 28 Nov 2026) | Midjourney plan applies only to the files the author made | |
 | images/opposites/in.webp | 1 | Unsplash, by Hersh Chauhan: https://unsplash.com/photos/brown-bird-inside-brown-birds-nest-9nOsbDqmU9E | no (bird, no people) | Unsplash licence: check current terms | |
 | images/feelings/sleepy.webp | 1 | Unsplash, "Silver tabby kitten on floor", photographer Loan (Unsplash handle @l_oan): https://unsplash.com/photos/silver-tabby-kitten-on-floor-7AIDE8PrvA0 | no (animal, no people) | Unsplash licence: check current terms | |
 | images/opposites/big.webp | 1 | Unsplash, "Grey elephant walking on dirt ground during daytime", photographer Wolfgang Hasselmann (Unsplash handle @wolfgang_hasselmann): https://unsplash.com/photos/grey-elephant-walking-on-dirt-ground-during-daytime-Jt2muoXOOVs | no (animal, no people) | Unsplash licence: check current terms | |
@@ -43,17 +43,17 @@ Before the school sees the app, check these:
 | images/feelings/calm.webp | 1 | Unsplash, "A cat sitting on the side of a dirt road", photographer Anastassia Anufrieva (Unsplash handle @antoie): https://unsplash.com/photos/a-cat-sitting-on-the-side-of-a-dirt-road-RpeGweczBns | no (animal, no people) | Unsplash licence: check current terms | |
 | images/feelings/silly.webp | 1 | Unsplash, "A sheep with its mouth open and tongue out", photographer Darko Trajkovic (Unsplash handle @tdarkou023): https://unsplash.com/photos/a-sheep-with-its-mouth-open-and-tongue-out-bNboxBOJz00 | no (animal, no people) | Unsplash licence: check current terms | |
 | images/opposites/out.webp | 1 | Unsplash, by Leon Pauleikhoff: https://unsplash.com/photos/brown-bird-on-brown-nest-during-daytime-eksxm96QyzQ | no (birds, no people) | Unsplash licence: check current terms | |
-| images/seasons and weather | 22 | Midjourney or Canva | yes (hot and cold photos show children) | | |
+| images/seasons and weather | 17 | Midjourney or Canva | no (checked 28 Nov 2026; five photos of children used only in games were removed) | | |
 | images/shapes | 16 | Midjourney or Canva | no | | |
 | images/spring-guess | 10 | Midjourney or Canva | no | | |
 | images/summer-guess | 11 | Midjourney or Canva | no | | |
 | images/winter-guess | 10 | Midjourney or Canva | no | | |
-| images/coloring-sheets | 11 | Midjourney or Canva | no (drawings) | | |
+| images/coloring-sheets | 11 | Midjourney or Canva | no photos; one drawing (weather.png) shows a child | | |
 | printables/ | 5 | To confirm: the worksheets were "made" for the author; name who made them and under what licence | no (drawings and worksheets) | | |
 
 ## Notes
 - "Made with" follows the author's statement. Only the "Shows a child" column needs checking per file.
-- The `images/feelings/` and `images/opposites/` faces were made with Midjourney. Keep the prompts so the set can be recreated.
+- The `images/feelings/` and `images/opposites/` folders mix Midjourney and Unsplash pictures. The Unsplash files are listed in the rows below, so check each file's source before relying on the Midjourney plan.
 - The coloring sheets added later (`on-the-move.pdf`, `opposites.pdf`, `community-helpers.pdf`, `ispy-community-helpers.pdf`) were drawn as vector outlines in code, not made with Midjourney or Canva.
 - Once every row is filled in, add the credits to a page for teachers.
 
