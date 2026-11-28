@@ -1,6 +1,8 @@
-// Coloring sheets are gated: teachers enter an access code and the sheet is fetched from the
-// Google Apps Script web app (apps-script/Code.gs). The rule below is shared by the build
-// (vite.config.js) and the page, so a gated file is never copied into the public site.
+// Coloring sheets are open to everyone, but their PDFs are kept out of the public repository:
+// the viewer page fetches them from the Google Apps Script web app (apps-script/Code.gs), which
+// reads them from a private Google Drive folder. The rule below is shared by the build
+// (vite.config.js) and the page, so one of these files is never copied into the public site.
+// ("Gated" below means "served by the Apps Script", not "needs a code".)
 
 // After you deploy the Apps Script, paste its web app address here.
 export const SHEET_WORKER_URL = "https://script.google.com/macros/s/AKfycbyhTI-ofvGY3NEtTY5NaUvGbxjQrNpFbtmX78_MMmkbGzh6h2RNvfX9DqDe_epxmZC7xQ/exec";
@@ -17,9 +19,10 @@ export function sheetWorkerIsSetUp(workerUrl = SHEET_WORKER_URL) {
   return !workerUrl.includes("PASTE_DEPLOYMENT_ID");
 }
 
-// Asks the script for a gated sheet. Throws an Error with .status (403 = wrong code).
-// Apps Script always answers 200, so a wrong code is recognised from the reply itself.
-export async function fetchSheet(path, code, workerUrl = SHEET_WORKER_URL) {
+// Asks the script for a sheet. No code is needed; one is only sent if the script has been set to
+// ask for it (REQUIRE_CODE). Throws an Error with .status (403 = the script wants a code, or it was wrong).
+// Apps Script always answers 200, so a code problem is recognised from the reply itself.
+export async function fetchSheet(path, code = "", workerUrl = SHEET_WORKER_URL) {
   // text/plain keeps the request "simple", so the browser does not need a CORS preflight
   const response = await fetch(workerUrl, {
     method: "POST",

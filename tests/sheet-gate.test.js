@@ -54,6 +54,14 @@ describe("fetchSheet", () => {
     expect(error.status).toBe(500);
   });
 
+  it("asks for the sheet without a code when none is given, since the sheets are open", async () => {
+    replyWith({ base64: Buffer.from("%PDF-open").toString("base64") });
+    const blob = await fetchSheet("printables/worksheets/simple-colouring.pdf", undefined, URL_UNDER_TEST);
+    const [, options] = fetch.mock.calls[0];
+    expect(JSON.parse(options.body)).toEqual({ path: "printables/worksheets/simple-colouring.pdf", code: "" });
+    expect(Buffer.from(await blob.arrayBuffer()).toString()).toBe("%PDF-open");
+  });
+
   it("sends the request as a simple text/plain POST", async () => {
     replyWith({ error: "not found" });
     await fetchSheet("images/coloring-sheets/spring.pdf", "teacher-code", URL_UNDER_TEST).catch(() => {});

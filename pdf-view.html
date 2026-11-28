@@ -115,13 +115,14 @@
     </nav>
   </header>
   <section class="gate" id="gate" hidden>
-    <form id="gate-form">
-      <p>Coloring sheets are for teachers. Enter your access code to see this sheet.</p>
+    <form id="gate-form" hidden>
+      <p>This sheet needs a teacher access code. Enter it to see the sheet.</p>
       <input id="gate-code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Teacher access code">
       <button type="submit">Show sheet</button>
       <p class="error" id="gate-error" role="alert"></p>
     </form>
-    <p id="gate-checking" hidden>Checking the code…</p>
+    <p id="gate-checking" hidden>Loading the sheet…</p>
+    <p class="error" id="gate-load-error" role="alert" hidden>The sheet could not be loaded. Please try again later.</p>
     <p id="gate-off" hidden>Coloring sheets are not set up yet. Please try again later.</p>
   </section>
   <iframe class="viewer" id="viewer" title="Printable sheet"></iframe>
@@ -162,8 +163,30 @@
 
     // While a code is being checked, show "Checking the code…" instead of the code box
     function showChecking(checking) {
+      gateChecking.textContent = "Checking the code…";
       gateForm.hidden = checking;
       gateChecking.hidden = !checking;
+    }
+
+    // Colouring sheets are open to everyone: load the sheet straight away. The code box only
+    // appears if the Apps Script has been set to ask for a code (REQUIRE_CODE in apps-script/Code.gs).
+    async function openSheet() {
+      gateChecking.textContent = "Loading the sheet…";
+      gateChecking.hidden = false;
+      try {
+        const blob = await fetchSheet(file, readStoredCode());
+        showSheet(URL.createObjectURL(blob));
+      } catch (error) {
+        if (error.status === 403) {
+          forgetCode();
+          gateForm.hidden = false;
+          gateCode.focus();
+        } else {
+          document.getElementById("gate-load-error").hidden = false;
+        }
+      } finally {
+        gateChecking.hidden = true;
+      }
     }
 
     function showSheet(src) {
@@ -201,7 +224,7 @@
         // Ordinary printables are public
         showSheet(encodeURI(file));
       } else {
-        // Coloring sheets are only sent by the Google Apps Script after a teacher enters a valid code
+        // Coloring sheets are sent by the Google Apps Script, from a private Drive folder
         viewer.hidden = true;
         downloadBtn.hidden = true;
         gate.hidden = false;
@@ -214,8 +237,7 @@
             const code = gateCode.value.trim();
             if (code) tryCode(code, false);
           });
-          const saved = readStoredCode();
-          if (saved) tryCode(saved, true);
+          openSheet();
         }
       }
     } else {

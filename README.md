@@ -18,11 +18,11 @@ Teachers of 3 to 6 year olds need material they can put on a classroom screen in
 
 ## What it does
 
-- **18 topics** (animals, seasons, weather, city, feelings, transport and more), each with flashcards that show a picture, the English word, the Spanish word and a short sentence
+- **20 topics** (animals, seasons, weather, city, feelings, transport and more), each with flashcards that show a picture, the English word, the Spanish word and a short sentence
 - **Spoken words** using the device's own text-to-speech voice, with a voice picker
 - **About 20 games**, such as picture guess, sorting, memory, quizzes and a whole-class game, plus a **big screen** mode for a TV or projector
 - **Teacher's Corner** with a 30-minute lesson plan, songs, crafts and games for every topic
-- **Printables:** worksheets for everyone, and colouring sheets for teachers behind an access code
+- **Printables:** worksheets and colouring sheets, free for everyone
 - **Classroom options** to shuffle, hide words, hide Spanish or hide sentences, remembered on the device
 - **Works offline** after the first visit, and installs like an app
 
@@ -32,7 +32,6 @@ Teachers of 3 to 6 year olds need material they can put on a classroom screen in
 </p>
 <p align="center">
   <img src="docs/screenshots/printables.jpg" alt="Printables page with the Spring colouring sheet chosen" width="49%">
-  <img src="docs/screenshots/code-gate.jpg" alt="The colouring sheet viewer asking for a teacher access code" width="49%">
 </p>
 <p align="center">
   <img src="docs/screenshots/mobile.jpg" alt="Animals flashcards on a phone, with Farm, Pets and Wild filters" width="30%">
@@ -48,25 +47,23 @@ Teachers of 3 to 6 year olds need material they can put on a classroom screen in
 | Offline | A service worker (`sw.js`) saves pages on the first visit. It shows the saved copy at once and fetches updates in the background |
 | Voice | The browser's Web Speech API, choosing the most natural English voice on the device |
 | Hosting | GitHub Pages, published by GitHub Actions on every push to `main` |
-| Tests | [Vitest](https://vitest.dev/) checks the content and the access code logic; [Playwright](https://playwright.dev/) runs browser smoke tests. Both run on every push |
+| Tests | [Vitest](https://vitest.dev/) checks the content and the colouring sheet logic; [Playwright](https://playwright.dev/) runs browser smoke tests. Both run on every push |
 
-### Colouring sheets behind a teacher code
+### Colouring sheets from a private Drive folder
 
-The colouring sheets are only for teachers, but the site is static and this repository is public. So the PDFs are kept out of both:
+The colouring sheets are free for everyone, but their PDFs are not kept in this public repository. A small Google Apps Script sends them instead:
 
 ```
-Teacher's browser                    Google Apps Script               Private Google Drive folder
-pdf-view.html  ── path + code ──▶   checks the code against   ──▶   reads the PDF by name
-               ◀── PDF (base64) ──   TEACHER_CODES
+Browser                              Google Apps Script               Private Google Drive folder
+pdf-view.html  ── sheet path ──▶    checks the path            ──▶   reads the PDF by name
+               ◀── PDF (base64) ──
 ```
 
 - The PDFs live in a private Google Drive folder. They are not in git (`.gitignore`), not in the build (`vite.config.js` filters them out), and they were removed from the git history.
-- `sheet-access.js` holds the rule for which files are gated. The build and the viewer page share it, so the two cannot disagree.
-- The Apps Script (`apps-script/Code.gs`) checks the code and sends the file back as base64 JSON, because Apps Script web apps cannot return binary files. The teacher codes and the folder ID are script properties, never in the code.
+- `sheet-access.js` holds the rule for which files come from the Apps Script. The build and the viewer page share it, so the two cannot disagree.
+- The Apps Script (`apps-script/Code.gs`) only sends files that match that rule, and sends them back as base64 JSON, because Apps Script web apps cannot return binary files. The folder ID is a script property, never in the code.
 - The request is sent as `text/plain` so the browser does not need a CORS preflight, which Apps Script cannot answer.
-- The code is remembered only until the tab is closed, so a teacher types it once per visit, not once per sheet.
-
-**Trade-off:** this is one shared code, not a login per teacher. It keeps the sheets away from casual visitors and search engines at no hosting cost. It is not meant to protect secret data.
+- An access code can be turned back on without changing the site: set the script property `REQUIRE_CODE` to `yes` and list the codes in `TEACHER_CODES`. The viewer then shows a code box.
 
 ## Privacy
 
@@ -94,7 +91,7 @@ The colouring sheets need the Apps Script set up (see the comments at the top of
 | `*.html` | The home page, one page per topic, the games, the printables and the Teacher's Corner |
 | `topics.js`, `teacher-content.js` | Content: topics, words, sentences and lesson plans |
 | `flashcards.js`, `game-common.js`, `voice.js`, `bigscreen.js` | Shared behaviour for flashcards, games, speech and big screen mode |
-| `sheet-access.js`, `pdf-view.html`, `apps-script/Code.gs` | The colouring sheet access code gate |
+| `sheet-access.js`, `pdf-view.html`, `apps-script/Code.gs` | The colouring sheet viewer and the Apps Script that sends the PDFs |
 | `sw.js`, `pwa.js`, `manifest.webmanifest` | Offline support and install settings |
 | `theme.css`, `style.css`, `game.css`, `teacher.css` | Styles |
 | `images/`, `icons/`, `printables/` | Pictures and public printable files |

@@ -278,7 +278,7 @@
       document.getElementById("sheet-note").textContent = sheet.note || "";
       document.getElementById("sheet-note").hidden = !sheet.note;
       // Open shows the sheet on screen (it can be downloaded from there); Print opens the PDF ready to print.
-      // Coloring sheets are gated, so their Print link also goes through the viewer, which asks for the teacher code.
+      // Coloring sheets come from the Apps Script, not from this site, so their Print link also goes through the viewer.
       const printHref = window.isGatedSheet && window.isGatedSheet(file) ? viewer : encodeURI(file);
       document.getElementById("sheet-actions").innerHTML =
         `<a href="${viewer}">Open</a>` +
