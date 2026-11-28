@@ -110,7 +110,7 @@ The colouring sheets need the Apps Script set up (see the comments at the top of
 
 ## Image sources
 
-All pictures were made with AI image tools (Midjourney or Canva), according to the author. None is a stock photo or a photo of a real child. Sources and licence checks are listed in [PHOTO-SOURCES.md](PHOTO-SOURCES.md); the licence checks are not complete yet.
+Most pictures were made with AI image tools (Midjourney or Canva), according to the author. Some are Unsplash photos. No picture in the app shows a child. The licence checks are not complete yet.
 
 ## Licence
 
