@@ -313,7 +313,7 @@
     function startGame(name) {
       game = name;
       // Each hot and cold photo is used once, so the game has 4 questions with no repeats
-      queue = shuffled(weather.flatMap(card => [card.picture, card.picture2].map(picture => ({ card, picture }))));
+      queue = shuffled(weather.flatMap(card => [card.picture, card.picture2].filter(Boolean).map(picture => ({ card, picture }))));
       index = 0;
       right = 0;
       show("play");

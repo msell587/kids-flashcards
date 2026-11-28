@@ -108,11 +108,11 @@ const TOPICS = {
     page: "weather.html",
     cards: [
       // picture: the flashcard photo. picture2: a second photo of the same weather, used in the games
-      { word: "sunny", es: "soleado", picture: "images/seasons and weather/sunny.webp", picture2: "images/seasons and weather/sunny-2.webp" },
-      { word: "rainy", es: "lluvioso", picture: "images/seasons and weather/rainy.webp", picture2: "images/seasons and weather/rainy-2.webp" },
-      { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.webp", picture2: "images/seasons and weather/cloudy-2.webp" },
-      { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.webp", picture2: "images/seasons and weather/snowy-2.webp" },
-      { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.webp", picture2: "images/seasons and weather/windy-2.webp" },
+      { word: "sunny", es: "soleado", picture: "images/seasons and weather/sunny.webp" },
+      { word: "rainy", es: "lluvioso", picture: "images/seasons and weather/rainy.webp" },
+      { word: "cloudy", es: "nublado", picture: "images/seasons and weather/cloudy.webp" },
+      { word: "snowy", es: "nevado", picture: "images/seasons and weather/snowy.webp" },
+      { word: "windy", es: "ventoso", picture: "images/seasons and weather/windy.webp" },
       { word: "stormy", es: "tormentoso", picture: "images/seasons and weather/stormy.webp", picture2: "images/seasons and weather/stormy-2.webp" },
       { word: "hot", es: "caliente", picture: "images/seasons and weather/hot.webp", picture2: "images/seasons and weather/hot-2.webp" },
       { word: "cold", es: "frío", picture: "images/seasons and weather/cold.webp", picture2: "images/seasons and weather/cold-2.webp" }
