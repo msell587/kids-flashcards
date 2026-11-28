@@ -14,13 +14,13 @@ Before the school sees the app, check these:
 | images/christmas | 12 | Midjourney or Canva | no | | |
 | images/city | 12 | Midjourney or Canva | no | | |
 | images/colors | 32 | Midjourney or Canva | no | | |
-| images/community-helpers | 12 | Midjourney (author's subscription) | no (adults only) | | |
-| images/feelings | 10 | Midjourney | yes (AI-made children) | | |
+| images/community-helpers | 12 | Midjourney (author's subscription) | no (adults only) | Midjourney paid plan; made 21 Oct to 1 Nov 2026 (author confirmed). Business terms still to check | |
+| images/feelings | 10 | Midjourney | yes (AI-made children) | Midjourney paid plan; made 21 Oct to 1 Nov 2026 (author confirmed). Business terms still to check | |
 | images/garden | 24 | Midjourney or Canva | no | | |
 | images/house | 12 | Midjourney or Canva | no | | |
 | images/madrid | 5 | Midjourney or Canva | no | | |
 | images/weather-feelings | 4 | Drawn as SVG by Claude Code (2026-11-09), no outside source | no (drawn cartoon child, not a real person) | Not needed: made for this app | |
-| images/opposites | 14 | Midjourney | yes (AI-made children, check each) | | |
+| images/opposites | 14 | Midjourney | yes (AI-made children, check each) | Midjourney paid plan; made 21 Oct to 1 Nov 2026 (author confirmed). Business terms still to check | |
 | images/opposites/in.webp | 1 | Unsplash, by Hersh Chauhan: https://unsplash.com/photos/brown-bird-inside-brown-birds-nest-9nOsbDqmU9E | no (bird, no people) | Unsplash licence: check current terms | |
 | images/feelings/sleepy.webp | 1 | Unsplash, "Silver tabby kitten on floor", photographer Loan (Unsplash handle @l_oan): https://unsplash.com/photos/silver-tabby-kitten-on-floor-7AIDE8PrvA0 | no (animal, no people) | Unsplash licence: check current terms | |
 | images/opposites/big.webp | 1 | Unsplash, "Grey elephant walking on dirt ground during daytime", photographer Wolfgang Hasselmann (Unsplash handle @wolfgang_hasselmann): https://unsplash.com/photos/grey-elephant-walking-on-dirt-ground-during-daytime-Jt2muoXOOVs | no (animal, no people) | Unsplash licence: check current terms | |
